@@ -1,5 +1,5 @@
-import TickIcon from "@/assets/icons/TickIcon";
 import type { ComponentProps, FC } from "react";
+import TickIcon from "../../../assets/icons/TickIcon";
 
 export const CheckBox: FC<ComponentProps<"input">> = ({
   className,

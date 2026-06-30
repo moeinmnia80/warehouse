@@ -1,10 +1,10 @@
-import Logo from "@/assets/icons/Logo";
 import { Link } from "react-router";
-import { Button } from "../componets/ui/Button";
-import { Form, Input } from "../componets/ui/Form";
-import GoogleIcon from "@/assets/icons/GoogleIcon";
-import { CheckBox } from "../componets/ui/CheckBox";
-import FacebookIcon from "@/assets/icons/FacebookIcon";
+import { Button } from "../shared/componets/ui/Button";
+import { Form, Input } from "../shared/componets/ui/Form";
+import { CheckBox } from "../shared/componets/ui/CheckBox";
+import Logo from "../assets/icons/Logo";
+import GoogleIcon from "../assets/icons/GoogleIcon";
+import FacebookIcon from "../assets/icons/FacebookIcon";
 
 function LoginPage() {
   return (
@@ -64,7 +64,7 @@ function LoginPage() {
           </Form>
           <div className="flex items-center justify-center mt-4">
             <span className="inline-block w-full h-px bg-bo-primary"></span>
-            <span className="text-md px-2">or</span>
+            <span className="text-t-primary text-md px-2">or</span>
             <span className="inline-block w-full h-px bg-bo-primary"></span>
           </div>
           <Button

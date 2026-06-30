@@ -1,8 +1,8 @@
+import HomePage from "./pages/HomePage";
+import LoginPage from "./pages/LoginPage";
 import { Route, Routes } from "react-router";
-import HomePage from "@/shared/pages/HomePage";
-import LoginPage from "@/shared/pages/LoginPage";
-import ForgetPasswordPage from "@/shared/pages/ForgetPasswordPage";
-import RegisterPage from "./shared/pages/RegisterPage";
+import RegisterPage from "./pages/RegisterPage";
+import ForgetPasswordPage from "./pages/ForgetPasswordPage";
 
 function RouterWrapper() {
   return (

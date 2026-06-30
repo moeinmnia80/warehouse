@@ -1,17 +1,16 @@
-import Logo from "@/assets/icons/Logo";
 import { Link } from "react-router";
-import { Form } from "@/shared/componets/ui/Form";
-import { Input } from "../componets/ui/Form";
-import { Button } from "../componets/ui/Button";
-import GoogleIcon from "@/assets/icons/GoogleIcon";
-import { CheckBox } from "../componets/ui/CheckBox";
-import FacebookIcon from "@/assets/icons/FacebookIcon";
+import { Form, Input } from "../shared/componets/ui/Form";
+import { Button } from "../shared/componets/ui/Button";
+import { CheckBox } from "../shared/componets/ui/CheckBox";
+import Logo from "../assets/icons/Logo";
+import GoogleIcon from "../assets/icons/GoogleIcon";
+import FacebookIcon from "../assets/icons/FacebookIcon";
 
 const RegisterPage = () => {
   return (
-    <section className="relative flex-center w-full h-dvh">
+    <section className="relative flex-center w-full min-h-dvh">
       <div
-        className="flex flex-col w-full max-w-103 relative z-10
+        className="flex flex-col w-full max-w-103 relative z-10 my-12
         bg-b-primary rounded-2xl p-6 border border-bo-primary"
       >
         <Logo className="self-center size-12 fill-st-primary" />
@@ -19,6 +18,28 @@ const RegisterPage = () => {
           Sign Up Account
         </h2>
         <Form action="" className="">
+          <Input
+            label="Fullname"
+            className="
+              h-11 rounded-xl border border-bo-primary
+              text-t-placeholder 
+              px-3 py-3"
+            id="Fullname"
+            type="Fullname"
+            name="Fullname"
+            placeholder="Enter full name"
+          />
+          <Input
+            label="Username"
+            className="
+              h-11 rounded-xl border border-bo-primary
+              text-t-placeholder 
+              px-3 py-3"
+            id="username"
+            type="username"
+            name="username"
+            placeholder="Enter your username "
+          />
           <Input
             label="Email address"
             className="
@@ -65,7 +86,7 @@ const RegisterPage = () => {
         </Form>
         <div className="flex items-center justify-center mt-4">
           <span className="inline-block w-full h-px bg-bo-primary"></span>
-          <span className="text-md px-2">or</span>
+          <span className="text-t-primary text-md px-2">or</span>
           <span className="inline-block w-full h-px bg-bo-primary"></span>
         </div>
         <Button
@@ -89,7 +110,7 @@ const RegisterPage = () => {
           Sign in with Facebook
         </Button>
         <div className="text-md font-light text-t-placeholder self-center mt-5">
-          Don't have an account?{" "}
+          Don't have an account?
           <Link className="text-md text-t-primary font-bold ml-1" to={"/Login"}>
             Login
           </Link>
