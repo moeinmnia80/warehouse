@@ -1,9 +1,9 @@
-import { useArea } from "@/store";
 import { useShallow } from "zustand/shallow";
 import { type ComponentProps, type FC } from "react";
-import ChevronIcon from "@/assets/icons/ChevronIcon";
-import type { DropItemType } from "@/shared/types/types";
-import TickIcon from "@/assets/icons/TickIcon";
+import { useArea } from "../../../store";
+import ChevronIcon from "../../../assets/icons/ChevronIcon";
+import type { DropItemType } from "../../types/types";
+import TickIcon from "../../../assets/icons/TickIcon";
 
 export const DropDown: FC<ComponentProps<"div">> = ({
   className,
