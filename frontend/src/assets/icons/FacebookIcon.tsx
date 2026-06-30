@@ -1,0 +1,30 @@
+import { type ComponentProps, type FC } from "react";
+
+const FacebookIcon: FC<ComponentProps<"svg">> = ({ ...props }) => {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g clipPath="url(#clip0_25927_8087)">
+        <path
+          d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z"
+          fill="#537FED"
+        />
+        <path
+          d="M15.9881 4.88452H13.2711C11.6587 4.88452 9.86529 5.48286 9.86529 7.54501C9.87316 8.26354 9.86529 8.95169 9.86529 9.72615H8V12.3451H9.92302V19.8845H13.4567V12.2953H15.789L16 9.7188H13.3958C13.3958 9.7188 13.4016 8.57265 13.3958 8.2398C13.3958 7.42489 14.3568 7.47155 14.4146 7.47155C14.8719 7.47155 15.7612 7.47273 15.9894 7.47155V4.88452H15.9881Z"
+          fill="white"
+        />
+      </g>
+      <defs>
+        <clipPath id="clip0_25927_8087">
+          <rect width="24" height="24" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};
+
+export default FacebookIcon;
