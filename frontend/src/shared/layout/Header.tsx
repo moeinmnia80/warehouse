@@ -1,10 +1,10 @@
 import { type FC } from "react";
-import { useArea } from "@/store";
 import type { Props } from "../types/types";
 import { useShallow } from "zustand/shallow";
 import ToggleButton from "../componets/ui/ToggleButton";
 import { DropDown, DropItem, DropItemsWrapper } from "../componets/ui/DropDown";
-import Logo from "@/assets/icons/Logo";
+import { useArea } from "../../store";
+import Logo from "../../assets/icons/Logo";
 
 const Header: FC<Props> = (props) => {
   const data = useArea(useShallow((state) => state.areas));
