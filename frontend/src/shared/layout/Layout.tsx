@@ -15,8 +15,8 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
         border-b border-bo-primary"
       />
       <main
-        className="flex bg-b-third
-        w-full px-5 md:px-20 mx-auto"
+        className="flex bg-b-secondary
+        w-full px-5 md:px-20"
       >
         {children}
       </main>

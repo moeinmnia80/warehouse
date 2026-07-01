@@ -25,20 +25,22 @@ const Header: FC<HeaderType> = (props) => {
           <Logo className="size-7 fill-st-primary" />
           <h2 className="text-2xl font-bold text-st-primary">Markist</h2>
         </div>
-        <ul className="flex gap-10">
-          <li className="cursor-pointer text-t-secondary text-lg font-medium">
-            My Suit
-          </li>
-          <li className="cursor-pointer text-t-secondary text-lg font-medium">
-            Shipping History
-          </li>
-          <li className="cursor-pointer text-t-secondary text-lg font-medium">
-            Help
-          </li>
-          <li className="cursor-pointer text-t-secondary text-lg font-medium">
-            Contact Us
-          </li>
-        </ul>
+        {isShow && (
+          <ul className="flex gap-10">
+            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+              My Suit
+            </li>
+            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+              Shipping History
+            </li>
+            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+              Help
+            </li>
+            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+              Contact Us
+            </li>
+          </ul>
+        )}
         <div className="flex-center gap-4">
           {isShow && (
             <Button className="btn btn--border w-32 h-10">
@@ -51,12 +53,13 @@ const Header: FC<HeaderType> = (props) => {
             value={selectedArea}
             onChange={setArea}
             getKey={(area) => area.name}
-            valueClass="bg-b-secondary rounded-full h-11 flex items-center"
+            valueClass={` ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"} 
+            rounded-full h-11 flex items-center `}
             renderValue={() => (
               <>
-                <div className="size-fit p-1">
+                <div className="size-fit p-2">
                   <img
-                    className={`size-9 ${isShow ? "object-contain ml-2" : "rounded-full object-cover"}`}
+                    className={`size-7 ${isShow ? "object-contain ml-2" : "rounded-full object-cover"}`}
                     src={selectedArea?.src}
                     alt={selectedArea?.name}
                   />

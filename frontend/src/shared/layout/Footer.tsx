@@ -10,8 +10,6 @@ const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
   const selectedArea = useArea(useShallow((state) => state.selectedArea));
   const setArea = useArea(useShallow((state) => state.setArea));
 
-  console.log(areas);
-
   return (
     <>
       <footer className={className} {...props}>

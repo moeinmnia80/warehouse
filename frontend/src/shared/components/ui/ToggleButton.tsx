@@ -16,12 +16,12 @@ function ToggleButton() {
       <div
         onClick={() => changeTheme()}
         className="relative flex w-22 h-11
-       bg-b-secondary rounded-full"
+       bg-b-third rounded-full"
       >
         <span
           className={`absolute left-1 top-1 
           inline-block h-9 aspect-square transition duration-300
-          bg-b-primary rounded-full ${status === "dark" ? "translate-x-11" : "translate-x-0"}`}
+          bg-b-muted rounded-full ${status === "dark" ? "translate-x-11" : "translate-x-0"}`}
         ></span>
         <LightIcon className="z-10 size-11 p-3 fill-st-primary" />
         <DarkIcon className="z-10 size-11 p-3.5 fill-st-primary" />

@@ -17,8 +17,9 @@
   /* background */
   --color-b-primary: #ffffff;
   --color-b-secondary: #f5f5f5;
-  --color-b-third: #f5f5f5;
+  --color-b-third: #fafafa;
   --color-b-checkbox: #eeeeee;
+  --color-b-muted: #fff;
   /* stroke */
   --color-st-primary: #0f172a;
   /* border */
@@ -35,6 +36,7 @@
   --color-alert: #e42f23;
   --color-error: #d52027;
   --color-warning: #f79009;
+  --color-warning-50: rgb(247, 144, 9, 10%);
   /* text-size */
   --text-xs: 10px;
   --text-sm: 12px;
@@ -46,10 +48,12 @@
   --opacity-dyn: 1;
 }
 .dark {
-  --color-b-primary: #111411;
-  --color-b-secondary: #292c29;
-  --color-b-third: #111411;
+  --color-primary: #1f2527;
+  --color-b-primary: #161819;
+  --color-b-secondary: #1a1e20;
+  --color-b-third: #292c29;
   --color-b-checkbox: #111411;
+  --color-b-muted: #656864;
 
   --color-t-primary: #fff;
   --color-t-secondary: #98a2b3;
