@@ -1,9 +1,9 @@
+import { useArea } from "../../../store";
 import { useShallow } from "zustand/shallow";
 import { type ComponentProps, type FC } from "react";
-import { useArea } from "../../../store";
-import ChevronIcon from "../../../assets/icons/ChevronIcon";
 import type { DropItemType } from "../../types/types";
 import TickIcon from "../../../assets/icons/TickIcon";
+import ChevronIcon from "../../../assets/icons/ChevronIcon";
 
 export const DropDown: FC<ComponentProps<"div">> = ({
   className,
@@ -23,7 +23,7 @@ export const DropDown: FC<ComponentProps<"div">> = ({
       >
         <div className="size-11 p-1 rounded-full overflow-hidden">
           <img
-            className="size-9 object-cover circle"
+            className="size-9 rounded-full object-cover"
             src={data?.src}
             alt={data?.name}
           />
@@ -58,7 +58,7 @@ export const DropItem: FC<DropItemType> = ({ area, ...props }) => {
         <p className="text-sm text-t-primary font-semibold">{area?.desc}</p>
         <TickIcon
           className={`size-5 ${
-            selectedArea.name === area.name ? "stroke-500-base" : "invisible"
+            selectedArea.name === area.name ? "stroke-st-primary" : "invisible"
           }`}
         />
       </div>

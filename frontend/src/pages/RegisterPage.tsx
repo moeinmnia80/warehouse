@@ -1,86 +1,70 @@
 import { Link } from "react-router";
-import { Form, Input } from "../shared/componets/ui/Form";
-import { Button } from "../shared/componets/ui/Button";
-import { CheckBox } from "../shared/componets/ui/CheckBox";
 import Logo from "../assets/icons/Logo";
 import GoogleIcon from "../assets/icons/GoogleIcon";
+import { Button } from "../shared/components/ui/Button";
 import FacebookIcon from "../assets/icons/FacebookIcon";
+import { registerInput } from "../shared/constants/inputs";
+import { Form, Input } from "../shared/components/ui/Form";
+import { CheckBox } from "../shared/components/ui/CheckBox";
+import { useForm } from "react-hook-form";
+import {
+  registerSchema,
+  type RegisterFormData,
+} from "../shared/schema/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const RegisterPage = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<RegisterFormData>({
+    resolver: zodResolver(registerSchema),
+  });
+
+  const onSubmit = (data: RegisterFormData) => {
+    console.log("register", data);
+  };
+
   return (
     <section className="relative flex-center w-full min-h-dvh">
-      <div
-        className="flex flex-col w-full max-w-103 relative z-10 my-12
-        bg-b-primary rounded-2xl p-6 border border-bo-primary"
-      >
+      <div className="form-box my-12">
         <Logo className="self-center size-12 fill-st-primary" />
-        <h2 className="text-t-primary text-3xl font-semibold text-center mt-4">
-          Sign Up Account
-        </h2>
-        <Form action="" className="">
-          <Input
-            label="Fullname"
-            className="
-              h-11 rounded-xl border border-bo-primary
-              text-t-placeholder 
-              px-3 py-3"
-            id="Fullname"
-            type="Fullname"
-            name="Fullname"
-            placeholder="Enter full name"
-          />
-          <Input
-            label="Username"
-            className="
-              h-11 rounded-xl border border-bo-primary
-              text-t-placeholder 
-              px-3 py-3"
-            id="username"
-            type="username"
-            name="username"
-            placeholder="Enter your username "
-          />
-          <Input
-            label="Email address"
-            className="
-              h-11 rounded-xl border border-bo-primary
-              text-t-placeholder 
-              px-3 py-3"
-            id="email"
-            type="email"
-            name="email"
-            placeholder="Enter email address"
-          />
-          <Input
-            label="Password"
-            className="
-              h-11 rounded-xl border border-bo-primary
-              text-t-placeholder 
-              px-3 py-3"
-            id="password"
-            type="password"
-            name="password"
-            placeholder="Enter your password"
-          />
-          <div className="flex items-center justify-between mt-2">
-            <CheckBox className="" type="checkbox">
-              By creating an account, you agree to the Terms & Conditions and
-              our Privacy Policy.
-            </CheckBox>
-            <Link
-              to={"/forget-password"}
-              className="text-sm font-medium text-t-primary"
-            >
-              Forget password
-            </Link>
-          </div>
-          <Button
-            className="
-              bg-t-primary 
-              text-b-primary text-xl font-semibold
-              rounded-xl mt-4 px-2
-             "
+        <h2 className="heading-2">Register Account</h2>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          {registerInput.map((input) => (
+            <div key={input.name}>
+              <Input
+                label={input.label}
+                className="form__input"
+                id={input.id}
+                type={input.type}
+                placeholder={input.placeholder}
+                autoComplete={input.autoComplete}
+                {...register(`${input.name}`)}
+                name={input.name}
+              />
+              <p className="text-sm text-error px-3 font-light mt-3">
+                {errors[input.name]?.message}
+              </p>
+            </div>
+          ))}
+          <CheckBox
+            type="checkbox"
+            id="policy"
+            {...register("policy", {
+              required: "You must accept the policy",
+            })}
+            name="policy"
           >
+            By creating an account, you agree to the{" "}
+            <span className="font-bold">Terms & Conditions</span> and our
+            <span className="font-bold">Privacy Policy</span>.
+          </CheckBox>
+          <p className="text-sm text-error px-3 font-light">
+            {errors.policy?.message}
+          </p>
+          <Button className="btn btn--primary font-semibold mt-4 px-2">
             Sign in
           </Button>
         </Form>
@@ -89,34 +73,22 @@ const RegisterPage = () => {
           <span className="text-t-primary text-md px-2">or</span>
           <span className="inline-block w-full h-px bg-bo-primary"></span>
         </div>
-        <Button
-          className="text-t-primary
-            flex-center gap-3
-            border border-bo-primary
-            text-lg font-medium
-            rounded-xl mt-4 px-2"
-        >
+        <Button className="btn-secondary gap-3 mt-4 px-2">
           <GoogleIcon className="size-5" />
           Sign in with Google
         </Button>
-        <Button
-          className="text-t-primary
-            flex-center gap-3
-            border border-bo-primary
-            text-lg font-medium
-            rounded-xl mt-4 px-2"
-        >
+        <Button className="btn-secondary gap-3 mt-4 px-2">
           <FacebookIcon className="size-5" />
           Sign in with Facebook
         </Button>
         <div className="text-md font-light text-t-placeholder self-center mt-5">
           Don't have an account?
-          <Link className="text-md text-t-primary font-bold ml-1" to={"/Login"}>
+          <Link className="text-md text-t-primary font-bold ml-1" to={"/login"}>
             Login
           </Link>
         </div>
       </div>
-      <div className="login-grid opacity-dyn"></div>
+      <div className="background-checkered opacity-dyn"></div>
     </section>
   );
 };

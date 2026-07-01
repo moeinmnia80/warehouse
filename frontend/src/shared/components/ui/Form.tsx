@@ -1,7 +1,7 @@
-import { useState, type ComponentProps, type FC } from "react";
 import type { InputType } from "../../types/types";
 import HiddenIcon from "../../../assets/icons/HiddenIcon";
 import ShowIcon from "../../../assets/icons/ShowIcon.tsx";
+import { useState, type ComponentProps, type FC } from "react";
 
 export const Form: FC<ComponentProps<"form">> = ({
   className,

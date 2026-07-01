@@ -8,18 +8,21 @@ export const CheckBox: FC<ComponentProps<"input">> = ({
 }) => {
   return (
     <>
-      <label className="flex items-center gap-1.5 " htmlFor={props.name}>
+      <label
+        className="flex items-center gap-1.5 cursor-pointer"
+        htmlFor={props.name}
+      >
         <input className="peer w-0 hidden" {...props} />
         <span
           className={`peer-checked:*:inline-block 
             flex items-center justify-center
-            size-3 bg-b-gray-lighter  
+            size-4 bg-b-checkbox  
             border border-bo-secondary rounded-sm
             ${className}`}
         >
-          <TickIcon className="size-3 stroke-st-primary hidden" />
+          <TickIcon className="size-4 stroke-st-primary hidden" />
         </span>
-        <span className="text-xs font-medium text-t-primary max-w-50">
+        <span className="text-xs font-light text-t-primary max-w-55">
           {children}
         </span>
       </label>

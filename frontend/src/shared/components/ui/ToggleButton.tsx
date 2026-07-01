@@ -1,7 +1,7 @@
-import DarkIcon from "@/assets/icons/DarkIcon";
-import LightIcon from "@/assets/icons/LightIcon";
-import { useTheme } from "@/shared/hooks/useTheme";
 import { useState } from "react";
+import { useTheme } from "../../hooks/useTheme";
+import LightIcon from "../../../assets/icons/LightIcon";
+import DarkIcon from "../../../assets/icons/DarkIcon";
 
 function ToggleButton() {
   const { theme, themeToggler } = useTheme();

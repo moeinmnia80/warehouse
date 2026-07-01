@@ -1,47 +1,57 @@
 import { Link } from "react-router";
-import { Button } from "../shared/componets/ui/Button";
-import { Form, Input } from "../shared/componets/ui/Form";
-import { CheckBox } from "../shared/componets/ui/CheckBox";
 import Logo from "../assets/icons/Logo";
 import GoogleIcon from "../assets/icons/GoogleIcon";
 import FacebookIcon from "../assets/icons/FacebookIcon";
-
+import { Button } from "../shared/components/ui/Button";
+import { Form, Input } from "../shared/components/ui/Form";
+import { CheckBox } from "../shared/components/ui/CheckBox";
+import { useForm } from "react-hook-form";
+import { loginSchema, type LoginFormData } from "../shared/schema/auth.schema";
+import { zodResolver } from "@hookform/resolvers/zod";
 function LoginPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
+
+  const onSubmit = (data: LoginFormData) => {
+    console.log(data);
+  };
   return (
     <>
-      <section className="relative flex-center w-full h-dvh">
-        <div
-          className="flex flex-col w-full max-w-103 relative z-10
-        bg-b-primary rounded-2xl p-6 border border-bo-primary"
-        >
+      <section className="relative flex-center w-full min-h-dvh">
+        <div className="form-box my-12">
           <Logo className="self-center size-12 fill-st-primary" />
-          <h2 className="text-t-primary text-3xl font-semibold text-center mt-4">
-            Login Account
-          </h2>
-          <Form action="" className="">
+          <h2 className="heading-2">Login Account</h2>
+          <Form onSubmit={handleSubmit(onSubmit)}>
             <Input
               label="Email address"
-              className="
-              h-11 rounded-xl border border-bo-primary
-              text-t-placeholder 
-              px-3 py-3"
+              className="form__input"
               id="email"
               type="email"
-              name="email"
               placeholder="Enter email address"
+              autoComplete="email"
+              {...register("email")}
+              name="email"
             />
+            <p className="text-sm text-error px-3 font-light">
+              {errors.email?.message}
+            </p>
             <Input
               label="Password"
-              className="
-              h-11 rounded-xl border border-bo-primary
-              text-t-placeholder 
-              px-3 py-3"
+              className="form__input"
               id="password"
               type="password"
-              name="password"
               placeholder="Enter your password"
+              autoComplete="new-password"
+              {...register("password")}
+              name="password"
             />
-            <div className="flex items-center justify-between mt-2">
+            <p className="text-sm text-error px-3 font-light">
+              {errors.password?.message}
+            </p>
+            <div className="flex items-center justify-between mx-1 mt-2">
               <CheckBox className="" type="checkbox">
                 Remember for 30 days
               </CheckBox>
@@ -52,13 +62,7 @@ function LoginPage() {
                 Forget password
               </Link>
             </div>
-            <Button
-              className="
-              bg-t-primary 
-              text-b-primary text-xl font-semibold
-              rounded-xl mt-4 px-2
-             "
-            >
+            <Button className="btn btn--primary font-semibold mt-4 px-2">
               Sign in
             </Button>
           </Form>
@@ -67,23 +71,11 @@ function LoginPage() {
             <span className="text-t-primary text-md px-2">or</span>
             <span className="inline-block w-full h-px bg-bo-primary"></span>
           </div>
-          <Button
-            className="text-t-primary
-            flex-center gap-3
-            border border-bo-primary
-            text-lg font-medium
-            rounded-xl mt-4 px-2"
-          >
+          <Button className="btn-secondary gap-3 mt-4 px-2">
             <GoogleIcon className="size-5" />
             Sign in with Google
           </Button>
-          <Button
-            className="text-t-primary
-            flex-center gap-3
-            border border-bo-primary
-            text-lg font-medium
-            rounded-xl mt-4 px-2"
-          >
+          <Button className="btn-secondary gap-3 mt-4 px-2">
             <FacebookIcon className="size-5" />
             Sign in with Facebook
           </Button>
@@ -97,7 +89,7 @@ function LoginPage() {
             </Link>
           </div>
         </div>
-        <div className="login-grid opacity-dyn"></div>
+        <div className="background-checkered opacity-dyn"></div>
       </section>
     </>
   );

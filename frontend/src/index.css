@@ -14,11 +14,11 @@
 
   --color-primary: #0f172a;
 
-  --color-500-base: #316bfd;
   /* background */
   --color-b-primary: #ffffff;
   --color-b-secondary: #f5f5f5;
   --color-b-third: #f5f5f5;
+  --color-b-checkbox: #eeeeee;
   /* stroke */
   --color-st-primary: #0f172a;
   /* border */
@@ -34,7 +34,6 @@
   --color-alert: #e42f23;
   --color-error: #d52027;
   --color-warning: #f79009;
-  --color-drak-brand: #618cf9;
   /* text-size */
   --text-xs: 10px;
   --text-sm: 12px;
@@ -49,6 +48,7 @@
   --color-b-primary: #111411;
   --color-b-secondary: #292c29;
   --color-b-third: #111411;
+  --color-b-checkbox: #111411;
 
   --color-t-primary: #fff;
   --color-t-placeholder: #98a2b3;
@@ -76,11 +76,26 @@
     outline: none;
     cursor: pointer;
   }
-  label {
-    cursor: pointer;
+  input:-webkit-autofill {
+    background-color: transparent !important;
+    box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5) inset !important;
+    -webkit-text-fill-color: rgba(0, 0, 0, 0.9) !important;
   }
 }
-
+@layer utilities {
+  .heading-2 {
+    color: var(--color-t-primary);
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 16px;
+  }
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
 @layer components {
   .header {
     width: 100%;
@@ -92,6 +107,7 @@
 
     padding-inline: 24px;
   }
+  /* select > option */
   .option-wrapper {
     position: absolute;
     top: 100%;
@@ -105,22 +121,72 @@
 
     overflow: auto;
   }
-  .flex-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .login-grid {
+
+  .background-checkered {
     position: absolute;
     inset: 0;
     background: url("./src/assets/images/Background.png") no-repeat center;
     background-size: cover;
     z-index: 1;
   }
-  .circle {
-    clip-path: circle(50% at 50% 50%);
-  }
+  /* button */
   .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    max-width: 412px;
     height: 48px;
+  }
+  .btn--primary {
+    background-color: var(--color-t-primary);
+
+    color: var(--color-b-primary);
+    font-size: var(--text-xl);
+
+    border-radius: var(--radius-xl);
+  }
+  .btn-secondary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--color-t-primary);
+
+    border: 1px solid var(--color-bo-primary);
+    border-radius: var(--radius-xl);
+
+    font-size: var(--text-xl);
+  }
+  /* form - (Login - Register - Forget Password) */
+  .form-box {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 412px;
+
+    background-color: var(--color-b-primary);
+
+    padding-inline: 24px;
+    padding-block: 24px;
+
+    position: relative;
+
+    border: 1px solid var(--color-bo-primary);
+    border-radius: 16px;
+
+    z-index: 10;
+  }
+  .form__input {
+    height: 44px;
+
+    color: var(--color-t-placeholder);
+
+    border: 1px solid var(--color-bo-primary);
+    border-radius: 12px;
+
+    padding-inline: 12px;
+    padding-block: 12px;
   }
 }

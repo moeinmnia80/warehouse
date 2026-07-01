@@ -1,10 +1,9 @@
 import Footer from "./Footer";
 import Header from "./Header";
 import type { FC } from "react";
-import type { Props } from "../types/types";
 import { useLocation } from "react-router";
-
-const PATHS_WITHOUT_FOOTER = ["/login", "/forget-password", "/register"];
+import type { Props } from "../types/types";
+import { PATHS_WITHOUT_FOOTER } from "../constants/hiddenFooter";
 
 const Layout: FC<Props> = ({ children }) => {
   const { pathname } = useLocation();
