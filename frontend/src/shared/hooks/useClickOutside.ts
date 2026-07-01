@@ -1,19 +1,22 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
-const useClickOutside = <T extends HTMLElement>(handler: () => void) => {
-  const domeNode = useRef<T | null>(null);
+const useClickOutside = (
+  dropdownRef: React.RefObject<HTMLDivElement | null>,
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>,
+) => {
   useEffect(() => {
-    const maybeHandler = (e: globalThis.MouseEvent) => {
-      if (!domeNode.current?.contains(e.target as HTMLElement)) {
-        handler();
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
       }
     };
-    document.addEventListener("mousedown", (event) => maybeHandler(event));
-    return () => {
-      document.removeEventListener("mousedown", (event) => maybeHandler(event));
-    };
-  });
-  return domeNode;
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 };
 
 export default useClickOutside;

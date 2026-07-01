@@ -1,6 +1,7 @@
 // components/ui/Dropdown.tsx
-import { useState, useRef, useEffect, type ReactNode } from "react";
+import { useState, useRef, type ReactNode } from "react";
 import ChevronIcon from "../../../assets/icons/ChevronIcon";
+import useClickOutside from "@/shared/hooks/useClickOutside";
 
 interface DropdownProps<T> {
   data: T[];
@@ -30,21 +31,9 @@ export function Dropdown<T>({
   getKey,
 }: DropdownProps<T>) {
   const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  useClickOutside(dropdownRef, setIsOpen);
 
   const handleSelect = (item: T) => {
     onChange(item);
