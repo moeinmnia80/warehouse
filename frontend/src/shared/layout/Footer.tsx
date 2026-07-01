@@ -1,9 +1,9 @@
-import type { ComponentProps, FC } from "react";
-import Logo from "../../assets/icons/Logo";
-import SocialMedia from "../components/SocialMedia";
-import { Dropdown } from "../components/ui/DropDown";
-import { useArea } from "../../store";
+import { useArea } from "@/store";
+import Logo from "@/assets/icons/Logo";
 import { useShallow } from "zustand/shallow";
+import type { ComponentProps, FC } from "react";
+import SocialMedia from "@/shared/components/SocialMedia";
+import { Dropdown } from "@/shared/components/ui/DropDown";
 
 const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
   const areas = useArea(useShallow((state) => state.areas));

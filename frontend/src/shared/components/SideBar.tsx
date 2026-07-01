@@ -1,5 +1,5 @@
-import BookIcon from "../../assets/icons/BookIcon";
-import CalculatorIcon from "../../assets/icons/CalculatorIcon";
+import BookIcon from "@/assets/icons/BookIcon";
+import CalculatorIcon from "@/assets/icons/CalculatorIcon";
 
 const SideBar = () => {
   return (

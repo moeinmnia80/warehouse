@@ -1,7 +1,6 @@
 import { Outlet } from "react-router";
-import SideBar from "../shared/components/SideBar";
-import DashboardHeader from "../shared/components/DashboardHeader";
-
+import SideBar from "@/shared/components/SideBar";
+import DashboardHeader from "@/feature/dashboard/components/DashboardHeader";
 const DashboardPage = () => {
   return (
     <>

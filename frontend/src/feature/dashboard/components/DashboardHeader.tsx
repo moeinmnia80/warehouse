@@ -1,5 +1,5 @@
-import { Link } from "react-router";
 import { useArea } from "@/store";
+import { Link } from "react-router";
 import { useShallow } from "zustand/shallow";
 import TickIcon from "@/assets/icons/TickIcon";
 import QueueIcon from "@/assets/icons/QueueIcon";

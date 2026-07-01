@@ -1,10 +1,16 @@
-import { changeTheme, themeCheck } from "../utils/theme";
-import type { contextType, Props } from "../types/types";
-import { createContext, useEffect, useState, type FC } from "react";
+import { changeTheme, themeCheck } from "@/shared/utils/theme";
+import type { contextType } from "@/shared/types/types";
+import {
+  createContext,
+  useEffect,
+  useState,
+  type ComponentPropsWithoutRef,
+  type FC,
+} from "react";
 
 const ThemeContext = createContext({} as contextType);
 
-const ThemeProvider: FC<Props> = ({ children }) => {
+const ThemeProvider: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
   const [theme, setTheme] = useState<string>(themeCheck());
 
   useEffect(() => {

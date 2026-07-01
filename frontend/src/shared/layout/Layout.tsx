@@ -2,7 +2,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { useLocation } from "react-router";
 import type { ComponentPropsWithoutRef, FC } from "react";
-import { PATHS_WITHOUT_FOOTER } from "../constants/hiddenFooter";
+import { PATHS_WITHOUT_FOOTER } from "@/shared/constants/hiddenFooter";
 
 const Layout: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
   const { pathname } = useLocation();

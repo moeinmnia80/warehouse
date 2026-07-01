@@ -1,4 +1,4 @@
-import type { AreaType } from "../types/types";
+import type { AreaType } from "@/shared/types/types";
 
 export const areas: AreaType[] = [
   {

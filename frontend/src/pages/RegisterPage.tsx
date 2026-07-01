@@ -1,16 +1,16 @@
 import { Link } from "react-router";
-import Logo from "../assets/icons/Logo";
-import GoogleIcon from "../assets/icons/GoogleIcon";
-import { Button } from "../shared/components/ui/Button";
-import FacebookIcon from "../assets/icons/FacebookIcon";
-import { registerInput } from "../shared/constants/inputs";
-import { Form, Input } from "../shared/components/ui/Form";
-import { CheckBox } from "../shared/components/ui/CheckBox";
+import Logo from "@/assets/icons/Logo";
+import GoogleIcon from "@/assets/icons/GoogleIcon";
+import { Button } from "@/shared/components/ui/Button";
+import FacebookIcon from "@/assets/icons/FacebookIcon";
+import { registerInput } from "@/shared/constants/inputs";
+import { Form, Input } from "@/shared/components/ui/Form";
+import { CheckBox } from "@/shared/components/ui/CheckBox";
 import { useForm } from "react-hook-form";
 import {
   registerSchema,
   type RegisterFormData,
-} from "../shared/schema/auth.schema";
+} from "@/shared/schema/auth.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const RegisterPage = () => {

@@ -1,6 +1,6 @@
 import RouterWrapper from "./router";
-import ThemeProvider from "./shared/context/context";
-import Layout from "./shared/layout/Layout";
+import Layout from "@/shared/layout/Layout";
+import ThemeProvider from "@/shared/context/context";
 
 function App() {
   return (

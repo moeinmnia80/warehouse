@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, Input } from "../shared/components/ui/Form";
+import { Form, Input } from "@/shared/components/ui/Form";
 import {
   forgetPasswordSchema,
   type ForgetPasswordData,

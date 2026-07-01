@@ -1,13 +1,14 @@
 import { Link } from "react-router";
-import Logo from "../assets/icons/Logo";
-import GoogleIcon from "../assets/icons/GoogleIcon";
-import FacebookIcon from "../assets/icons/FacebookIcon";
-import { Button } from "../shared/components/ui/Button";
-import { Form, Input } from "../shared/components/ui/Form";
-import { CheckBox } from "../shared/components/ui/CheckBox";
+import Logo from "@/assets/icons/Logo";
 import { useForm } from "react-hook-form";
-import { loginSchema, type LoginFormData } from "../shared/schema/auth.schema";
+import GoogleIcon from "@/assets/icons/GoogleIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
+import FacebookIcon from "@/assets/icons/FacebookIcon";
+import { Button } from "@/shared/components/ui/Button";
+import { Form, Input } from "@/shared/components/ui/Form";
+import { CheckBox } from "@/shared/components/ui/CheckBox";
+import { loginSchema, type LoginFormData } from "@/shared/schema/auth.schema";
+
 function LoginPage() {
   const {
     register,

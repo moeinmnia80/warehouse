@@ -1,15 +1,15 @@
 import { type FC } from "react";
-import { useArea } from "../../store";
-import Logo from "../../assets/icons/Logo";
-import { checkPath } from "../utils/utils";
+import { useArea } from "@/store";
+import Logo from "@/assets/icons/Logo";
 import { useShallow } from "zustand/shallow";
-import type { AreaType, HeaderType } from "../types/types";
-import { Button } from "../components/ui/Button";
-import LogoutIcon from "../../assets/icons/LogoutIcon";
-import ToggleButton from "../components/ui/ToggleButton";
-import { Dropdown } from "../components/ui/DropDown";
-import TickIcon from "../../assets/icons/TickIcon";
-import ChevronIcon from "../../assets/icons/ChevronIcon";
+import TickIcon from "@/assets/icons/TickIcon";
+import { checkPath } from "@/shared/utils/utils";
+import LogoutIcon from "@/assets/icons/LogoutIcon";
+import ChevronIcon from "@/assets/icons/ChevronIcon";
+import { Button } from "@/shared/components/ui/Button";
+import { Dropdown } from "@/shared/components/ui/DropDown";
+import ToggleButton from "@/shared/components/ui/ToggleButton";
+import type { AreaType, HeaderType } from "@/shared/types/types";
 
 const Header: FC<HeaderType> = (props) => {
   const areas = useArea(useShallow((state) => state.areas));
