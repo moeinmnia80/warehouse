@@ -23,13 +23,12 @@ export interface AreaType {
   name: string;
   desc: string;
   src: string;
+  lang: string;
 }
 export interface DataState {
-  isOpen: boolean;
   areas: AreaType[];
   selectedArea: AreaType;
   setArea: (data: AreaType) => void;
-  setIsOpen: () => void;
 }
 // form
 export type InputType = { label: string } & ComponentProps<"input">;

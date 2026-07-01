@@ -12,11 +12,12 @@ import TickIcon from "../../assets/icons/TickIcon";
 import ChevronIcon from "../../assets/icons/ChevronIcon";
 
 const Header: FC<HeaderType> = (props) => {
-  const data = useArea(useShallow((state) => state.areas));
-  const area = useArea(useShallow((state) => state.selectedArea));
+  const areas = useArea(useShallow((state) => state.areas));
   const setArea = useArea(useShallow((state) => state.setArea));
+  const selectedArea = useArea(useShallow((state) => state.selectedArea));
 
   const isShow = checkPath("/dashboard");
+
   return (
     <>
       <header {...props}>
@@ -24,6 +25,20 @@ const Header: FC<HeaderType> = (props) => {
           <Logo className="size-7 fill-st-primary" />
           <h2 className="text-2xl font-bold text-st-primary">Markist</h2>
         </div>
+        <ul className="flex gap-10">
+          <li className="cursor-pointer text-t-secondary text-lg font-medium">
+            My Suit
+          </li>
+          <li className="cursor-pointer text-t-secondary text-lg font-medium">
+            Shipping History
+          </li>
+          <li className="cursor-pointer text-t-secondary text-lg font-medium">
+            Help
+          </li>
+          <li className="cursor-pointer text-t-secondary text-lg font-medium">
+            Contact Us
+          </li>
+        </ul>
         <div className="flex-center gap-4">
           {isShow && (
             <Button className="btn btn--border w-32 h-10">
@@ -32,40 +47,41 @@ const Header: FC<HeaderType> = (props) => {
             </Button>
           )}
           <Dropdown
-            data={data}
-            value={area}
+            data={areas}
+            value={selectedArea}
             onChange={setArea}
-            getKey={(area: AreaType) => area.name}
+            getKey={(area) => area.name}
             valueClass="bg-b-secondary rounded-full h-11 flex items-center"
             renderValue={() => (
               <>
                 <div className="size-fit p-1">
                   <img
                     className={`size-9 ${isShow ? "object-contain ml-2" : "rounded-full object-cover"}`}
-                    src={area?.src}
-                    alt={area?.name}
+                    src={selectedArea?.src}
+                    alt={selectedArea?.name}
                   />
                 </div>
                 {isShow && (
                   <p className="text-sm font-bold text-t-primary ml-2">
-                    {area.desc}
+                    {selectedArea.desc}
                   </p>
                 )}
               </>
             )}
-            itemClass="w-80 bg-b-primary mt-2  p-1 
+            itemClass="top-full right-0 w-80 
+            bg-b-primary mt-2  p-1 
             border border-bo-primary rounded-md"
             renderItem={(area: AreaType) => (
               <>
                 <div className="size-fit">
                   <img
                     className="w-6 h-4 object-contain"
-                    src={area?.src}
-                    alt={area?.name}
+                    src={area.src}
+                    alt={area.name}
                   />
                 </div>
-                <p className="text-sm text-t-primary font-semibold">
-                  {area?.desc}
+                <p className="text-md text-t-primary font-semibold">
+                  {area.desc}
                 </p>
                 <TickIcon
                   className={`size-5 ${

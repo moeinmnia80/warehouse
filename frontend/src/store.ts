@@ -8,16 +8,15 @@ const initial: AreaType = {
   name: "US",
   desc: "Manage my packages from the US",
   src: "./src/assets/images/flag-1.png",
+  lang: "EN",
 };
 
 export const useArea = create<DataState>()(
   persist(
     (set) => ({
-      isOpen: false,
       areas: areas,
       selectedArea: initial,
       setArea: (data: AreaType) => set({ selectedArea: data }),
-      setIsOpen: () => set((state) => ({ isOpen: !state.isOpen })),
     }),
     {
       name: "dropdown",

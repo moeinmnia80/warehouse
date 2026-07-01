@@ -73,7 +73,7 @@ export function Dropdown<T>({
       </button>
 
       {isOpen && (
-        <div className={`absolute top-full right-0 ${itemClass}`}>
+        <div className={`absolute ${itemClass}`}>
           {data.length === 0 ? (
             <div className="px-4 py-3 text-center text-gray-500">
               Nothing ...

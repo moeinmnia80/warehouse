@@ -27,6 +27,7 @@
   --color-bo-secondary: #929292;
   /* text */
   --color-t-primary: #0f172a;
+  --color-t-secondary: #334155;
   --color-t-placeholder: #868181;
 
   /* accent color */
@@ -51,6 +52,7 @@
   --color-b-checkbox: #111411;
 
   --color-t-primary: #fff;
+  --color-t-secondary: #98a2b3;
   --color-t-placeholder: #98a2b3;
 
   --color-bo-primary: #262926;
