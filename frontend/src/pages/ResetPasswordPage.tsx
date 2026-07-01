@@ -37,9 +37,11 @@ const ResetPasswordPage = () => {
             name="password"
           />
 
-          <p className="text-sm text-error px-3 font-light">
-            {errors.password?.message}
-          </p>
+          {errors.password && (
+            <p className="text-sm text-error px-3 font-light">
+              {errors.password?.message}
+            </p>
+          )}
           <Input
             label="Repeat Password"
             className="form__input"

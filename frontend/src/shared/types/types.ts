@@ -4,7 +4,7 @@ import {
   type ComponentPropsWithoutRef,
 } from "react";
 
-export type Props = {
+export type HeaderType = {
   children?: ReactNode;
 } & ComponentPropsWithoutRef<"section">;
 
@@ -13,10 +13,11 @@ export type contextType = {
   themeToggler: () => void;
 };
 // drop down item
+export type DropDownType = { items: AreaType[] } & ComponentProps<"div">;
 export type DropItemType = {
   area: AreaType;
 } & ComponentProps<"div">;
-
+export type DropDownWrapperType = { isOpen?: boolean } & ComponentProps<"div">;
 // in store.ts
 export interface AreaType {
   name: string;

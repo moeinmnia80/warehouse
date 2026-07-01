@@ -42,7 +42,7 @@ export const Input: FC<InputType> = ({ label, className, type, ...props }) => {
                   stroke-bo-primary hover:stroke-st-primary"
             />
           ) : (
-            props.name === "password" && (
+            type === "password" && (
               <ShowIcon
                 onClick={() => setIsShow((prev) => !prev)}
                 className="size-4 absolute top-1/2 -translate-y-1/2 right-3 
