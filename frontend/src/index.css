@@ -38,12 +38,12 @@
   --color-warning: #f79009;
   --color-warning-50: rgb(247, 144, 9, 10%);
   /* text-size */
-  --text-xs: 10px;
-  --text-sm: 12px;
-  --text-md: 14px;
-  --text-lg: 16px;
-  --text-xl: 18px;
-  --text-2xl: 20px;
+  --text-xs: clamp(8px, 0.5vw + 0.25rem, 10px);
+  --text-sm: clamp(10px, 0.5vw + 0.25rem, 12px);
+  --text-md: clamp(12px, 0.5vw + 0.25rem, 14px);
+  --text-lg: clamp(14px, 0.5vw + 0.25rem, 16px);
+  --text-xl: clamp(16px, 0.5vw + 0.25rem, 18px);
+  --text-2xl: clamp(18px, 0.5vw + 0.25rem, 20px);
 
   --opacity-dyn: 1;
 }
@@ -172,6 +172,13 @@
     border-radius: var(--radius-lg);
 
     font-size: var(--text-md);
+  }
+  .btn-third {
+    font-size: var(--text-md);
+    color: var(--color-t-primary);
+    background-color: var(--color-b-secondary);
+    border: 1px solid var(--color-bo-primary);
+    border-radius: var(--radius-md);
   }
   /* form - (Login - Register - Forget Password) */
   .form-box {

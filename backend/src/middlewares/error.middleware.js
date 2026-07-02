@@ -1,0 +1,17 @@
+export const errorHandler = (err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const errorCode = err.errorCode || "INTERNAL_ERROR";
+
+  console.error({
+    timestamp: new Date().toISOString(),
+    status: statusCode,
+    code: errorCode,
+    message: err.message,
+    path: req.originalUrl,
+    method: req.method,
+  });
+  res.status(statusCode).json({
+    success: false,
+    error: { code: errorCode, message: err.message, details: err.details },
+  });
+};
