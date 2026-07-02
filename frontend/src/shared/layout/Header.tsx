@@ -8,10 +8,15 @@ import LogoutIcon from "@/assets/icons/LogoutIcon";
 import ChevronIcon from "@/assets/icons/ChevronIcon";
 import { Button } from "@/shared/components/ui/Button";
 import { Dropdown } from "@/shared/components/ui/DropDown";
-import ToggleButton from "@/shared/components/ui/ToggleButton";
+import { ToggleButton, ToggleLabel } from "@/shared/components/ui/Toggle";
 import type { AreaType, HeaderType } from "@/shared/types/types";
+import { Toggle } from "../components/ui/Toggle";
+import DarkIcon from "@/assets/icons/DarkIcon";
+import LightIcon from "@/assets/icons/LightIcon";
+import { useTheme } from "../hooks/useTheme";
 
 const Header: FC<HeaderType> = (props) => {
+  const { theme, themeToggler } = useTheme();
   const areas = useArea(useShallow((state) => state.areas));
   const setArea = useArea(useShallow((state) => state.setArea));
   const selectedArea = useArea(useShallow((state) => state.selectedArea));
@@ -96,7 +101,16 @@ const Header: FC<HeaderType> = (props) => {
           />
 
           {!isShow ? (
-            <ToggleButton />
+            <Toggle className="relative flex w-22 h-11 bg-b-third rounded-full">
+              <ToggleButton onClick={themeToggler} className="flex">
+                <ToggleLabel
+                  isActive={`${theme === "dark" ? "translate-x-0" : "translate-x-11"}`}
+                  className="absolute top-1 left-1 bg-b-muted size-9 rounded-full transition duration-200"
+                />
+                <DarkIcon className="z-10 size-11 p-3 fill-st-primary" />
+                <LightIcon className="z-10 size-11 p-3 fill-st-primary" />
+              </ToggleButton>
+            </Toggle>
           ) : (
             <>
               <span className="w-px h-8 bg-bo-primary"></span>
