@@ -9,13 +9,13 @@ import ChevronIcon from "@/assets/icons/ChevronIcon";
 import { Button } from "@/shared/components/ui/Button";
 import { Dropdown } from "@/shared/components/ui/DropDown";
 import { ToggleButton, ToggleLabel } from "@/shared/components/ui/Toggle";
-import type { AreaType, HeaderType } from "@/shared/types/types";
+import type { AreaType, HeaderProps } from "@/shared/types/types";
 import { Toggle } from "../components/ui/Toggle";
 import DarkIcon from "@/assets/icons/DarkIcon";
 import LightIcon from "@/assets/icons/LightIcon";
 import { useTheme } from "../hooks/useTheme";
 
-const Header: FC<HeaderType> = (props) => {
+const Header: FC<HeaderProps> = (props) => {
   const { theme, themeToggler } = useTheme();
   const areas = useArea(useShallow((state) => state.areas));
   const setArea = useArea(useShallow((state) => state.setArea));
@@ -26,7 +26,7 @@ const Header: FC<HeaderType> = (props) => {
   return (
     <>
       <header {...props}>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 animate-scale-in">
           <Logo className="size-7 fill-st-primary" />
           <h2 className="text-2xl font-bold text-st-primary">Markist</h2>
         </div>

@@ -25,7 +25,7 @@ const ForgetPasswordPage = () => {
   };
   return (
     <section className="relative flex-center w-full h-dvh ">
-      <div className="form-box">
+      <div className="form-box animate-slide-up">
         <h2 className="heading-2">Forget Your Password</h2>
         <p className="text-md text-t-placeholder text-center mt-4">
           Enter your email address below and we’ll send you password reset

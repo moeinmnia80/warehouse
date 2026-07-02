@@ -20,7 +20,7 @@ interface ToggleButtonProps extends Omit<
   "onClick"
 > {
   /** set custom dev onClick. */
-  onClick?: (on: boolean) => void;
+  onClick?: () => void;
   /** set class when is active. */
   isActive?: string;
 }
@@ -52,18 +52,18 @@ export const ToggleButton: FC<ToggleButtonProps> = ({
   children,
   ...props
 }) => {
-  const { on, setOn } = useContext(ToggleContext);
+  const { setOn } = useContext(ToggleContext);
   const clickHandler = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     event.preventDefault();
     setOn((prev) => !prev);
-    onClick?.(on);
+    onClick?.();
   };
   return (
     <button
       onClick={(event) => clickHandler(event)}
-      className={`${className} ${(on && isActive) || ""}`}
+      className={`${className} ${isActive}`}
       {...props}
     >
       {children}

@@ -20,7 +20,7 @@ const ResetPasswordPage = () => {
   }
   return (
     <section className="relative flex-center w-full h-dvh ">
-      <div className="form-box">
+      <div className="form-box animate-slide-up">
         <h2 className="heading-2">Reset Password</h2>
         <p className="text-md text-t-placeholder text-center mt-4">
           Create a new password for task hub account by filling out the form

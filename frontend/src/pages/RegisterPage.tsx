@@ -28,7 +28,7 @@ const RegisterPage = () => {
 
   return (
     <section className="relative flex-center w-full min-h-dvh">
-      <div className="form-box my-12">
+      <div className="form-box my-12 animate-slide-up">
         <Logo className="self-center size-12 fill-st-primary" />
         <h2 className="heading-2">Register Account</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>

@@ -10,7 +10,7 @@ const DashboardHeader = () => {
   const areas = useArea(useShallow((state) => state.areas));
   const setArea = useArea(useShallow((state) => state.setArea));
   return (
-    <div className="flex gap-12 w-full h-32 bg-b-primary rounded-2xl p-5">
+    <div className="flex gap-12 w-full h-32 bg-b-primary rounded-2xl p-5 animate-slide-down">
       <div className="flex flex-col justify-between h-full w-fit">
         <h3 className="text-t-primary font-bold text-4xl">
           Packages in Suite XC1164
@@ -19,10 +19,10 @@ const DashboardHeader = () => {
           My Shipping Schedule:
           <span
             className="relative bg-warning-50 
-          text-warning text-md font-semibold
+          text-warning text-md font-semibold 
             py-0.5 px-3 pl-5 rounded-full ml-4"
           >
-            <span className="absolute top-1/2 -translate-y-1/2 left-2 inline-block size-1.5 rounded-full bg-warning"></span>
+            <span className="absolute top-1/2 -translate-y-1/2 left-2 inline-block size-1.5 rounded-full bg-warning animate-pulse"></span>
             Hold
           </span>
         </p>

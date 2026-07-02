@@ -2,6 +2,7 @@ import { changeTheme, themeCheck } from "@/shared/utils/theme";
 import type { contextType } from "@/shared/types/types";
 import {
   createContext,
+  useCallback,
   useEffect,
   useState,
   type ComponentPropsWithoutRef,
@@ -17,9 +18,9 @@ const ThemeProvider: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
     changeTheme(theme);
   }, [theme]);
 
-  const themeToggler = () => {
+  const themeToggler = useCallback(() => {
     setTheme(theme === "dark" ? "light" : "dark");
-  };
+  }, [theme]);
   return (
     <ThemeContext value={{ theme, themeToggler }}>{children}</ThemeContext>
   );

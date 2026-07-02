@@ -4,7 +4,7 @@ import {
   type ComponentPropsWithoutRef,
 } from "react";
 
-export type HeaderType = {
+export type HeaderProps = {
   children?: ReactNode;
 } & ComponentPropsWithoutRef<"section">;
 
