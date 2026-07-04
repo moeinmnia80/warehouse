@@ -33,10 +33,12 @@
 
   /* accent color */
   --color-success: #07b256;
+  --color-success-50: rgba(7, 178, 86, 10%);
   --color-alert: #e42f23;
   --color-error: #d52027;
+  --color-error-50: rgba(213, 32, 39, 10%);
   --color-warning: #f79009;
-  --color-warning-50: rgb(247, 144, 9, 10%);
+  --color-warning-50: rgba(247, 144, 9, 10%);
   /* text-size */
   --text-xs: clamp(6px, 0.5vw + 0.25rem, 10px);
   --text-sm: clamp(8px, 0.5vw + 0.25rem, 12px);
@@ -153,6 +155,25 @@
   body {
     font-family: "Plus Jakarta Sans", "poppins", sans-serif;
   }
+  /****** scrollbar ******/
+  /* width */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 0;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--color-b-secondary);
+    border-inline-end: 1px solid var(--color-b-muted);
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-t-secondary);
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-t-primary);
+  }
   button,
   :focus {
     border: none;
@@ -185,6 +206,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .ready {
+    color: var(--color-success);
+    background-color: var(--color-success-50);
+  }
+  .review {
+    color: var(--color-warning);
+    background-color: var(--color-warning-50);
+  }
+  .required {
+    color: var(--color-error);
+    background-color: var(--color-error-50);
   }
 }
 @layer components {

@@ -1,14 +1,7 @@
-// import { useArea } from "@/store";
 import { Link } from "react-router";
-// import { useShallow } from "zustand/shallow";
-// import TickIcon from "@/assets/icons/TickIcon";
 import QueueIcon from "@/assets/icons/QueueIcon";
-// import { DropDown } from "@/shared/components/ui/DropDown";
 
 const DashboardHeader = () => {
-  // const selectedArea = useArea(useShallow((state) => state.selectedArea));
-  // const areas = useArea(useShallow((state) => state.areas));
-  // const setArea = useArea(useShallow((state) => state.setArea));
   return (
     <div className="flex w-full h-42 md:h-32 bg-b-primary rounded-2xl p-5 animate-slide-down">
       <div className="flex flex-col gap-1 justify-center lg:justify-between h-full w-fit border-e border-bo-primary pe-4 sm:pe-8">
@@ -44,56 +37,7 @@ const DashboardHeader = () => {
           </Link>
         </div>
       </div>
-      <div className="hidden xl:flex flex-col justify-center">
-        <div className="text-t-primary text-md font-semibold mb-1.5">
-          Manage Packages
-        </div>
-        {/* <Dropdown
-          data={areas}
-          value={selectedArea}
-          onChange={setArea}
-          getKey={(area) => area.name}
-          valueClass={`bg-b-primary border border-bo-primary 
-            rounded-md h-11 flex items-center p-1`}
-          renderValue={() => (
-            <>
-              <div className="size-fit p-2">
-                <img
-                  className={`size-7 object-contain ml-2" `}
-                  src={selectedArea?.src}
-                  alt={selectedArea?.name}
-                />
-              </div>
-
-              <p className="text-sm font-bold text-t-primary ml-2">
-                {selectedArea.desc}
-              </p>
-            </>
-          )}
-          itemClass="top-full right-0 w-80 
-            bg-b-primary mt-2  p-1 
-            border border-bo-primary rounded-md"
-          renderItem={(area) => (
-            <>
-              <div className="size-fit">
-                <img
-                  className="w-6 h-4 object-contain"
-                  src={area.src}
-                  alt={area.name}
-                />
-              </div>
-              <p className="text-md text-t-primary font-semibold">
-                {area.desc}
-              </p>
-              <TickIcon
-                className={`size-5 ${
-                  area.name === area.name ? "stroke-st-primary" : "invisible"
-                }`}
-              />
-            </>
-          )}
-        /> */}
-      </div>
+      <div className="hidden xl:flex flex-col justify-center"></div>
     </div>
   );
 };

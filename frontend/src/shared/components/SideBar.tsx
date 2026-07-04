@@ -3,10 +3,7 @@ import CalculatorIcon from "@/assets/icons/CalculatorIcon";
 
 const SideBar = () => {
   return (
-    <aside
-      className="flex flex-col gap-5 
-      w-[90vw] max-w-100 bg-b-primary p-6 rounded-2xl"
-    >
+    <aside className="flex flex-col gap-5 h-fit w-[90vw] max-w-100 bg-b-primary p-6 rounded-2xl ">
       <h4 className="text-center text-lg text-t-secondary font-medium">
         All values are in United States dollars (USD).
       </h4>
@@ -18,7 +15,7 @@ const SideBar = () => {
           <div className="flex-center size-14 bg-primary rounded-xl p-2">
             <CalculatorIcon className="size-9 stroke-t-primary" />
           </div>
-          <h3 className="text-md xl:text-2xl font-semibold text-t-primary mt-3">
+          <h3 className="text-md text-lg xl:text-xl font-semibold text-t-primary mt-3">
             Shipping Calculator
           </h3>
         </div>
@@ -29,7 +26,7 @@ const SideBar = () => {
           <div className="flex-center size-14 bg-primary rounded-xl p-2">
             <BookIcon className="size-9 stroke-t-primary" />
           </div>
-          <h3 className="text-md xl:text-2xl font-semibold text-t-primary mt-3">
+          <h3 className="text-md text-lg xl:text-xl font-semibold text-t-primary mt-3">
             Address Book
           </h3>
         </div>

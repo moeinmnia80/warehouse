@@ -1,28 +1,91 @@
-const Table = () => {
+import { createContext, type ComponentPropsWithoutRef } from "react";
+import { Checkbox, Label } from "./Form";
+
+// ------------------------------------------------------------
+//1-————— Table ———————————————————————————————————————————————
+// ------------------------------------------------------------
+const TableContext = createContext({});
+
+export const Table = ({
+  children,
+  className,
+
+  ...props
+}: ComponentPropsWithoutRef<"div">) => {
   return (
-    <div className="p-6 text-t-primary">
-      <div className="w-full rounded-xl overflow-hidden border border-bo-primary">
-        <div className="flex justify-around items-center bg-b-secondary  border-b border-bo-primary h-11">
-          <div className="flex px-10"></div>
-          <div className="text-md px-10">PackageId</div>
-          <div className="text-md px-10">Data Received</div>
-          <div className="text-md px-10">Item Values</div>
-          <div className="text-md px-10">Weight</div>
-          <div className="text-md px-10">Status</div>
-          <div className="text-md px-10">Action</div>
-        </div>
-        <div className="grid auto-rows-18">
-          <div className="flex items-center px-10 border-b border-bo-primary">
-            <div>
-              <h3 className="text-md text-t-primary">Amazon</h3>
-              <p className="text-md text-t-secondary">IZ6A9426897731887</p>
-            </div>
-          </div>
-          <div></div>
+    <TableContext value={{}}>
+      <div className="overflow-auto max-h-125 ">
+        <div className={`"min-w-max" ${className ? className : ""}`} {...props}>
+          {children}
         </div>
       </div>
+    </TableContext>
+  );
+};
+
+// ------------------------------------------------------------
+//2-————— Table Header ————————————————————————————————————————
+// ------------------------------------------------------------
+export const THead = ({
+  children,
+  className,
+  ...props
+}: ComponentPropsWithoutRef<"div">) => {
+  return (
+    <div
+      className={`min-w-max sticky top-0 z-10 ${className ? className : ""}`}
+      {...props}
+    >
+      {children}
     </div>
   );
 };
 
-export default Table;
+// ------------------------------------------------------------
+//3-————— Table Body ——————————————————————————————————————————
+// ------------------------------------------------------------
+export const TBody = ({
+  children,
+  className,
+  ...props
+}: ComponentPropsWithoutRef<"div">) => {
+  return (
+    <div
+      className={`min-w-max flex flex-col ${className ? className : ""}`}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+};
+
+// ------------------------------------------------------------
+//4-————— Table Row  ——————————————————————————————————————————
+// ------------------------------------------------------------
+interface TableRow extends ComponentPropsWithoutRef<"div"> {
+  name: string | undefined;
+}
+export const Row = ({ children, name, ...props }: TableRow) => {
+  if (!name) return;
+  return (
+    <div {...props}>
+      <TD className="min-w-10 shrink-0 py-4 px-3">
+        <Label className="flex-center gap-2">
+          <Checkbox
+            accentClass="stroke-st-primary"
+            name={name}
+            onChange={() => {}}
+          />
+        </Label>
+      </TD>
+      {children}
+    </div>
+  );
+};
+
+// ------------------------------------------------------------
+//5-————— Table Data  —————————————————————————————————————————
+// ------------------------------------------------------------
+export const TD = ({ children, ...props }: ComponentPropsWithoutRef<"div">) => {
+  return <div {...props}>{children}</div>;
+};

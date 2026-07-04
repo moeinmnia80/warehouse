@@ -19,6 +19,7 @@ import {
   DropdownContent,
   DropdownItem,
 } from "@/shared/components/ui/DropDown";
+import SettingsIcon from "@/assets/icons/SettingsIcon";
 
 const Header = (props: ComponentProps<"header">) => {
   const { theme, themeToggler } = useTheme();
@@ -123,14 +124,15 @@ const Header = (props: ComponentProps<"header">) => {
                 </DropdownButton>
                 <DropdownContent className="bg-b-primary border border-bo-primary rounded-md p-1 mt-2 animate-fade-in">
                   <DropdownItem>
-                    <Button className="btn text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary ">
+                    <Button className="btn text-t-primary text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary ">
                       Log Out
-                      <LogoutIcon className="size-4 fill-st-primary ml-2" />
+                      <LogoutIcon className="size-4 fill-st-primary ms-5" />
                     </Button>
                   </DropdownItem>
                   <DropdownItem>
-                    <Button className="btn text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary">
+                    <Button className="btn text-t-primary text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary">
                       Settings
+                      <SettingsIcon className="size-4 stroke-st-primary ms-5" />
                     </Button>
                   </DropdownItem>
                 </DropdownContent>
