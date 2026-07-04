@@ -16,7 +16,7 @@ const Image = ({ src, alt, imageClass, ...props }: ImageProps) => {
       <img
         src={src}
         alt={alt}
-        className={`w-full h-full object-cover ${imageClass}`}
+        className={`w-full h-full ${imageClass ? imageClass : "object-cover"}`}
       />
     </div>
   );

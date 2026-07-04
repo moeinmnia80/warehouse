@@ -44,14 +44,11 @@ interface ToggleButtonProps extends Omit<
 > {
   /** set custom dev onClick. */
   onClick?: () => void;
-  /** set class when is active. */
-  isActive?: string;
 }
 
 export const ToggleButton = ({
   onClick,
   className,
-  isActive,
   children,
   ...props
 }: ToggleButtonProps) => {
@@ -62,11 +59,7 @@ export const ToggleButton = ({
     onClick?.();
   };
   return (
-    <button
-      onClick={handleClick}
-      className={`${className} ${isActive}`}
-      {...props}
-    >
+    <button onClick={handleClick} className={className} {...props}>
       {children}
     </button>
   );
@@ -74,18 +67,13 @@ export const ToggleButton = ({
 // ------------------------------------------------------------
 //4-————— Toggle Label ————————————————————————————————————————
 // ------------------------------------------------------------
-interface ToggleLabelProps extends ComponentPropsWithoutRef<"span"> {
-  /** set class when is active. */
-  isActive?: string;
-}
 export const ToggleLabel = ({
   className,
-  isActive,
   children,
   ...props
-}: ToggleLabelProps) => {
+}: ComponentPropsWithoutRef<"span">) => {
   return (
-    <span className={`${className} ${isActive}`} {...props}>
+    <span className={className} {...props}>
       {children}
     </span>
   );

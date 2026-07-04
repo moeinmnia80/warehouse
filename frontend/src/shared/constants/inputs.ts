@@ -24,20 +24,4 @@ export const registerInput: RegisterType[] = [
     placeholder: "Enter username",
     autoComplete: "username",
   },
-  {
-    label: "Email address",
-    id: "email",
-    type: "email",
-    name: "email",
-    placeholder: "Enter email address",
-    autoComplete: "email",
-  },
-  {
-    label: "Password",
-    id: "password",
-    type: "password",
-    name: "password",
-    placeholder: "Enter password",
-    autoComplete: "new-password",
-  },
 ];

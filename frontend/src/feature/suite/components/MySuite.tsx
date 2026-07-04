@@ -24,6 +24,7 @@ const MySuite = () => {
             className={`h-9 btn-third font-semibold transition duration-200
             ${isActive === tab.value && "bg-t-primary text-primary"}`}
             value={tab.value}
+            key={tab.id}
           >
             {tab.value}
           </Button>

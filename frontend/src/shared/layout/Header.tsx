@@ -36,7 +36,7 @@ const Header = (props: ComponentProps<"header">) => {
           <h2 className="text-2xl font-bold text-st-primary">Markist</h2>
         </div>
         {isShow && (
-          <ul className="flex gap-10">
+          <ul className="hidden gap-10 lg:flex">
             <li className="cursor-pointer text-t-secondary text-lg font-medium">
               My Suit
             </li>
@@ -52,15 +52,8 @@ const Header = (props: ComponentProps<"header">) => {
           </ul>
         )}
         <div className="flex-center gap-4">
-          {isShow && (
-            <Button className="btn btn--border w-32 h-10">
-              Log Out
-              <LogoutIcon className="size-4 fill-st-primary ml-1" />
-            </Button>
-          )}
           <Dropdown
-            className={`flex-center w-fit min-w-22 h-11 rounded-full
-            ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}
+            className={`hidden w-fit min-w-22 h-11 rounded-full xl:flex items-center justify-center ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}
           >
             <DropdownButton className="w-full flex-between p-2 px-3">
               <Image
@@ -76,13 +69,13 @@ const Header = (props: ComponentProps<"header">) => {
               <ChevronIcon className="size-4 fill-st-primary" />
             </DropdownButton>
             <DropdownContent
-              className={`flex flex-col items-center mt-2 rounded-xl p-1
-              ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}
+              className={`flex flex-col gap-1 items-center mt-2 rounded-xl p-1 animate-fade-in ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}
             >
               {areas.map((item) => (
                 <DropdownItem
                   onClick={() => setArea(item)}
-                  className="flex-between w-77 h-11 rounded-xl px-2 hover:bg-b-secondary"
+                  className={`flex-between w-77 h-11 rounded-xl px-2 hover:bg-b-secondary
+                  ${selectedArea.name === item.name ? "bg-b-secondary" : ""}`}
                   key={item.name}
                 >
                   <Image
@@ -108,8 +101,7 @@ const Header = (props: ComponentProps<"header">) => {
             <Toggle className="relative flex w-22 h-11 bg-b-third rounded-full">
               <ToggleButton onClick={themeToggler} className="flex">
                 <ToggleLabel
-                  isActive={`${theme === "dark" ? "translate-x-0" : "translate-x-11"}`}
-                  className="absolute top-1 left-1 bg-b-muted size-9 rounded-full transition duration-200"
+                  className={`absolute top-1 left-1 bg-b-muted size-9 rounded-full transition duration-200 ${theme === "dark" ? "translate-x-0" : "translate-x-11"}`}
                 />
                 <DarkIcon className="z-10 size-11 p-3 fill-st-primary" />
                 <LightIcon className="z-10 size-11 p-3 fill-st-primary" />
@@ -117,18 +109,32 @@ const Header = (props: ComponentProps<"header">) => {
             </Toggle>
           ) : (
             <>
-              <span className="w-px h-8 bg-bo-primary"></span>
-              <Button className="flex justify-between w-26 ">
-                <div className="text-left">
-                  <h3 className="text-xs font-bold text-t-primary">
-                    Bryan Adams
-                  </h3>
-                  <p className="text-xs font-bold  text-t-placeholder">
-                    Manager
-                  </p>
-                </div>
-                <ChevronIcon className="size-4 stroke-st-primary" />
-              </Button>
+              <Dropdown>
+                <DropdownButton className="flex-between w-18 xl:w-24 shrink-0">
+                  <div className="text-left">
+                    <h3 className="text-sm xl:text-xs font-bold text-t-primary">
+                      Bryan Adams
+                    </h3>
+                    <p className="text-sm xl:text-xs font-bold  text-t-placeholder">
+                      Manager
+                    </p>
+                  </div>
+                  <ChevronIcon className="size-4 fill-st-primary" />
+                </DropdownButton>
+                <DropdownContent className="bg-b-primary border border-bo-primary rounded-md p-1 mt-2 animate-fade-in">
+                  <DropdownItem>
+                    <Button className="btn text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary ">
+                      Log Out
+                      <LogoutIcon className="size-4 fill-st-primary ml-2" />
+                    </Button>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Button className="btn text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary">
+                      Settings
+                    </Button>
+                  </DropdownItem>
+                </DropdownContent>
+              </Dropdown>
             </>
           )}
         </div>

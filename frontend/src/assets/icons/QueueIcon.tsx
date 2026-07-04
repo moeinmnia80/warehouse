@@ -29,7 +29,7 @@ const QueueIcon: FC<ComponentProps<"svg">> = (props) => {
         d="M12 29.3333H20V25.3333C20 23.1241 18.2091 21.3333 16 21.3333C13.7909 21.3333 12 23.1241 12 25.3333V29.3333Z"
         stroke="white"
         strokeWidth="2"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );

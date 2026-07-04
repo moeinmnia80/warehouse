@@ -4,8 +4,16 @@ import GoogleIcon from "@/assets/icons/GoogleIcon";
 import { Button } from "@/shared/components/ui/Button";
 import FacebookIcon from "@/assets/icons/FacebookIcon";
 import { registerInput } from "@/shared/constants/inputs";
-import { Form, Input } from "@/shared/components/ui/Form";
-import { CheckBox } from "@/shared/components/ui/CheckBox";
+import {
+  Caption,
+  Checkbox,
+  Email,
+  Form,
+  FormItem,
+  Input,
+  Label,
+  Password,
+} from "@/shared/components/ui/Form";
 import { useForm } from "react-hook-form";
 import {
   registerSchema,
@@ -33,9 +41,9 @@ const RegisterPage = () => {
         <h2 className="heading-2">Register Account</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
           {registerInput.map((input) => (
-            <div key={input.name}>
+            <FormItem className="flex flex-col gap-2" key={input.id}>
+              <Label className="form__label font-medium">{input.label}</Label>
               <Input
-                label={input.label}
                 className="form__input"
                 id={input.id}
                 type={input.type}
@@ -44,26 +52,54 @@ const RegisterPage = () => {
                 {...register(`${input.name}`)}
                 name={input.name}
               />
-              <p className="text-sm text-error px-3 font-light mt-3">
+              <Caption className="text-sm text-error px-3 font-light">
                 {errors[input.name]?.message}
-              </p>
-            </div>
+              </Caption>
+            </FormItem>
           ))}
-          <CheckBox
-            type="checkbox"
-            id="policy"
-            {...register("policy", {
-              required: "You must accept the policy",
-            })}
-            name="policy"
-          >
-            By creating an account, you agree to the{" "}
-            <span className="font-bold">Terms & Conditions</span> and our
-            <span className="font-bold">Privacy Policy</span>.
-          </CheckBox>
-          <p className="text-sm text-error px-3 font-light">
-            {errors.policy?.message}
-          </p>
+          <FormItem className="flex flex-col gap-2">
+            <Label className="form__label font-medium" htmlFor="email">
+              Email
+            </Label>
+            <Email className="form__input" {...register("email")} />
+            <Caption className="text-sm text-error px-3 font-light">
+              {errors.email?.message}
+            </Caption>
+          </FormItem>
+          <FormItem className="flex flex-col gap-2">
+            <Label className="form__label font-medium" htmlFor="password">
+              Password
+            </Label>
+            <Password
+              className="form__input"
+              variant="password"
+              classIcon="size-4 stroke-t-placeholder"
+              {...register("password")}
+            />
+            <Caption className="text-sm text-error px-3 font-light">
+              {errors.password?.message}
+            </Caption>
+          </FormItem>
+          <FormItem className="flex items-center gap-1">
+            <Label className="form__label flex items-center gap-1">
+              <Checkbox
+                className="size-4 bg-b-checkbox border-bo-secondary rounded-sm shrink-0"
+                accentClass="stroke-t-primary"
+                {...register("policy", {
+                  required: "You must accept the policy",
+                })}
+                name="policy"
+              />
+              <p className="text-xs font-light max-w-60">
+                By creating an account, you agree to the{" "}
+                <span className="font-bold">Terms & Conditions</span> and our
+                <span className="font-bold">Privacy Policy</span>
+              </p>
+            </Label>
+            <Caption className="text-sm text-error px-3 font-light">
+              {errors.policy?.message}
+            </Caption>
+          </FormItem>
           <Button className="btn btn--primary font-semibold mt-4 px-2">
             Sign in
           </Button>

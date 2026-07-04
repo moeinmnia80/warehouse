@@ -159,13 +159,10 @@ export const DropdownLabel = ({
 interface DropdownItemProps extends Omit<ComponentProps<"div">, "onClick"> {
   /* custom handleClick with on (open/close:boolean) value */
   onClick?: (on?: boolean) => void;
-  /* when item selected */
-  isActive?: string;
 }
 export const DropdownItem = ({
   className,
   onClick,
-  isActive,
   children,
   ...props
 }: DropdownItemProps) => {
@@ -177,7 +174,7 @@ export const DropdownItem = ({
   };
   return (
     <div
-      className={`transition duration-200 cursor-pointer ${className} ${isActive}`}
+      className={`transition duration-200 cursor-pointer ${className ? className : ""}`}
       onClick={handleClick}
       {...props}
     >

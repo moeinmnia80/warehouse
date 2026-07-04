@@ -1,11 +1,12 @@
 import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, Input } from "@/shared/components/ui/Form";
+import { Caption, Email, Form, Label } from "@/shared/components/ui/Form";
 import {
   forgetPasswordSchema,
   type ForgetPasswordData,
 } from "../shared/schema/auth.schema";
+import { Button } from "@/shared/components/ui/Button";
 
 const ForgetPasswordPage = () => {
   const {
@@ -18,11 +19,13 @@ const ForgetPasswordPage = () => {
   const navigate = useNavigate();
 
   function onSubmit(data: ForgetPasswordData) {
-    console.log(data);
+    if (data.email) {
+      navigate("/reset-password");
+    }
   }
-  const backToPrevPage = () => {
-    navigate(-1);
-  };
+
+  const backToPrevPage = () => navigate(-1);
+
   return (
     <section className="relative flex-center w-full h-dvh ">
       <div className="form-box animate-slide-up">
@@ -32,26 +35,16 @@ const ForgetPasswordPage = () => {
           instructions.
         </p>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            label="Email address"
-            className="form__input"
-            id="email"
-            type="email"
-            placeholder="Enter email address"
-            autoComplete="email"
-            {...register("email")}
-            name="email"
-          />
-          <p className="text-sm text-error px-3 font-light">
-            {errors.email?.message}
-          </p>
-
-          <Link
-            to="/reset-password"
-            className="btn btn--primary font-semibold px-2"
-          >
+          <Label className="form__label flex flex-col gap-2">
+            Email address
+            <Email className="form__input" {...register("email")} />
+            <Caption className="text-sm text-error px-3 font-light">
+              {errors.email?.message}
+            </Caption>
+          </Label>
+          <Button className="btn btn--primary font-semibold px-2">
             Reset Password
-          </Link>
+          </Button>
         </Form>
         <button
           type="button"

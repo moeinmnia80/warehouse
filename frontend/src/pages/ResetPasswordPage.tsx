@@ -1,7 +1,13 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/shared/components/ui/Button";
-import { Form, Input } from "@/shared/components/ui/Form";
+import {
+  Caption,
+  Form,
+  FormItem,
+  Label,
+  Password,
+} from "@/shared/components/ui/Form";
 import {
   resetPasswordSchema,
   type ResetPasswordData,
@@ -17,6 +23,7 @@ const ResetPasswordPage = () => {
   });
   function onSubmit(data: ResetPasswordData) {
     console.log(data);
+    console.log(errors);
   }
   return (
     <section className="relative flex-center w-full h-dvh ">
@@ -27,29 +34,31 @@ const ResetPasswordPage = () => {
           below
         </p>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            label="New Password"
-            className="form__input"
-            id="password"
-            type="password"
-            placeholder="Create new password"
-            {...register("password")}
-            name="password"
-          />
-
-          {errors.password && (
-            <p className="text-sm text-error px-3 font-light">
+          <FormItem className="flex flex-col gap-2">
+            <Label className="form__label">Password</Label>
+            <Password
+              variant="password"
+              className="form__input"
+              classIcon="size-4 stroke-st-primary"
+              {...register("password")}
+            />
+            <Caption className="text-sm text-error px-3 font-light">
               {errors.password?.message}
-            </p>
-          )}
-          <Input
-            label="Repeat Password"
-            className="form__input"
-            id="confirmPassword"
-            type="password"
-            placeholder="Re enter new password"
-            name="confirmPassword"
-          />
+            </Caption>
+          </FormItem>
+          <FormItem className="flex flex-col gap-2">
+            <Label className="form__label">Confirm Password</Label>
+            <Password
+              variant="confirmPassword"
+              className="form__input"
+              classIcon="size-4 stroke-st-primary"
+              placeholder="Confirm password"
+              {...register("confirmPassword")}
+            />
+            <Caption className="text-sm text-error px-3 font-light">
+              {errors.confirmPassword?.message}
+            </Caption>
+          </FormItem>
           <Button className="btn btn--primary font-semibold px-2">
             Reset Password
           </Button>

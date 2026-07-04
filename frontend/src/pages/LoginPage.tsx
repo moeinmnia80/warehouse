@@ -7,13 +7,13 @@ import FacebookIcon from "@/assets/icons/FacebookIcon";
 import { Button } from "@/shared/components/ui/Button";
 import {
   Caption,
+  Checkbox,
   Email,
   Form,
   FormItem,
   Label,
   Password,
 } from "@/shared/components/ui/Form";
-import { CheckBox } from "@/shared/components/ui/CheckBox";
 import { loginSchema, type LoginFormData } from "@/shared/schema/auth.schema";
 
 function LoginPage() {
@@ -39,7 +39,7 @@ function LoginPage() {
               </Label>
               <Email className="form__input" {...register("email")} />
               <Caption className="text-sm text-error px-1 font-light">
-                {errors.email?.message}
+                {errors.email && errors.email?.message}
               </Caption>
             </FormItem>
             <FormItem className="flex flex-col gap-2">
@@ -58,7 +58,10 @@ function LoginPage() {
             </FormItem>
             <FormItem className="flex-between">
               <Label className="flex-center gap-1 text-sm font-medium text-t-primary">
-                <CheckBox />
+                <Checkbox
+                  className="size-4 bg-b-checkbox border-bo-secondary rounded-sm shrink-0"
+                  accentClass="stroke-t-primary"
+                />
                 Remember for 30 days
               </Label>
               <Link

@@ -42,7 +42,7 @@ export const Label = ({ children, ...props }: ComponentProps<"label">) => {
   return <label {...props}>{children}</label>;
 };
 // ------------------------------------------------------------
-//4-————— Caption ———————————————————————————————————————————————
+//4-————— Caption —————————————————————————————————————————————
 // ------------------------------------------------------------
 export const Caption = ({ children, ...props }: ComponentProps<"p">) => {
   return <p {...props}>{children}</p>;
@@ -70,9 +70,9 @@ interface CheckboxProps extends Omit<ComponentProps<"input">, "type"> {
   accentClass: string;
 }
 export const Checkbox = ({
-  className,
+  className = "size-4 rounded-sm border-gray-300",
   children,
-  accentClass,
+  accentClass = "stroke-gray-300",
   ...props
 }: CheckboxProps) => {
   return (
@@ -129,9 +129,9 @@ interface PasswordProps extends Omit<
 
 export const Password = ({
   className,
-  classIcon,
+  classIcon = "size-4",
   variant = "password",
-  placeholder,
+  placeholder = "Enter password",
   onClick,
   children,
   ...props
@@ -150,7 +150,7 @@ export const Password = ({
         id={variant}
         name={variant}
         className={`w-full ${className}`}
-        placeholder={placeholder ? placeholder : "Enter password"}
+        placeholder={placeholder}
         autoComplete="new-password"
         {...props}
       />
@@ -176,7 +176,7 @@ export const Password = ({
 // size-4 bg-b-checkbox
 // border-bo-secondary rounded-sm
 // <span
-//   className={`text-xs font-light text-t-primary max-w-55 ${labelClass}`}
+//   className={` ${labelClass}`}
 // >
 //   {children}
 // </span>
