@@ -17,6 +17,6 @@ export const tabs = [
   {
     id: 3,
     className: "h-9 btn-third font-semibold",
-    value: "Ready To Send",
+    value: "Ready to Send",
   },
 ];
