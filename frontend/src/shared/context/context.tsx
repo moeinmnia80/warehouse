@@ -5,15 +5,20 @@ import {
   useCallback,
   useEffect,
   useState,
-  type ComponentPropsWithoutRef,
-  type FC,
+  type ComponentProps,
 } from "react";
-
+/* 
+  use context for change theme in project as state management 
+  (more like system distributed) 
+*/
 const ThemeContext = createContext({} as contextType);
+/* 
+  in react 18+ we never use FC because is verbosity for no real gain 
+  also we should never use .Provider in parent context element
+*/
 
-const ThemeProvider: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
+const ThemeProvider = ({ children }: ComponentProps<"div">) => {
   const [theme, setTheme] = useState<string>(themeCheck());
-
   useEffect(() => {
     changeTheme(theme);
   }, [theme]);
@@ -21,6 +26,7 @@ const ThemeProvider: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
   const themeToggler = useCallback(() => {
     setTheme(theme === "dark" ? "light" : "dark");
   }, [theme]);
+
   return (
     <ThemeContext value={{ theme, themeToggler }}>{children}</ThemeContext>
   );

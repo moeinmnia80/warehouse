@@ -9,7 +9,7 @@ interface RegisterType {
 
 export const registerInput: RegisterType[] = [
   {
-    label: "Fullname",
+    label: "Full Name",
     id: "fullname",
     type: "text",
     name: "fullname",

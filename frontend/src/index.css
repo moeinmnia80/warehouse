@@ -164,6 +164,9 @@
     box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0.5) inset !important;
     -webkit-text-fill-color: rgba(0, 0, 0, 0.9) !important;
   }
+  label {
+    cursor: pointer;
+  }
 }
 @layer utilities {
   .heading-2 {
@@ -177,6 +180,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 @layer components {
@@ -286,5 +294,10 @@
 
     padding-inline: 12px;
     padding-block: 12px;
+  }
+  .form__label {
+    font-size: var(--text-md);
+    color: var(--color-t-primary);
+    padding-inline: var(--spacing);
   }
 }

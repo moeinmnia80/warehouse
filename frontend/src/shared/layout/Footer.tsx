@@ -1,14 +1,14 @@
-import { useArea } from "@/store";
+// import { useArea } from "@/store";
 import Logo from "@/assets/icons/Logo";
-import { useShallow } from "zustand/shallow";
+// import { useShallow } from "zustand/shallow";
 import type { ComponentProps, FC } from "react";
 import SocialMedia from "@/shared/components/SocialMedia";
-import { Dropdown } from "@/shared/components/ui/DropDown";
+// import { Dropdown } from "@/shared/components/ui/DropDown";
 
 const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
-  const areas = useArea(useShallow((state) => state.areas));
-  const selectedArea = useArea(useShallow((state) => state.selectedArea));
-  const setArea = useArea(useShallow((state) => state.setArea));
+  // const areas = useArea(useShallow((state) => state.areas));
+  // const selectedArea = useArea(useShallow((state) => state.selectedArea));
+  // const setArea = useArea(useShallow((state) => state.setArea));
 
   return (
     <>
@@ -40,7 +40,7 @@ const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
             <p className="font-medium text-t-secondary text-lg">
               Privacy Policy
             </p>
-            <Dropdown
+            {/* <Dropdown
               data={areas}
               value={selectedArea}
               onChange={setArea}
@@ -77,7 +77,7 @@ const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
                   </p>
                 </>
               )}
-            />
+            /> */}
           </div>
         </div>
       </footer>

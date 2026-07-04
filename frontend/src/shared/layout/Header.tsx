@@ -1,21 +1,26 @@
-import { type FC } from "react";
+import { type ComponentProps } from "react";
 import { useArea } from "@/store";
 import Logo from "@/assets/icons/Logo";
+import Image from "../components/ui/Image";
+import { useTheme } from "../hooks/useTheme";
 import { useShallow } from "zustand/shallow";
 import TickIcon from "@/assets/icons/TickIcon";
+import DarkIcon from "@/assets/icons/DarkIcon";
+import LightIcon from "@/assets/icons/LightIcon";
 import { checkPath } from "@/shared/utils/utils";
+import { Toggle } from "../components/ui/Toggle";
 import LogoutIcon from "@/assets/icons/LogoutIcon";
 import ChevronIcon from "@/assets/icons/ChevronIcon";
 import { Button } from "@/shared/components/ui/Button";
-import { Dropdown } from "@/shared/components/ui/DropDown";
 import { ToggleButton, ToggleLabel } from "@/shared/components/ui/Toggle";
-import type { AreaType, HeaderProps } from "@/shared/types/types";
-import { Toggle } from "../components/ui/Toggle";
-import DarkIcon from "@/assets/icons/DarkIcon";
-import LightIcon from "@/assets/icons/LightIcon";
-import { useTheme } from "../hooks/useTheme";
+import {
+  Dropdown,
+  DropdownButton,
+  DropdownContent,
+  DropdownItem,
+} from "@/shared/components/ui/DropDown";
 
-const Header: FC<HeaderProps> = (props) => {
+const Header = (props: ComponentProps<"header">) => {
   const { theme, themeToggler } = useTheme();
   const areas = useArea(useShallow((state) => state.areas));
   const setArea = useArea(useShallow((state) => state.setArea));
@@ -54,52 +59,51 @@ const Header: FC<HeaderProps> = (props) => {
             </Button>
           )}
           <Dropdown
-            data={areas}
-            value={selectedArea}
-            onChange={setArea}
-            getKey={(area) => area.name}
-            valueClass={` ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"} 
-            rounded-full h-11 flex items-center `}
-            renderValue={() => (
-              <>
-                <div className="size-fit p-2">
-                  <img
-                    className={`size-7 ${isShow ? "object-contain ml-2" : "rounded-full object-cover"}`}
-                    src={selectedArea?.src}
-                    alt={selectedArea?.name}
-                  />
-                </div>
-                {isShow && (
-                  <p className="text-sm font-bold text-t-primary ml-2">
-                    {selectedArea.desc}
-                  </p>
-                )}
-              </>
-            )}
-            itemClass="top-full right-0 w-80 
-            bg-b-primary mt-2  p-1 
-            border border-bo-primary rounded-md"
-            renderItem={(area: AreaType) => (
-              <>
-                <div className="size-fit">
-                  <img
-                    className="w-6 h-4 object-contain"
-                    src={area.src}
-                    alt={area.name}
-                  />
-                </div>
-                <p className="text-md text-t-primary font-semibold">
-                  {area.desc}
+            className={`flex-center w-fit min-w-22 h-11 rounded-full
+            ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}
+          >
+            <DropdownButton className="w-full flex-between p-2 px-3">
+              <Image
+                src={selectedArea?.src}
+                alt={selectedArea?.name}
+                className="w-6 h-4 object-contain"
+              />
+              {isShow && (
+                <p className="text-sm font-bold text-t-primary mx-2">
+                  {selectedArea.desc}
                 </p>
-                <TickIcon
-                  className={`size-5 ${
-                    area.name === area.name ? "stroke-st-primary" : "invisible"
-                  }`}
-                />
-              </>
-            )}
-          />
-
+              )}
+              <ChevronIcon className="size-4 fill-st-primary" />
+            </DropdownButton>
+            <DropdownContent
+              className={`flex flex-col items-center mt-2 rounded-xl p-1
+              ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}
+            >
+              {areas.map((item) => (
+                <DropdownItem
+                  onClick={() => setArea(item)}
+                  className="flex-between w-77 h-11 rounded-xl px-2 hover:bg-b-secondary"
+                  key={item.name}
+                >
+                  <Image
+                    src={item.src}
+                    alt={item.name}
+                    className="w-6 h-4 object-contain"
+                  />
+                  <p className="text-md text-t-primary font-semibold">
+                    {item.desc}
+                  </p>
+                  <TickIcon
+                    className={`size-5 ${
+                      item.name === selectedArea.name
+                        ? "stroke-st-primary"
+                        : "invisible"
+                    }`}
+                  />
+                </DropdownItem>
+              ))}
+            </DropdownContent>
+          </Dropdown>
           {!isShow ? (
             <Toggle className="relative flex w-22 h-11 bg-b-third rounded-full">
               <ToggleButton onClick={themeToggler} className="flex">

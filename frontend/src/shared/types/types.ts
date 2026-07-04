@@ -1,23 +1,10 @@
-import {
-  type ReactNode,
-  type ComponentProps,
-  type ComponentPropsWithoutRef,
-} from "react";
-
-export type HeaderProps = {
-  children?: ReactNode;
-} & ComponentPropsWithoutRef<"section">;
-
-export type contextType = {
+export interface contextType {
+  /* initial value */
   theme: string | null;
+  /* This way is better instead of pass state fn as props */
   themeToggler: () => void;
-};
-// drop down item
-export type DropDownType = { items: AreaType[] } & ComponentProps<"div">;
-export type DropItemType = {
-  area: AreaType;
-} & ComponentProps<"div">;
-export type DropDownWrapperType = { isOpen?: boolean } & ComponentProps<"div">;
+}
+
 // in store.ts
 export interface AreaType {
   name: string;
@@ -30,5 +17,3 @@ export interface DataState {
   selectedArea: AreaType;
   setArea: (data: AreaType) => void;
 }
-// form
-export type InputType = { label: string } & ComponentProps<"input">;

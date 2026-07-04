@@ -1,75 +1,99 @@
-# React + TypeScript + Vite
+# Markist — Warehouse Management System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Markist is a warehouse management application for tracking inventory, shipments, and day-to-day operations across one or more warehouse locations.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 📦 **My Suite** — Personal dashboard with your assigned tasks, saved views, and quick actions.
+- 🚚 **History Shipping** — Full log of past shipments, statuses, and tracking details.
+- 📊 **Inventory Overview** — Real-time stock levels across warehouses and bins.
+- 🔔 **Notifications** — Alerts for low stock, delayed shipments, and pending approvals.
+- 👥 **User Roles** — Role-based access for admins, warehouse staff, and shipping partners.
 
-## React Compiler
+## Navigation Tabs
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+| Tab                  | Description                                               |
+| -------------------- | --------------------------------------------------------- |
+| **My Suite**         | Personalized workspace: tasks, favorites, recent activity |
+| **History Shipping** | Historical record of all inbound/outbound shipments       |
+| ...                  | Additional tabs (add as the project grows)                |
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (v22+) / or your chosen backend runtime
+- Database (e.g., PostgreSQL / MySQL / MongoDB)
+- Package manager: npm / yarn / pnpm
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+git clone https://github.com/moeinmnia80/warehouse.git
+cd markist
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Configuration
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create a `.env` file in the root directory:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```env
+APP_NAME=Markist
+DATABASE_URL=your_database_connection_string
+PORT=3000
+```
+
+### Running the App
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:3000`.
+
+## Project Structure
 
 ```
+Project - warehouse - Markist/
+├── src/
+│   ├── feature/
+│   │   ├── suite/
+│   │   ├── dashboard/
+│   │   └── ...
+│   │
+│   ├── pages/
+│   │   ├── HomePage.tsx
+│   │   ├── LoginPage.jsx/
+│   │   └── ...
+│   │
+│   └── shared/
+│       ├── component/
+│       ├── layout/
+│       └── ...
+│
+│
+│
+├── public/
+├── index.html
+├── package.json
+├── tsconfig.json
+├── README.md
+└── ...
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/your-feature`)
+3. Commit your changes (`git commit -m 'Add your feature'`)
+4. Push to the branch (`git push origin feature/your-feature`)
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+## Contact
+
+For questions or support, please open an issue in this repository.

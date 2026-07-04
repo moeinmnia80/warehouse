@@ -5,7 +5,14 @@ import GoogleIcon from "@/assets/icons/GoogleIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
 import FacebookIcon from "@/assets/icons/FacebookIcon";
 import { Button } from "@/shared/components/ui/Button";
-import { Form, Input } from "@/shared/components/ui/Form";
+import {
+  Caption,
+  Email,
+  Form,
+  FormItem,
+  Label,
+  Password,
+} from "@/shared/components/ui/Form";
 import { CheckBox } from "@/shared/components/ui/CheckBox";
 import { loginSchema, type LoginFormData } from "@/shared/schema/auth.schema";
 
@@ -26,43 +33,41 @@ function LoginPage() {
           <Logo className="self-center size-12 fill-st-primary" />
           <h2 className="heading-2">Login Account</h2>
           <Form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              label="Email address"
-              className="form__input"
-              id="email"
-              type="email"
-              placeholder="Enter email address"
-              autoComplete="email"
-              {...register("email")}
-              name="email"
-            />
-            <p className="text-sm text-error px-3 font-light">
-              {errors.email?.message}
-            </p>
-            <Input
-              label="Password"
-              className="form__input"
-              id="password"
-              type="password"
-              placeholder="Enter your password"
-              autoComplete="new-password"
-              {...register("password")}
-              name="password"
-            />
-            <p className="text-sm text-error px-3 font-light">
-              {errors.password?.message}
-            </p>
-            <div className="flex items-center justify-between mx-1 mt-2">
-              <CheckBox className="" type="checkbox">
+            <FormItem className="flex flex-col gap-2">
+              <Label className="form__label font-medium" htmlFor="email">
+                Email address
+              </Label>
+              <Email className="form__input" {...register("email")} />
+              <Caption className="text-sm text-error px-1 font-light">
+                {errors.email?.message}
+              </Caption>
+            </FormItem>
+            <FormItem className="flex flex-col gap-2">
+              <Label className="form__label font-medium" htmlFor="password">
+                Password
+              </Label>
+              <Password
+                variant="password"
+                classIcon="size-4 stroke-t-placeholder"
+                className="form__input"
+                {...register("password")}
+              />
+              <Caption className="text-sm text-error px-1 font-light">
+                {errors.password?.message}
+              </Caption>
+            </FormItem>
+            <FormItem className="flex-between">
+              <Label className="flex-center gap-1 text-sm font-medium text-t-primary">
+                <CheckBox />
                 Remember for 30 days
-              </CheckBox>
+              </Label>
               <Link
                 to={"/forget-password"}
-                className="text-sm font-medium text-t-primary"
+                className="text-sm font-medium text-t-primary text-right"
               >
                 Forget password
               </Link>
-            </div>
+            </FormItem>
             <Button className="btn btn--primary font-semibold mt-4 px-2">
               Sign in
             </Button>

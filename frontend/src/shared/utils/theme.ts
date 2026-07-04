@@ -11,7 +11,6 @@ export const themeCheck = (): string => {
 
 export const changeTheme = (theme: string) => {
   const root = window.document.documentElement;
-
   if (theme === "dark") {
     root.classList.add("dark");
   } else {

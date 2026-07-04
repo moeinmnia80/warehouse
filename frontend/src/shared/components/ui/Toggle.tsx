@@ -1,12 +1,14 @@
 import {
-  createContext,
-  useContext,
   useState,
+  useContext,
+  createContext,
+  type ComponentProps,
   type ComponentPropsWithoutRef,
-  type FC,
 } from "react";
+//---------------------------------------------------------------
+//1-————— Toggle Context ————————————————————————————————————————
+//---------------------------------------------------------------
 
-// ————— Toggle Context ————————————————————————————————————————
 /**
  * A button that toggles between on/off state.
  * Must be used inside a <Toggle> provider.
@@ -15,6 +17,27 @@ interface ToggleContextValue {
   on: boolean;
   setOn: React.Dispatch<React.SetStateAction<boolean>>;
 }
+
+//---------------------------------------------------------------
+// ————— Toggle Context —————————————————————————————————————————
+//---------------------------------------------------------------
+const ToggleContext = createContext({} as ToggleContextValue);
+//---------------------------------------------------------------
+//2-————— Toggle Components —————————————————————————————————————
+//---------------------------------------------------------------
+
+export const Toggle = ({ children, ...props }: ComponentProps<"div">) => {
+  const [on, setOn] = useState(false);
+
+  return (
+    <ToggleContext value={{ on, setOn }}>
+      <div {...props}>{children}</div>
+    </ToggleContext>
+  );
+};
+//---------------------------------------------------------------
+//3-————— Toggle Button —————————————————————————————————————————
+//---------------------------------------------------------------
 interface ToggleButtonProps extends Omit<
   ComponentPropsWithoutRef<"button">,
   "onClick"
@@ -24,45 +47,23 @@ interface ToggleButtonProps extends Omit<
   /** set class when is active. */
   isActive?: string;
 }
-interface ToggleLabelProps extends ComponentPropsWithoutRef<"span"> {
-  /** set class when is active. */
-  isActive?: string;
-}
-// ————— Toggle Context ————————————————————————————————————————
-const ToggleContext = createContext({} as ToggleContextValue);
 
-// ————— Toggle Components —————————————————————————————————————
-export const Toggle: FC<ComponentPropsWithoutRef<"div">> = ({
-  children,
-  ...props
-}) => {
-  const [on, setOn] = useState(false);
-
-  return (
-    <ToggleContext value={{ on, setOn }}>
-      <div {...props}>{children}</div>
-    </ToggleContext>
-  );
-};
-// ————— Toggle Button ————————————————————————————————————————
-export const ToggleButton: FC<ToggleButtonProps> = ({
+export const ToggleButton = ({
   onClick,
   className,
   isActive,
   children,
   ...props
-}) => {
+}: ToggleButtonProps) => {
   const { setOn } = useContext(ToggleContext);
-  const clickHandler = (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.preventDefault();
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
     setOn((prev) => !prev);
     onClick?.();
   };
   return (
     <button
-      onClick={(event) => clickHandler(event)}
+      onClick={handleClick}
       className={`${className} ${isActive}`}
       {...props}
     >
@@ -70,13 +71,19 @@ export const ToggleButton: FC<ToggleButtonProps> = ({
     </button>
   );
 };
-// ————— Toggle Label ————————————————————————————————————————
-export const ToggleLabel: FC<ToggleLabelProps> = ({
+// ------------------------------------------------------------
+//4-————— Toggle Label ————————————————————————————————————————
+// ------------------------------------------------------------
+interface ToggleLabelProps extends ComponentPropsWithoutRef<"span"> {
+  /** set class when is active. */
+  isActive?: string;
+}
+export const ToggleLabel = ({
   className,
   isActive,
   children,
   ...props
-}) => {
+}: ToggleLabelProps) => {
   return (
     <span className={`${className} ${isActive}`} {...props}>
       {children}

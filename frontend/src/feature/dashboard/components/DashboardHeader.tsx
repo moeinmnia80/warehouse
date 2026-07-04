@@ -1,14 +1,14 @@
-import { useArea } from "@/store";
+// import { useArea } from "@/store";
 import { Link } from "react-router";
-import { useShallow } from "zustand/shallow";
-import TickIcon from "@/assets/icons/TickIcon";
+// import { useShallow } from "zustand/shallow";
+// import TickIcon from "@/assets/icons/TickIcon";
 import QueueIcon from "@/assets/icons/QueueIcon";
-import { Dropdown } from "@/shared/components/ui/DropDown";
+// import { DropDown } from "@/shared/components/ui/DropDown";
 
 const DashboardHeader = () => {
-  const selectedArea = useArea(useShallow((state) => state.selectedArea));
-  const areas = useArea(useShallow((state) => state.areas));
-  const setArea = useArea(useShallow((state) => state.setArea));
+  // const selectedArea = useArea(useShallow((state) => state.selectedArea));
+  // const areas = useArea(useShallow((state) => state.areas));
+  // const setArea = useArea(useShallow((state) => state.setArea));
   return (
     <div className="flex gap-12 w-full h-32 bg-b-primary rounded-2xl p-5 animate-slide-down">
       <div className="flex flex-col justify-between h-full w-fit">
@@ -50,7 +50,7 @@ const DashboardHeader = () => {
         <div className="text-t-primary text-md font-semibold mb-1.5">
           Manage Packages
         </div>
-        <Dropdown
+        {/* <Dropdown
           data={areas}
           value={selectedArea}
           onChange={setArea}
@@ -94,7 +94,7 @@ const DashboardHeader = () => {
               />
             </>
           )}
-        />
+        /> */}
       </div>
     </div>
   );

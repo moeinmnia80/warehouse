@@ -1,11 +1,11 @@
 import NotFoundPage from "@/pages/404";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
-import DashboardPage from "./pages/DashboardPage";
+import LoginPage from "@/pages/LoginPage";
+import RegisterPage from "@/pages/RegisterPage";
+import DashboardPage from "@/pages/DashboardPage";
 import { Navigate, Route, Routes } from "react-router";
 import MySuite from "@/feature/suite/components/MySuite";
-import ResetPasswordPage from "./pages/ResetPasswordPage";
-import ForgetPasswordPage from "./pages/ForgetPasswordPage";
+import ResetPasswordPage from "@/pages/ResetPasswordPage";
+import ForgetPasswordPage from "@/pages/ForgetPasswordPage";
 
 function RouterWrapper() {
   return (

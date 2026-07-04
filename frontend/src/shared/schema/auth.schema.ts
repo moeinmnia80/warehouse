@@ -38,5 +38,3 @@ export type LoginFormData = z.infer<typeof loginSchema>;
 export type RegisterFormData = z.infer<typeof registerSchema>;
 export type ForgetPasswordData = z.infer<typeof forgetPasswordSchema>;
 export type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
-
-export type FormValues = ForgetPasswordData | ResetPasswordData;
