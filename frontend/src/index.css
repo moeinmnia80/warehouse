@@ -20,6 +20,7 @@
   --color-b-third: #fafafa;
   --color-b-checkbox: #eeeeee;
   --color-b-muted: #fff;
+  --color-b-table: #f9fafb;
   /* stroke */
   --color-st-primary: #0f172a;
   /* border */
@@ -133,6 +134,7 @@
   --color-b-third: #292c29;
   --color-b-checkbox: #111411;
   --color-b-muted: #656864;
+  --color-b-table: #282f31;
 
   --color-t-primary: #fff;
   --color-t-secondary: #98a2b3;

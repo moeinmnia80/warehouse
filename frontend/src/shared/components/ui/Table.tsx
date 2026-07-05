@@ -76,3 +76,12 @@ export const TD = ({ children, ...props }: ComponentProps<"div">) => {
 export const RowContent = ({ children, ...props }: ComponentProps<"div">) => {
   return <div {...props}>{children}</div>;
 };
+// ------------------------------------------------------------
+//6-————— Table Row Section  ——————————————————————————————————
+// ------------------------------------------------------------
+export const RowContentSection = ({
+  children,
+  ...props
+}: ComponentProps<"div">) => {
+  return <div {...props}>{children}</div>;
+};
