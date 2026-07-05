@@ -1,7 +1,7 @@
 export const RAW_DATA = [
   {
     barcode: "IZ6A9426897731887",
-    id: "03-218-9705",
+    packageId: "03-218-9705",
     vendor: "Amazon",
     dataReceived: "2026-06-28 14:32",
     itemValues: "$142.50",
@@ -16,7 +16,7 @@ export const RAW_DATA = [
   },
   {
     barcode: "IZ6A9423125556541887",
-    id: "03-854-9235",
+    packageId: "03-854-9235",
     vendor: "Amazon",
     dataReceived: "2026-06-28 17:46",
     itemValues: "$12.50",
@@ -31,7 +31,7 @@ export const RAW_DATA = [
   },
   {
     barcode: "IZ6B1183420019234",
-    id: "03-156-1255",
+    packageId: "03-156-1255",
     vendor: "DHL",
     dataReceived: "2026-06-29 09:12",
     itemValues: "$89.00",
@@ -46,7 +46,7 @@ export const RAW_DATA = [
   },
   {
     barcode: "IZ6C7729384610552",
-    id: "03-345-1643",
+    packageId: "03-345-1643",
     vendor: "FedEx",
     dataReceived: "2026-06-30 18:05",
     itemValues: "$310.75",
@@ -61,7 +61,7 @@ export const RAW_DATA = [
   },
   {
     barcode: "IZ6D5567123489021",
-    id: "03-122-2366",
+    packageId: "03-122-2366",
     vendor: "UPS",
     dataReceived: "2026-06-30 11:47",
     itemValues: "$54.20",
@@ -76,7 +76,7 @@ export const RAW_DATA = [
   },
   {
     barcode: "IZ6D543564733489021",
-    id: "03-134-7453",
+    packageId: "03-134-7453",
     vendor: "FedEx",
     dataReceived: "2026-06-30 11:47",
     itemValues: "$234.20",
@@ -133,16 +133,16 @@ export const styles = [
   "min-w-30 flex-2 shrink-0 py-4",
   "min-w-30 flex-2 shrink-0 py-4",
   "min-w-20 flex-1 shrink-0 py-4",
-  "min-w-20 flex-1 shrink-0 py-4 text-center",
-  "min-w-40 flex-1 shrink-0 py-4 text-center",
-  "min-w-20 flex-1 shrink-0 py-4 text-center",
+  "min-w-20 flex-1 shrink-0 py-4 justify-center",
+  "min-w-35 flex-1 shrink-0 py-4 justify-center",
+  "min-w-20 flex-1 shrink-0 py-4 justify-center",
 ];
 export const header = [
-  "Form",
-  "PackageId",
-  "Data Received",
-  "Item Values",
-  "Weight",
-  "Status",
-  "Action",
+  { name: "Form", key: "vendor", sortable: true },
+  { name: "PackageId", key: "packageId", sortable: true },
+  { name: "Data Received", key: "dataReceived", sortable: true },
+  { name: "Item Values", key: "itemValues", sortable: true },
+  { name: "Weight", key: "weight", sortable: true },
+  { name: "Status", key: "status", sortable: false },
+  { name: "Action", key: "action", sortable: false },
 ];
