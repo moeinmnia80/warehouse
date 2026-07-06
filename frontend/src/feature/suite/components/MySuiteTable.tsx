@@ -10,7 +10,7 @@ import {
 } from "@/shared/hooks/useTable";
 import Image from "@/shared/components/ui/Image";
 import HiddenIcon from "@/assets/icons/HiddenIcon";
-import { lineItems } from "../constants/LineItems";
+import { lineItems } from "@/feature/suite/constants/LineItems";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import ChevronIcon from "@/assets/icons/ChevronIcon";
 import DangerousIcon from "@/assets/icons/DangerousIcon";
