@@ -1,5 +1,5 @@
 import React from "react";
-import { LineItemRow } from "./LineItemRow";
+import { LineItemRow } from "@/feature/suite/components/LineItemRow";
 import TickIcon from "@/assets/icons/TickIcon";
 import ShowIcon from "@/assets/icons/ShowIcon.tsx";
 import DangerIcon from "@/assets/icons/DangerIcon";
@@ -10,7 +10,6 @@ import {
 } from "@/shared/hooks/useTable";
 import Image from "@/shared/components/ui/Image";
 import HiddenIcon from "@/assets/icons/HiddenIcon";
-import { lineItems } from "@/feature/suite/constants/LineItems";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import ChevronIcon from "@/assets/icons/ChevronIcon";
 import DangerousIcon from "@/assets/icons/DangerousIcon";
@@ -34,6 +33,7 @@ import {
 } from "@/shared/components/ui/Table";
 import { ImageDropzone } from "@/shared/components/ImageDropzone";
 import DocumentDropzone from "@/shared/components/DocumentDropzone";
+import { lineItems } from "@/feature/suite/constants/lineItem";
 
 // Import Swiper React components
 interface MySuiteTableProps {
