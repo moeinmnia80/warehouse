@@ -3,11 +3,11 @@ import { persist } from "zustand/middleware";
 import { areas } from "./shared/constants/areas";
 // import { configureStore } from "@reduxjs/toolkit";
 import type { AreaType, DataState } from "./shared/types/types";
-
+import flag1 from "@/assets/images/flag-1.png";
 const initial: AreaType = {
   name: "US",
   desc: "Manage my packages from the US",
-  src: "@/assets/images/flag-1.png",
+  src: flag1,
   lang: "EN",
 };
 

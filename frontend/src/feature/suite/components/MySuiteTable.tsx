@@ -35,7 +35,6 @@ import { ImageDropzone } from "@/shared/components/ImageDropzone";
 import DocumentDropzone from "@/shared/components/DocumentDropzone";
 import { lineItems } from "@/feature/suite/constants/lineItem";
 
-// Import Swiper React components
 interface MySuiteTableProps {
   filteredData: TableRow[];
   state: TableState;

@@ -25,6 +25,7 @@ function LoginPage() {
   const navigate = useNavigate();
   const handleLogin = () => {
     if (Object.keys(errors).length > 0) return;
+
     navigate("/dashboard");
   };
   const onSubmit = (data: LoginFormData) => {
