@@ -12,7 +12,7 @@ interface ImageDropzoneProps extends Pick<ComponentProps<"div">, "children"> {
   maxSizeMb?: number;
 }
 
-const ImageDropzone = ({
+export const ImageDropzone = ({
   children,
   onFilesChange,
   maxFiles = 10,
@@ -124,5 +124,3 @@ const ImageDropzone = ({
     </div>
   );
 };
-
-export default ImageDropzone;

@@ -7,7 +7,7 @@ import type { AreaType, DataState } from "./shared/types/types";
 const initial: AreaType = {
   name: "US",
   desc: "Manage my packages from the US",
-  src: "./src/assets/images/flag-1.png",
+  src: "@/assets/images/flag-1.png",
   lang: "EN",
 };
 

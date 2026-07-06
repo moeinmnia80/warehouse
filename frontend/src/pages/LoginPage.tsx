@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Logo from "@/assets/icons/Logo";
 import { useForm } from "react-hook-form";
 import GoogleIcon from "@/assets/icons/GoogleIcon";
@@ -22,7 +22,11 @@ function LoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
-
+  const navigate = useNavigate();
+  const handleLogin = () => {
+    if (Object.keys(errors).length > 0) return;
+    navigate("/dashboard");
+  };
   const onSubmit = (data: LoginFormData) => {
     console.log(data);
   };
@@ -71,7 +75,10 @@ function LoginPage() {
                 Forget password
               </Link>
             </FormItem>
-            <Button className="btn btn--primary font-semibold mt-4 px-2">
+            <Button
+              onClick={handleLogin}
+              className="btn btn--primary font-semibold mt-4 px-2"
+            >
               Sign in
             </Button>
           </Form>

@@ -32,8 +32,8 @@ import {
   RowContent,
   RowContentSection,
 } from "@/shared/components/ui/Table";
-import ImageDropzone from "@/shared/components/ui/ImageDropzone";
-import DocumentDropzone from "@/shared/components/ui/DocumentDropzone";
+import { ImageDropzone } from "@/shared/components/ImageDropzone";
+import DocumentDropzone from "@/shared/components/DocumentDropzone";
 
 // Import Swiper React components
 interface MySuiteTableProps {
@@ -209,7 +209,7 @@ const MySuiteTable = ({
                   </div>
                   <div className="rounded-xl border border-bo-primary overflow-hidden">
                     {lineItems.map((li, index) => (
-                      <LineItemRow item={li} index={index} />
+                      <LineItemRow key={li.id} item={li} index={index} />
                     ))}
                   </div>
                   <p className="max-w-190 text-md font-medium text-t-placeholder">
