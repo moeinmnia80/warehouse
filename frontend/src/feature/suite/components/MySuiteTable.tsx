@@ -163,7 +163,7 @@ const MySuiteTable = ({
                 </TD>
               </Row>
               <RowContent
-                className={`flex flex-col bg-b-table border-bo-primary rounded-xl transition duration-300 max-h-0 opacity-0 ${state.rowExpanded[item.packageId] ? "border max-h-500 my-2 opacity-100" : ""}`}
+                className={`flex flex-col bg-b-table border-bo-primary rounded-xl transition duration-300 max-h-0 opacity-0 ${state.rowExpanded[item.packageId] ? "border max-h-500 my-2 opacity-100" : ""} overflow-hidden`}
               >
                 {item.status === "In Review" && (
                   <RowContentSection className="p-6 border-b border-bo-primary">
