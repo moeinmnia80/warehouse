@@ -1,6 +1,20 @@
 import { useMemo, useReducer } from "react";
-
-interface TableState {
+export interface TableRow {
+  barcode: string;
+  packageId: string;
+  vendor: string;
+  dataReceived: string;
+  itemValues: string;
+  weight: string;
+  status: string;
+  details: {
+    recipient: string;
+    address: string;
+    items: string[];
+    carrier: string;
+  };
+}
+export interface TableState {
   rowChecked: Record<string, boolean>;
   rowExpanded: Record<string, boolean>;
   sort: { key: string | null; type: "asc" | "desc" };
@@ -23,7 +37,11 @@ interface ActionCheckAll {
   type: "ROW_CHECK_ALL";
   payload: string[]; // list of ids to check
 }
-type ReducerProps = ActionWithPayload | ActionWithOutPayload | ActionCheckAll;
+
+export type ReducerProps =
+  | ActionWithPayload
+  | ActionWithOutPayload
+  | ActionCheckAll;
 
 const reducer = (state: TableState, action: ReducerProps): TableState => {
   switch (action.type) {
@@ -79,26 +97,11 @@ const reducer = (state: TableState, action: ReducerProps): TableState => {
         },
       };
     }
+
     default:
       return state;
   }
 };
-
-interface TableRow {
-  barcode: string;
-  packageId: string;
-  vendor: string;
-  dataReceived: string;
-  itemValues: string;
-  weight: string;
-  status: string;
-  details: {
-    recipient: string;
-    address: string;
-    items: string[];
-    carrier: string;
-  };
-}
 
 export const useTable = (data: TableRow[]) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -140,7 +143,6 @@ export const useTable = (data: TableRow[]) => {
       if (av > bv) return state.sort.type === "asc" ? 1 : -1;
       return 0;
     });
-
     return arr;
   }, [filteredData, state.sort.key, state.sort.type]);
 
@@ -160,6 +162,7 @@ export const useTable = (data: TableRow[]) => {
       });
     }
   }
+
   // send the last change as filteredData
   return {
     filteredData: sortedData,

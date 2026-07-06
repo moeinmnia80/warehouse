@@ -10,10 +10,7 @@ export const Table = ({
 }: ComponentProps<"div">) => {
   return (
     <div className="overflow-auto max-h-225 ">
-      <div
-        className={`scrollbar-none min-w-max ${className ? className : ""}`}
-        {...props}
-      >
+      <div className={`min-w-max ${className ? className : ""}`} {...props}>
         {children}
       </div>
     </div>
@@ -77,7 +74,7 @@ export const RowContent = ({ children, ...props }: ComponentProps<"div">) => {
   return <div {...props}>{children}</div>;
 };
 // ------------------------------------------------------------
-//6-————— Table Row Section  ——————————————————————————————————
+//7-————— Table Row Section  ——————————————————————————————————
 // ------------------------------------------------------------
 export const RowContentSection = ({
   children,
