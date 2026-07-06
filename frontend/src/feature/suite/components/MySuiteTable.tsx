@@ -161,86 +161,89 @@ const MySuiteTable = ({
                   )}
                 </TD>
               </Row>
-              <RowContent
-                className={`flex flex-col bg-b-table border-bo-primary rounded-xl transition duration-300 max-h-0 opacity-0 ${state.rowExpanded[item.packageId] ? "border max-h-500 my-2 opacity-100" : ""} overflow-hidden`}
-              >
-                {item.status === "In Review" && (
-                  <RowContentSection className="p-6 border-b border-bo-primary">
-                    <div className="flex items-center gap-3">
-                      <h2 className="text-t-primary text-2xl font-bold ">
-                        Why is this package in review?
-                      </h2>
-                      <span className="flex-center gap-2 w-fit bg-warning-50 rounded-full px-2 py-1 text-md font-semibold text-warning">
-                        <DangerousIcon className="size-3.5 stroke-warning" />
-                        Dangerous Goods
-                      </span>
-                    </div>
-                    <p className="max-w-125 text-lg font-medium text-t-placeholder mt-3">
-                      Package is in review by our trade compliance team. Please
-                      expect more information via email if it will not be ready
-                      to send within 1-2 business days.
-                    </p>
-                  </RowContentSection>
-                )}
-                <RowContentSection className="flex flex-col gap-4 p-6 border-b border-bo-primary">
-                  <div className="w-full">
-                    <div className="flex items-center">
-                      <div className="w-3/6">
-                        <h3 className="text-lg text-t-primary font-bold">
-                          Package Detail
-                        </h3>
-                        <p className="text-md font-medium text-t-placeholder mt-1">
-                          To: {item.details.recipient}
-                        </p>
+              {state.rowExpanded[item.packageId] && (
+                <RowContent
+                  className={`flex flex-col bg-b-table border-bo-primary rounded-xl transition duration-300 my-2 animate-fade-in`}
+                >
+                  {item.status === "In Review" && (
+                    <RowContentSection className="p-6 border-b border-bo-primary">
+                      <div className="flex items-center gap-3">
+                        <h2 className="text-t-primary text-2xl font-bold ">
+                          Why is this package in review?
+                        </h2>
+                        <span className="flex-center gap-2 w-fit bg-warning-50 rounded-full px-2 py-1 text-md font-semibold text-warning">
+                          <DangerousIcon className="size-3.5 stroke-warning" />
+                          Dangerous Goods
+                        </span>
                       </div>
-                      <div className="flex w-3/6">
-                        <div className="w-1/3 flex-1 text-center text-md text-t-placeholder font-medium">
-                          QTY
+                      <p className="max-w-125 text-lg font-medium text-t-placeholder mt-3">
+                        Package is in review by our trade compliance team.
+                        Please expect more information via email if it will not
+                        be ready to send within 1-2 business days.
+                      </p>
+                    </RowContentSection>
+                  )}
+                  <RowContentSection className="flex flex-col gap-4 p-6 border-b border-bo-primary">
+                    <div className="w-full">
+                      <div className="flex items-center">
+                        <div className="w-3/6">
+                          <h3 className="text-lg text-t-primary font-bold">
+                            Package Detail
+                          </h3>
+                          <p className="text-md font-medium text-t-placeholder mt-1">
+                            To: {item.details.recipient}
+                          </p>
                         </div>
-                        <div className="w-1/3 flex-1 text-center text-md text-t-placeholder font-medium">
-                          Value Per Unit (USD)
-                        </div>
-                        <div className="w-1/3 flex-1 text-center text-md text-t-placeholder font-medium">
-                          Total Line Value (USD)
+                        <div className="flex w-3/6">
+                          <div className="w-1/3 flex-1 text-center text-md text-t-placeholder font-medium">
+                            QTY
+                          </div>
+                          <div className="w-1/3 flex-1 text-center text-md text-t-placeholder font-medium">
+                            Value Per Unit (USD)
+                          </div>
+                          <div className="w-1/3 flex-1 text-center text-md text-t-placeholder font-medium">
+                            Total Line Value (USD)
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="rounded-xl border border-bo-primary overflow-hidden">
-                    {lineItems.map((li, index) => (
-                      <LineItemRow key={li.id} item={li} index={index} />
-                    ))}
-                  </div>
-                  <p className="max-w-190 text-md font-medium text-t-placeholder">
-                    ** Values shown are obtained from the merchant invoices,
-                    when available. Researched values based on current market
-                    prices have been provided above for any items that arrived
-                    without invoices. The value should be updated to reflect the
-                    actual price paid for each item, and must be confirmed.**
-                  </p>
-                </RowContentSection>
-                <RowContentSection className="relative p-6 border-b border-bo-primary">
-                  <h3 className="text-xl text-t-primary font-bold">photos</h3>
-                  <ImageDropzone maxFiles={8} maxSizeMb={8}>
-                    <div className="relative flex gap-4 w-fit">
-                      {swiperSlides.map((item) => (
-                        <div
-                          key={item.id}
-                          className="w-22 h-22 aspect-square rounded-md overflow-hidden"
-                        >
-                          <Image src={item.src} alt={item.alt} />
-                        </div>
+                    <div className="rounded-xl border border-bo-primary overflow-hidden">
+                      {lineItems.map((li, index) => (
+                        <LineItemRow key={li.id} item={li} index={index} />
                       ))}
                     </div>
-                  </ImageDropzone>
-                </RowContentSection>
-                <RowContentSection className="p-6 border-b border-bo-primary ">
-                  <h3 className="text-xl text-t-primary font-bold">
-                    Add Documents
-                  </h3>
-                  <DocumentDropzone />
-                </RowContentSection>
-              </RowContent>
+                    <p className="max-w-190 text-md font-medium text-t-placeholder">
+                      ** Values shown are obtained from the merchant invoices,
+                      when available. Researched values based on current market
+                      prices have been provided above for any items that arrived
+                      without invoices. The value should be updated to reflect
+                      the actual price paid for each item, and must be
+                      confirmed.**
+                    </p>
+                  </RowContentSection>
+                  <RowContentSection className="relative p-6 border-b border-bo-primary">
+                    <h3 className="text-xl text-t-primary font-bold">photos</h3>
+                    <ImageDropzone maxFiles={8} maxSizeMb={8}>
+                      <div className="relative flex gap-4 w-fit">
+                        {swiperSlides.map((item) => (
+                          <div
+                            key={item.id}
+                            className="w-22 h-22 aspect-square rounded-md overflow-hidden"
+                          >
+                            <Image src={item.src} alt={item.alt} />
+                          </div>
+                        ))}
+                      </div>
+                    </ImageDropzone>
+                  </RowContentSection>
+                  <RowContentSection className="p-6 border-b border-bo-primary ">
+                    <h3 className="text-xl text-t-primary font-bold">
+                      Add Documents
+                    </h3>
+                    <DocumentDropzone />
+                  </RowContentSection>
+                </RowContent>
+              )}
             </React.Fragment>
           ))}
         </TBody>

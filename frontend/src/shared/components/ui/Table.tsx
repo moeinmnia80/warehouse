@@ -9,7 +9,7 @@ export const Table = ({
   ...props
 }: ComponentProps<"div">) => {
   return (
-    <div className="overflow-auto max-h-225 ">
+    <div className="overflow-auto max-h-auto ">
       <div className={`min-w-max ${className ? className : ""}`} {...props}>
         {children}
       </div>
