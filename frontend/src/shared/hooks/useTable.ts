@@ -1,4 +1,5 @@
 import { useMemo, useReducer } from "react";
+import { RAW_DATA } from "../constants/table";
 // table data type
 export interface TableRow {
   barcode: string;
@@ -136,9 +137,9 @@ const reducer = (state: TableState, action: ReducerProps): TableState => {
   }
 };
 
-export const useTable = (data: TableRow[]) => {
+export const useTable = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  const data: TableRow[] = RAW_DATA;
   // filter data based on category
   const filteredData =
     state.category === "View All"

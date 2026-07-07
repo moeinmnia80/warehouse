@@ -15,10 +15,16 @@ const InvoiceModal = ({
   useOverflow(open);
   return (
     // main wrapper fixed screen
+    // close when click outer modal
     <div
-      className={`${open ? "grid" : "hidden"} fixed inset-0 z-10 h-svh  place-items-center bg-b-transparent backdrop-blur-sm px-15 animate-fade-in`}
+      onClick={() => handleCloseModal()}
+      className={`${open ? "grid" : "hidden"} fixed inset-0 h-svh z-40 place-items-center bg-b-transparent backdrop-blur-sm px-15 animate-fade-in`}
     >
-      <div className="w-svw max-w-200 bg-b-primary rounded-xl">
+      {/* prevent stopPropagation */}
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className="w-svw max-w-200 bg-b-primary rounded-xl"
+      >
         {/* first section */}
         <div className="p-5 border-b border-bo-primary">
           <div className="flex-between ">

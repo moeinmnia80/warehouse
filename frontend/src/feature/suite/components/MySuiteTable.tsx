@@ -244,11 +244,30 @@ const MySuiteTable = ({
                         </div>
                       </div>
                     </div>
-                    <div className="rounded-xl border border-bo-primary overflow-hidden">
-                      {lineItems.map((li, index) => (
-                        <LineItemRow key={li.id} item={li} index={index} />
-                      ))}
-                    </div>
+                    {state.category === "Ready to Send" ? (
+                      <>
+                        <LineItemRow
+                          item={{
+                            id: "0",
+                            name: "Maps, charts, atlases: Printed: NESOI",
+                            qty: 10,
+                            scheduleCode:
+                              "4905.90.6000 : Maps, charts, atlases: Printed: NESOI",
+                            valuePerUnit: 2.39,
+                            totalValue: 23.9,
+                          }}
+                          index={0}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <div className="rounded-xl border border-bo-primary overflow-hidden">
+                          {lineItems.map((li, index) => (
+                            <LineItemRow key={li.id} item={li} index={index} />
+                          ))}
+                        </div>
+                      </>
+                    )}
                     <p className="max-w-190 text-md font-medium text-t-placeholder">
                       ** Values shown are obtained from the merchant invoices,
                       when available. Researched values based on current market
@@ -273,7 +292,7 @@ const MySuiteTable = ({
                       </div>
                     </ImageDropzone>
                   </RowContentSection>
-                  <RowContentSection className="p-6 border-b border-bo-primary ">
+                  <RowContentSection className="p-6">
                     <h3 className="text-xl text-t-primary font-bold">
                       Add Documents
                     </h3>

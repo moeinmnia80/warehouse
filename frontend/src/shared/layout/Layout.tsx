@@ -11,8 +11,8 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
   return (
     <>
       <Header
-        className="header bg-b-primary px-5 md:px-20 relative z-30
-        border-b border-bo-primary"
+        className="header bg-b-primary px-5 md:px-20 sticky top-0 z-30
+        border-b border-bo-primary "
       />
       <main
         className="flex bg-b-secondary

@@ -58,7 +58,6 @@ const AddInvoicesModal = () => {
     const modifyFile = file.filter((item) => item.name !== name);
     setFile([...modifyFile]);
   };
-  console.log(file);
 
   return (
     <form onSubmit={() => {}}>
