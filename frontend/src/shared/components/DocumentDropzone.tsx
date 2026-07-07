@@ -69,8 +69,6 @@ const DocumentDropzone = ({
   });
 
   const removeFile = (name: string) => {
-    console.log(name);
-
     setFiles((prev) => {
       const next = prev.filter((f) => f.name !== name);
       onFilesChange?.(next);

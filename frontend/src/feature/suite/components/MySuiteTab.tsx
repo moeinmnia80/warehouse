@@ -10,10 +10,10 @@ interface MySuiteTabProps {
 
 const MySuiteTab = ({ state, dispatch }: MySuiteTabProps) => {
   return (
-    <div className="grid grid-cols-2 auto-rows-9 lg:grid-cols-3 xl:grid-cols-4 gap-2 py-6 mx-6 overflow-x-auto border-b border-bo-primary">
+    <div className="grid grid-cols-2 auto-rows-9 lg:grid-cols-3 xl:grid-cols-4 gap-2 py-6 mx-6 border-b border-bo-primary">
       {tabs.map((tab) => (
         <Button
-          className={`btn btn-third shrink-0 max-w-full lg:shrink h-9 font-semibold transition duration-200
+          className={`btn btn-third h-9 font-semibold transition duration-200
             ${state.category === tab.value ? "bg-t-primary text-b-primary" : ""}`}
           onClick={(e) => handleTabChange(tab.value, e, dispatch)}
           value={tab.value}

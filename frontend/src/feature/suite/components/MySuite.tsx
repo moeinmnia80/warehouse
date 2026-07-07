@@ -1,6 +1,6 @@
-import { useTable } from "@/shared/hooks/useTable";
 import MySuiteTab from "./MySuiteTab";
 import MySuiteTable from "./MySuiteTable";
+import { useTable } from "@/shared/hooks/useTable";
 import { RAW_DATA } from "@/shared/constants/table";
 
 const MySuite = () => {
@@ -8,7 +8,7 @@ const MySuite = () => {
   const { filteredData, state, dispatch, toggleAll, allChecked } =
     useTable(RAW_DATA);
   return (
-    <div className="flex flex-col w-full xl:max-w-3/4 bg-b-primary rounded-2xl">
+    <div className="flex flex-col w-full bg-b-primary rounded-2xl">
       <MySuiteTab state={state} dispatch={dispatch} />
       <MySuiteTable
         filteredData={filteredData}

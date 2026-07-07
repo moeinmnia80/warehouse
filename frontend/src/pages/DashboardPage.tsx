@@ -4,9 +4,9 @@ import DashboardHeader from "@/feature/dashboard/components/DashboardHeader";
 const DashboardPage = () => {
   return (
     <>
-      <section className="flex flex-col gap-8 w-full min-h-dvh py-8">
+      <section className="flex flex-col w-full gap-8 py-8">
         <DashboardHeader />
-        <div className="flex flex-col xl:flex-row gap-8 w-full animate-slide-up ">
+        <div className="flex flex-col 2xl:flex-row gap-8 animate-slide-up">
           <Outlet />
           <SideBar />
         </div>

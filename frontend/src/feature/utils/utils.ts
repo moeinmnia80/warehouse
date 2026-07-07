@@ -16,9 +16,11 @@ export const checkStatus = (status: string) => {
   }
 };
 // for tab items count
-const required = RAW_DATA.filter((item) => item.status === "Action Required");
-const review = RAW_DATA.filter((item) => item.status === "In Review");
-const ready = RAW_DATA.filter((item) => item.status === "Ready to Send");
+const required = RAW_DATA.filter(
+  (item) => item.status.label === "Action Required",
+);
+const review = RAW_DATA.filter((item) => item.status.label === "In Review");
+const ready = RAW_DATA.filter((item) => item.status.label === "Ready to Send");
 //
 export const tabStatus = [
   RAW_DATA.length,

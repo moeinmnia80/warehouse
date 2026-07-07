@@ -11,17 +11,17 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
   return (
     <>
       <Header
-        className="header bg-b-primary px-5 md:px-20 z-10
+        className="header bg-b-primary px-5 md:px-20 relative z-30
         border-b border-bo-primary"
       />
       <main
         className="flex bg-b-secondary
-        w-full px-5 md:px-10 lg:px-15 h-fit overflow-hidden"
+        w-full px-5 md:px-10 lg:px-15 overflow-hidden"
       >
         {children}
       </main>
       {shouldShowFooter && (
-        <Footer className="bg-b-primary px-5 md:px-20 border-t border-bo-primary" />
+        <Footer className="relative z-30 bg-b-primary px-5 md:px-10 lg:px-15 border-t border-bo-primary" />
       )}
     </>
   );

@@ -1,30 +1,38 @@
 import { useMemo, useReducer } from "react";
+import { COLUMNS } from "../constants/table";
 export interface TableRow {
   barcode: string;
   packageId: string;
   vendor: string;
   dataReceived: string;
   itemValues: string;
+  totalValues: string;
   weight: string;
-  status: string;
+  status: {
+    label: string;
+    details: string;
+  };
   details: {
     recipient: string;
     address: string;
     items: string[];
     carrier: string;
   };
+  invoices?: { id: string; name: string; url?: string }[];
 }
 export interface TableState {
   rowChecked: Record<string, boolean>;
   rowExpanded: Record<string, boolean>;
   sort: { key: string | null; type: "asc" | "desc" };
   category: string;
+  modal: { open: boolean; packageId: string | null };
 }
 const initialState: TableState = {
   rowChecked: {},
   rowExpanded: {},
   sort: { key: null, type: "asc" },
   category: "View All",
+  modal: { open: false, packageId: null },
 };
 interface ActionWithOutPayload {
   type: "ROW_RESET";
@@ -37,11 +45,20 @@ interface ActionCheckAll {
   type: "ROW_CHECK_ALL";
   payload: string[]; // list of ids to check
 }
+interface ActionModal {
+  type: "MODAL_OPEN";
+  payload: string; // packageId
+}
+interface ActionModalClose {
+  type: "MODAL_CLOSE";
+}
 
 export type ReducerProps =
   | ActionWithPayload
   | ActionWithOutPayload
-  | ActionCheckAll;
+  | ActionCheckAll
+  | ActionModal
+  | ActionModalClose;
 
 const reducer = (state: TableState, action: ReducerProps): TableState => {
   switch (action.type) {
@@ -97,6 +114,10 @@ const reducer = (state: TableState, action: ReducerProps): TableState => {
         },
       };
     }
+    case "MODAL_OPEN":
+      return { ...state, modal: { open: true, packageId: action.payload } };
+    case "MODAL_CLOSE":
+      return { ...state, modal: { open: false, packageId: null } };
 
     default:
       return state;
@@ -109,7 +130,7 @@ export const useTable = (data: TableRow[]) => {
   const filteredData =
     state.category === "View All"
       ? data
-      : data.filter((item) => item.status === state.category);
+      : data.filter((item) => item.status.label === state.category);
 
   const sortedData = useMemo(() => {
     if (!state.sort.key) return filteredData;
@@ -146,6 +167,10 @@ export const useTable = (data: TableRow[]) => {
     return arr;
   }, [filteredData, state.sort.key, state.sort.type]);
 
+  const visibleColumns = useMemo(
+    () => COLUMNS.filter((col) => col.tabs.includes(state.category)),
+    [state.category],
+  );
   const allChecked =
     filteredData.length > 0 &&
     filteredData.every((r) => state.rowChecked[r.packageId]);
@@ -162,10 +187,10 @@ export const useTable = (data: TableRow[]) => {
       });
     }
   }
-
   // send the last change as filteredData
   return {
     filteredData: sortedData,
+    visibleColumns,
     state,
     dispatch,
     toggleAll,

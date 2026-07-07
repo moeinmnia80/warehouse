@@ -21,6 +21,7 @@
   --color-b-checkbox: #eeeeee;
   --color-b-muted: #fff;
   --color-b-table: #f9fafb;
+  --color-b-transparent: rgba(77, 86, 102, 50%);
   /* stroke */
   --color-st-primary: #0f172a;
   /* border */
@@ -162,19 +163,6 @@
   ::-webkit-scrollbar {
     width: 0;
     height: 0;
-  }
-  /* Track */
-  ::-webkit-scrollbar-track {
-    background: var(--color-b-secondary);
-    border-inline-end: 1px solid var(--color-b-muted);
-  }
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: var(--color-t-secondary);
-  }
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-t-primary);
   }
   button,
   :focus {
@@ -338,5 +326,15 @@
     font-size: var(--text-md);
     color: var(--color-t-primary);
     padding-inline: var(--spacing);
+  }
+  /* tags */
+  .tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing);
+    padding-block: var(--spacing);
+    padding-inline: 8px;
+    border-radius: var(--radius-4xl);
   }
 }

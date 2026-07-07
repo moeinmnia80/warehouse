@@ -1,5 +1,4 @@
 import React from "react";
-import { LineItemRow } from "@/feature/suite/components/LineItemRow";
 import TickIcon from "@/assets/icons/TickIcon";
 import ShowIcon from "@/assets/icons/ShowIcon.tsx";
 import DangerIcon from "@/assets/icons/DangerIcon";
@@ -9,13 +8,18 @@ import {
   type TableState,
 } from "@/shared/hooks/useTable";
 import Image from "@/shared/components/ui/Image";
+import { COLUMNS } from "@/shared/constants/table";
 import HiddenIcon from "@/assets/icons/HiddenIcon";
 import SearchIcon from "@/assets/icons/SearchIcon";
+import UploadIcon from "@/assets/icons/UploadIcon";
 import ChevronIcon from "@/assets/icons/ChevronIcon";
 import DangerousIcon from "@/assets/icons/DangerousIcon";
 import { swiperSlides } from "../constants/swiperSlides";
-import { header, styles } from "@/shared/constants/table";
 import { Checkbox, Label } from "@/shared/components/ui/Form";
+import { lineItems } from "@/feature/suite/constants/lineItem";
+import { ImageDropzone } from "@/shared/components/ImageDropzone";
+import DocumentDropzone from "@/shared/components/DocumentDropzone";
+import { LineItemRow } from "@/feature/suite/components/LineItemRow";
 import {
   checkStatus,
   handleRowExpand,
@@ -31,9 +35,6 @@ import {
   RowContent,
   RowContentSection,
 } from "@/shared/components/ui/Table";
-import { ImageDropzone } from "@/shared/components/ImageDropzone";
-import DocumentDropzone from "@/shared/components/DocumentDropzone";
-import { lineItems } from "@/feature/suite/constants/lineItem";
 
 interface MySuiteTableProps {
   filteredData: TableRow[];
@@ -43,7 +44,6 @@ interface MySuiteTableProps {
   allChecked: boolean;
 }
 
-// FC
 const MySuiteTable = ({
   filteredData,
   state,
@@ -56,17 +56,23 @@ const MySuiteTable = ({
     "ready to send": <TickIcon className="size-3 stroke-success" />,
     "action required": <DangerIcon className="size-3 stroke-error" />,
   };
+  const handleAction = (id: string) => {
+    if (state.category === "Action Required") {
+      handleRowExpand(id, dispatch);
+    }
+  };
 
+  const isVisible = (key: string) =>
+    COLUMNS.find(
+      (item) => item.key === key && item.tabs.includes(state.category),
+    );
   return (
     <div className="rounded-xl m-6 overflow-hidden">
       <Table>
         <THead>
-          <Row className="flex items-center bg-b-table border border-b-none border-bo-primary rounded-t-xl">
-            <TD className="min-w-10 shrink-0 py-4 px-3 cursor-pointer">
-              <Label
-                className="flex-center gap-2"
-                onClick={(e) => e.stopPropagation()}
-              >
+          <Row className="flex items-center bg-b-table border border-b-none border-bo-primary rounded-t-xl text-t-primary">
+            <TD className="min-w-10 py-4 px-3">
+              <Label className="" onClick={(e) => e.stopPropagation()}>
                 <Checkbox
                   accentClass="stroke-st-primary"
                   onChange={toggleAll}
@@ -74,34 +80,29 @@ const MySuiteTable = ({
                 />
               </Label>
             </TD>
-            {header.map((item, index) => (
+            {COLUMNS.map((item) => (
               <TD
-                onClick={(e) => handleSortChange(e, item.key, dispatch)}
                 key={item.key}
-                className={`flex items-center gap-1 text-md text-t-primary ${styles[index]} cursor-pointer`}
+                onClick={(e) => handleSortChange(e, item.key, dispatch)}
+                className={`flex items-center gap-1 text-md text-current cursor-pointer px-2 ${isVisible(item.key) ? "" : "hidden"} ${item.className}`}
               >
                 {item.name}
                 {item.sortable && (
-                  <span className="text-slate-500 group-hover:text-slate-300 transition-colors">
-                    <ChevronIcon
-                      className={`size-3 fill-t-secondary ${state.sort.key === item.key ? (state.sort.type === "asc" ? "" : "rotate-180") : "-rotate-90"} transition duration-200`}
-                    />
-                  </span>
+                  <ChevronIcon
+                    className={`size-3 fill-t-secondary ${state.sort.key === item.key ? (state.sort.type === "asc" ? "" : "rotate-180") : "-rotate-90"} transition duration-200`}
+                  />
                 )}
               </TD>
             ))}
           </Row>
         </THead>
         <TBody>
-          {filteredData.map((item, index, arr) => (
+          {filteredData.map((item) => (
             <React.Fragment key={item.packageId}>
               <Row
-                className={`flex-center text-md text-t-primary text-left border border-b-0 ${index === 0 ? "border-t-0" : ""} border-bo-primary 
-                    ${state.rowExpanded[item.packageId] ? `max-h-100 border-b! rounded-b-xl` : ""} ${index === arr.length - 1 ? "border-b! rounded-b-xl" : ""}
-                    
-                  `}
+                className={`flex-center text-left border border-b-0  border-bo-primary ${state.rowExpanded[item.packageId] ? `max-h-18 border-b! rounded-b-xl` : ""} first:border-t-0! last:border-b! last:rounded-b-xl! text-t-secondary text-md *:py-4 *:px-2 *:shrink-0`}
               >
-                <TD className="min-w-10 shrink-0 py-4 px-3">
+                <TD className="min-w-10">
                   <Label
                     className="flex-center gap-2"
                     onClick={(e) => e.stopPropagation()}
@@ -115,40 +116,64 @@ const MySuiteTable = ({
                     />
                   </Label>
                 </TD>
-                <TD className="min-w-30 flex-2 shrink-0 py-4 ">
-                  <div className="font-bold">{item.vendor}</div>
+                <TD className="min-w-30 flex-2 text-current">
+                  <div className="font-bold text-t-primary">{item.vendor}</div>
                   <div className="font-light">{item.barcode}</div>
                 </TD>
-                <TD className="min-w-30 flex-2 shrink-0 py-4 text-t-secondary">
+                <TD className="min-w-25 flex-2 text-current">
                   {item.packageId}
                 </TD>
-                <TD className="min-w-30 flex-2 shrink-0 py-4 text-t-secondary">
+                <TD className="min-w-20 flex-2 text-current">
                   {item.dataReceived}
                 </TD>
-                <TD className="min-w-20 flex-1 shrink-0 py-4 text-t-secondary">
-                  <span className="font-bold">{item.itemValues}</span>
-                  <div className="">Invoice Value</div>
-                </TD>
-                <TD className="min-w-20 flex-1 shrink-0 py-4 text-t-secondary text-center">
-                  {item.weight}
-                </TD>
-                <TD
-                  className={`flex-center min-w-35 flex-1 shrink-0 py-4 text-t-secondary text-center`}
-                >
-                  <span
-                    className={`flex-center text-sm gap-2 w-fit ${checkStatus(item.status.toLowerCase())} py-0.5 px-2 rounded-full`}
+                {isVisible("totalValues") && (
+                  <TD className="min-w-20 flex-1 text-current">
+                    <span className="font-bold">{item.totalValues}</span>
+                  </TD>
+                )}
+                {isVisible("itemValues") && (
+                  <TD className="min-w-20 flex-1 text-current">
+                    <span className="font-bold">{item.itemValues}</span>
+                    <div className="">Invoice Value</div>
+                  </TD>
+                )}
+                {isVisible("weight") && (
+                  <TD className="min-w-20 flex-1 text-current text-center">
+                    {item.weight}
+                  </TD>
+                )}
+                {isVisible("status") && (
+                  <TD
+                    className={`flex-center min-w-30 flex-2 text-current text-center ${state.category === "Action Required" ? "flex-2" : ""}`}
                   >
-                    {statusIcon[item.status.toLocaleLowerCase()]}
-                    {item.status}
-                  </span>
-                </TD>
+                    {state.category === "Action Required" ? (
+                      <div className="flex flex-col gap-1">
+                        <span className="tag text-error bg-error-50  ">
+                          {statusIcon[item.status.label.toLocaleLowerCase()]}
+                          {item.status.details}
+                        </span>
+                        <span className="text-xs">As required by Customs</span>
+                      </div>
+                    ) : (
+                      <div
+                        className={`tag text-sm ${checkStatus(item.status.label.toLowerCase())}`}
+                      >
+                        {statusIcon[item.status.label.toLocaleLowerCase()]}
+                        {item.status.label}
+                      </div>
+                    )}
+                  </TD>
+                )}
                 <TD
-                  onClick={() => handleRowExpand(item.packageId, dispatch)}
-                  className={
-                    "flex-center gap-2 min-w-20 flex-1 shrink-0 py-4 text-t-secondary text-center cursor-pointer"
-                  }
+                  onClick={() => handleAction(item.packageId)}
+                  className={`flex-center gap-2 min-w-25 flex-1 shrink-0 py-4 text-t-secondary text-center cursor-pointer`}
                 >
-                  {state.rowExpanded[item.packageId] ? (
+                  {state.category === "Action Required" ? (
+                    <>
+                      <p>Upload Invoice</p>
+                      <UploadIcon className="size-4 stroke-st-primary" />
+                    </>
+                  ) : state.rowExpanded[item.packageId] ? (
                     <>
                       <span className="text-alert">Close</span>
                       <HiddenIcon className="size-4 stroke-st-primary animate-fade-in" />
@@ -165,7 +190,7 @@ const MySuiteTable = ({
                 <RowContent
                   className={`flex flex-col bg-b-table border-bo-primary rounded-xl transition duration-300 my-2 animate-fade-in`}
                 >
-                  {item.status === "In Review" && (
+                  {item.status.label === "In Review" && (
                     <RowContentSection className="p-6 border-b border-bo-primary">
                       <div className="flex items-center gap-3">
                         <h2 className="text-t-primary text-2xl font-bold ">
@@ -248,6 +273,34 @@ const MySuiteTable = ({
           ))}
         </TBody>
       </Table>
+      {/* <div
+        ref={actionModal}
+        className="fixed inset-0 z-10 h-svh grid place-items-center bg-b-transparent backdrop-blur-sm px-15"
+      >
+        <div className="w-svw max-w-200 bg-b-primary rounded-xl">
+          <div className="p-5 border-b border-bo-primary">
+            <div className="flex-between ">
+              <h3 className="text-t-primary font-bold text-2xl">
+                Add Invoices
+              </h3>
+              <Button className="btn text-t-primary w-11 h-11">x</Button>
+            </div>
+            <p className="text-t-placeholder text-lg mt-2">
+              You can add multiple invoices.
+            </p>
+          </div>
+          <div className="p-5  border-b border-bo-primary">
+            <DocumentDropzone />
+          </div>
+          <form className="p-5">
+            <input
+              type="file"
+              aria-label="form"
+              className="btn max-w-full text-bold bg-t-primary rounded-md"
+            />
+          </form>
+        </div>
+      </div> */}
     </div>
   );
 };

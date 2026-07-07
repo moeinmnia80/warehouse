@@ -3,11 +3,11 @@ import CalculatorIcon from "@/assets/icons/CalculatorIcon";
 
 const SideBar = () => {
   return (
-    <aside className="flex flex-col gap-5 h-fit w-[90vw] max-w-100 bg-b-primary p-6 rounded-2xl ">
+    <aside className="flex flex-col gap-5 min-w-70 h-fit bg-b-primary p-6 rounded-2xl">
       <h4 className="text-center text-lg text-t-secondary font-medium">
         All values are in United States dollars (USD).
       </h4>
-      <div className="flex xl:flex-col gap-5">
+      <div className="flex 2xl:flex-col gap-5">
         <div
           className="flex-center flex-col w-full h-30.5 
       bg-b-secondary border border-bo-primary rounded-lg"

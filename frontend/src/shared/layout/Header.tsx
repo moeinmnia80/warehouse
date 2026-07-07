@@ -1,7 +1,7 @@
-import { type ComponentProps } from "react";
 import { useArea } from "@/store";
 import Logo from "@/assets/icons/Logo";
 import Image from "../components/ui/Image";
+import { type ComponentProps } from "react";
 import { useTheme } from "../hooks/useTheme";
 import { useShallow } from "zustand/shallow";
 import TickIcon from "@/assets/icons/TickIcon";
