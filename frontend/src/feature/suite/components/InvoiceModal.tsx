@@ -1,5 +1,6 @@
 import CloseIcon from "@/assets/icons/CloseIcon";
 import { Button } from "@/shared/components/ui/Button";
+import { useOverflow } from "@/shared/hooks/useOverflow";
 import AddInvoicesModal from "@/feature/suite/components/AddInvoicesModal";
 // Props Types
 interface InvoiceModalProps {
@@ -11,6 +12,7 @@ const InvoiceModal = ({
   handleCloseModal,
   modalStatus: { open },
 }: InvoiceModalProps) => {
+  useOverflow(open);
   return (
     // main wrapper fixed screen
     <div
