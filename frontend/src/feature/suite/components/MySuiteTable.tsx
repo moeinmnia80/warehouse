@@ -160,7 +160,7 @@ const MySuiteTable = ({
                   >
                     {state.category === "Action Required" ? (
                       <div className="flex flex-col gap-1">
-                        <span className="tag text-error bg-error-50  ">
+                        <span className="tag text-sm text-error bg-error-50  ">
                           {statusIcon[item.status.label.toLocaleLowerCase()]}
                           {item.status.details}
                         </span>

@@ -18,12 +18,12 @@ const InvoiceModal = ({
     // close when click outer modal
     <div
       onClick={() => handleCloseModal()}
-      className={`${open ? "grid" : "hidden"} fixed inset-0 h-svh z-40 place-items-center bg-b-transparent backdrop-blur-sm px-15 animate-fade-in`}
+      className={`${open ? "grid" : "hidden"} fixed inset-0 h-svh z-40 place-items-center bg-b-transparent backdrop-blur-sm animate-fade-in`}
     >
       {/* prevent stopPropagation */}
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-svw max-w-200 bg-b-primary rounded-xl"
+        className="w-[95vw] max-w-200 bg-b-primary rounded-xl"
       >
         {/* first section */}
         <div className="p-5 border-b border-bo-primary">
