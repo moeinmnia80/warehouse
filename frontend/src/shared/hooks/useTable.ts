@@ -1,5 +1,5 @@
 import { useMemo, useReducer } from "react";
-import { COLUMNS } from "../constants/table";
+// table data type
 export interface TableRow {
   barcode: string;
   packageId: string;
@@ -20,6 +20,7 @@ export interface TableRow {
   };
   invoices?: { id: string; name: string; url?: string }[];
 }
+// Table initialState Types
 export interface TableState {
   rowChecked: Record<string, boolean>;
   rowExpanded: Record<string, boolean>;
@@ -27,6 +28,7 @@ export interface TableState {
   category: string;
   modal: { open: boolean; packageId: string | null };
 }
+// Table initialState
 const initialState: TableState = {
   rowChecked: {},
   rowExpanded: {},
@@ -34,32 +36,41 @@ const initialState: TableState = {
   category: "View All",
   modal: { open: false, packageId: null },
 };
+//1------- Action Type --------//
 interface ActionWithOutPayload {
   type: "ROW_RESET";
 }
+//2------- Action Type --------//
 interface ActionWithPayload {
   type: "ROW_TOGGLE" | "ROW_EXPANDED" | "ROW_CATEGORY" | "ROW_SORT";
   payload: string;
 }
+//3------- Action Type --------//
 interface ActionCheckAll {
   type: "ROW_CHECK_ALL";
   payload: string[]; // list of ids to check
 }
+//4------ Action Type ---------//
 interface ActionModal {
   type: "MODAL_OPEN";
   payload: string; // packageId
 }
+//5----- Action Type ----------//
 interface ActionModalClose {
   type: "MODAL_CLOSE";
 }
-
+//-----------------------------//
+//----- Main Action Type ------//
+//-----------------------------//
 export type ReducerProps =
   | ActionWithPayload
   | ActionWithOutPayload
   | ActionCheckAll
   | ActionModal
   | ActionModalClose;
-
+//-----------------------------//
+//------- Main Reducer --------//
+//-----------------------------//
 const reducer = (state: TableState, action: ReducerProps): TableState => {
   switch (action.type) {
     case "ROW_TOGGLE": {
@@ -114,6 +125,7 @@ const reducer = (state: TableState, action: ReducerProps): TableState => {
         },
       };
     }
+    // Modal Handle
     case "MODAL_OPEN":
       return { ...state, modal: { open: true, packageId: action.payload } };
     case "MODAL_CLOSE":
@@ -127,11 +139,13 @@ const reducer = (state: TableState, action: ReducerProps): TableState => {
 export const useTable = (data: TableRow[]) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  // filter data based on category
   const filteredData =
     state.category === "View All"
       ? data
       : data.filter((item) => item.status.label === state.category);
 
+  // filter table data based on key in table header
   const sortedData = useMemo(() => {
     if (!state.sort.key) return filteredData;
     const key = state.sort.key as keyof TableRow;
@@ -167,16 +181,14 @@ export const useTable = (data: TableRow[]) => {
     return arr;
   }, [filteredData, state.sort.key, state.sort.type]);
 
-  const visibleColumns = useMemo(
-    () => COLUMNS.filter((col) => col.tabs.includes(state.category)),
-    [state.category],
-  );
+  // main checkbox in header
   const allChecked =
     filteredData.length > 0 &&
     filteredData.every((r) => state.rowChecked[r.packageId]);
+  // checkbox
   const someChecked =
     filteredData.some((r) => state.rowChecked[r.packageId]) && !allChecked;
-
+  // toggle main checkbox
   function toggleAll() {
     if (allChecked) {
       dispatch({ type: "ROW_RESET" });
@@ -190,7 +202,6 @@ export const useTable = (data: TableRow[]) => {
   // send the last change as filteredData
   return {
     filteredData: sortedData,
-    visibleColumns,
     state,
     dispatch,
     toggleAll,

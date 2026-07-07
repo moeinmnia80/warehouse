@@ -35,7 +35,9 @@ import {
   RowContent,
   RowContentSection,
 } from "@/shared/components/ui/Table";
+import InvoiceModal from "./InvoiceModal";
 
+// MySuiteTable Props
 interface MySuiteTableProps {
   filteredData: TableRow[];
   state: TableState;
@@ -51,23 +53,33 @@ const MySuiteTable = ({
   toggleAll,
   allChecked,
 }: MySuiteTableProps) => {
+  // set correct tag in status column body
   const statusIcon: Record<string, React.ReactNode> = {
     "in review": <SearchIcon className="size-3 stroke-warning" />,
     "ready to send": <TickIcon className="size-3 stroke-success" />,
     "action required": <DangerIcon className="size-3 stroke-error" />,
   };
+  // for different action in action required tab
   const handleAction = (id: string) => {
     if (state.category === "Action Required") {
+      dispatch({ type: "MODAL_OPEN", payload: id });
+    } else {
       handleRowExpand(id, dispatch);
     }
   };
-
+  // check visibility table body td based on header table
   const isVisible = (key: string) =>
     COLUMNS.find(
       (item) => item.key === key && item.tabs.includes(state.category),
     );
+  // modal close handler
+  const handleCloseModal = () => {
+    dispatch({ type: "MODAL_CLOSE" });
+  };
   return (
-    <div className="rounded-xl m-6 overflow-hidden">
+    <div
+      className={`rounded-xl m-6 overflow-hidden ${state.modal ? "" : "h-fit"}`}
+    >
       <Table>
         <THead>
           <Row className="flex items-center bg-b-table border border-b-none border-bo-primary rounded-t-xl text-t-primary">
@@ -272,35 +284,13 @@ const MySuiteTable = ({
             </React.Fragment>
           ))}
         </TBody>
+        {state.modal && (
+          <InvoiceModal
+            modalStatus={state.modal}
+            handleCloseModal={handleCloseModal}
+          />
+        )}
       </Table>
-      {/* <div
-        ref={actionModal}
-        className="fixed inset-0 z-10 h-svh grid place-items-center bg-b-transparent backdrop-blur-sm px-15"
-      >
-        <div className="w-svw max-w-200 bg-b-primary rounded-xl">
-          <div className="p-5 border-b border-bo-primary">
-            <div className="flex-between ">
-              <h3 className="text-t-primary font-bold text-2xl">
-                Add Invoices
-              </h3>
-              <Button className="btn text-t-primary w-11 h-11">x</Button>
-            </div>
-            <p className="text-t-placeholder text-lg mt-2">
-              You can add multiple invoices.
-            </p>
-          </div>
-          <div className="p-5  border-b border-bo-primary">
-            <DocumentDropzone />
-          </div>
-          <form className="p-5">
-            <input
-              type="file"
-              aria-label="form"
-              className="btn max-w-full text-bold bg-t-primary rounded-md"
-            />
-          </form>
-        </div>
-      </div> */}
     </div>
   );
 };
