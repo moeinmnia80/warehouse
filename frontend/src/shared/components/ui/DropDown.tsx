@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import useClickOutside from "@/shared/hooks/useClickOutside";
 import {
   useRef,
@@ -124,7 +125,7 @@ export const DropdownContent = ({
     if (nextSide !== side || nextAlign !== align) {
       setPlacement(nextSide, nextAlign);
     }
-  }, [on]);
+  }, [align, on, side]);
 
   if (!on) return null;
 

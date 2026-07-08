@@ -47,7 +47,7 @@
   --text-md: clamp(10px, 0.5vw + 0.25rem, 14px);
   --text-lg: clamp(12px, 0.5vw + 0.25rem, 16px);
   --text-xl: clamp(14px, 0.5vw + 0.25rem, 18px);
-  --text-2xl: clamp(16px, 0.5vw + 0.25rem, 20px);
+  --text-2xl: clamp(16px, 0.5vw + 0.3rem, 20px);
 
   --opacity-dyn: 1;
 

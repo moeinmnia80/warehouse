@@ -1,31 +1,23 @@
 import React from "react";
 import TickIcon from "@/assets/icons/TickIcon";
+import Image from "@/shared/components/ui/Image";
 import ShowIcon from "@/assets/icons/ShowIcon.tsx";
 import DangerIcon from "@/assets/icons/DangerIcon";
-import {
-  type ReducerProps,
-  type TableRow,
-  type TableState,
-} from "@/shared/hooks/useTable";
-import Image from "@/shared/components/ui/Image";
 import { COLUMNS } from "@/shared/constants/table";
 import HiddenIcon from "@/assets/icons/HiddenIcon";
 import SearchIcon from "@/assets/icons/SearchIcon";
 import UploadIcon from "@/assets/icons/UploadIcon";
 import ChevronIcon from "@/assets/icons/ChevronIcon";
+import { useAppDispatch, useAppSelector } from "@/store";
 import DangerousIcon from "@/assets/icons/DangerousIcon";
 import { swiperSlides } from "../constants/swiperSlides";
 import { Checkbox, Label } from "@/shared/components/ui/Form";
 import { lineItems } from "@/feature/suite/constants/lineItem";
 import { ImageDropzone } from "@/shared/components/ImageDropzone";
+import InvoiceModal from "@/feature/suite/components/InvoiceModal";
 import DocumentDropzone from "@/shared/components/DocumentDropzone";
 import { LineItemRow } from "@/feature/suite/components/LineItemRow";
-import {
-  checkStatus,
-  handleRowExpand,
-  handleRowToggle,
-  handleSortChange,
-} from "@/feature/utils/utils";
+import { selectSortedData } from "@/feature/suite/hooks/suiteSelector";
 import {
   Table,
   Row,
@@ -35,51 +27,35 @@ import {
   RowContent,
   RowContentSection,
 } from "@/shared/components/ui/Table";
-import InvoiceModal from "./InvoiceModal";
-
-// MySuiteTable Props
-interface MySuiteTableProps {
-  filteredData: TableRow[];
-  state: TableState;
-  dispatch: React.ActionDispatch<[action: ReducerProps]>;
-  toggleAll: () => void;
-  allChecked: boolean;
-}
-
-const MySuiteTable = ({
-  filteredData,
-  state,
-  dispatch,
-  toggleAll,
+import {
   allChecked,
-}: MySuiteTableProps) => {
+  checkStatus,
+  handleAction,
+  handleCloseModal,
+  handleRowToggle,
+  handleSortChange,
+  isVisible,
+  toggleAll,
+} from "../utils/suiteUtils";
+import TableSkeleton from "./TableSkeleton";
+
+const MySuiteTable = () => {
+  const { category, modal, sort, rowExpanded, rowChecked } = useAppSelector(
+    (state) => state.suite,
+  );
+  const sortedData = useAppSelector(selectSortedData);
+  const dispatch = useAppDispatch();
   // set correct tag in status column body
   const statusIcon: Record<string, React.ReactNode> = {
     "in review": <SearchIcon className="size-3 stroke-warning" />,
     "ready to send": <TickIcon className="size-3 stroke-success" />,
     "action required": <DangerIcon className="size-3 stroke-error" />,
   };
-  // for different action in action required tab
-  const handleAction = (id: string) => {
-    if (state.category === "Action Required") {
-      dispatch({ type: "MODAL_OPEN", payload: id });
-    } else {
-      handleRowExpand(id, dispatch);
-    }
-  };
-  // check visibility table body td based on header table
-  const isVisible = (key: string) =>
-    COLUMNS.find(
-      (item) => item.key === key && item.tabs.includes(state.category),
-    );
-  // modal close handler
-  const handleCloseModal = () => {
-    dispatch({ type: "MODAL_CLOSE" });
-  };
+  if (!sortedData.length)
+    return <TableSkeleton columns={[10, 30, 30, 25, 20, 20]} rows={3} />;
+
   return (
-    <div
-      className={`rounded-xl m-6 overflow-hidden ${state.modal ? "" : "h-fit"}`}
-    >
+    <div className={`rounded-xl m-6 overflow-hidden`}>
       <Table>
         <THead>
           <Row className="flex items-center bg-b-table border border-b-none border-bo-primary rounded-t-xl text-t-primary">
@@ -87,8 +63,8 @@ const MySuiteTable = ({
               <Label className="" onClick={(e) => e.stopPropagation()}>
                 <Checkbox
                   accentClass="stroke-st-primary"
-                  onChange={toggleAll}
-                  checked={!!allChecked}
+                  onChange={() => toggleAll(dispatch, sortedData, rowChecked)}
+                  checked={allChecked(sortedData, rowChecked)}
                 />
               </Label>
             </TD>
@@ -96,12 +72,12 @@ const MySuiteTable = ({
               <TD
                 key={item.key}
                 onClick={(e) => handleSortChange(e, item.key, dispatch)}
-                className={`flex items-center gap-1 text-md text-current cursor-pointer px-2 ${isVisible(item.key) ? "" : "hidden"} ${item.className}`}
+                className={`flex items-center gap-1 text-md text-current cursor-pointer px-2 ${isVisible(item.key, category) ? "" : "hidden"} ${item.className}`}
               >
                 {item.name}
                 {item.sortable && (
                   <ChevronIcon
-                    className={`size-3 fill-t-secondary ${state.sort.key === item.key ? (state.sort.type === "asc" ? "" : "rotate-180") : "-rotate-90"} transition duration-200`}
+                    className={`size-3 fill-t-secondary ${sort.key === item.key ? (sort.type === "asc" ? "" : "rotate-180") : "-rotate-90"} transition duration-200`}
                   />
                 )}
               </TD>
@@ -109,10 +85,10 @@ const MySuiteTable = ({
           </Row>
         </THead>
         <TBody>
-          {filteredData.map((item) => (
+          {sortedData.map((item) => (
             <React.Fragment key={item.packageId}>
               <Row
-                className={`flex-center text-left border border-b-0  border-bo-primary ${state.rowExpanded[item.packageId] ? `max-h-18 border-b! rounded-b-xl` : ""} first:border-t-0! last:border-b! last:rounded-b-xl! text-t-secondary text-md *:py-4 *:px-2 *:shrink-0`}
+                className={`flex-center text-left border border-b-0  border-bo-primary ${rowExpanded[item.packageId] ? `max-h-18 border-b! rounded-b-xl` : ""} first:border-t-0! last:border-b! last:rounded-b-xl! text-t-secondary text-md *:py-4 *:px-2 *:shrink-0`}
               >
                 <TD className="min-w-10">
                   <Label
@@ -124,7 +100,7 @@ const MySuiteTable = ({
                       onChange={(e) =>
                         handleRowToggle(e, item.packageId, dispatch)
                       }
-                      checked={!!state.rowChecked[item.packageId]}
+                      checked={!!rowChecked[item.packageId]}
                     />
                   </Label>
                 </TD>
@@ -138,30 +114,33 @@ const MySuiteTable = ({
                 <TD className="min-w-20 flex-2 text-current">
                   {item.dataReceived}
                 </TD>
-                {isVisible("totalValues") && (
+                {isVisible("totalValues", category) && (
                   <TD className="min-w-20 flex-1 text-current">
+                    <span className="mr-0.5">$</span>
                     <span className="font-bold">{item.totalValues}</span>
                   </TD>
                 )}
-                {isVisible("itemValues") && (
+                {isVisible("itemValues", category) && (
                   <TD className="min-w-20 flex-1 text-current">
+                    <span className="mr-0.5">$</span>
                     <span className="font-bold">{item.itemValues}</span>
                     <div className="">Invoice Value</div>
                   </TD>
                 )}
-                {isVisible("weight") && (
+                {isVisible("weight", category) && (
                   <TD className="min-w-20 flex-1 text-current text-center">
                     {item.weight}
+                    <span className="ml-1">Ibs</span>
                   </TD>
                 )}
-                {isVisible("status") && (
+                {isVisible("status", category) && (
                   <TD
-                    className={`flex-center min-w-30 flex-2 text-current text-center ${state.category === "Action Required" ? "flex-2" : ""}`}
+                    className={`flex-center min-w-30 flex-2 text-current text-center ${category === "Action Required" ? "flex-2" : ""}`}
                   >
-                    {state.category === "Action Required" ? (
+                    {category === "Action Required" ? (
                       <div className="flex flex-col gap-1">
                         <span className="tag text-sm text-error bg-error-50  ">
-                          {statusIcon[item.status.label.toLocaleLowerCase()]}
+                          <DangerIcon className="size-3 stroke-error" />
                           {item.status.details}
                         </span>
                         <span className="text-xs">As required by Customs</span>
@@ -177,15 +156,17 @@ const MySuiteTable = ({
                   </TD>
                 )}
                 <TD
-                  onClick={() => handleAction(item.packageId)}
+                  onClick={() =>
+                    handleAction(item.packageId, category, dispatch)
+                  }
                   className={`flex-center gap-2 min-w-25 flex-1 shrink-0 py-4 text-t-secondary text-center cursor-pointer`}
                 >
-                  {state.category === "Action Required" ? (
+                  {category === "Action Required" ? (
                     <>
                       <p>Upload Invoice</p>
                       <UploadIcon className="size-4 stroke-st-primary" />
                     </>
-                  ) : state.rowExpanded[item.packageId] ? (
+                  ) : rowExpanded[item.packageId] ? (
                     <>
                       <span className="text-alert">Close</span>
                       <HiddenIcon className="size-4 stroke-st-primary animate-fade-in" />
@@ -198,7 +179,7 @@ const MySuiteTable = ({
                   )}
                 </TD>
               </Row>
-              {state.rowExpanded[item.packageId] && (
+              {rowExpanded[item.packageId] && (
                 <RowContent
                   className={`flex flex-col bg-b-table border-bo-primary rounded-xl transition duration-300 my-2 animate-fade-in`}
                 >
@@ -244,7 +225,7 @@ const MySuiteTable = ({
                         </div>
                       </div>
                     </div>
-                    {state.category === "Ready to Send" ? (
+                    {category === "Ready to Send" ? (
                       <>
                         <LineItemRow
                           item={{
@@ -303,11 +284,8 @@ const MySuiteTable = ({
             </React.Fragment>
           ))}
         </TBody>
-        {state.modal && (
-          <InvoiceModal
-            modalStatus={state.modal}
-            handleCloseModal={handleCloseModal}
-          />
+        {modal.open && (
+          <InvoiceModal handleCloseModal={() => handleCloseModal(dispatch)} />
         )}
       </Table>
     </div>

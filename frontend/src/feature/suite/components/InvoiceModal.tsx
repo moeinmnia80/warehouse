@@ -1,24 +1,20 @@
+import { useAppSelector } from "@/store";
 import CloseIcon from "@/assets/icons/CloseIcon";
 import { Button } from "@/shared/components/ui/Button";
 import { useOverflow } from "@/shared/hooks/useOverflow";
 import AddInvoicesModal from "@/feature/suite/components/AddInvoicesModal";
-// Props Types
 interface InvoiceModalProps {
   handleCloseModal: () => void;
-  modalStatus: { open: boolean; packageId: string | null };
 }
-
-const InvoiceModal = ({
-  handleCloseModal,
-  modalStatus: { open },
-}: InvoiceModalProps) => {
-  useOverflow(open);
+const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
+  const { modal } = useAppSelector((state) => state.suite);
+  useOverflow(modal.open);
   return (
     // main wrapper fixed screen
     // close when click outer modal
     <div
-      onClick={() => handleCloseModal()}
-      className={`${open ? "grid" : "hidden"} fixed inset-0 h-svh z-40 place-items-center bg-b-transparent backdrop-blur-sm animate-fade-in`}
+      onClick={handleCloseModal}
+      className={`${modal.open ? "grid" : "hidden"} fixed inset-0 h-svh z-40 place-items-center bg-b-transparent backdrop-blur-sm animate-fade-in`}
     >
       {/* prevent stopPropagation */}
       <div
