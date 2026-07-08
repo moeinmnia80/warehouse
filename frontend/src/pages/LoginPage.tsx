@@ -62,7 +62,7 @@ function LoginPage() {
               </Caption>
             </FormItem>
             <FormItem className="flex-between">
-              <Label className="flex-center gap-1 text-sm font-medium text-t-primary">
+              <Label className="flex-center gap-1 text-lg font-medium text-t-primary">
                 <Checkbox
                   className="size-4 bg-b-checkbox border-bo-secondary rounded-sm shrink-0"
                   accentClass="stroke-t-primary"
@@ -71,14 +71,14 @@ function LoginPage() {
               </Label>
               <Link
                 to={"/forget-password"}
-                className="text-sm font-medium text-t-primary text-right"
+                className="text-lg font-medium text-t-primary text-right"
               >
                 Forget password
               </Link>
             </FormItem>
             <Button
               onClick={handleLogin}
-              className="btn btn--primary font-semibold mt-4 px-2"
+              className="btn btn--primary font-bold mt-4 px-2 transition-all duration-200 hover:bg-b-muted hover:text-t-primary"
             >
               Sign in
             </Button>
@@ -99,7 +99,7 @@ function LoginPage() {
           <div className="text-md font-light text-t-placeholder self-center mt-5">
             Don't have an account?{" "}
             <Link
-              className="text-md text-t-primary font-bold ml-1"
+              className="text-lg text-t-primary font-bold ml-1"
               to={"/register"}
             >
               Register

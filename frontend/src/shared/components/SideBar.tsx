@@ -1,12 +1,7 @@
 import BookIcon from "@/assets/icons/BookIcon";
 import CalculatorIcon from "@/assets/icons/CalculatorIcon";
-import { useTable } from "../hooks/useTable";
-import { useEffect } from "react";
 
 const SideBar = () => {
-  const { state } = useTable();
-  useEffect(() => {}, [state.rowChecked]);
-
   return (
     <aside className="flex flex-col gap-5 min-w-70 h-fit bg-b-primary p-6 rounded-2xl">
       <h4 className="text-center text-lg text-t-secondary font-medium">

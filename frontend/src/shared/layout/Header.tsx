@@ -1,4 +1,5 @@
 import { useArea } from "@/store";
+import { Link } from "react-router";
 import Logo from "@/assets/icons/Logo";
 import Image from "../components/ui/Image";
 import { type ComponentProps } from "react";
@@ -32,10 +33,10 @@ const Header = (props: ComponentProps<"header">) => {
   return (
     <>
       <header {...props}>
-        <div className="flex items-center gap-2 animate-scale-in">
+        <Link to={"/"} className="flex items-center gap-2 animate-scale-in">
           <Logo className="size-7 fill-st-primary" />
           <h2 className="text-2xl font-bold text-st-primary">Markist</h2>
-        </div>
+        </Link>
         {isShow && (
           <ul className="hidden gap-10 lg:flex">
             <li className="cursor-pointer text-t-secondary text-lg font-medium">

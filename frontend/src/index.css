@@ -323,7 +323,7 @@
     padding-block: 12px;
   }
   .form__label {
-    font-size: var(--text-md);
+    font-size: var(--text-xl);
     color: var(--color-t-primary);
     padding-inline: var(--spacing);
   }

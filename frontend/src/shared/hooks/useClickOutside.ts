@@ -23,7 +23,7 @@ const useClickOutside = ({ dropdownRef, setState }: UseClickOutSideProps) => {
     document.addEventListener("mousedown", handleClickOutside);
     // cleanup eventlistener
     return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+  });
 };
 
 export default useClickOutside;

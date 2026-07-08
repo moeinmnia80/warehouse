@@ -90,7 +90,7 @@ const RegisterPage = () => {
                 })}
                 name="policy"
               />
-              <p className="text-xs font-light max-w-60">
+              <p className="text-md font-light max-w-60">
                 By creating an account, you agree to the{" "}
                 <span className="font-bold">Terms & Conditions</span> and our
                 <span className="font-bold">Privacy Policy</span>
@@ -100,7 +100,7 @@ const RegisterPage = () => {
               {errors.policy?.message}
             </Caption>
           </FormItem>
-          <Button className="btn btn--primary font-semibold mt-4 px-2">
+          <Button className="btn btn--primary font-bold mt-4 px-2">
             Sign in
           </Button>
         </Form>
@@ -119,7 +119,7 @@ const RegisterPage = () => {
         </Button>
         <div className="text-md font-light text-t-placeholder self-center mt-5">
           Don't have an account?
-          <Link className="text-md text-t-primary font-bold ml-1" to={"/login"}>
+          <Link className="text-lg text-t-primary font-bold ml-1" to={"/login"}>
             Login
           </Link>
         </div>
