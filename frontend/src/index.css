@@ -156,6 +156,8 @@
     box-sizing: border-box;
   }
   body {
+    height: 100%;
+    background-color: var(--color-b-primary);
     font-family: "Plus Jakarta Sans", "poppins", sans-serif;
   }
   /****** scrollbar ******/

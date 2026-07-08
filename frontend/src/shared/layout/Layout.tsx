@@ -16,7 +16,7 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
       />
       <main
         className="flex bg-b-secondary
-        w-full px-5 md:px-10 lg:px-15 overflow-hidden min-h-dvh"
+        w-full px-5 md:px-10 lg:px-15 min-h-dvh"
       >
         {children}
       </main>
