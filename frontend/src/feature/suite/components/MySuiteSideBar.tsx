@@ -1,34 +1,15 @@
-import BookIcon from "@/assets/icons/BookIcon";
-import CalculatorIcon from "@/assets/icons/CalculatorIcon";
-import InfoIcon from "@/assets/icons/InfoIcon";
 import { useAppSelector } from "@/store";
-import { Button } from "./ui/Button";
+import BookIcon from "@/assets/icons/BookIcon";
+import InfoIcon from "@/assets/icons/InfoIcon";
+import { Button } from "@/shared/components/ui/Button";
 import DeliveryIcon from "@/assets/icons/DeliveryIcon";
+import CalculatorIcon from "@/assets/icons/CalculatorIcon";
+import { calculateData } from "@/feature/suite/utils/suiteUtils";
 import { selectSortedData } from "@/feature/suite/hooks/suiteSelector";
 
-const SideBar = () => {
+const MySuiteSideBar = () => {
   const { category } = useAppSelector((state) => state.suite);
   const sortedData = useAppSelector(selectSortedData);
-  const calculateData = () => {
-    // item values
-    let itemValues: string | number = sortedData.reduce(
-      (acc, cur) => acc + +cur.itemValues,
-      0,
-    );
-    // total weight
-    let totalWeight: string | number = sortedData.reduce(
-      (acc, cur) => acc + +cur.weight,
-      0,
-    );
-    // sub total = 10% + shipping cost
-    let subTotal: string | number = itemValues + itemValues * 0.1 + 8;
-    subTotal = "$ " + subTotal;
-    //combine
-    itemValues = "$ " + itemValues;
-    totalWeight = totalWeight + "  Ibs";
-
-    return { itemValues, totalWeight, subTotal };
-  };
 
   return (
     <aside className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 xl:max-w-100 xl:grid-cols-1">
@@ -47,13 +28,13 @@ const SideBar = () => {
               <p className="flex-between text-xl text-current">
                 Total Value
                 <span className="text-t-primary text-2xl font-medium">
-                  {calculateData().itemValues}
+                  {calculateData(sortedData).itemValues}
                 </span>
               </p>
               <p className="flex-between text-xl text-current">
                 Total Weight
                 <span className="text-t-primary text-2xl font-medium">
-                  {calculateData().totalWeight}
+                  {calculateData(sortedData).totalWeight}
                 </span>
               </p>
               <p className="flex-between text-xl text-current">
@@ -67,13 +48,13 @@ const SideBar = () => {
               <p className="flex-between font-light text-xl text-current">
                 Subtotal
                 <span className="text-t-primary text-2xl font-medium">
-                  {calculateData().subTotal}
+                  {calculateData(sortedData).subTotal}
                 </span>
               </p>
               <p className="flex-between font-light text-xl text-current">
                 Estimated Shipping
                 <span className="text-t-primary text-2xl font-bold">
-                  {calculateData().subTotal}
+                  {calculateData(sortedData).subTotal}
                 </span>
               </p>
               <p className="font-light text-lg text-current underline">
@@ -121,4 +102,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default MySuiteSideBar;

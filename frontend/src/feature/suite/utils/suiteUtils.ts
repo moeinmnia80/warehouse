@@ -121,6 +121,28 @@ const toggleAll = (
   }
 };
 
+// use in my suite side bar
+const calculateData = (sortedData: TableRow[]) => {
+  // item values
+  let itemValues: string | number = sortedData.reduce(
+    (acc, cur) => acc + +cur.itemValues,
+    0,
+  );
+  // total weight
+  let totalWeight: string | number = sortedData.reduce(
+    (acc, cur) => acc + +cur.weight,
+    0,
+  );
+  // sub total = 10% + shipping cost
+  let subTotal: string | number = itemValues + itemValues * 0.1 + 8;
+  subTotal = "$ " + subTotal;
+  //combine
+  itemValues = "$ " + itemValues;
+  totalWeight = totalWeight + "  Ibs";
+
+  return { itemValues, totalWeight, subTotal };
+};
+
 export {
   toggleAll,
   allChecked,
@@ -128,4 +150,5 @@ export {
   handleCloseModal,
   handleAction,
   tabStatus,
+  calculateData,
 };

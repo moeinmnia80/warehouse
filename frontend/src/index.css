@@ -215,6 +215,10 @@
     width: 0 !important;
     height: 0 !important;
   }
+  a.active {
+    font-weight: bold;
+    color: var(--color-t-primary);
+  }
 }
 @layer components {
   .header {

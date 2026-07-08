@@ -11,6 +11,7 @@ import {
 } from "../components/ui/DropDown";
 import Image from "../components/ui/Image";
 import ChevronIcon from "@/assets/icons/ChevronIcon";
+import { NavLink } from "react-router";
 
 const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
   const areas = useArea(useShallow((state) => state.areas));
@@ -25,13 +26,19 @@ const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
             <Logo className="size-7 fill-st-primary" />
             <h2 className="text-2xl font-bold text-st-primary">Markist</h2>
           </div>
-          <ul className="hidden xl:flex gap-10">
-            <li className="text-t-secondary text-lg font-medium">My Suit</li>
-            <li className="text-t-secondary text-lg font-medium">
-              Shipping History
+          <ul className="hidden gap-10 lg:flex">
+            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+              <NavLink to={"dashboard/my-suite"}>My Suit</NavLink>
             </li>
-            <li className="text-t-secondary text-lg font-medium">Help</li>
-            <li className="text-t-secondary text-lg font-medium">Contact Us</li>
+            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+              <NavLink to="dashboard/shipping">Shipping History</NavLink>
+            </li>
+            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+              Help
+            </li>
+            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+              Contact Us
+            </li>
           </ul>
           <SocialMedia className="size-3 xl:size-5 fill-st-primary" />
         </div>

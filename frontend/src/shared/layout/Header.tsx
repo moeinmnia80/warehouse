@@ -1,16 +1,15 @@
 import { useArea } from "@/store";
-import { Link } from "react-router";
 import Logo from "@/assets/icons/Logo";
 import Image from "../components/ui/Image";
-import { type ComponentProps } from "react";
+import { Link, NavLink, useLocation } from "react-router";
 import { useTheme } from "../hooks/useTheme";
 import { useShallow } from "zustand/shallow";
 import TickIcon from "@/assets/icons/TickIcon";
 import DarkIcon from "@/assets/icons/DarkIcon";
 import LightIcon from "@/assets/icons/LightIcon";
-import { checkPath } from "@/shared/utils/utils";
 import { Toggle } from "../components/ui/Toggle";
 import LogoutIcon from "@/assets/icons/LogoutIcon";
+import { type ComponentProps } from "react";
 import ChevronIcon from "@/assets/icons/ChevronIcon";
 import { Button } from "@/shared/components/ui/Button";
 import { ToggleButton, ToggleLabel } from "@/shared/components/ui/Toggle";
@@ -23,12 +22,14 @@ import {
 import SettingsIcon from "@/assets/icons/SettingsIcon";
 
 const Header = (props: ComponentProps<"header">) => {
+  const location = useLocation();
   const { theme, themeToggler } = useTheme();
   const areas = useArea(useShallow((state) => state.areas));
   const setArea = useArea(useShallow((state) => state.setArea));
   const selectedArea = useArea(useShallow((state) => state.selectedArea));
 
-  const isShow = checkPath("/dashboard");
+  // check root for header list
+  const isShow = location.pathname.startsWith("/dashboard");
 
   return (
     <>
@@ -40,10 +41,10 @@ const Header = (props: ComponentProps<"header">) => {
         {isShow && (
           <ul className="hidden gap-10 lg:flex">
             <li className="cursor-pointer text-t-secondary text-lg font-medium">
-              My Suit
+              <NavLink to={"dashboard/my-suite"}>My Suit</NavLink>
             </li>
             <li className="cursor-pointer text-t-secondary text-lg font-medium">
-              Shipping History
+              <NavLink to="dashboard/shipping">Shipping History</NavLink>
             </li>
             <li className="cursor-pointer text-t-secondary text-lg font-medium">
               Help
