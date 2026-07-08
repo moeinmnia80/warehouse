@@ -21,7 +21,7 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
         {children}
       </main>
       {shouldShowFooter && (
-        <Footer className="relative z-30 bg-b-primary px-5 md:px-10 lg:px-15 border-t border-bo-primary" />
+        <Footer className="relative bottom-0 z-30 bg-b-primary px-5 md:px-10 lg:px-15 border-t border-bo-primary" />
       )}
     </>
   );
