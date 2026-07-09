@@ -11,9 +11,9 @@ const SuiteHeader = () => {
   const queue = data.filter((item) => item.status.label === "Ready to Send");
 
   return (
-    <div className="flex h-42 md:h-32">
-      <div className="flex flex-col gap-1 justify-center h-full w-fit border-e border-bo-primary pe-4 sm:pe-8">
-        <h3 className="text-t-primary font-bold text-2xl lg:justify-between lg:text-3xl xl:text-4xl ">
+    <div className="flex h-38 md:h-26">
+      <div className="flex flex-col gap-1 justify-center lg:justify-between h-full w-fit border-e border-bo-primary pe-4 sm:pe-8">
+        <h3 className="text-t-primary font-bold text-2xl lg:text-3xl xl:text-4xl ">
           Packages in Suite XC1164
         </h3>
         <p className="flex flex-col gap-2 lg:flex-row text-t-secondary text-md lg:text-lg font-medium">
@@ -36,11 +36,11 @@ const SuiteHeader = () => {
           <QueueIcon className="size-full stroke-st-primary" />
         </div>
         <div className="flex flex-col md:justify-center text-center md:text-left">
-          <div className="text-t-primary text-lg md:text-2xl font-bold">
+          <div className="text-t-primary text-lg md:text-2xl lg:text-3xl font-bold">
             {"0" + queue.length}
           </div>
           <Button
-            className="text-t-primary text-sm md:text-md font-semibold underline"
+            className="h-fit py-2 text-t-primary text-sm md:text-md font-semibold underline"
             onClick={() => {
               dispatch(changeCategory("Ready to Send"));
             }}
