@@ -9,8 +9,8 @@ export const Table = ({
   ...props
 }: ComponentProps<"div">) => {
   return (
-    <div className="overflow-auto max-h-auto ">
-      <div className={`min-w-max ${className ? className : ""}`} {...props}>
+    <div className="md:overflow-auto md:max-h-auto ">
+      <div className={`md:min-w-max ${className ? className : ""}`} {...props}>
         {children}
       </div>
     </div>
@@ -27,7 +27,7 @@ export const THead = ({
 }: ComponentProps<"div">) => {
   return (
     <div
-      className={`min-w-max sticky top-0 z-10 ${className ? className : ""}`}
+      className={`md:min-w-max md:sticky md:top-0 md:z-10 ${className ? className : ""}`}
       {...props}
     >
       {children}
@@ -45,7 +45,7 @@ export const TBody = ({
 }: ComponentProps<"div">) => {
   return (
     <div
-      className={`min-w-max flex flex-col ${className ? className : ""}`}
+      className={`md:min-w-max md:flex md:flex-col ${className ? className : ""}`}
       {...props}
     >
       {children}
@@ -64,8 +64,15 @@ export const Row = ({ children, ...props }: ComponentProps<"div">) => {
 // ------------------------------------------------------------
 //5-————— Table Data  —————————————————————————————————————————
 // ------------------------------------------------------------
-export const TD = ({ children, ...props }: ComponentProps<"div">) => {
-  return <div {...props}>{children}</div>;
+interface TDProps extends ComponentProps<"div"> {
+  dataCell?: string;
+}
+export const TD = ({ children, dataCell, ...props }: TDProps) => {
+  return (
+    <div data-cell={dataCell} {...props}>
+      {children}
+    </div>
+  );
 };
 // ------------------------------------------------------------
 //6-————— Table Row Content  ——————————————————————————————————

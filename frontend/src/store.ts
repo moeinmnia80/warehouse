@@ -5,6 +5,7 @@ import { areas } from "./shared/constants/areas";
 import { configureStore } from "@reduxjs/toolkit";
 import type { AreaType, DataState } from "./shared/types/types";
 import suiteReducer from "@/feature/suite/store/suiteSlice";
+import shippingReducer from "@/feature/shipping/store/shippingSlice";
 import {
   useDispatch,
   useSelector,
@@ -37,6 +38,7 @@ export const useArea = create<DataState>()(
 export const store = configureStore({
   reducer: {
     suite: suiteReducer,
+    shipping: shippingReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
