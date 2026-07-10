@@ -17,7 +17,7 @@ import {
   Label,
   Password,
 } from "@/shared/components/ui/Form";
-import type { ErrorType } from "@/shared/types/error.type";
+// import type { ErrorType } from "@/shared/types/error.type";
 
 const LoginForm = () => {
   // validation form data - zod
@@ -34,16 +34,21 @@ const LoginForm = () => {
   // form handler
   const onSubmit = async (formData: LoginFormData) => {
     const result = await login(formData);
+
     if (
-      result?.success ||
       (formData.email === "admin@yahoo.com" &&
-        formData.password === "Admin1234")
+        formData.password === "Admin1234") ||
+      result?.success
     ) {
       toast.success("Logged in successfully");
-
       navigate("/dashboard");
     } else {
-      toast.error((result.error as ErrorType).data.error.message);
+      console.log(result);
+
+      toast.error(
+        (result.error as { error: string; status: string }).status ||
+          "Logged in Failed",
+      );
     }
   };
   return (
