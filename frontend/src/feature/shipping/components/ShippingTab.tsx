@@ -1,6 +1,6 @@
 import { Form, Input, Label } from "@/shared/components/ui/Form";
-import DateRangeFilter from "./DateRangeFilter";
 import { SearchIcon } from "lucide-react";
+import DateRangeFilter from "@/feature/shipping/components/DateRangeFilter";
 
 const ShippingTab = () => {
   return (
@@ -16,7 +16,7 @@ const ShippingTab = () => {
           />
         </Label>
       </Form>
-      <div>
+      <div className="flex-center">
         <DateRangeFilter />
       </div>
     </div>

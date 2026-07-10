@@ -6,7 +6,7 @@ export const LoginUserSchema = z.object({
   password: z.string().min(8),
 });
 export const RegisterUserSchema = z.object({
-  fullname: z.string().min(2).max(50),
+  fullName: z.string().min(2).max(50),
   username: z.string().min(2).max(50),
   email: z.string().email(),
   password: z.string().min(8),

@@ -36,9 +36,11 @@
   /* accent color */
   --color-success: #07b256;
   --color-success-50: rgba(7, 178, 86, 10%);
+  --color-success-125: rgba(7, 178, 86, 25%);
   --color-alert: #e42f23;
   --color-error: #d52027;
   --color-error-50: rgba(213, 32, 39, 10%);
+  --color-error-125: rgba(213, 32, 39, 25%);
   --color-warning: #f79009;
   --color-warning-50: rgba(247, 144, 9, 10%);
   /* text-size */
@@ -330,8 +332,6 @@
 
     padding-inline: 24px;
     padding-block: 24px;
-
-    position: relative;
 
     border: 1px solid var(--color-bo-primary);
     border-radius: 16px;

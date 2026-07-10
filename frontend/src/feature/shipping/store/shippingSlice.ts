@@ -1,32 +1,19 @@
+import { getRangeFromPreset } from "@/feature/shipping/index";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { getRangeFromPreset } from "@/feature/shipping/utils/utils";
+import type {
+  ShippingState,
+  DatePreset,
+  DateRange,
+  SortState,
+} from "@/feature/shipping/index";
 
-// ---- Types ----------------------------------------------------
-
-export type DatePreset = "30d" | "60d" | "90d" | "1y" | "custom" | null;
-export interface DateRange {
-  from: string | null; // ISO string, e.g. "2026-06-08T10:00:00.000Z"
-  to: string | null;
-}
-interface SortState {
-  key: string | null;
-  type: "asc" | "desc";
-}
-interface ShippingState {
-  search: string;
-  sort: SortState;
-  dateFilter: {
-    preset: DatePreset;
-    range: DateRange;
-  };
-}
 // ---- Initial state ---------------
 const initialState: ShippingState = {
   search: "",
   sort: { key: null, type: "asc" },
   dateFilter: {
-    preset: null,
-    range: { from: null, to: null },
+    preset: "30d",
+    range: getRangeFromPreset("30d"),
   },
 };
 

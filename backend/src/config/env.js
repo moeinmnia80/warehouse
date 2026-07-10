@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const env = {
-  clientUrl: process.env.CLIENT_URL || "http://localhost:5500",
+  clientUrl: process.env.CLIENT_URL || "http://localhost:3000",
   port: process.env.PORT || 5000,
   dbHost: process.env.DB_HOST || "localhost",
   dbPort: Number(process.env.DB_PORT) || 3306,

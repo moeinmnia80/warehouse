@@ -11,14 +11,14 @@ export const loginUser = async ({ email, password }) => {
   }
   const isMatch = await bcrypt.compare(password, existingUser?.password || "");
   if (!isMatch) {
-    throw Errors.authentication("Invalid email/username or password");
+    throw Errors.authentication("Invalid email or password");
   }
-  const { fullname } = existingUser;
+  const { fullName } = existingUser;
 
   return {
     status: "success",
     message: "User logged in successfully",
-    data: { fullname, email },
+    data: { fullName, email },
   };
 };
 
