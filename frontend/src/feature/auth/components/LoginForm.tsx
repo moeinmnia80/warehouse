@@ -36,7 +36,8 @@ const LoginForm = () => {
     const result = await login(formData);
     if (
       result?.success ||
-      (formData.email === "admin" && formData.password === "admin")
+      (formData.email === "admin@yahoo.com" &&
+        formData.password === "Admin1234")
     ) {
       toast.success("Logged in successfully");
 
