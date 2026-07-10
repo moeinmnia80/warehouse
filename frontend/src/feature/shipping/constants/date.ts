@@ -1,4 +1,4 @@
-import type { DatePreset } from "../store/shippingSlice";
+import type { DatePreset } from "@/feature/shipping/types/types";
 
 export const PRESETS: { label: string; value: DatePreset }[] = [
   { label: "30 Days", value: "30d" },
