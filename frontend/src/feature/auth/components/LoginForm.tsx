@@ -17,7 +17,6 @@ import {
   Label,
   Password,
 } from "@/shared/components/ui/Form";
-// import type { ErrorType } from "@/shared/types/error.type";
 
 const LoginForm = () => {
   // validation form data - zod
