@@ -16,7 +16,6 @@ Markist is a warehouse management application for tracking inventory, shipments,
 | -------------------- | --------------------------------------------------------- |
 | **My Suite**         | Personalized workspace: tasks, favorites, recent activity |
 | **History Shipping** | Historical record of all inbound/outbound shipments       |
-| ...                  | Additional tabs (add as the project grows)                |
 
 ## Getting Started
 
