@@ -1,0 +1,227 @@
+[
+  {
+    "id": "XC1164",
+    "userId": "1cde7495-bfc5-40c4-99bc-fd19f4f4c8b1",
+    "packages": [
+      {
+        "barcode": "IZ6A9426897731887",
+        "packageId": "03-218-9705",
+        "vendor": "Amazon",
+        "dataReceived": "2026-06-28 14:32",
+        "itemValues": "99.00",
+        "totalValues": "112.50",
+        "weight": "2.4",
+        "status": {
+          "label": "In Review",
+          "details": "Package is in review by our trade compliance team. Please expect more information via email if it will not be ready to send within 1-2 business days."
+        },
+        "details": {
+          "recipient": "J. Whitfield",
+          "address": "14 Cross St, London",
+          "items": [
+            {
+              "id": "001",
+              "name": "USB-C Cable",
+              "qty": "1000",
+              "valuePerUnit": "8.50",
+              "notice": ""
+            },
+            {
+              "id": "002",
+              "name": "Desk Lamp",
+              "qty": "450",
+              "valuePerUnit": "12.50",
+              "notice": ""
+            },
+            {
+              "id": "003",
+              "name": "Notebook Set",
+              "qty": "100",
+              "valuePerUnit": "1199",
+              "notice": "This product contains a lithium battery, additional charges may be required"
+            }
+          ]
+        }
+      },
+      {
+        "barcode": "IZ6A9423125556541887",
+        "packageId": "03-854-9235",
+        "vendor": "Amazon",
+        "dataReceived": "2026-06-28 17:46",
+        "itemValues": "19.00",
+        "totalValues": "32.20",
+        "weight": "1.1",
+        "status": {
+          "label": "In Review",
+          "details": "Package is in review by our trade compliance team. Please expect more information via email if it will not be ready to send within 1-2 business days."
+        },
+        "details": {
+          "recipient": "J. Whitfield",
+          "address": "14 Cross St, London",
+          "items": [
+            {
+              "id": "001",
+              "name": "USB-C Cable",
+              "qty": "1000",
+              "valuePerUnit": "8.50",
+              "notice": ""
+            },
+            {
+              "id": "002",
+              "name": "Desk Lamp",
+              "qty": "450",
+              "valuePerUnit": "12.50",
+              "notice": ""
+            },
+            {
+              "id": "003",
+              "name": "Notebook Set",
+              "qty": "100",
+              "valuePerUnit": "1199",
+              "notice": "This product contains a lithium battery, additional charges may be required"
+            }
+          ]
+        }
+      },
+      {
+        "barcode": "IZ6B1183420019234",
+        "packageId": "03-156-1255",
+        "vendor": "DHL Express",
+        "dataReceived": "2026-06-29 09:12",
+        "itemValues": "89.00",
+        "totalValues": "102.00",
+        "weight": "1.1",
+        "status": {
+          "label": "Ready to Send",
+          "details": ""
+        },
+        "details": {
+          "recipient": "M. Osei",
+          "address": "22 Baker Rd, Manchester",
+          "items": [
+            {
+              "id": "001",
+              "name": "Running Shoes",
+              "qty": "1000",
+              "valuePerUnit": "56.50",
+              "notice": ""
+            },
+            {
+              "id": "002",
+              "name": "Desk Lamp",
+              "qty": "450",
+              "valuePerUnit": "12.50",
+              "notice": ""
+            },
+            {
+              "id": "003",
+              "name": "Notebook Set",
+              "qty": "100",
+              "valuePerUnit": "1199",
+              "notice": "This product contains a lithium battery, additional charges may be required"
+            }
+          ]
+        }
+      },
+      {
+        "barcode": "IZ6C7729384610552",
+        "packageId": "03-345-1643",
+        "vendor": "FedEx",
+        "dataReceived": "2026-06-30 18:05",
+        "itemValues": "310.75",
+        "totalValues": "450.15",
+        "weight": "5.8",
+        "status": {
+          "label": "action required",
+          "details": "Upload Merchant Invoice"
+        },
+        "details": {
+          "recipient": "R. Patel",
+          "address": "9 Elm Court, Bristol",
+          "items": [
+            {
+              "id": "001",
+              "name": "Monitor Stand",
+              "qty": "500",
+              "valuePerUnit": "678.00",
+              "notice": ""
+            },
+            {
+              "id": "002",
+              "name": "Keyboard",
+              "qty": "500",
+              "valuePerUnit": "125.50",
+              "notice": ""
+            },
+            {
+              "id": "003",
+              "name": "Mouse Pad",
+              "qty": "1000",
+              "valuePerUnit": "56",
+              "notice": ""
+            },
+            {
+              "id": "004",
+              "name": "Cable Organizer",
+              "qty": "1000",
+              "valuePerUnit": "28",
+              "notice": ""
+            }
+          ]
+        }
+      },
+      {
+        "barcode": "IZ6D5567123489021",
+        "packageId": "03-122-2366",
+        "vendor": "UPS",
+        "dataReceived": "2026-06-30 11:47",
+        "itemValues": "54.20",
+        "totalValues": "79.00",
+        "weight": "0.6",
+        "status": {
+          "label": "Ready to Send",
+          "details": ""
+        },
+        "details": {
+          "recipient": "S. Chen",
+          "address": "3 Harbor View, Leeds",
+          "items": [
+            {
+              "id": "001",
+              "name": "Phone Cases",
+              "qty": "1000",
+              "valuePerUnit": "346.00",
+              "notice": ""
+            }
+          ]
+        }
+      },
+      {
+        "barcode": "IZ6D543564733489021",
+        "packageId": "03-134-7453",
+        "vendor": "FedEx",
+        "dataReceived": "2026-06-30 11:47",
+        "itemValues": "234.20",
+        "totalValues": "314.20",
+        "weight": "0.8",
+        "status": {
+          "label": "Ready to Send",
+          "details": ""
+        },
+        "details": {
+          "recipient": "S. Chen",
+          "address": "3 Harbor View, Leeds",
+          "items": [
+            {
+              "id": "001",
+              "name": "Phone Cases",
+              "qty": "1000",
+              "valuePerUnit": "346.00",
+              "notice": ""
+            }
+          ]
+        }
+      }
+    ]
+  }
+]

@@ -1,10 +1,13 @@
 import fs from "fs";
-
+const files = {
+  users: "./src/db/users.json",
+  suites: "./src/db/suites.json",
+};
 export const connectDB = {
-  readData: () => {
+  readData: (collection) => {
     let users = [];
     try {
-      const data = fs.readFileSync("./src/db/users.json", "utf-8");
+      const data = fs.readFileSync(files[collection], "utf-8");
       users = data.trim() ? JSON.parse(data) : [];
     } catch (err) {
       if (err.code === "ENOENT") {
@@ -15,10 +18,10 @@ export const connectDB = {
     }
     return users;
   },
-  writeData: (data) => {
+  writeData: (collection, data) => {
     try {
       fs.writeFileSync(
-        "./src/db/users.json",
+        files[collection],
         JSON.stringify(data, null, 2),
         "utf-8",
       );

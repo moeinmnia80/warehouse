@@ -26,7 +26,7 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
   // login api
-  const { login, isLoggingIn } = useAuth();
+  const { login, isLoggingIn, user } = useAuth();
   // navigate to path ...
   const navigate = useNavigate();
 
@@ -39,6 +39,8 @@ const LoginForm = () => {
         formData.password === "Admin1234") ||
       result?.success
     ) {
+      console.log(user);
+
       toast.success("Logged in successfully");
       navigate("/dashboard");
     } else {

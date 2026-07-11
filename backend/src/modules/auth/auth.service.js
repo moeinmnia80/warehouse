@@ -1,6 +1,8 @@
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import env from "../../config/env.js";
 import { Errors } from "../../utils/errors.js";
-import { createUser } from "./auth.repository.js";
+import { createUser, findUserById } from "./auth.repository.js";
 import { findUserByEmail, findUserByUsername } from "./auth.repository.js";
 
 export const loginUser = async ({ email, password }) => {
@@ -13,18 +15,28 @@ export const loginUser = async ({ email, password }) => {
   if (!isMatch) {
     throw Errors.authentication("Invalid email or password");
   }
-  const { fullName } = existingUser;
+
+  const token = jwt.sign(
+    { id: existingUser.id, role: existingUser.role },
+    env.dbPrivateKey,
+    {
+      algorithm: "HS256",
+      expiresIn: env.dbExpiredKey,
+    },
+  );
+
+  const { fullName, role, gender, id } = existingUser;
 
   return {
     status: "success",
     message: "User logged in successfully",
-    data: { fullName, email },
+    data: { fullName, email, role, gender, id, token },
   };
 };
 
 export const registerUser = async ({ email, username, password, ...rest }) => {
-  const existingUserByEmail = await findUserByEmail(email);
-  const existingUserByUsername = await findUserByUsername(username);
+  const existingUserByEmail = findUserByEmail(email);
+  const existingUserByUsername = findUserByUsername(username);
 
   if (existingUserByEmail || existingUserByUsername) {
     throw Errors.conflict("User with this email or username already exists");
@@ -36,25 +48,50 @@ export const registerUser = async ({ email, username, password, ...rest }) => {
     throw Errors.internal("Error occurred");
   }
   const newUser = {
+    id: crypto.randomUUID(),
     ...rest,
     email,
     username,
     password: hashPassword,
-    id: crypto.randomUUID(),
+    phone: { primary: null, secondary: null, alternate: null, fax: null },
+    gender: null,
+    role: "manager",
+    suite: null,
+    createdAt: new Date().toISOString(),
   };
 
   const user = createUser(newUser);
   if (!user) {
     throw Errors.internal("Error occurred while creating user");
   }
-  delete user.password;
-  delete user.id;
+  const token = jwt.sign(
+    { id: existingUser.id, role: existingUser.role },
+    env.dbPrivateKey,
+    {
+      algorithm: "HS256",
+      expiresIn: env.dbExpiredKey,
+    },
+  );
+  const { fullName, gender, role, id } = user;
 
   return {
-    statusbar: "success",
+    status: "success",
     message: "User registered successfully",
-    data: user,
+    data: { fullName, email, gender, role, id, token },
   };
 };
 
-const updateUserProfile = (id, updatedData) => {};
+export const getMe = (req) => {
+  const { id } = req.user;
+  const existingUserById = findUserById(id);
+  if (!existingUserById) {
+    throw Errors.notFound("User");
+  }
+
+  const { fullName, email, gender, role } = existingUserById;
+  return {
+    status: "success",
+    message: "user find ^_^",
+    data: { fullName, email, gender, role, id },
+  };
+};

@@ -8,6 +8,7 @@ import {
   useLogoutMutation,
   type LoginCredentials,
 } from "@/feature/auth/index";
+import { setCookies } from "@/shared/utils/cookie";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -19,10 +20,11 @@ export const useAuth = () => {
   const login = async (credentials: LoginCredentials) => {
     try {
       const {
-        data: { email, fullName },
+        data: { email, fullName, gender, token, role },
       } = await loginMutation(credentials).unwrap();
 
-      dispatch(setCredentials({ email, fullName }));
+      dispatch(setCredentials({ email, fullName, gender, role }));
+      setCookies("auth-token", token);
 
       return { success: true };
     } catch (error) {

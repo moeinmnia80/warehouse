@@ -1,9 +1,18 @@
 [
   {
+    "id": "1cde7495-bfc5-40c4-99bc-fd19f4f4c8b1",
     "fullName": "moein mohammadnia",
     "email": "moein@yahoo.com",
     "username": "moeinmnia",
     "password": "$2b$10$vL2eWuWfsRoxtS96WxAnW.xrpZQQDWQEOxm3nsvPSN56DxOenD9GS",
-    "id": "1cde7495-bfc5-40c4-99bc-fd19f4f4c8b1"
+    "phone": {
+      "primary": "null",
+      "secondary": "null",
+      "alternate": "null",
+      "fax": "null"
+    },
+    "gender": "null",
+    "role": "admin",
+    "suite": "null"
   }
 ]

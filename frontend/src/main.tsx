@@ -1,5 +1,5 @@
-import App from "./App.tsx";
-import { store } from "./store.ts";
+import App from "@/App.tsx";
+import { store } from "@/store.ts";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router";
 import { createRoot } from "react-dom/client";
