@@ -52,9 +52,9 @@ DB_EXPIRED_KEY=7d
 ```
 
 Create a `.env` file in the root directory fronend:
-
+or you can set in vite.config,js
 ```env
-VITE_API_URL="http://localhost:5000"
+VITE_API_URL="http://localhost:3000"
 ```
 
 ### Running the App
