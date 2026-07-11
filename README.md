@@ -58,11 +58,14 @@ VITE_API_URL="http://localhost:5000"
 ```
 
 ### Running the App
-
+frontend
 ```bash
 npm run dev
 ```
-
+backend
+```bash
+npm run server
+```
 The app will be available at `http://localhost:3000`.
 
 ## Project Structure
