@@ -36,12 +36,25 @@ npm install
 
 ### Configuration
 
-Create a `.env` file in the root directory:
+Create a `.env` file in the root directory backend:
 
 ```env
-APP_NAME=Markist
-DATABASE_URL=your_database_connection_string
-PORT=3000
+CLIENT_HOST=http://localhost:3000
+PORT=
+DB_HOST=
+DB_PORT=3306
+DB_NAME=
+DB_USER=
+DB_PASSWORD=
+DB_UNIQUE_ID=
+DB_PRIVATE_KEY=
+DB_EXPIRED_KEY=7d
+```
+
+Create a `.env` file in the root directory fronend:
+
+```env
+VITE_API_URL="http://localhost:5000"
 ```
 
 ### Running the App
