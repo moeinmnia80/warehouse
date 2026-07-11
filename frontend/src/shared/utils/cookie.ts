@@ -11,3 +11,7 @@ export const getCookie = (name: string): string | null => {
 export const setCookies = (name: string, value: string) => {
   document.cookie = `${name}=${encodeURIComponent(value)}; secure; samesite=strict; path=/`;
 };
+export const removeCookie = () => {
+  document.cookie =
+    "auth-token" + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
+};

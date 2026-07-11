@@ -12,7 +12,7 @@ const MySuiteSideBar = () => {
   const sortedData = useAppSelector(selectSortedData);
 
   return (
-    <aside className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 xl:max-w-100 xl:grid-cols-1">
+    <aside className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 xl:max-w-100 xl:grid-cols-1 border border-bo-primary shadow-2xs">
       <h4 className="text-center text-lg text-t-secondary font-medium col-span-2">
         All values are in United States dollars (USD).
       </h4>

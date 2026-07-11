@@ -1,9 +1,8 @@
 import { baseApi } from "@/shared/api/baseApi";
-
 import type {
-  LoginCredentials,
+  GetMe,
   AuthResponse,
-  User,
+  LoginCredentials,
 } from "@/feature/auth/index";
 
 export const authApi = baseApi.injectEndpoints({
@@ -21,7 +20,7 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
       }),
     }),
-    getCurrentUser: builder.query<User, void>({
+    getCurrentUser: builder.query<GetMe, void>({
       query: () => "/auth/me",
     }),
   }),

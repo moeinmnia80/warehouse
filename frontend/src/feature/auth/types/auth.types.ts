@@ -1,11 +1,10 @@
-// features/auth/types/auth.types.ts
-
 export interface LoginCredentials {
   email: string;
   password: string;
 }
 
 export interface User {
+  id?: string;
   email: string;
   fullName: string;
   role: "admin" | "manager";
@@ -24,7 +23,17 @@ export interface AuthResponse {
     token: string;
   };
 }
-
+export interface GetMe {
+  status: "success" | "fail";
+  message: string;
+  data?: {
+    fullName: string;
+    email: string;
+    role: "admin" | "manager";
+    gender: null | "male" | "female";
+    id?: string;
+  };
+}
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;

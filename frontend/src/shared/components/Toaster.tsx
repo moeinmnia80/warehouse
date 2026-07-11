@@ -7,8 +7,8 @@ const Toaster = ({ id, text, type }: ToastItem) => {
   const remove = useToastStore((state) => state.remove);
 
   useEffect(() => {
-    const leaveTimer = setTimeout(() => setIsLeaving(true), 2700); // start exit anim
-    const removeTimer = setTimeout(() => remove(id), 3000); // then remove from queue
+    const leaveTimer = setTimeout(() => setIsLeaving(true), 3000); // start exit anim
+    const removeTimer = setTimeout(() => remove(id), 3300); // then remove from queue
     return () => {
       clearTimeout(leaveTimer);
       clearTimeout(removeTimer);
@@ -23,7 +23,7 @@ const Toaster = ({ id, text, type }: ToastItem) => {
 
   return (
     <div
-      className={`relative flex items-center min-w-85 h-12 bg-b-primary border ${setStyleType()} rounded-lg px-4 transition-all animate-slide-down duration-200 ${
+      className={`relative flex items-center min-w-90 h-11 bg-b-primary border ${setStyleType()} rounded-lg px-4 transition-all animate-slide-up duration-200 ${
         isLeaving ? " opacity-0" : ""
       }`}
     >

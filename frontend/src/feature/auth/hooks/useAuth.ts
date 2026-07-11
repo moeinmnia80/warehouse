@@ -1,5 +1,3 @@
-// features/auth/hooks/useAuth.ts
-
 import { useAppDispatch, useAppSelector } from "@/store";
 import {
   logoutAction,

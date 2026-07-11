@@ -14,7 +14,6 @@ export const registerUserController = catchAsync(async (req, res) => {
 });
 export const getUserController = catchAsync(async (req, res) => {
   const result = await getMe(req);
-  console.log(result);
 
   return res.status(201).json(result);
 });

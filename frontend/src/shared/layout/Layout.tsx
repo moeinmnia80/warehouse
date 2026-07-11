@@ -13,7 +13,7 @@ const Layout: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
     <>
       <Header
         className="header bg-b-primary px-5 md:px-20 sticky top-0 z-30
-        border-b border-bo-primary "
+        border-b border-bo-primary"
       />
 
       <main

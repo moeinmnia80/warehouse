@@ -7,7 +7,7 @@ const DashboardHeader = () => {
   const isShow = location.pathname.includes("shipping");
 
   return (
-    <div className="flex w-full bg-b-primary rounded-2xl p-5 animate-slide-down">
+    <div className="flex w-full bg-b-primary rounded-2xl p-5 animate-slide-down border border-bo-primary shadow-2xs">
       {!isShow ? (
         <SuiteHeader />
       ) : (

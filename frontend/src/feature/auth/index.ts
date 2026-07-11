@@ -3,6 +3,7 @@ export type {
   AuthState,
   LoginCredentials,
   User,
+  GetMe,
 } from "@/feature/auth/types/auth.types";
 export {
   useGetCurrentUserQuery,

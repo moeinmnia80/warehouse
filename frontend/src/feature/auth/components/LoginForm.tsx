@@ -26,7 +26,7 @@ const LoginForm = () => {
     formState: { errors },
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
   // login api
-  const { login, isLoggingIn, user } = useAuth();
+  const { login, isLoggingIn } = useAuth();
   // navigate to path ...
   const navigate = useNavigate();
 
@@ -34,18 +34,10 @@ const LoginForm = () => {
   const onSubmit = async (formData: LoginFormData) => {
     const result = await login(formData);
 
-    if (
-      (formData.email === "admin@yahoo.com" &&
-        formData.password === "Admin1234") ||
-      result?.success
-    ) {
-      console.log(user);
-
+    if (result?.success) {
       toast.success("Logged in successfully");
       navigate("/dashboard");
     } else {
-      console.log(result);
-
       toast.error(
         (result.error as { error: string; status: string }).status ||
           "Logged in Failed",

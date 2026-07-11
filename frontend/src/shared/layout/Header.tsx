@@ -20,6 +20,7 @@ import {
   DropdownItem,
 } from "@/shared/components/ui/DropDown";
 import SettingsIcon from "@/assets/icons/SettingsIcon";
+import { useGetCurrentUserQuery } from "@/feature/auth";
 
 const Header = (props: ComponentProps<"header">) => {
   const location = useLocation();
@@ -27,6 +28,7 @@ const Header = (props: ComponentProps<"header">) => {
   const areas = useArea(useShallow((state) => state.areas));
   const setArea = useArea(useShallow((state) => state.setArea));
   const selectedArea = useArea(useShallow((state) => state.selectedArea));
+  const { data } = useGetCurrentUserQuery();
 
   // check root for header list
   const isShow = location.pathname.startsWith("/dashboard");
@@ -113,16 +115,21 @@ const Header = (props: ComponentProps<"header">) => {
           ) : (
             <>
               <Dropdown>
-                <DropdownButton className="flex-between w-18 xl:w-24 shrink-0">
+                <DropdownButton className="flex-between w-fit shrink-0">
                   <div className="text-left">
                     <h3 className="text-sm xl:text-xs font-bold text-t-primary">
-                      Bryan Adams
+                      <span className="capitalize">
+                        {data && data.data?.gender === "male" ? "mr" : "mz"}
+                      </span>
+                      <span className="uppercase">
+                        .{data && data.data?.fullName}
+                      </span>
                     </h3>
-                    <p className="text-sm xl:text-xs font-bold  text-t-placeholder">
-                      Manager
+                    <p className="text-sm xl:text-xs font-bold  text-t-placeholder capitalize">
+                      {data && data.data?.role}
                     </p>
                   </div>
-                  <ChevronIcon className="size-4 fill-st-primary" />
+                  <ChevronIcon className="size-3 fill-st-primary ms-2" />
                 </DropdownButton>
                 <DropdownContent className="bg-b-primary border border-bo-primary rounded-md p-1 mt-2 animate-fade-in">
                   <DropdownItem>
