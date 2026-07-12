@@ -6,7 +6,8 @@ import {
   useLogoutMutation,
   type LoginCredentials,
 } from "@/feature/auth/index";
-import { setCookies } from "@/shared/utils/cookie";
+import { removeCookie, setCookies } from "@/shared/utils/cookie";
+import { useNavigate } from "react-router";
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -14,6 +15,8 @@ export const useAuth = () => {
 
   const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
   const [logoutMutation, { isLoading: isLoggingOut }] = useLogoutMutation();
+
+  const navigate = useNavigate();
 
   const login = async (credentials: LoginCredentials) => {
     try {
@@ -40,6 +43,8 @@ export const useAuth = () => {
       console.error("Logout error:", error);
     } finally {
       dispatch(logoutAction());
+      removeCookie();
+      navigate("login");
     }
   };
 

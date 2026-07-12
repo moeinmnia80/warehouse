@@ -1,7 +1,7 @@
 import { toast } from "@/store";
 import Logo from "@/assets/icons/Logo";
 import { useForm } from "react-hook-form";
-import { useAuth } from "@/feature/auth/index";
+import { useAuth, type ErrorResponse } from "@/feature/auth/index";
 import { Link, useNavigate } from "react-router";
 import GoogleIcon from "@/assets/icons/GoogleIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -39,7 +39,7 @@ const LoginForm = () => {
       navigate("/dashboard");
     } else {
       toast.error(
-        (result.error as { error: string; status: string }).status ||
+        (result.error as ErrorResponse).data.error.message ||
           "Logged in Failed",
       );
     }

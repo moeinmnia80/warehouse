@@ -40,11 +40,11 @@ import {
 } from "@/feature/suite/utils/suiteUtils";
 
 const MySuiteTable = () => {
+  const dispatch = useAppDispatch();
   const { category, modal, sort, rowExpanded, rowChecked } = useAppSelector(
     (state) => state.suite,
   );
   const sortedData = useAppSelector(selectSortedData);
-  const dispatch = useAppDispatch();
   // set correct tag in status column body
   const statusIcon: Record<string, React.ReactNode> = {
     "in review": <SearchIcon className="size-3 stroke-warning" />,

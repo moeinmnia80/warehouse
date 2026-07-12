@@ -38,3 +38,11 @@ export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
 }
+
+export interface ErrorResponse {
+  data: {
+    error: { code: string; message: string };
+    status: "fail" | "success";
+  };
+  status: string;
+}

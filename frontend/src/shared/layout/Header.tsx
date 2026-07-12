@@ -20,18 +20,26 @@ import {
   DropdownItem,
 } from "@/shared/components/ui/DropDown";
 import SettingsIcon from "@/assets/icons/SettingsIcon";
-import { useGetCurrentUserQuery } from "@/feature/auth";
+import { useAuth, useGetCurrentUserQuery } from "@/feature/auth";
 
 const Header = (props: ComponentProps<"header">) => {
   const location = useLocation();
+  const { logout } = useAuth();
   const { theme, themeToggler } = useTheme();
-  const areas = useArea(useShallow((state) => state.areas));
-  const setArea = useArea(useShallow((state) => state.setArea));
-  const selectedArea = useArea(useShallow((state) => state.selectedArea));
+  const { areas, selectedArea, setArea } = useArea(
+    useShallow((state) => state),
+  );
   const { data } = useGetCurrentUserQuery();
 
   // check root for header list
   const isShow = location.pathname.startsWith("/dashboard");
+
+  const handleLogout = async (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    e.preventDefault();
+    await logout();
+  };
 
   return (
     <>
@@ -133,7 +141,10 @@ const Header = (props: ComponentProps<"header">) => {
                 </DropdownButton>
                 <DropdownContent className="bg-b-primary border border-bo-primary rounded-md p-1 mt-2 animate-fade-in">
                   <DropdownItem>
-                    <Button className="btn text-t-primary text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary ">
+                    <Button
+                      onClick={(e) => handleLogout(e)}
+                      className="btn text-t-primary text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary "
+                    >
                       Log Out
                       <LogoutIcon className="size-4 fill-st-primary ms-5" />
                     </Button>

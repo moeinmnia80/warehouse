@@ -14,9 +14,9 @@ import ChevronIcon from "@/assets/icons/ChevronIcon";
 import { NavLink } from "react-router";
 
 const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
-  const areas = useArea(useShallow((state) => state.areas));
-  const selectedArea = useArea(useShallow((state) => state.selectedArea));
-  const setArea = useArea(useShallow((state) => state.setArea));
+  const { areas, setArea, selectedArea } = useArea(
+    useShallow((state) => state),
+  );
 
   return (
     <>
@@ -83,45 +83,6 @@ const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
                 ))}
               </DropdownContent>
             </Dropdown>
-
-            {/* <Dropdown
-              data={areas}
-              value={selectedArea}
-              onChange={setArea}
-              getKey={(area) => area.name}
-              valueClass="bg-b-secondary rounded-xl h-9 w-25 flex items-center p-1"
-              renderValue={() => (
-                <>
-                  <div className="size-fit p-2">
-                    <img
-                      className="size-6 mr-2 object-contain"
-                      src={selectedArea?.src}
-                      alt={selectedArea?.name}
-                    />
-                  </div>
-                  <p className="text-md font-bold text-t-secondary">
-                    {selectedArea.lang}
-                  </p>
-                </>
-              )}
-              itemClass="bottom-full right-0 
-              w-30 bg-b-primary mb-2 p-1 
-              border border-bo-primary rounded-md z-20"
-              renderItem={(area) => (
-                <>
-                  <div className="size-fit p-2">
-                    <img
-                      className="size-6 mr-2 object-contain"
-                      src={area?.src}
-                      alt={area?.name}
-                    />
-                  </div>
-                  <p className="text-md font-bold text-t-secondary">
-                    {area?.lang}
-                  </p>
-                </>
-              )}
-            /> */}
           </div>
         </div>
       </footer>
