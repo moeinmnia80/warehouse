@@ -1,6 +1,6 @@
 import { useLocation } from "react-router";
-import SuiteHeader from "./SuiteHeader";
-import HistoryIcon from "@/assets/icons/HistoryIcon";
+import { HistoryIcon } from "@/assets/index";
+import { SuiteHeader } from "@/feature/dashboard/index";
 
 const DashboardHeader = () => {
   const location = useLocation();

@@ -1,13 +1,13 @@
 import NotFoundPage from "@/pages/404";
 import LoginPage from "@/pages/LoginPage";
+import { MySuite } from "@/feature/suite/index";
 import RegisterPage from "@/pages/RegisterPage";
 import DashboardPage from "@/pages/DashboardPage";
+import { ProtectRoutes } from "@/feature/auth/index";
 import { Navigate, Route, Routes } from "react-router";
-import MySuite from "@/feature/suite/components/MySuite";
 import ResetPasswordPage from "@/pages/ResetPasswordPage";
 import ForgetPasswordPage from "@/pages/ForgetPasswordPage";
-import ShippingHistory from "@/feature/shipping/components/ShippingHistory";
-import ProtectRoutes from "./feature/auth/components/ProtectRoutes";
+import { ShippingHistory } from "@/feature/shipping/index";
 
 function RouterWrapper() {
   return (

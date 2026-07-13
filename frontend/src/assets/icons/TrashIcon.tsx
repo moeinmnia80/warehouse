@@ -1,4 +1,4 @@
-const TrashIcon = ({ ...props }) => {
+export const TrashIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -39,5 +39,3 @@ const TrashIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default TrashIcon;

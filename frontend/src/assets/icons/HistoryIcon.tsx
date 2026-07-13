@@ -1,4 +1,4 @@
-const HistoryIcon = ({ ...props }) => {
+export const HistoryIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 37 37"
@@ -21,5 +21,3 @@ const HistoryIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default HistoryIcon;

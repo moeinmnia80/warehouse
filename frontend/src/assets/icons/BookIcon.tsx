@@ -1,6 +1,6 @@
 import { type ComponentProps, type FC } from "react";
 
-const BookIcon: FC<ComponentProps<"svg">> = (props) => {
+export const BookIcon: FC<ComponentProps<"svg">> = (props) => {
   return (
     <svg
       {...props}
@@ -28,5 +28,3 @@ const BookIcon: FC<ComponentProps<"svg">> = (props) => {
     </svg>
   );
 };
-
-export default BookIcon;

@@ -1,6 +1,4 @@
-import type { ComponentProps, FC } from "react";
-
-const DarkIcon: FC<ComponentProps<"svg">> = (props) => {
+export const DarkIcon = ({ ...props }) => {
   return (
     <>
       <svg {...props} viewBox="0 0 18 18" fill="none">
@@ -13,5 +11,3 @@ const DarkIcon: FC<ComponentProps<"svg">> = (props) => {
     </>
   );
 };
-
-export default DarkIcon;

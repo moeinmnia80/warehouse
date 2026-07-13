@@ -24,8 +24,7 @@ app.use((req, res, next) => {
 
 // ───── Routes ──────────────────────────────────────────
 app.use("/auth", authRouter);
-app.use("/dashboard", authenticate);
-app.use("/dashboard/my-suite", suiteRouter);
+app.use("/my-suite", suiteRouter);
 // ───── 404 ─────────────────────────────────────────────
 app.use(notFound);
 // ── Error handler ──────────────────────────────────────

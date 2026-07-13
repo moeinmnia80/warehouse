@@ -10,7 +10,7 @@ interface ImageProps extends ComponentProps<"div"> {
   /* another attribute related to div tag with ...props for parent */
 }
 
-const Image = ({ src, alt, imageClass, ...props }: ImageProps) => {
+export const Image = ({ src, alt, imageClass, ...props }: ImageProps) => {
   return (
     <div {...props}>
       <img
@@ -21,5 +21,3 @@ const Image = ({ src, alt, imageClass, ...props }: ImageProps) => {
     </div>
   );
 };
-
-export default Image;

@@ -1,6 +1,4 @@
-import { type ComponentProps, type FC } from "react";
-
-const Logo: FC<ComponentProps<"svg">> = ({ ...props }) => {
+export const Logo = ({ ...props }) => {
   return (
     <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" {...props}>
       <path
@@ -11,5 +9,3 @@ const Logo: FC<ComponentProps<"svg">> = ({ ...props }) => {
     </svg>
   );
 };
-
-export default Logo;

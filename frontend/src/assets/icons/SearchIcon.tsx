@@ -1,4 +1,4 @@
-const SearchIcon = ({ ...props }) => {
+export const SearchIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -21,5 +21,3 @@ const SearchIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default SearchIcon;

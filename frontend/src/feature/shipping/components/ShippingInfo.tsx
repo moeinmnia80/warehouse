@@ -1,6 +1,6 @@
-import ShippingInfoItem from "./ShippingInfoItem";
+import { ShippingInfoItem } from "@/feature/shipping/index";
 
-const ShippingInfo = () => {
+export const ShippingInfo = () => {
   return (
     <div className="flex flex-col gap-4 h-fit">
       <ShippingInfoItem className="flex gap-3 w-full bg-b-primary border border-primary rounded-xl p-5 text-t-primary font-medium animate-fade-in">
@@ -37,5 +37,3 @@ const ShippingInfo = () => {
     </div>
   );
 };
-
-export default ShippingInfo;

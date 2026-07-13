@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import useClickOutside from "@/shared/hooks/useClickOutside";
+import { useClickOutside } from "@/shared/index";
 import {
   useRef,
   useState,

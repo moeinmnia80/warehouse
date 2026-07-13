@@ -1,24 +1,23 @@
 import { toast } from "@/store";
-import Logo from "@/assets/icons/Logo";
 import { useForm } from "react-hook-form";
-import { useAuth, type ErrorResponse } from "@/feature/auth/index";
 import { Link, useNavigate } from "react-router";
-import GoogleIcon from "@/assets/icons/GoogleIcon";
 import { zodResolver } from "@hookform/resolvers/zod";
-import FacebookIcon from "@/assets/icons/FacebookIcon";
-import { Button } from "@/shared/components/ui/Button";
-import { loginSchema, type LoginFormData } from "@/shared/schema/auth.schema";
+import { Logo, GoogleIcon, FacebookIcon } from "@/assets/index";
+import { useAuth, type ErrorResponse } from "@/feature/auth/index";
 import {
+  Form,
+  Email,
+  Label,
+  Button,
   Caption,
   Checkbox,
-  Email,
-  Form,
-  FormItem,
-  Label,
   Password,
-} from "@/shared/components/ui/Form";
+  FormItem,
+  loginSchema,
+  type LoginFormData,
+} from "@/shared/index";
 
-const LoginForm = () => {
+export const LoginForm = () => {
   // validation form data - zod
   const {
     register,
@@ -116,5 +115,3 @@ const LoginForm = () => {
     </div>
   );
 };
-
-export default LoginForm;

@@ -1,9 +1,16 @@
-import type { ComponentProps, FC } from "react";
-import TickIcon from "@/assets/icons/TickIcon";
+import type { ComponentProps } from "react";
+import { TickIcon } from "@/assets/index";
 
-export const CheckBox: FC<
-  { labelClass?: string } & ComponentProps<"input">
-> = ({ className, labelClass, children, ...props }) => {
+interface Checkbox extends ComponentProps<"input"> {
+  labelClass?: string;
+}
+
+export const CheckBox = ({
+  className,
+  labelClass,
+  children,
+  ...props
+}: Checkbox) => {
   return (
     <>
       <label

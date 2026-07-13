@@ -1,4 +1,4 @@
-const DangerousIcon = ({ ...props }) => {
+export const DangerousIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 16 16"
@@ -41,5 +41,3 @@ const DangerousIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default DangerousIcon;

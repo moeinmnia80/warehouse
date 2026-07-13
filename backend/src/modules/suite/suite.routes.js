@@ -7,6 +7,6 @@ import { authenticate } from "../../middlewares/auth.middleware.js";
 
 export const router = Router();
 
-router.post("/", authenticate, getSuiteController);
+router.get("/", authenticate, getSuiteController);
 router.post("/create", authenticate, createSuiteController);
 router.post("/remove", authenticate, (req, res) => {});

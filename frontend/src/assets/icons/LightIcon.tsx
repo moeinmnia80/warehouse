@@ -1,6 +1,4 @@
-import type { ComponentProps, FC } from "react";
-
-const LightIcon: FC<ComponentProps<"svg">> = (props) => {
+export const LightIcon = ({ ...props }) => {
   return (
     <>
       <svg {...props} viewBox="0 0 19 19">
@@ -9,5 +7,3 @@ const LightIcon: FC<ComponentProps<"svg">> = (props) => {
     </>
   );
 };
-
-export default LightIcon;

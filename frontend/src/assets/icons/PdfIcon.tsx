@@ -1,4 +1,4 @@
-const PdfIcon = ({ ...props }) => {
+export const PdfIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 40 40"
@@ -27,5 +27,3 @@ const PdfIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default PdfIcon;

@@ -1,12 +1,11 @@
 import { useAppSelector } from "@/store";
-import CloseIcon from "@/assets/icons/CloseIcon";
-import { Button } from "@/shared/components/ui/Button";
-import { useOverflow } from "@/shared/hooks/useOverflow";
-import AddInvoicesModal from "@/feature/suite/components/AddInvoicesModal";
+import { CloseIcon } from "@/assets/index";
+import { useOverflow, Button } from "@/shared/index";
+import { AddInvoicesModal } from "@/feature/suite/index";
 interface InvoiceModalProps {
   handleCloseModal: () => void;
 }
-const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
+export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
   const { modal } = useAppSelector((state) => state.suite);
   useOverflow(modal.open);
   return (
@@ -42,5 +41,3 @@ const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
     </div>
   );
 };
-
-export default InvoiceModal;

@@ -1,14 +1,10 @@
-import QueueIcon from "@/assets/icons/QueueIcon";
+import { useAppDispatch } from "@/store";
+import { QueueIcon } from "@/assets/index";
 import { Button } from "@/shared/components/ui/Button";
-import { useAppDispatch, useAppSelector } from "@/store";
 import { changeCategory } from "@/feature/suite/store/suiteSlice";
 
-const SuiteHeader = () => {
+export const SuiteHeader = () => {
   const dispatch = useAppDispatch();
-
-  const { data } = useAppSelector((state) => state.suite);
-
-  const queue = data.filter((item) => item.status.label === "Ready to Send");
 
   return (
     <div className="flex h-38 md:h-26">
@@ -37,7 +33,7 @@ const SuiteHeader = () => {
         </div>
         <div className="flex flex-col md:justify-center text-center md:text-left">
           <div className="text-t-primary text-lg md:text-2xl lg:text-3xl font-bold">
-            {"0" + queue.length}
+            0
           </div>
           <Button
             className="h-fit py-2 text-t-primary text-sm md:text-md font-semibold underline"
@@ -52,5 +48,3 @@ const SuiteHeader = () => {
     </div>
   );
 };
-
-export default SuiteHeader;

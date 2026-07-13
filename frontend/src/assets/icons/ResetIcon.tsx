@@ -1,4 +1,4 @@
-const ResetIcon = ({ ...props }) => {
+export const ResetIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -37,5 +37,3 @@ const ResetIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default ResetIcon;

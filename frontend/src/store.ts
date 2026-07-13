@@ -1,32 +1,25 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import flag1 from "@/assets/images/flag-1.png";
-import { authApi } from "@/feature/auth/index";
-import { areas } from "./shared/constants/areas";
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer from "@/feature/auth/store/authSlice";
 import suiteReducer from "@/feature/suite/store/suiteSlice";
-import type { AreaType, DataState } from "./shared/types/types";
 import shippingReducer from "@/feature/shipping/store/shippingSlice";
+import {
+  type AreaType,
+  type DataState,
+  type ToastState,
+  areas,
+  baseApi,
+} from "@/shared/index";
 import {
   useDispatch,
   useSelector,
   type TypedUseSelectorHook,
 } from "react-redux";
-
-type ToastType = "error" | "success" | "info";
-
-export interface ToastItem {
-  id: string;
-  text: string;
-  type: ToastType;
-}
-
-interface ToastState {
-  toasts: ToastItem[];
-  add: (text: string, type?: ToastType) => string;
-  remove: (id: string) => void;
-}
+// ----------------------------------
+// toast
+// ----------------------------------
 
 export const useToastStore = create<ToastState>((set) => ({
   toasts: [],
@@ -50,7 +43,9 @@ export const toast = {
   success: (text: string) => useToastStore.getState().add(text, "success"),
   info: (text: string) => useToastStore.getState().add(text, "info"),
 };
-// initialState
+// ----------------------------------
+// area
+// ----------------------------------
 const initialArea: AreaType = {
   name: "US",
   desc: "Manage my packages from the US",
@@ -72,18 +67,19 @@ export const useArea = create<DataState>()(
     },
   ),
 );
-
-// RTK - store
+// ----------------------------------
+// RTK - main store
+// ----------------------------------
 export const store = configureStore({
   reducer: {
     suite: suiteReducer,
     shipping: shippingReducer,
     auth: authReducer,
 
-    [authApi.reducerPath]: authApi.reducer,
+    [baseApi.reducerPath]: baseApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(authApi.middleware),
+    getDefaultMiddleware().concat(baseApi.middleware),
 });
 
 // types

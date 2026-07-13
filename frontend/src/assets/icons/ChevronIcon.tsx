@@ -1,6 +1,6 @@
 import { type ComponentProps, type FC } from "react";
 
-const ChevronIcon: FC<ComponentProps<"svg">> = (props) => {
+export const ChevronIcon: FC<ComponentProps<"svg">> = (props) => {
   return (
     <>
       <svg viewBox="0 0 24 24" {...props}>
@@ -9,5 +9,3 @@ const ChevronIcon: FC<ComponentProps<"svg">> = (props) => {
     </>
   );
 };
-
-export default ChevronIcon;

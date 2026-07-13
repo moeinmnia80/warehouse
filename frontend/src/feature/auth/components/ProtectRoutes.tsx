@@ -1,12 +1,20 @@
-import { useGetCurrentUserQuery } from "@/feature/auth/services/authApi";
+import { useEffect } from "react";
+import { useAppDispatch } from "@/store";
 import { Navigate, Outlet } from "react-router";
+import { setCredentials } from "@/feature/auth/index";
+import { useGetCurrentUserQuery } from "@/feature/auth/index";
 
-const ProtectRoutes = () => {
-  const { isError } = useGetCurrentUserQuery();
+export const ProtectRoutes = () => {
+  const dispatch = useAppDispatch();
+  const { isError, isLoading, data } = useGetCurrentUserQuery();
 
-  if (isError) return <Navigate to="/login" replace />;
+  useEffect(() => {
+    if (!isLoading && data) {
+      dispatch(setCredentials({ ...data.data }));
+    }
+  }, [isLoading, data, dispatch]);
+
+  if (isError && !data) return <Navigate to="/login" replace />;
 
   return <Outlet />;
 };
-
-export default ProtectRoutes;

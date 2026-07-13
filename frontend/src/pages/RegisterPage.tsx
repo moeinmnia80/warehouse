@@ -1,9 +1,8 @@
 import { Link } from "react-router";
-import Logo from "@/assets/icons/Logo";
-import GoogleIcon from "@/assets/icons/GoogleIcon";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/shared/components/ui/Button";
-import FacebookIcon from "@/assets/icons/FacebookIcon";
-import { registerInput } from "@/shared/constants/inputs";
+import { Logo, GoogleIcon, FacebookIcon } from "@/assets/index";
 import {
   Caption,
   Checkbox,
@@ -14,12 +13,11 @@ import {
   Label,
   Password,
 } from "@/shared/components/ui/Form";
-import { useForm } from "react-hook-form";
 import {
   registerSchema,
   type RegisterFormData,
-} from "@/shared/schema/auth.schema";
-import { zodResolver } from "@hookform/resolvers/zod";
+  registerInput,
+} from "@/shared/index";
 
 const RegisterPage = () => {
   const {

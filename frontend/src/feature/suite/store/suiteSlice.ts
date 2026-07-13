@@ -1,19 +1,9 @@
-import { RAW_DATA } from "@/shared/constants/table";
-import type { TableRow } from "@/shared/types/types";
+import type { TableRow } from "@/shared/index";
+import type { CategoryType, TableState } from "@/feature/suite/index";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-// Table initialState Types
-export interface TableState {
-  data: TableRow[];
-  rowChecked: Record<string, boolean>;
-  rowExpanded: Record<string, boolean>;
-  sort: { key: string | null; type: "asc" | "desc" };
-  category: string;
-  modal: { open: boolean; packageId: string | null };
-}
 // Table initialState
 const initialState: TableState = {
-  data: RAW_DATA,
   rowChecked: {},
   rowExpanded: {},
   sort: { key: null, type: "asc" },
@@ -21,7 +11,7 @@ const initialState: TableState = {
   modal: { open: false, packageId: null },
 };
 // Slice
-export const suiteSlice = createSlice({
+const suiteSlice = createSlice({
   name: "suiteSlice",
   initialState: initialState,
   reducers: {
@@ -51,7 +41,7 @@ export const suiteSlice = createSlice({
       };
     },
     // change category
-    changeCategory: (state, action: PayloadAction<string>) => {
+    changeCategory: (state, action: PayloadAction<CategoryType>) => {
       /* close row when change category */
       state.rowExpanded = {};
       state.category = action.payload;

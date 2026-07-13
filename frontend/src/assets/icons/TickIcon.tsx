@@ -1,6 +1,4 @@
-import type { ComponentProps, FC } from "react";
-
-const TickIcon: FC<ComponentProps<"svg">> = (props) => {
+export const TickIcon = ({ ...props }) => {
   return (
     <svg viewBox="0 0 20 20" fill="none" {...props}>
       <path
@@ -12,5 +10,3 @@ const TickIcon: FC<ComponentProps<"svg">> = (props) => {
     </svg>
   );
 };
-
-export default TickIcon;

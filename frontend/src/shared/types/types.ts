@@ -28,14 +28,33 @@ export interface TableRow {
   totalValues: string;
   weight: string;
   status: {
-    label: string;
-    details: string;
+    label: "In Review" | "Action Required" | "Ready ro Send";
+    details: string | null;
   };
   details: {
     recipient: string;
     address: string;
-    items: string[];
-    carrier: string;
+    items: [
+      {
+        id: string;
+        name: string;
+        qty: string;
+        valuePerUnit: string;
+        notice: string | null;
+      },
+    ];
   };
-  invoices?: { id: string; name: string; url?: string }[];
+}
+
+// Toast Store
+export type ToastType = "error" | "success" | "info";
+export interface ToastItem {
+  id: string;
+  text: string;
+  type: ToastType;
+}
+export interface ToastState {
+  toasts: ToastItem[];
+  add: (text: string, type?: ToastType) => string;
+  remove: (id: string) => void;
 }

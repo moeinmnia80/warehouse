@@ -1,8 +1,10 @@
-import MySuiteTab from "@/feature/suite/components/MySuiteTab";
-import MySuiteTable from "@/feature/suite/components/MySuiteTable";
-import MySuiteSideBar from "@/feature/suite/components/MySuiteSideBar";
+import {
+  MySuiteTab,
+  MySuiteTable,
+  MySuiteSideBar,
+} from "@/feature/suite/index";
 
-const MySuite = () => {
+export const MySuite = () => {
   // central state - filter and sort
   return (
     <div className="flex flex-col 2xl:flex-row gap-8 animate-slide-up">
@@ -17,5 +19,3 @@ const MySuite = () => {
     </div>
   );
 };
-
-export default MySuite;

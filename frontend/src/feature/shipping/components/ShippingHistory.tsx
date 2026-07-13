@@ -1,8 +1,10 @@
-import ShippingTab from "@/feature/shipping/components/ShippingTab";
-import ShippingInfo from "@/feature/shipping/components/ShippingInfo";
-import ShippingTable from "@/feature/shipping/components/ShippingTable";
+import {
+  ShippingTab,
+  ShippingInfo,
+  ShippingTable,
+} from "@/feature/shipping/index";
 
-const ShippingHistory = () => {
+export const ShippingHistory = () => {
   return (
     <div>
       <ShippingInfo />
@@ -14,5 +16,3 @@ const ShippingHistory = () => {
     </div>
   );
 };
-
-export default ShippingHistory;

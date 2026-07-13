@@ -1,11 +1,11 @@
-import Footer from "./Footer";
-import Header from "./Header";
 import { useLocation } from "react-router";
-import type { ComponentPropsWithoutRef, FC } from "react";
+import Footer from "@/shared/layout/Footer";
+import Header from "@/shared/layout/Header";
+import { ToastContainer } from "@/shared/index";
+import type { ComponentPropsWithoutRef } from "react";
 import { PATHS_WITHOUT_FOOTER } from "@/shared/constants/hiddenFooter";
-import ToastContainer from "../components/ToastContainer";
 
-const Layout: FC<ComponentPropsWithoutRef<"div">> = ({ children }) => {
+const Layout = ({ children }: ComponentPropsWithoutRef<"div">) => {
   const { pathname } = useLocation();
 
   const shouldShowFooter = !PATHS_WITHOUT_FOOTER.includes(pathname);

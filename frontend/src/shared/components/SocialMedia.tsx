@@ -1,6 +1,6 @@
-import type { ComponentProps, FC } from "react";
+import type { ComponentProps } from "react";
 
-const SocialMedia: FC<ComponentProps<"div">> = ({ className }) => {
+export const SocialMedia = ({ className }: ComponentProps<"div">) => {
   return (
     <div className="flex-center gap-6">
       <svg
@@ -72,5 +72,3 @@ const SocialMedia: FC<ComponentProps<"div">> = ({ className }) => {
     </div>
   );
 };
-
-export default SocialMedia;

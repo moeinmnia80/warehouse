@@ -1,7 +1,6 @@
 import type { AppDispatch } from "@/store";
-import { COLUMNS } from "@/shared/constants/table";
-import { RAW_DATA } from "@/shared/constants/table";
-import type { TableRow } from "@/shared/types/types";
+import { COLUMNS, type TableRow } from "@/shared/index";
+import type { CategoryType } from "@/feature/suite/index";
 import {
   closeModal,
   openModal,
@@ -31,25 +30,12 @@ export const checkStatus = (status: string) => {
       throw "unknown status";
   }
 };
-// count item in tabs
-const required = RAW_DATA.filter(
-  (item) => item.status.label === "Action Required",
-);
-const review = RAW_DATA.filter((item) => item.status.label === "In Review");
-const ready = RAW_DATA.filter((item) => item.status.label === "Ready to Send");
-// export tab counts
-const tabStatus = [
-  RAW_DATA.length,
-  required.length,
-  review.length,
-  ready.length,
-];
 /*------------------------------------*/
 /*------------ Table Data ------------*/
 /*------------------------------------*/
 // filter data based on category (tabs) - my suite table
 export const handleTabChange = (
-  value: string,
+  value: CategoryType,
   e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   dispatch: AppDispatch,
 ) => {
@@ -101,17 +87,20 @@ const handleCloseModal = (dispatch: AppDispatch) => {
 //   sortedData.some((r) => rowChecked[r.packageId]) && !allChecked;
 // all row is checked
 const allChecked = (
-  sortedData: TableRow[],
+  sortedData: TableRow[] | undefined,
   rowChecked: Record<string, boolean>,
-) => sortedData.length > 0 && sortedData.every((r) => rowChecked[r.packageId]);
+) =>
+  sortedData &&
+  sortedData.length > 0 &&
+  sortedData.every((r) => rowChecked[r.packageId]);
 
 const toggleAll = (
   dispatch: AppDispatch,
-  sortedData: TableRow[],
+  sortedData: TableRow[] | undefined,
   rowChecked: Record<string, boolean>,
 ) => {
+  if (!sortedData) return;
   const result = allChecked(sortedData, rowChecked);
-  console.log(result);
 
   if (result) {
     dispatch(rowReset());
@@ -149,6 +138,5 @@ export {
   isVisible,
   handleCloseModal,
   handleAction,
-  tabStatus,
   calculateData,
 };

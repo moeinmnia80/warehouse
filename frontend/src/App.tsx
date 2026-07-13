@@ -1,4 +1,4 @@
-import RouterWrapper from "./router";
+import RouterWrapper from "@/router";
 import Layout from "@/shared/layout/Layout";
 import ThemeProvider from "@/shared/context/context";
 

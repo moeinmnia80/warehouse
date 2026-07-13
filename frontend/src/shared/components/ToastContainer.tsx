@@ -1,7 +1,7 @@
 import { useToastStore } from "@/store";
-import Toaster from "@/shared/components/Toaster";
+import { Toaster } from "@/shared/index";
 
-const ToastContainer = () => {
+export const ToastContainer = () => {
   const toasts = useToastStore((state) => state.toasts);
 
   return (
@@ -12,5 +12,3 @@ const ToastContainer = () => {
     </div>
   );
 };
-
-export default ToastContainer;

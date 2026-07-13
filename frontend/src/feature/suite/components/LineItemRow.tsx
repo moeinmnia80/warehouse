@@ -1,7 +1,6 @@
-import DangerIcon from "@/assets/icons/DangerIcon";
+import { DangerIcon } from "@/assets/index";
 import type { LineItem } from "@/feature/suite/index";
 
-// LineItemRow.tsx
 type LineItemRowProps = {
   item: LineItem;
   index: number;

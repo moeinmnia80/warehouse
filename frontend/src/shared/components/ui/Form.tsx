@@ -1,7 +1,5 @@
-import TickIcon from "@/assets/icons/TickIcon";
-import HiddenIcon from "@/assets/icons/HiddenIcon";
-import ShowIcon from "@/assets/icons/ShowIcon.tsx";
 import { useState, type ComponentProps } from "react";
+import { TickIcon, HiddenIcon, ShowIcon } from "@/assets/index";
 
 // ------------------------------------------------------------
 //1-————— Form ————————————————————————————————————————————————

@@ -1,26 +1,29 @@
-import { useArea } from "@/store";
-import Logo from "@/assets/icons/Logo";
-import Image from "../components/ui/Image";
-import { Link, NavLink, useLocation } from "react-router";
-import { useTheme } from "../hooks/useTheme";
-import { useShallow } from "zustand/shallow";
-import TickIcon from "@/assets/icons/TickIcon";
-import DarkIcon from "@/assets/icons/DarkIcon";
-import LightIcon from "@/assets/icons/LightIcon";
-import { Toggle } from "../components/ui/Toggle";
-import LogoutIcon from "@/assets/icons/LogoutIcon";
 import { type ComponentProps } from "react";
-import ChevronIcon from "@/assets/icons/ChevronIcon";
-import { Button } from "@/shared/components/ui/Button";
-import { ToggleButton, ToggleLabel } from "@/shared/components/ui/Toggle";
+import { useShallow } from "zustand/shallow";
+import { useAppSelector, useArea } from "@/store";
+import { Link, NavLink, useLocation } from "react-router";
 import {
+  Logo,
+  DarkIcon,
+  TickIcon,
+  LightIcon,
+  LogoutIcon,
+  ChevronIcon,
+  SettingsIcon,
+} from "@/assets/index";
+import {
+  Image,
+  Toggle,
+  Button,
   Dropdown,
+  useTheme,
+  ToggleLabel,
+  ToggleButton,
   DropdownButton,
   DropdownContent,
   DropdownItem,
-} from "@/shared/components/ui/DropDown";
-import SettingsIcon from "@/assets/icons/SettingsIcon";
-import { useAuth, useGetCurrentUserQuery } from "@/feature/auth";
+} from "@/shared/index";
+import { useAuth } from "@/feature/auth/index";
 
 const Header = (props: ComponentProps<"header">) => {
   const location = useLocation();
@@ -29,7 +32,7 @@ const Header = (props: ComponentProps<"header">) => {
   const { areas, selectedArea, setArea } = useArea(
     useShallow((state) => state),
   );
-  const { data } = useGetCurrentUserQuery();
+  const { user } = useAppSelector((state) => state.auth);
 
   // check root for header list
   const isShow = location.pathname.startsWith("/dashboard");
@@ -127,14 +130,14 @@ const Header = (props: ComponentProps<"header">) => {
                   <div className="text-left">
                     <h3 className="text-sm xl:text-xs font-bold text-t-primary">
                       <span className="capitalize">
-                        {data && data.data?.gender === "male" ? "mr" : "mz"}
+                        {user && user?.gender === "male" ? "mr" : "mz"}
                       </span>
                       <span className="uppercase">
-                        .{data && data.data?.fullName}
+                        .{user && user?.fullName}
                       </span>
                     </h3>
                     <p className="text-sm xl:text-xs font-bold  text-t-placeholder capitalize">
-                      {data && data.data?.role}
+                      {user && user?.role}
                     </p>
                   </div>
                   <ChevronIcon className="size-3 fill-st-primary ms-2" />

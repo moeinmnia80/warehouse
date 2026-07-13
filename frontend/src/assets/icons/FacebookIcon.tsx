@@ -1,6 +1,4 @@
-import { type ComponentProps, type FC } from "react";
-
-const FacebookIcon: FC<ComponentProps<"svg">> = ({ ...props }) => {
+export const FacebookIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -26,5 +24,3 @@ const FacebookIcon: FC<ComponentProps<"svg">> = ({ ...props }) => {
     </svg>
   );
 };
-
-export default FacebookIcon;

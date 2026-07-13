@@ -1,4 +1,4 @@
-const SettingsIcon = ({ ...props }) => {
+export const SettingsIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -23,5 +23,3 @@ const SettingsIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default SettingsIcon;

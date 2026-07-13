@@ -1,4 +1,4 @@
-const DeliveryIcon = ({ ...props }) => {
+export const DeliveryIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -57,5 +57,3 @@ const DeliveryIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default DeliveryIcon;

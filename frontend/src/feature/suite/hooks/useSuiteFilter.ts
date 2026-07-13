@@ -1,27 +1,22 @@
-import { createSelector } from "@reduxjs/toolkit";
-import type { RootState } from "@/store"; // adjust path
-import type { TableRow } from "@/shared/types/types";
+import type { TableRow } from "@/shared";
+import { useAppSelector } from "@/store";
 
-const selectData = (state: RootState) => state.suite.data;
-const selectCategory = (state: RootState) => state.suite.category;
-const selectSort = (state: RootState) => state.suite.sort;
+export const useSuiteFilter = (data: TableRow[]) => {
+  const sort = useAppSelector((state) => state.suite.sort);
+  const category = useAppSelector((state) => state.suite.category);
 
-// 1. filter by category
-export const selectFilteredData = createSelector(
-  [selectData, selectCategory],
-  (data, category) =>
+  if (!data) return;
+  const filterData =
     category === "View All"
       ? data
-      : data.filter((item) => item.status.label === category),
-);
+      : data.filter(
+          (item) => item.status.label === category.toLocaleLowerCase(),
+        );
 
-// 2. sort the filtered result
-export const selectSortedData = createSelector(
-  [selectFilteredData, selectSort],
-  (filteredData, sort) => {
-    if (!sort.key) return filteredData;
+  const sortedData = () => {
+    if (!sort.key) return filterData;
     const key = sort.key as keyof TableRow;
-    const arr = [...filteredData];
+    const arr = [...filterData];
 
     arr.sort((a, b) => {
       let av: string | number = a[key] as string;
@@ -52,5 +47,6 @@ export const selectSortedData = createSelector(
     });
 
     return arr;
-  },
-);
+  };
+  return sortedData();
+};

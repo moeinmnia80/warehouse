@@ -1,6 +1,4 @@
-import type { ComponentProps, FC } from "react";
-
-const HiddenIcon: FC<ComponentProps<"svg">> = (props) => {
+export const HiddenIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -47,5 +45,3 @@ const HiddenIcon: FC<ComponentProps<"svg">> = (props) => {
     </svg>
   );
 };
-
-export default HiddenIcon;

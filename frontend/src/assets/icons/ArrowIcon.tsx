@@ -1,4 +1,4 @@
-const ArrowIcon = ({ ...props }) => {
+export const ArrowIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -23,5 +23,3 @@ const ArrowIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default ArrowIcon;

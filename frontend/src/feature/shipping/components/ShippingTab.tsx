@@ -1,8 +1,8 @@
-import { Form, Input, Label } from "@/shared/components/ui/Form";
 import { SearchIcon } from "lucide-react";
-import DateRangeFilter from "@/feature/shipping/components/DateRangeFilter";
+import { Form, Input, Label } from "@/shared/index";
+import { DateRangeFilter } from "@/feature/shipping/index";
 
-const ShippingTab = () => {
+export const ShippingTab = () => {
   return (
     <div className="flex-between flex-col md:flex-row w-full">
       <Form className="flex-center mt-0!">
@@ -22,5 +22,3 @@ const ShippingTab = () => {
     </div>
   );
 };
-
-export default ShippingTab;

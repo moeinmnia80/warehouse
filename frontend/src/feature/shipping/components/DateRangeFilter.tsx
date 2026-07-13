@@ -1,4 +1,4 @@
-import ResetIcon from "@/assets/icons/ResetIcon";
+import { ResetIcon } from "@/assets/index";
 import {
   Dropdown,
   DropdownButton,
@@ -6,7 +6,7 @@ import {
   DropdownItem,
   DropdownLabel,
   DropdownSeparator,
-} from "@/shared/components/ui/DropDown";
+} from "@/shared/index";
 import {
   PRESETS,
   resetDateFilter,
@@ -16,7 +16,7 @@ import {
 } from "@/feature/shipping/index";
 import { useAppDispatch, useAppSelector } from "@/store";
 
-const DateRangeFilter = () => {
+export const DateRangeFilter = () => {
   // use store
   const { dateFilter } = useAppSelector((state) => state.shipping);
   // operator
@@ -62,5 +62,3 @@ const DateRangeFilter = () => {
     </>
   );
 };
-
-export default DateRangeFilter;

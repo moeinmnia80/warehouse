@@ -2,16 +2,18 @@ import { Errors } from "../../utils/errors.js";
 import { createNewSuite, fineSuiteByUserId } from "./suite.repository.js";
 import env from "../../config/env.js";
 
-export const getSuiteData = ({ id }) => {
+export const getSuiteData = (req) => {
+  const { id } = req.user;
   const existingSuite = fineSuiteByUserId(id);
+
   if (!existingSuite) {
     throw Errors.notFound("Suite");
   }
-
+  const { packages } = existingSuite;
   return {
     status: "success",
     message: "suite is already exist",
-    data: existingSuite,
+    data: { id, packages },
   };
 };
 export const createSuite = ({ id }) => {

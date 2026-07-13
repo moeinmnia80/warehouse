@@ -1,9 +1,7 @@
-import PdfIcon from "@/assets/icons/PdfIcon";
-import TrashIcon from "@/assets/icons/TrashIcon";
-import UploadIcon from "@/assets/icons/UploadIcon";
 import { useRef, useState } from "react";
+import { PdfIcon, TrashIcon, UploadIcon } from "@/assets/index";
 
-const AddInvoicesModal = () => {
+export const AddInvoicesModal = () => {
   // add file to state for submit/show
   //multiple
   const [file, setFile] = useState<File[]>([]);
@@ -147,5 +145,3 @@ const AddInvoicesModal = () => {
     </form>
   );
 };
-
-export default AddInvoicesModal;

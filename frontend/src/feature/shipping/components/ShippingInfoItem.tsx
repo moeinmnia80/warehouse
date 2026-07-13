@@ -1,7 +1,10 @@
-import InfoIcon from "@/assets/icons/InfoIcon";
+import { InfoIcon } from "@/assets/index";
 import { type ComponentProps } from "react";
 
-const ShippingInfoItem = ({ children, ...props }: ComponentProps<"div">) => {
+export const ShippingInfoItem = ({
+  children,
+  ...props
+}: ComponentProps<"div">) => {
   return (
     <div {...props}>
       <InfoIcon className="size-6 shrink-0 stroke-t-primary mt-0.5 float-left" />
@@ -9,5 +12,3 @@ const ShippingInfoItem = ({ children, ...props }: ComponentProps<"div">) => {
     </div>
   );
 };
-
-export default ShippingInfoItem;

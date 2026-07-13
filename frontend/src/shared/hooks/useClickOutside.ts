@@ -8,7 +8,10 @@ interface UseClickOutSideProps {
   setState: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const useClickOutside = ({ dropdownRef, setState }: UseClickOutSideProps) => {
+export const useClickOutside = ({
+  dropdownRef,
+  setState,
+}: UseClickOutSideProps) => {
   /* side-effect control - event listener */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -25,5 +28,3 @@ const useClickOutside = ({ dropdownRef, setState }: UseClickOutSideProps) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   });
 };
-
-export default useClickOutside;

@@ -1,4 +1,4 @@
-const InfoIcon = ({ ...props }) => {
+export const InfoIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -22,5 +22,3 @@ const InfoIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default InfoIcon;

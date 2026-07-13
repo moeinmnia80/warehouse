@@ -1,6 +1,4 @@
-import type { ComponentProps, FC } from "react";
-
-const QueueIcon: FC<ComponentProps<"svg">> = (props) => {
+export const QueueIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 32 32"
@@ -34,5 +32,3 @@ const QueueIcon: FC<ComponentProps<"svg">> = (props) => {
     </svg>
   );
 };
-
-export default QueueIcon;

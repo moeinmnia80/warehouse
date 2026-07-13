@@ -4,7 +4,7 @@ export interface LoginCredentials {
 }
 
 export interface User {
-  id?: string;
+  id: string;
   email: string;
   fullName: string;
   role: "admin" | "manager";
@@ -26,19 +26,19 @@ export interface AuthResponse {
 export interface GetMe {
   status: "success" | "fail";
   message: string;
-  data?: {
+  data: {
     fullName: string;
     email: string;
     role: "admin" | "manager";
     gender: null | "male" | "female";
-    id?: string;
+    id: string;
   };
 }
-export interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
-}
 
+export interface AuthState {
+  status: "loading" | "authenticated" | "unauthenticated";
+  user: User | null;
+}
 export interface ErrorResponse {
   data: {
     error: { code: string; message: string };

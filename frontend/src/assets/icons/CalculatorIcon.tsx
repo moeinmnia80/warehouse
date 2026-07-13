@@ -1,6 +1,6 @@
 import { type ComponentProps, type FC } from "react";
 
-const CalculatorIcon: FC<ComponentProps<"svg">> = (props) => {
+export const CalculatorIcon: FC<ComponentProps<"svg">> = (props) => {
   return (
     <svg
       {...props}
@@ -43,5 +43,3 @@ const CalculatorIcon: FC<ComponentProps<"svg">> = (props) => {
     </svg>
   );
 };
-
-export default CalculatorIcon;

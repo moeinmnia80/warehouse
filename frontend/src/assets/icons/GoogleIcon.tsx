@@ -1,6 +1,4 @@
-import { type ComponentProps, type FC } from "react";
-
-const GoogleIcon: FC<ComponentProps<"svg">> = (props) => {
+export const GoogleIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -68,5 +66,3 @@ const GoogleIcon: FC<ComponentProps<"svg">> = (props) => {
     </svg>
   );
 };
-
-export default GoogleIcon;

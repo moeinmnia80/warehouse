@@ -1,6 +1,4 @@
-import type { ComponentProps, FC } from "react";
-
-const LogoutIcon: FC<ComponentProps<"svg">> = (props) => {
+export const LogoutIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 20 20"
@@ -14,5 +12,3 @@ const LogoutIcon: FC<ComponentProps<"svg">> = (props) => {
     </svg>
   );
 };
-
-export default LogoutIcon;

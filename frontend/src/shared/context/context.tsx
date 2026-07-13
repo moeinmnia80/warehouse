@@ -1,4 +1,4 @@
-import { changeTheme, themeCheck } from "@/shared/utils/theme";
+import { changeTheme, themeCheck } from "@/shared/utils/theme.utils";
 import type { contextType } from "@/shared/types/types";
 import {
   createContext,

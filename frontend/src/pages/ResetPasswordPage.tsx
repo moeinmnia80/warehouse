@@ -8,10 +8,7 @@ import {
   Label,
   Password,
 } from "@/shared/components/ui/Form";
-import {
-  resetPasswordSchema,
-  type ResetPasswordData,
-} from "@/shared/schema/auth.schema";
+import { resetPasswordSchema, type ResetPasswordData } from "@/shared/index";
 
 const ResetPasswordPage = () => {
   const {

@@ -1,11 +1,11 @@
 interface TableSkeletonProps {
-  columns?: number[]; // widths in px or tailwind scale units, e.g. [40, 120, 100, 100, 100, 80]
+  columns?: string[]; // widths in px or tailwind scale units, e.g. [40, 120, 100, 100, 100, 80]
   rows?: number; // how many skeleton rows to render
   rowHeight?: string; // tailwind height class, e.g. "h-18"
 }
 
-const TableSkeleton = ({
-  columns = [40, 120, 100, 100, 100, 80],
+export const TableSkeleton = ({
+  columns = ["w-40", "w-120", "w-100", "w-100", "w-100", "w-80"],
   rows = 3,
   rowHeight = "h-18",
 }: TableSkeletonProps) => {
@@ -17,7 +17,7 @@ const TableSkeleton = ({
           {columns.map((width, i) => (
             <div
               key={`head-${i}`}
-              className={`h-4 w-${width} bg-b-muted rounded-full animate-pulse-slow opacity-20`}
+              className={`h-4 ${width} bg-b-muted rounded-full animate-pulse-slow opacity-20`}
             />
           ))}
         </div>
@@ -33,7 +33,7 @@ const TableSkeleton = ({
             {columns.map((width, colIdx) => (
               <div
                 key={`cell-${rowIdx}-${colIdx}`}
-                className={`h-4 w-${width} bg-b-muted rounded-full animate-pulse-slow opacity-20`}
+                className={`h-4 ${width} bg-b-muted rounded-full animate-pulse-slow opacity-20`}
               />
             ))}
           </div>
@@ -42,5 +42,3 @@ const TableSkeleton = ({
     </div>
   );
 };
-
-export default TableSkeleton;

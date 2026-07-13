@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState, type ComponentProps } from "react";
+import { DangerIcon } from "@/assets/index";
 import { useDropzone, type FileRejection } from "react-dropzone";
-import DangerIcon from "@/assets/icons/DangerIcon";
+import { useCallback, useEffect, useState, type ComponentProps } from "react";
 
 interface FileWithPreview extends File {
   preview: string;

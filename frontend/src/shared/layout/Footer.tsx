@@ -1,19 +1,18 @@
 import { useArea } from "@/store";
-import Logo from "@/assets/icons/Logo";
+import { NavLink } from "react-router";
+import type { ComponentProps } from "react";
 import { useShallow } from "zustand/shallow";
-import type { ComponentProps, FC } from "react";
-import SocialMedia from "@/shared/components/SocialMedia";
+import { Logo, ChevronIcon } from "@/assets/index";
 import {
+  Image,
   Dropdown,
+  SocialMedia,
+  DropdownItem,
   DropdownButton,
   DropdownContent,
-  DropdownItem,
-} from "../components/ui/DropDown";
-import Image from "../components/ui/Image";
-import ChevronIcon from "@/assets/icons/ChevronIcon";
-import { NavLink } from "react-router";
+} from "@/shared/index";
 
-const Footer: FC<ComponentProps<"footer">> = ({ className, ...props }) => {
+const Footer = ({ className, ...props }: ComponentProps<"footer">) => {
   const { areas, setArea, selectedArea } = useArea(
     useShallow((state) => state),
   );

@@ -1,58 +1,77 @@
 import React from "react";
-import TickIcon from "@/assets/icons/TickIcon";
-import Image from "@/shared/components/ui/Image";
-import ShowIcon from "@/assets/icons/ShowIcon.tsx";
-import DangerIcon from "@/assets/icons/DangerIcon";
-import { COLUMNS } from "@/shared/constants/table";
-import HiddenIcon from "@/assets/icons/HiddenIcon";
-import SearchIcon from "@/assets/icons/SearchIcon";
-import UploadIcon from "@/assets/icons/UploadIcon";
-import ChevronIcon from "@/assets/icons/ChevronIcon";
 import { useAppDispatch, useAppSelector } from "@/store";
-import DangerousIcon from "@/assets/icons/DangerousIcon";
-import { swiperSlides } from "../constants/swiperSlides";
-import { Checkbox, Label } from "@/shared/components/ui/Form";
-import { lineItems } from "@/feature/suite/constants/lineItem";
-import { ImageDropzone } from "@/shared/components/ImageDropzone";
-import InvoiceModal from "@/feature/suite/components/InvoiceModal";
-import DocumentDropzone from "@/shared/components/DocumentDropzone";
-import { LineItemRow } from "@/feature/suite/components/LineItemRow";
-import TableSkeleton from "@/feature/suite/components/TableSkeleton";
-import { selectSortedData } from "@/feature/suite/hooks/suiteSelector";
 import {
-  Table,
-  Row,
-  TBody,
+  TickIcon,
+  ShowIcon,
+  DangerIcon,
+  HiddenIcon,
+  SearchIcon,
+  UploadIcon,
+  ChevronIcon,
+  DangerousIcon,
+} from "@/assets/index";
+import {
   TD,
+  Row,
+  Table,
+  TBody,
   THead,
+  Image,
+  Label,
+  COLUMNS,
+  Checkbox,
   RowContent,
+  ImageDropzone,
+  type TableRow,
+  DocumentDropzone,
   RowContentSection,
-} from "@/shared/components/ui/Table";
+} from "@/shared/index";
 import {
-  allChecked,
-  checkStatus,
-  handleAction,
-  handleCloseModal,
-  handleRowToggle,
-  handleSortChange,
+  lineItems,
   isVisible,
   toggleAll,
-} from "@/feature/suite/utils/suiteUtils";
+  allChecked,
+  checkStatus,
+  LineItemRow,
+  InvoiceModal,
+  handleAction,
+  swiperSlides,
+  TableSkeleton,
+  useSuiteFilter,
+  handleRowToggle,
+  useGetSuiteQuery,
+  handleCloseModal,
+  handleSortChange,
+} from "@/feature/suite/index";
 
-const MySuiteTable = () => {
+export const MySuiteTable = () => {
   const dispatch = useAppDispatch();
   const { category, modal, sort, rowExpanded, rowChecked } = useAppSelector(
     (state) => state.suite,
   );
-  const sortedData = useAppSelector(selectSortedData);
+  const { data, isLoading } = useGetSuiteQuery();
+  const sortedData = useSuiteFilter(data?.data.packages as TableRow[]);
+
+  if (isLoading)
+    return (
+      <TableSkeleton
+        columns={["w-15", "w-30", "w-30", "w-25", "w-20", "w-20"]}
+        rows={3}
+      />
+    );
   // set correct tag in status column body
   const statusIcon: Record<string, React.ReactNode> = {
     "in review": <SearchIcon className="size-3 stroke-warning" />,
     "ready to send": <TickIcon className="size-3 stroke-success" />,
     "action required": <DangerIcon className="size-3 stroke-error" />,
   };
-  if (!sortedData.length)
-    return <TableSkeleton columns={[10, 30, 30, 25, 20, 20]} rows={3} />;
+  if (isLoading)
+    return (
+      <TableSkeleton
+        columns={["w-15", "w-30", "w-30", "w-25", "w-20", "w-20"]}
+        rows={3}
+      />
+    );
 
   return (
     <div className={`rounded-xl m-6 overflow-hidden`}>
@@ -85,14 +104,14 @@ const MySuiteTable = () => {
           </Row>
         </THead>
         <TBody>
-          {sortedData.map((item) => (
+          {sortedData?.map((item) => (
             <React.Fragment key={item.packageId}>
               <Row
                 className={`
-                  flex flex-col md:flex-center md:flex-row 
-                  mb-4 last:mb-0 md:mb-0 rounded-xl md:rounded-none 
-                  text-t-secondary text-md text-left 
-                  border border-bo-primary  md:border-b-0  
+                  flex flex-col md:flex-center md:flex-row
+                  mb-4 last:mb-0 md:mb-0 rounded-xl md:rounded-none
+                  text-t-secondary text-md text-left
+                  border border-bo-primary  md:border-b-0
                   md:first:border-t-0! md:last:border-b! md:last:rounded-b-xl!  md:*:py-4
                   ${rowExpanded[item.packageId] ? `md:max-h-18 border-b! rounded-b-xl` : ""}  md:*:px-2 md:*:shrink-0 overflow-auto`}
               >
@@ -339,5 +358,3 @@ const MySuiteTable = () => {
     </div>
   );
 };
-
-export default MySuiteTable;

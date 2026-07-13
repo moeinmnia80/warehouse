@@ -1,4 +1,4 @@
-const UploadIcon = ({ ...props }) => {
+export const UploadIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 16 16"
@@ -37,5 +37,3 @@ const UploadIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default UploadIcon;

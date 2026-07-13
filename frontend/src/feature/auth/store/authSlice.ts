@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: AuthState = {
   user: null,
-  isAuthenticated: false,
+  status: "loading",
 };
 const authSlice = createSlice({
   name: "auth",
@@ -11,11 +11,11 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
-      state.isAuthenticated = true;
+      state.status = "authenticated";
     },
     logoutAction: (state) => {
       state.user = null;
-      state.isAuthenticated = false;
+      state.status = "unauthenticated";
     },
   },
 });

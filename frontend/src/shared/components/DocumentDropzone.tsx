@@ -1,8 +1,6 @@
 import { useCallback, useState } from "react";
+import { PdfIcon, UploadIcon, DangerIcon } from "@/assets/index";
 import { useDropzone, type FileRejection } from "react-dropzone";
-import UploadIcon from "@/assets/icons/UploadIcon";
-import DangerIcon from "@/assets/icons/DangerIcon";
-import PdfIcon from "@/assets/icons/PdfIcon";
 
 interface DocumentDropzoneProps {
   onFilesChange?: (files: File[]) => void;
@@ -28,7 +26,7 @@ const formatBytes = (bytes: number) => {
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
 };
 
-const DocumentDropzone = ({
+export const DocumentDropzone = ({
   onFilesChange,
   maxFiles = 10,
   maxSizeMb = 10,
@@ -179,5 +177,3 @@ const DocumentDropzone = ({
     </div>
   );
 };
-
-export default DocumentDropzone;

@@ -1,12 +1,9 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Caption, Email, Form, Label } from "@/shared/components/ui/Form";
-import {
-  forgetPasswordSchema,
-  type ForgetPasswordData,
-} from "../shared/schema/auth.schema";
 import { Button } from "@/shared/components/ui/Button";
+import { Caption, Email, Form, Label } from "@/shared/components/ui/Form";
+import { forgetPasswordSchema, type ForgetPasswordData } from "@/shared/index";
 
 const ForgetPasswordPage = () => {
   const {

@@ -1,8 +1,8 @@
-import { CheckBox } from "@/shared/components/ui/CheckBox";
 import { Label } from "@/shared/components/ui/Form";
+import { CheckBox } from "@/shared/components/ui/CheckBox";
 import { Row, Table, TBody, TD, THead } from "@/shared/components/ui/Table";
 
-const ShippingTable = () => {
+export const ShippingTable = () => {
   return (
     <div className="">
       <Table>
@@ -20,5 +20,3 @@ const ShippingTable = () => {
     </div>
   );
 };
-
-export default ShippingTable;

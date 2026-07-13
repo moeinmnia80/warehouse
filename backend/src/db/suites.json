@@ -12,7 +12,7 @@
         "totalValues": "112.50",
         "weight": "2.4",
         "status": {
-          "label": "In Review",
+          "label": "in review",
           "details": "Package is in review by our trade compliance team. Please expect more information via email if it will not be ready to send within 1-2 business days."
         },
         "details": {
@@ -52,7 +52,7 @@
         "totalValues": "32.20",
         "weight": "1.1",
         "status": {
-          "label": "In Review",
+          "label": "in review",
           "details": "Package is in review by our trade compliance team. Please expect more information via email if it will not be ready to send within 1-2 business days."
         },
         "details": {
@@ -92,7 +92,7 @@
         "totalValues": "102.00",
         "weight": "1.1",
         "status": {
-          "label": "Ready to Send",
+          "label": "ready to send",
           "details": ""
         },
         "details": {
@@ -179,7 +179,7 @@
         "totalValues": "79.00",
         "weight": "0.6",
         "status": {
-          "label": "Ready to Send",
+          "label": "ready to send",
           "details": ""
         },
         "details": {
@@ -205,7 +205,7 @@
         "totalValues": "314.20",
         "weight": "0.8",
         "status": {
-          "label": "Ready to Send",
+          "label": "ready to send",
           "details": ""
         },
         "details": {

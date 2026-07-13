@@ -1,4 +1,4 @@
-const CloseIcon = ({ ...props }) => {
+export const CloseIcon = ({ ...props }) => {
   return (
     <svg
       viewBox="0 0 16 16"
@@ -11,5 +11,3 @@ const CloseIcon = ({ ...props }) => {
     </svg>
   );
 };
-
-export default CloseIcon;

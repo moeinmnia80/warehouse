@@ -1,9 +1,8 @@
-import { tabs } from "@/feature/suite/constants/tabs";
-import { Button } from "@/shared/components/ui/Button";
+import { Button } from "@/shared/index";
 import { useAppDispatch, useAppSelector } from "@/store";
-import { handleTabChange, tabStatus } from "@/feature/suite/utils/suiteUtils";
+import { handleTabChange, tabs } from "@/feature/suite/index";
 
-const MySuiteTab = () => {
+export const MySuiteTab = () => {
   const dispatch = useAppDispatch();
   const { category } = useAppSelector((state) => state.suite);
   return (
@@ -18,12 +17,10 @@ const MySuiteTab = () => {
         >
           {tab.value}
           <span className="flex-center w-7.5 h-5.5 ms-2 rounded-full bg-b-primary text-t-primary border border-bo-primary">
-            {tabStatus[tab.id]}
+            0
           </span>
         </Button>
       ))}
     </div>
   );
 };
-
-export default MySuiteTab;

@@ -2,7 +2,7 @@ import { catchAsync } from "../../utils/async.js";
 import { createSuite, getSuiteData } from "./suite.services.js";
 
 export const getSuiteController = catchAsync(async (req, res) => {
-  const result = await getSuiteData(req.body);
+  const result = await getSuiteData(req);
 
   return res.status(200).json(result);
 });

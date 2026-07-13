@@ -1,8 +1,9 @@
-import InfoIcon from "@/assets/icons/InfoIcon";
+import { useToastStore } from "@/store";
+import { InfoIcon } from "@/assets/index";
 import { useEffect, useState } from "react";
-import { useToastStore, type ToastItem } from "@/store";
+import type { ToastItem } from "@/shared/index";
 
-const Toaster = ({ id, text, type }: ToastItem) => {
+export const Toaster = ({ id, text, type }: ToastItem) => {
   const [isLeaving, setIsLeaving] = useState(false);
   const remove = useToastStore((state) => state.remove);
 
@@ -32,5 +33,3 @@ const Toaster = ({ id, text, type }: ToastItem) => {
     </div>
   );
 };
-
-export default Toaster;
