@@ -6,15 +6,16 @@ import {
   ThemeToggle,
   UserMenuHeader,
   AreaSelectorHeader,
+  useScrolled,
 } from "@/shared/index";
 
 const Header = (props: ComponentProps<"header">) => {
   const location = useLocation();
   const isShow = location.pathname.startsWith("/dashboard");
-
+  const headerRef = useScrolled<HTMLElement>(10);
   return (
     <>
-      <header {...props}>
+      <header {...props} ref={headerRef}>
         <Link to={"/"} className="flex items-center gap-2 animate-scale-in">
           <Logo className="size-7 fill-st-primary" />
           <h2 className="text-2xl font-bold text-st-primary">Markist</h2>

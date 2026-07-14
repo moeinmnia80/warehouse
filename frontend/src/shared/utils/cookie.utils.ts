@@ -5,13 +5,14 @@ export const getCookie = (name: string): string | null => {
 
   if (!match) return null;
 
-  const value = match.split("=")[1];
+  const value = match.slice(match.indexOf("=") + 1);
   return decodeURIComponent(value);
 };
-export const setCookies = (name: string, value: string) => {
+
+export const setCookie = (name: string, value: string) => {
   document.cookie = `${name}=${encodeURIComponent(value)}; secure; samesite=strict; path=/`;
 };
-export const removeCookie = () => {
-  document.cookie =
-    "auth-token" + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/;";
+
+export const removeCookie = (name: string) => {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:01 GMT; path=/; secure; samesite=strict`;
 };

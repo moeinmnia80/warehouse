@@ -3,7 +3,7 @@ export { cn } from "@/shared/utils/merge.utils";
 export { changeTheme, themeCheck } from "@/shared/utils/theme.utils";
 export {
   getCookie,
-  setCookies,
+  setCookie,
   removeCookie,
 } from "@/shared/utils/cookie.utils";
 
@@ -20,20 +20,21 @@ export type {
 export type { ErrorType } from "@/shared/types/error.type";
 // schema
 export {
-  type ForgetPasswordData,
-  type LoginFormData,
-  type RegisterFormData,
-  type ResetPasswordData,
-  forgetPasswordSchema,
   loginSchema,
   passwordRegex,
-  registerSchema,
-  resetPasswordSchema,
   usernameRegex,
+  registerSchema,
+  type LoginFormData,
+  resetPasswordSchema,
+  forgetPasswordSchema,
+  type RegisterFormData,
+  type ResetPasswordData,
+  type ForgetPasswordData,
 } from "@/shared/schema/auth.schema";
 // hooks
 export { useTheme } from "@/shared/hooks/useTheme";
 export { useOverflow } from "@/shared/hooks/useOverflow";
+export { useScrolled } from "@/shared/hooks/useScrolled";
 export { useClickOutside } from "@/shared/hooks/useClickOutside";
 // context
 export { ThemeContext } from "@/shared/context/context";

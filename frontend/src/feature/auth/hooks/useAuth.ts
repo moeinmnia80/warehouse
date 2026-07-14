@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router";
-import { removeCookie, setCookies } from "@/shared/index";
+import { removeCookie, setCookie } from "@/shared/index";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 
 import {
@@ -26,7 +26,7 @@ export const useAuth = () => {
       } = await loginMutation(credentials).unwrap();
 
       dispatch(setCredentials({ id, email, fullName, gender, role }));
-      setCookies("auth-token", token);
+      setCookie("auth-token", token);
 
       return { success: true };
     } catch (error) {
@@ -44,7 +44,7 @@ export const useAuth = () => {
       console.error("Logout error:", error);
     } finally {
       dispatch(logoutAction());
-      removeCookie();
+      removeCookie("auth-token");
       navigate("login");
     }
   };
