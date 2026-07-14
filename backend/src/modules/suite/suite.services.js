@@ -1,10 +1,10 @@
 import { Errors } from "../../utils/errors.js";
-import { createNewSuite, fineSuiteByUserId } from "./suite.repository.js";
+import { createNewSuite, findSuiteByUserId } from "./suite.repository.js";
 import env from "../../config/env.js";
 
 export const getSuiteData = (req) => {
   const { id } = req.user;
-  const existingSuite = fineSuiteByUserId(id);
+  const existingSuite = findSuiteByUserId(id);
 
   if (!existingSuite) {
     throw Errors.notFound("Suite");

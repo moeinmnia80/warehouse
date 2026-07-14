@@ -7,6 +7,13 @@ import type {
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
+    register: builder.mutation<AuthResponse, LoginCredentials>({
+      query: (credentials) => ({
+        url: "/auth/register",
+        method: "POST",
+        body: credentials,
+      }),
+    }),
     login: builder.mutation<AuthResponse, LoginCredentials>({
       query: (credentials) => ({
         url: "/auth/login",
@@ -26,5 +33,9 @@ export const authApi = baseApi.injectEndpoints({
   }),
 });
 
-export const { useLoginMutation, useLogoutMutation, useGetCurrentUserQuery } =
-  authApi;
+export const {
+  useLoginMutation,
+  useLogoutMutation,
+  useRegisterMutation,
+  useGetCurrentUserQuery,
+} = authApi;

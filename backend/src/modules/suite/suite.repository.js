@@ -1,6 +1,6 @@
 import { connectDB } from "../../config/db.js";
 
-export const fineSuiteByUserId = (id) => {
+export const findSuiteByUserId = (id) => {
   const data = connectDB.readData("suites");
   return data.find((suite) => suite.userId === id) || null;
 };

@@ -1,4 +1,4 @@
-// ---- Types ----------------------------------------------------
+import type { TableRow } from "@/shared";
 
 export type DatePreset = "30d" | "60d" | "90d" | "1y" | "custom" | null;
 export interface DateRange {
@@ -15,5 +15,22 @@ export interface ShippingState {
   dateFilter: {
     preset: DatePreset;
     range: DateRange;
+  };
+}
+export interface ShippingResponse {
+  status: "success" | "fail";
+  message: string;
+  data: {
+    shipmentId: string;
+    userId: string;
+    carrier: string;
+    status: "register" | "delivered";
+    notice: string | null;
+    timestamps: {
+      created_at: string;
+      shipped_at: string | null;
+      delivered_at: string | null;
+    };
+    packages: TableRow[];
   };
 }

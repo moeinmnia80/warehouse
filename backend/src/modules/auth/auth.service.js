@@ -38,8 +38,11 @@ export const registerUser = async ({ email, username, password, ...rest }) => {
   const existingUserByEmail = findUserByEmail(email);
   const existingUserByUsername = findUserByUsername(username);
 
-  if (existingUserByEmail || existingUserByUsername) {
-    throw Errors.conflict("User with this email or username already exists");
+  if (existingUserByEmail) {
+    throw Errors.conflict("User with this email already exists");
+  }
+  if (existingUserByUsername) {
+    throw Errors.conflict("User with this username already exists");
   }
   let hashPassword;
   try {
@@ -56,22 +59,17 @@ export const registerUser = async ({ email, username, password, ...rest }) => {
     phone: { primary: null, secondary: null, alternate: null, fax: null },
     gender: null,
     role: "manager",
-    suite: null,
-    createdAt: new Date().toISOString(),
+    createdAt: new Date(),
   };
 
   const user = createUser(newUser);
   if (!user) {
     throw Errors.internal("Error occurred while creating user");
   }
-  const token = jwt.sign(
-    { id: existingUser.id, role: existingUser.role },
-    env.dbPrivateKey,
-    {
-      algorithm: "HS256",
-      expiresIn: env.dbExpiredKey,
-    },
-  );
+  const token = jwt.sign({ id: user.id, role: user.role }, env.dbPrivateKey, {
+    algorithm: "HS256",
+    expiresIn: env.dbExpiredKey,
+  });
   const { fullName, gender, role, id } = user;
 
   return {

@@ -4,15 +4,15 @@ interface RegisterType {
   type: string;
   placeholder: string;
   autoComplete: string;
-  name: "fullname" | "username" | "email" | "password";
+  name: "fullName" | "username" | "email" | "password";
 }
 
 export const registerInput: RegisterType[] = [
   {
     label: "Full Name",
-    id: "fullname",
+    id: "fullName",
     type: "text",
-    name: "fullname",
+    name: "fullName",
     placeholder: "Enter full name",
     autoComplete: "name",
   },

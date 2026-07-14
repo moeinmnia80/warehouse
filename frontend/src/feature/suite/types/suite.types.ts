@@ -1,3 +1,5 @@
+import type { TableRow } from "@/shared";
+
 // use in row content details - my suite table > row content
 export type LineItem = {
   id: string;
@@ -21,34 +23,7 @@ export interface SuiteResponse {
   data: {
     id: string;
     userId: string;
-    packages: [
-      {
-        barcode: string;
-        packageId: string;
-        vendor: string;
-        dataReceived: string;
-        itemValues: string;
-        totalValues: string;
-        weight: string;
-        status: {
-          label: "view all" | "in review" | "action required" | "ready to send";
-          details: string | null;
-        };
-        details: {
-          recipient: string;
-          address: string;
-          items: [
-            {
-              id: string;
-              name: string;
-              qty: string;
-              valuePerUnit: string;
-              notice: string | null;
-            },
-          ];
-        };
-      },
-    ];
+    packages: TableRow[];
   };
 }
 // MySuiteTable Comp

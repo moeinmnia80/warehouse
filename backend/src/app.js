@@ -8,6 +8,7 @@ import { errorHandler } from "./middlewares/error.middleware.js";
 
 import { router as authRouter } from "./modules/auth/auth.routes.js";
 import { router as suiteRouter } from "./modules/suite/suite.routes.js";
+import { router as shippingRouter } from "./modules/shipping/shipping.routes.js";
 import { authenticate } from "./middlewares/auth.middleware.js";
 
 const app = express();
@@ -25,6 +26,7 @@ app.use((req, res, next) => {
 // ───── Routes ──────────────────────────────────────────
 app.use("/auth", authRouter);
 app.use("/my-suite", suiteRouter);
+app.use("/shipping", shippingRouter);
 // ───── 404 ─────────────────────────────────────────────
 app.use(notFound);
 // ── Error handler ──────────────────────────────────────

@@ -2,6 +2,7 @@ import fs from "fs";
 const files = {
   users: "./src/db/users.json",
   suites: "./src/db/suites.json",
+  shipping: "./src/db/shipping.json",
 };
 export const connectDB = {
   readData: (collection) => {

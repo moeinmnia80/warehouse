@@ -7,7 +7,9 @@ import {
   setCredentials,
   useLoginMutation,
   useLogoutMutation,
+  useRegisterMutation,
   type LoginCredentials,
+  type RegisterCredentials,
 } from "@/feature/auth/index";
 
 export const useAuth = () => {
@@ -16,8 +18,28 @@ export const useAuth = () => {
 
   const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
   const [logoutMutation, { isLoading: isLoggingOut }] = useLogoutMutation();
+  const [registerMutation, { isLoading: isRegistering }] =
+    useRegisterMutation();
 
   const navigate = useNavigate();
+
+  const register = async (credentials: RegisterCredentials) => {
+    try {
+      const {
+        data: { id, email, fullName, gender, token, role },
+      } = await registerMutation(credentials).unwrap();
+
+      dispatch(setCredentials({ id, email, fullName, gender, role }));
+      setCookie("auth-token", token);
+
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: error || "Register error",
+      };
+    }
+  };
 
   const login = async (credentials: LoginCredentials) => {
     try {
@@ -54,7 +76,9 @@ export const useAuth = () => {
     status,
     isLoggingIn,
     isLoggingOut,
+    isRegistering,
     login,
     logout,
+    register,
   };
 };
