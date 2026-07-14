@@ -1,22 +1,20 @@
 import { Link } from "react-router";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/shared/components/ui/Button";
 import { Logo, GoogleIcon, FacebookIcon } from "@/assets/index";
 import {
-  Caption,
-  Checkbox,
-  Email,
   Form,
-  FormItem,
+  Email,
   Input,
   Label,
+  Button,
+  Caption,
+  Checkbox,
+  FormItem,
   Password,
-} from "@/shared/components/ui/Form";
-import {
+  registerInput,
   registerSchema,
   type RegisterFormData,
-  registerInput,
 } from "@/shared/index";
 
 const RegisterPage = () => {

@@ -1,5 +1,5 @@
+import { getCookie } from "@/shared/index";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getCookie } from "../utils/cookie.utils";
 
 export const baseApi = createApi({
   reducerPath: "baseAPI",

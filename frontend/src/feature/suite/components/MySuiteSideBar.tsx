@@ -1,5 +1,5 @@
-import { useAppSelector } from "@/store";
 import { Button } from "@/shared/index";
+import { useAppSelector } from "@/store/redux/store";
 import {
   BookIcon,
   InfoIcon,
@@ -8,7 +8,7 @@ import {
 } from "@/assets/index";
 
 export const MySuiteSideBar = () => {
-  const { category } = useAppSelector((state) => state.suite);
+  const category = useAppSelector((state) => state.suite.category);
 
   return (
     <aside className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 xl:max-w-100 xl:grid-cols-1 border border-bo-primary shadow-2xs">

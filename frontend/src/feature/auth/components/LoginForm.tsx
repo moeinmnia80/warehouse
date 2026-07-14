@@ -1,5 +1,5 @@
-import { toast } from "@/store";
 import { useForm } from "react-hook-form";
+import { toast } from "@/store/toast.store";
 import { Link, useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Logo, GoogleIcon, FacebookIcon } from "@/assets/index";

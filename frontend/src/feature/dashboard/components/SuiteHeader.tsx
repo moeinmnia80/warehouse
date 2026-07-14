@@ -1,16 +1,18 @@
-import { useAppDispatch } from "@/store";
 import { QueueIcon } from "@/assets/index";
+import { useGetSuiteQuery, useSuiteTabCounts } from "@/feature/suite";
+import { useAppDispatch } from "@/store/redux/store";
 import { Button } from "@/shared/components/ui/Button";
 import { changeCategory } from "@/feature/suite/store/suiteSlice";
 
 export const SuiteHeader = () => {
   const dispatch = useAppDispatch();
-
+  const { data } = useGetSuiteQuery();
+  const tabCounts = useSuiteTabCounts(data);
   return (
     <div className="flex h-38 md:h-26">
       <div className="flex flex-col gap-1 justify-center lg:justify-between h-full w-fit border-e border-bo-primary pe-4 sm:pe-8">
         <h3 className="text-t-primary font-bold text-2xl lg:text-3xl xl:text-4xl ">
-          Packages in Suite XC1164
+          Packages in Suite {data?.data.id}
         </h3>
         <p className="flex flex-col gap-2 lg:flex-row text-t-secondary text-md lg:text-lg font-medium">
           My Shipping Schedule:
@@ -33,7 +35,7 @@ export const SuiteHeader = () => {
         </div>
         <div className="flex flex-col md:justify-center text-center md:text-left">
           <div className="text-t-primary text-lg md:text-2xl lg:text-3xl font-bold">
-            0
+            {tabCounts.readyToSend}
           </div>
           <Button
             className="h-fit py-2 text-t-primary text-sm md:text-md font-semibold underline"

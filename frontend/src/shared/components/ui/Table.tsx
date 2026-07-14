@@ -1,3 +1,4 @@
+import { cn } from "@/shared/index";
 import { type ComponentProps } from "react";
 
 // ------------------------------------------------------------
@@ -9,8 +10,8 @@ export const Table = ({
   ...props
 }: ComponentProps<"div">) => {
   return (
-    <div className="md:overflow-auto md:max-h-auto ">
-      <div className={`md:min-w-max ${className ? className : ""}`} {...props}>
+    <div className="md:overflow-auto md:max-h-auto">
+      <div role="table" className={cn("md:min-w-max", className)} {...props}>
         {children}
       </div>
     </div>
@@ -27,7 +28,8 @@ export const THead = ({
 }: ComponentProps<"div">) => {
   return (
     <div
-      className={`md:min-w-max md:sticky md:top-0 md:z-10 ${className ? className : ""}`}
+      role="rowgroup"
+      className={cn("md:min-w-max md:sticky md:top-0 md:z-10", className)}
       {...props}
     >
       {children}
@@ -45,7 +47,8 @@ export const TBody = ({
 }: ComponentProps<"div">) => {
   return (
     <div
-      className={`md:min-w-max md:flex md:flex-col ${className ? className : ""}`}
+      role="rowgroup"
+      className={cn("md:min-w-max md:flex md:flex-col", className)}
       {...props}
     >
       {children}
@@ -56,9 +59,16 @@ export const TBody = ({
 // ------------------------------------------------------------
 //4-————— Table Row  ——————————————————————————————————————————
 // ------------------------------------------------------------
-
-export const Row = ({ children, ...props }: ComponentProps<"div">) => {
-  return <div {...props}>{children}</div>;
+export const Row = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<"div">) => {
+  return (
+    <div role="row" className={cn(className)} {...props}>
+      {children}
+    </div>
+  );
 };
 
 // ------------------------------------------------------------
@@ -67,25 +77,40 @@ export const Row = ({ children, ...props }: ComponentProps<"div">) => {
 interface TDProps extends ComponentProps<"div"> {
   dataCell?: string;
 }
-export const TD = ({ children, dataCell, ...props }: TDProps) => {
+
+export const TD = ({ children, className, dataCell, ...props }: TDProps) => {
   return (
-    <div data-cell={dataCell} {...props}>
+    <div role="cell" data-cell={dataCell} className={cn(className)} {...props}>
       {children}
     </div>
   );
 };
+
 // ------------------------------------------------------------
 //6-————— Table Row Content  ——————————————————————————————————
 // ------------------------------------------------------------
-export const RowContent = ({ children, ...props }: ComponentProps<"div">) => {
-  return <div {...props}>{children}</div>;
+export const RowContent = ({
+  children,
+  className,
+  ...props
+}: ComponentProps<"div">) => {
+  return (
+    <div className={cn(className)} {...props}>
+      {children}
+    </div>
+  );
 };
 // ------------------------------------------------------------
 //7-————— Table Row Section  ——————————————————————————————————
 // ------------------------------------------------------------
 export const RowContentSection = ({
   children,
+  className,
   ...props
 }: ComponentProps<"div">) => {
-  return <div {...props}>{children}</div>;
+  return (
+    <div className={cn(className)} {...props}>
+      {children}
+    </div>
+  );
 };

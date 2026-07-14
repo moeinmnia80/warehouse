@@ -1,6 +1,6 @@
 interface TableSkeletonProps {
-  columns?: string[]; // widths in px or tailwind scale units, e.g. [40, 120, 100, 100, 100, 80]
   rows?: number; // how many skeleton rows to render
+  columns?: string[]; // widths in px or tailwind scale units, e.g. [40, 120, 100, 100, 100, 80]
   rowHeight?: string; // tailwind height class, e.g. "h-18"
 }
 

@@ -1,9 +1,8 @@
 import { useLocation } from "react-router";
 import Footer from "@/shared/layout/Footer";
 import Header from "@/shared/layout/Header";
-import { ToastContainer } from "@/shared/index";
 import type { ComponentPropsWithoutRef } from "react";
-import { PATHS_WITHOUT_FOOTER } from "@/shared/constants/hiddenFooter";
+import { PATHS_WITHOUT_FOOTER, ToastContainer } from "@/shared/index";
 
 const Layout = ({ children }: ComponentPropsWithoutRef<"div">) => {
   const { pathname } = useLocation();

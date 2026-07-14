@@ -1,8 +1,12 @@
 import { Button } from "@/shared/index";
-import { useAppDispatch, useAppSelector } from "@/store";
-import { handleTabChange, tabs } from "@/feature/suite/index";
+import { useAppDispatch, useAppSelector } from "@/store/redux/store";
+import {
+  tabs,
+  handleTabChange,
+  type MySuiteTabProps,
+} from "@/feature/suite/index";
 
-export const MySuiteTab = () => {
+export const MySuiteTab = ({ tabCount }: MySuiteTabProps) => {
   const dispatch = useAppDispatch();
   const { category } = useAppSelector((state) => state.suite);
   return (
@@ -17,7 +21,7 @@ export const MySuiteTab = () => {
         >
           {tab.value}
           <span className="flex-center w-7.5 h-5.5 ms-2 rounded-full bg-b-primary text-t-primary border border-bo-primary">
-            0
+            {tabCount[tab.key]}
           </span>
         </Button>
       ))}

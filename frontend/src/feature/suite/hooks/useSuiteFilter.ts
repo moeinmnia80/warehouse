@@ -1,5 +1,5 @@
 import type { TableRow } from "@/shared";
-import { useAppSelector } from "@/store";
+import { useAppSelector } from "@/store/redux/store";
 
 export const useSuiteFilter = (data: TableRow[]) => {
   const sort = useAppSelector((state) => state.suite.sort);

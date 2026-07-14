@@ -2,10 +2,9 @@ import { useLocation } from "react-router";
 import { HistoryIcon } from "@/assets/index";
 import { SuiteHeader } from "@/feature/dashboard/index";
 
-const DashboardHeader = () => {
+export const DashboardHeader = () => {
   const location = useLocation();
   const isShow = location.pathname.includes("shipping");
-
   return (
     <div className="flex w-full bg-b-primary rounded-2xl p-5 animate-slide-down border border-bo-primary shadow-2xs">
       {!isShow ? (
@@ -21,5 +20,3 @@ const DashboardHeader = () => {
     </div>
   );
 };
-
-export default DashboardHeader;

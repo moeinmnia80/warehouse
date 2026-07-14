@@ -1,6 +1,6 @@
-import { useArea } from "@/store";
 import { NavLink } from "react-router";
 import type { ComponentProps } from "react";
+import { useAreaStore } from "@/store/area.store";
 import { useShallow } from "zustand/shallow";
 import { Logo, ChevronIcon } from "@/assets/index";
 import {
@@ -10,12 +10,11 @@ import {
   DropdownItem,
   DropdownButton,
   DropdownContent,
+  areas,
 } from "@/shared/index";
 
 const Footer = ({ className, ...props }: ComponentProps<"footer">) => {
-  const { areas, setArea, selectedArea } = useArea(
-    useShallow((state) => state),
-  );
+  const { setArea, selectedArea } = useAreaStore(useShallow((state) => state));
 
   return (
     <>

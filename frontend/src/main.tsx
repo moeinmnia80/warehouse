@@ -1,6 +1,6 @@
 import App from "@/App.tsx";
-import { store } from "@/store.ts";
 import { Provider } from "react-redux";
+import { store } from "@/store/redux/store";
 import { BrowserRouter } from "react-router";
 import { createRoot } from "react-dom/client";
 import "./index.css";

@@ -1,19 +1,16 @@
-import type { AppDispatch } from "@/store";
+import type { AppDispatch } from "@/store/redux/store";
 import { COLUMNS, type TableRow } from "@/shared/index";
 import type { CategoryType } from "@/feature/suite/index";
 import {
-  closeModal,
-  openModal,
-  rowCheckAll,
-  rowReset,
-} from "../store/suiteSlice";
-import {
-  changeCategory,
-  rowExpanded,
   rowSort,
+  rowReset,
+  openModal,
   rowToggle,
+  closeModal,
+  rowCheckAll,
+  rowExpanded,
+  changeCategory,
 } from "@/feature/suite/store/suiteSlice";
-
 /* 
     check status for give correct class to status tag 
 */
@@ -25,7 +22,6 @@ export const checkStatus = (status: string) => {
       return "review";
     case "action required":
       return "required";
-
     default:
       throw "unknown status";
   }

@@ -1,7 +1,7 @@
-import { useToastStore } from "@/store";
 import { InfoIcon } from "@/assets/index";
 import { useEffect, useState } from "react";
 import type { ToastItem } from "@/shared/index";
+import { useToastStore } from "@/store/toast.store";
 
 export const Toaster = ({ id, text, type }: ToastItem) => {
   const [isLeaving, setIsLeaving] = useState(false);

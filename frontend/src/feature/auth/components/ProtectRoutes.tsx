@@ -1,20 +1,25 @@
 import { useEffect } from "react";
-import { useAppDispatch } from "@/store";
 import { Navigate, Outlet } from "react-router";
-import { setCredentials } from "@/feature/auth/index";
-import { useGetCurrentUserQuery } from "@/feature/auth/index";
+import { useAppDispatch } from "@/store/redux/store";
+import { useGetCurrentUserQuery, setCredentials } from "@/feature/auth/index";
 
 export const ProtectRoutes = () => {
   const dispatch = useAppDispatch();
-  const { isError, isLoading, data } = useGetCurrentUserQuery();
+  const { data, isLoading, isSuccess, isError } = useGetCurrentUserQuery();
 
   useEffect(() => {
-    if (!isLoading && data) {
+    if (isSuccess && data) {
       dispatch(setCredentials({ ...data.data }));
     }
-  }, [isLoading, data, dispatch]);
+  }, [isSuccess, data, dispatch]);
 
-  if (isError && !data) return <Navigate to="/login" replace />;
+  if (isLoading)
+    return (
+      <div className="flex-center w-full min-h-dvh">
+        Loading ... wait a moment
+      </div>
+    );
+  if (isError) return <Navigate to="/login" replace />;
 
   return <Outlet />;
 };

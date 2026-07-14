@@ -14,6 +14,7 @@ export {
 } from "@/feature/shipping/utils/datePicker";
 // constants
 export { PRESETS } from "@/feature/shipping/constants/date";
+export { SHIPPING_COLUMNS } from "@/feature/shipping/constants/column";
 // store
 export {
   setSort,

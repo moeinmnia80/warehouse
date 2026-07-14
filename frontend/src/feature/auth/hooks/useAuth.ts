@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router";
-import { useAppDispatch, useAppSelector } from "@/store";
 import { removeCookie, setCookies } from "@/shared/index";
+import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 
 import {
   logoutAction,

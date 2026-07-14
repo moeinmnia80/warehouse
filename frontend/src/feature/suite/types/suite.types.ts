@@ -14,7 +14,7 @@ export type CategoryType =
   | "In Review"
   | "Ready to Send";
 
-//
+// api resp type
 export interface SuiteResponse {
   id: string;
   message: string;
@@ -31,7 +31,7 @@ export interface SuiteResponse {
         totalValues: string;
         weight: string;
         status: {
-          label: "View All" | "In Review" | "Action Required" | "Ready to Send";
+          label: "view all" | "in review" | "action required" | "ready to send";
           details: string | null;
         };
         details: {
@@ -51,9 +51,23 @@ export interface SuiteResponse {
     ];
   };
 }
-
+// MySuiteTable Comp
+export interface MySuiteTableProps {
+  data: SuiteResponse | undefined;
+  isLoading: boolean;
+}
+// MySuiteTab Comp
 export interface TabsType {
   id: number;
+  key: "inReview" | "actionRequired" | "readyToSend" | "viewAll";
   className: string;
   value: CategoryType;
+}
+export interface MySuiteTabProps {
+  tabCount: {
+    inReview: number;
+    actionRequired: number;
+    readyToSend: number;
+    viewAll: number;
+  };
 }

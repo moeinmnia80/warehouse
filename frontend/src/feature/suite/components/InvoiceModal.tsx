@@ -1,5 +1,5 @@
-import { useAppSelector } from "@/store";
 import { CloseIcon } from "@/assets/index";
+import { useAppSelector } from "@/store/redux/store";
 import { useOverflow, Button } from "@/shared/index";
 import { AddInvoicesModal } from "@/feature/suite/index";
 interface InvoiceModalProps {

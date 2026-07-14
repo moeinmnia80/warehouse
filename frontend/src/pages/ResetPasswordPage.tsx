@@ -1,14 +1,15 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/shared/components/ui/Button";
 import {
-  Caption,
   Form,
-  FormItem,
   Label,
+  Button,
+  Caption,
   Password,
-} from "@/shared/components/ui/Form";
-import { resetPasswordSchema, type ResetPasswordData } from "@/shared/index";
+  FormItem,
+  resetPasswordSchema,
+  type ResetPasswordData,
+} from "@/shared/index";
 
 const ResetPasswordPage = () => {
   const {

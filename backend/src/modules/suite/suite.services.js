@@ -9,11 +9,11 @@ export const getSuiteData = (req) => {
   if (!existingSuite) {
     throw Errors.notFound("Suite");
   }
-  const { packages } = existingSuite;
+  const { packages, id: suiteId } = existingSuite;
   return {
     status: "success",
     message: "suite is already exist",
-    data: { id, packages },
+    data: { id: suiteId, userId: id, packages },
   };
 };
 export const createSuite = ({ id }) => {

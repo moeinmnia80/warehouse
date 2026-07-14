@@ -13,7 +13,6 @@ export interface AreaType {
   lang: string;
 }
 export interface DataState {
-  areas: AreaType[];
   selectedArea: AreaType;
   setArea: (data: AreaType) => void;
 }
@@ -28,7 +27,7 @@ export interface TableRow {
   totalValues: string;
   weight: string;
   status: {
-    label: "In Review" | "Action Required" | "Ready ro Send";
+    label: "view all" | "in review" | "action required" | "ready to send";
     details: string | null;
   };
   details: {

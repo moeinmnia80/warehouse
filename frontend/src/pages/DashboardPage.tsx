@@ -1,5 +1,5 @@
 import { Outlet } from "react-router";
-import DashboardHeader from "@/feature/dashboard/components/DashboardHeader";
+import { DashboardHeader } from "@/feature/dashboard/index";
 const DashboardPage = () => {
   return (
     <>
