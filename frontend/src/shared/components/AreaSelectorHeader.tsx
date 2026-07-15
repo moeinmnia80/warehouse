@@ -4,15 +4,16 @@ import {
   areas,
   Image,
   Dropdown,
+  useInPath,
   DropdownItem,
   DropdownButton,
   DropdownContent,
 } from "@/shared/index";
 
-export const AreaSelectorHeader = ({ isShow }: { isShow: boolean }) => {
+export const AreaSelectorHeader = () => {
   const setArea = useAreaStore((s) => s.setArea);
   const selectedArea = useAreaStore((s) => s.selectedArea);
-
+  const isShow = useInPath("/dashboard");
   return (
     <Dropdown
       className={`hidden w-fit min-w-22 h-11 rounded-full xl:flex items-center justify-center ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}

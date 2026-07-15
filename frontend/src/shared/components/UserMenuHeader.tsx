@@ -1,5 +1,4 @@
 import { useAuth } from "@/feature/auth";
-import { useAppSelector } from "@/store/redux/store";
 import { ChevronIcon, LogoutIcon, SettingsIcon } from "@/assets";
 import {
   Button,
@@ -10,8 +9,7 @@ import {
 } from "@/shared/index";
 
 export const UserMenuHeader = () => {
-  const user = useAppSelector((state) => state.auth.user);
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -24,7 +22,11 @@ export const UserMenuHeader = () => {
         <div className="text-left">
           <h3 className="text-sm xl:text-xs font-bold text-t-primary">
             <span className="capitalize">
-              {user?.gender === "male" ? "mr" : "mz"}
+              {user?.gender === "male"
+                ? "mr"
+                : user?.gender === "female"
+                  ? "mz"
+                  : "mr"}
             </span>
             <span className="uppercase">.{user?.fullName}</span>
           </h3>

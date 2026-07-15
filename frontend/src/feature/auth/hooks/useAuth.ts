@@ -14,7 +14,8 @@ import {
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const { user, status } = useAppSelector((state) => state.auth);
+  const user = useAppSelector((state) => state.auth.user);
+  const status = useAppSelector((state) => state.auth.status);
 
   const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
   const [logoutMutation, { isLoading: isLoggingOut }] = useLogoutMutation();

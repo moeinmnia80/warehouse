@@ -33,6 +33,7 @@ export {
 } from "@/shared/schema/auth.schema";
 // hooks
 export { useTheme } from "@/shared/hooks/useTheme";
+export { useInPath } from "@/shared/hooks/useInPath";
 export { useOverflow } from "@/shared/hooks/useOverflow";
 export { useScrolled } from "@/shared/hooks/useScrolled";
 export { useClickOutside } from "@/shared/hooks/useClickOutside";

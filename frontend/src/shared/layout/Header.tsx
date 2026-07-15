@@ -1,18 +1,19 @@
 import { Logo } from "@/assets/index";
 import { type ComponentProps } from "react";
-import { Link, useLocation } from "react-router";
+import { Link } from "react-router";
 import {
   NavLinks,
   ThemeToggle,
   UserMenuHeader,
   AreaSelectorHeader,
   useScrolled,
+  useInPath,
 } from "@/shared/index";
 
 const Header = (props: ComponentProps<"header">) => {
-  const location = useLocation();
-  const isShow = location.pathname.startsWith("/dashboard");
+  const isShow = useInPath("/dashboard");
   const headerRef = useScrolled<HTMLElement>(10);
+
   return (
     <>
       <header {...props} ref={headerRef}>
@@ -22,7 +23,7 @@ const Header = (props: ComponentProps<"header">) => {
         </Link>
         {isShow && <NavLinks />}
         <div className="flex-center gap-4">
-          <AreaSelectorHeader isShow={isShow} />
+          <AreaSelectorHeader />
           {!isShow ? <ThemeToggle /> : <UserMenuHeader />}
         </div>
       </header>
