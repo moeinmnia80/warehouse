@@ -5,12 +5,12 @@ import { Navigate, Route, Routes } from "react-router";
 import { ShippingHistory } from "@/feature/shipping/index";
 
 // Lazy-loaded — each becomes its own chunk, fetched only when visited
+const NotFoundPage = lazy(() => import("@/pages/404"));
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"));
-const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
-const ResetPasswordPage = lazy(() => import("@/pages/ResetPasswordPage"));
 const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
-const NotFoundPage = lazy(() => import("@/pages/404"));
+const ResetPasswordPage = lazy(() => import("@/pages/ResetPasswordPage"));
+const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
 
 function RouterWrapper() {
   return (

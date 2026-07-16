@@ -12,7 +12,7 @@ import {
 
 export const MySuiteTable = ({ data, isLoading }: MySuiteTableProps) => {
   const dispatch = useAppDispatch();
-  const { modal } = useAppSelector((state) => state.suite);
+  const modal = useAppSelector((state) => state.suite.modal);
   const sortedData = useSuiteFilter((data?.data.packages ?? []) as TableRow[]);
 
   if (isLoading) {

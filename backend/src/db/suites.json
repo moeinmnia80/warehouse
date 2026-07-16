@@ -41,7 +41,25 @@
               "notice": "This product contains a lithium battery, additional charges may be required"
             }
           ]
-        }
+        },
+        "invoices": [
+          {
+            "id": "015d9b03-a1dc-4d71-93b4-5eda13399b04",
+            "url": "packages/03-218-9705/1784190424355.pdf",
+            "name": "invoice_03-218-9705.pdf",
+            "size": 2992,
+            "type": "pdf"
+          }
+        ],
+        "images": [
+          {
+            "id": "9c866729-8c91-4c81-a47f-208c66197b5e",
+            "url": "packages/03-218-9705/1784207004254.jpg",
+            "name": "walling-e_MdMMKrgdY-unsplash.jpg",
+            "size": 1282897,
+            "type": "jpg"
+          }
+        ]
       },
       {
         "barcode": "IZ6A9423125556541887",
@@ -81,7 +99,25 @@
               "notice": "This product contains a lithium battery, additional charges may be required"
             }
           ]
-        }
+        },
+        "invoices": [
+          {
+            "id": "721f5dcc-3235-416a-853a-070f91e70f7e",
+            "url": "packages/03-854-9235/1784190942522.pdf",
+            "name": "invoice_03-854-9235.pdf",
+            "size": 2992,
+            "type": "pdf"
+          }
+        ],
+        "images": [
+          {
+            "id": "996f5813-2cb6-45ca-93cb-ce1308b31213",
+            "url": "packages/03-854-9235/1784207070802.jpg",
+            "name": "mohammad-rahmani-N5bT5RctFZ8-unsplash.jpg",
+            "size": 3696721,
+            "type": "jpg"
+          }
+        ]
       },
       {
         "barcode": "IZ6B1183420019234",
@@ -121,7 +157,25 @@
               "notice": "This product contains a lithium battery, additional charges may be required"
             }
           ]
-        }
+        },
+        "invoices": [
+          {
+            "id": "94a96a98-0f14-4b95-9535-4542e0be2506",
+            "url": "packages/03-156-1255/1784190977061.pdf",
+            "name": "invoice_03-156-1255.pdf",
+            "size": 2703,
+            "type": "pdf"
+          }
+        ],
+        "images": [
+          {
+            "id": "a7d292f8-b6ce-453b-a638-38e82d81b46d",
+            "url": "packages/03-156-1255/1784207305741.jpg",
+            "name": "profileAuther.jpg",
+            "size": 1333883,
+            "type": "jpg"
+          }
+        ]
       },
       {
         "barcode": "IZ6C7729384610552",
@@ -168,7 +222,17 @@
               "notice": ""
             }
           ]
-        }
+        },
+        "invoices": [
+          {
+            "id": "a87b17a6-93a1-4226-bdd0-a59fe583faf7",
+            "url": "packages/03-345-1643/1784191043244.pdf",
+            "name": "invoice_03-345-1643.pdf",
+            "size": 2845,
+            "type": "pdf"
+          }
+        ],
+        "images": []
       },
       {
         "barcode": "IZ6D5567123489021",
@@ -194,7 +258,17 @@
               "notice": ""
             }
           ]
-        }
+        },
+        "invoices": [
+          {
+            "id": "f04eeea1-a4c5-4e76-ae83-ffd1b620c132",
+            "url": "packages/03-122-2366/1784191068439.pdf",
+            "name": "invoice_03-122-2366.pdf",
+            "size": 2410,
+            "type": "pdf"
+          }
+        ],
+        "images": []
       },
       {
         "barcode": "IZ6D543564733489021",
@@ -220,7 +294,17 @@
               "notice": ""
             }
           ]
-        }
+        },
+        "invoices": [
+          {
+            "id": "fec62e88-f679-4a0f-82ec-76c58ab49426",
+            "url": "packages/03-134-7453/1784192080470.pdf",
+            "name": "invoice_03-134-7453.pdf",
+            "size": 2415,
+            "type": "pdf"
+          }
+        ],
+        "images": []
       }
     ]
   }

@@ -5,12 +5,12 @@ import { useShallow } from "zustand/shallow";
 import { Logo, ChevronIcon } from "@/assets/index";
 import {
   Image,
+  areas,
   Dropdown,
   SocialMedia,
   DropdownItem,
   DropdownButton,
   DropdownContent,
-  areas,
 } from "@/shared/index";
 
 const Footer = ({ className, ...props }: ComponentProps<"footer">) => {

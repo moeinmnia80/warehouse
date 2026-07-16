@@ -24,6 +24,12 @@ export interface ShippingResponse {
     shipmentId: string;
     userId: string;
     carrier: string;
+    description: string;
+    invoice: {
+      file: string;
+      type: string;
+    };
+    charge: "100";
     status: "register" | "delivered";
     notice: string | null;
     timestamps: {

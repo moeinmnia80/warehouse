@@ -52,3 +52,26 @@ export const createShipping = (req) => {
     data: { ...shipping },
   };
 };
+export const attachInvoice = (req, file) => {
+  const shipment = findShippingByShippingId(req.params.shipmentId);
+  if (!shipment) throw Errors.notFound("shipment not found");
+
+  shipment.invoice = { file: file.path, type: "pdf", uploadedAt: new Date() };
+  updateShipping(shipment); // you'll need this in shipping.repository.js, same pattern as updateSuite above
+
+  return {
+    status: "success",
+    message: "invoice attached",
+    data: shipment.invoice,
+  };
+};
+
+export const getInvoicePath = (req) => {
+  const shipment = findShippingByShippingId(req.params.shipmentId);
+  if (!shipment) throw Errors.notFound("shipment not found");
+  if (shipment.userId !== req.user.id) {
+    throw Errors.forbidden("you cannot access this invoice"); // regular user can only download their own
+  }
+  if (!shipment.invoice?.file) throw Errors.notFound("no invoice uploaded yet");
+  return shipment.invoice.file;
+};

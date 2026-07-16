@@ -7,6 +7,7 @@ import {
   HiddenIcon,
   SearchIcon,
   UploadIcon,
+  PdfIcon,
 } from "@/assets/index";
 import { TD, Row, Label, Checkbox, type TableRow } from "@/shared/index";
 import {
@@ -29,8 +30,6 @@ interface TableDataRowProps {
   item: TableRow;
 }
 
-// Isolated per-row so toggling ONE row's checkbox or expansion doesn't
-// force every other row (or the header) to re-render.
 export const TableDataRow = ({ item }: TableDataRowProps) => {
   const dispatch = useAppDispatch();
   const { category, rowExpanded, rowChecked } = useAppSelector(
@@ -156,7 +155,12 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           <div className="flex-center gap-1 w-full">
             {category === SUITE_CATEGORY.ACTION_REQUIRED ? (
               <>
-                <p>Upload Invoice</p>
+                {item.invoices.map((i) => (
+                  <div title={i.name} key={i.id} className="">
+                    <PdfIcon className="size-5 stroke-st-primary" />
+                  </div>
+                ))}
+                {!item.invoices.length && <p>Upload Invoice</p>}
                 <UploadIcon className="size-4 stroke-st-primary" />
               </>
             ) : isExpanded ? (

@@ -26,6 +26,17 @@ export interface SuiteResponse {
     packages: TableRow[];
   };
 }
+
+export interface UploadResponse {
+  status: "success" | "fail";
+  message: string;
+  data: string;
+}
+export interface MutationDataType {
+  credentials: FormData;
+  type: "pdf" | "images";
+  id: string;
+}
 // MySuiteTable Comp
 export interface MySuiteTableProps {
   data: SuiteResponse | undefined;

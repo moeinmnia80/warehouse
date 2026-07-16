@@ -37,6 +37,7 @@ export { useInPath } from "@/shared/hooks/useInPath";
 export { useOverflow } from "@/shared/hooks/useOverflow";
 export { useScrolled } from "@/shared/hooks/useScrolled";
 export { useClickOutside } from "@/shared/hooks/useClickOutside";
+export { useObjectUrlOnImg } from "@/shared/hooks/useObjectUrlOnImg";
 // context
 export { ThemeContext } from "@/shared/context/context";
 // constants
@@ -53,10 +54,8 @@ export { Toaster } from "@/shared/components/Toaster";
 export { NavLinks } from "@/shared/components/NavLinksHeader";
 export { ThemeToggle } from "@/shared/components/ThemeToggle";
 export { SocialMedia } from "@/shared/components/SocialMedia";
-export { ImageDropzone } from "@/shared/components/ImageDropzone";
 export { ToastContainer } from "@/shared/components/ToastContainer";
 export { UserMenuHeader } from "@/shared/components/UserMenuHeader";
-export { DocumentDropzone } from "@/shared/components/DocumentDropzone";
 export { AreaSelectorHeader } from "@/shared/components/AreaSelectorHeader";
 export {
   Form,
@@ -92,3 +91,11 @@ export {
   DropdownContent,
   DropdownSeparator,
 } from "@/shared/components/ui/DropDown";
+export {
+  Dropzone,
+  DropzoneArea,
+  DropzoneButton,
+  DropzoneWrapper,
+  DropzoneFileList,
+  DropzoneSubmitButton,
+} from "@/shared/components/ui/Dropzone";

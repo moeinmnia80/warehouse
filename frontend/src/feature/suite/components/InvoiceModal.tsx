@@ -6,7 +6,7 @@ interface InvoiceModalProps {
   handleCloseModal: () => void;
 }
 export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
-  const { modal } = useAppSelector((state) => state.suite);
+  const modal = useAppSelector((state) => state.suite.modal);
   useOverflow(modal.open);
   return (
     // main wrapper fixed screen
@@ -36,7 +36,7 @@ export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
           </p>
         </div>
         {/* second section */}
-        <AddInvoicesModal />
+        <AddInvoicesModal packageId={modal.packageId} />
       </div>
     </div>
   );

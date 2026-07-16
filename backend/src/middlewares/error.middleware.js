@@ -1,7 +1,12 @@
+import multer from "multer";
+
 export const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const errorCode = err.errorCode || "INTERNAL_ERROR";
 
+  if (err instanceof multer.MulterError) {
+    return res.status(400).json({ status: "fail", message: err.message });
+  }
   console.error({
     timestamp: new Date().toISOString(),
     status: statusCode,

@@ -32,4 +32,7 @@ export const Errors = {
   // ── Internal (500)
   internal: (message = "Internal server error") =>
     new AppError(message, 500, "INTERNAL_ERROR"),
+  // ── badRequest (400)
+  badRequest: (message = "bad request") =>
+    new AppError(message, 400, "BAD_REQUEST"),
 };

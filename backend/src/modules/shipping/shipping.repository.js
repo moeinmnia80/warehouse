@@ -2,7 +2,7 @@ import { connectDB } from "../../config/db.js";
 
 export const findShippingByUserId = (id) => {
   const data = connectDB.readData("shipping");
-  return data.find((shipping) => shipping.userId === id) || null;
+  return data.filter((shipping) => shipping.userId === id) || null;
 };
 export const findShippingByShippingId = (id) => {
   const data = connectDB.readData("shipping");

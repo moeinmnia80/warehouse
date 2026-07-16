@@ -1,20 +1,15 @@
 import { DangerousIcon } from "@/assets/index";
 import {
-  Image,
-  RowContent,
-  ImageDropzone,
-  DocumentDropzone,
-  RowContentSection,
-  type TableRow,
-} from "@/shared/index";
-import { LineItemRow, swiperSlides } from "@/feature/suite/index";
+  LineItemRow,
+  DropzoneImage,
+  DropzoneDocument,
+} from "@/feature/suite/index";
+import { RowContent, RowContentSection, type TableRow } from "@/shared/index";
 
 interface ExpandedRowDetailsProps {
   item: TableRow;
 }
 
-// Isolated so that expanding/collapsing ONE row's details never forces
-// React to re-diff the header, other rows, or the modal.
 export const ExpandedRowDetails = ({ item }: ExpandedRowDetailsProps) => {
   return (
     <RowContent className="flex flex-col bg-b-table border-bo-primary rounded-xl transition duration-300 my-2 animate-fade-in">
@@ -34,7 +29,6 @@ export const ExpandedRowDetails = ({ item }: ExpandedRowDetailsProps) => {
           </p>
         </RowContentSection>
       )}
-
       <RowContentSection className="flex flex-col gap-4 p-6 border-b border-bo-primary">
         <div className="w-full">
           <div className="flex items-center">
@@ -75,23 +69,12 @@ export const ExpandedRowDetails = ({ item }: ExpandedRowDetailsProps) => {
 
       <RowContentSection className="relative p-6 pr-0 mr-6 md:p-6 md:mr-0 border-b border-bo-primary overflow-auto">
         <h3 className="text-xl text-t-primary font-bold">photos</h3>
-        <ImageDropzone maxFiles={8} maxSizeMb={8}>
-          <div className="relative flex gap-4 w-fit">
-            {swiperSlides.map((slide) => (
-              <div
-                key={slide.id}
-                className="w-22 h-22 aspect-square rounded-md overflow-hidden"
-              >
-                <Image src={slide.src} alt={slide.alt} />
-              </div>
-            ))}
-          </div>
-        </ImageDropzone>
+        <DropzoneImage data={item} />
       </RowContentSection>
 
       <RowContentSection className="p-6">
         <h3 className="text-xl text-t-primary font-bold">Add Documents</h3>
-        <DocumentDropzone />
+        <DropzoneDocument data={item} />
       </RowContentSection>
     </RowContent>
   );

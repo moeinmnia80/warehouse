@@ -43,6 +43,24 @@ export interface TableRow {
       },
     ];
   };
+  invoices:
+    | {
+        id: string;
+        url: string;
+        name: string;
+        size: number;
+        type: string;
+      }[]
+    | [];
+  images:
+    | {
+        id: string;
+        url: string;
+        name: string;
+        size: number;
+        type: string;
+      }[]
+    | [];
 }
 
 // Toast Store

@@ -5,12 +5,18 @@
     "carrier": "FedEx",
 
     "status": "register",
-    "notice": "",
+    "notice": "null",
     "timestamps": {
       "created_at": "2026-07-14T14:34:57.042Z",
       "shipped_at": "null",
       "delivered_at": "null"
     },
+    "description": "this product is ...",
+    "invoice": {
+      "file": "",
+      "type": "pdf"
+    },
+    "charge": "100",
     "packages": [
       {
         "barcode": "IZ6B1183420019234",
@@ -22,7 +28,7 @@
         "weight": "1.1",
         "status": {
           "label": "ready to send",
-          "details": ""
+          "details": "null"
         },
         "details": {
           "recipient": "M. Osei",
@@ -33,14 +39,14 @@
               "name": "Running Shoes",
               "qty": "1000",
               "valuePerUnit": "56.50",
-              "notice": ""
+              "notice": "null"
             },
             {
               "id": "002",
               "name": "Desk Lamp",
               "qty": "450",
               "valuePerUnit": "12.50",
-              "notice": ""
+              "notice": "null"
             },
             {
               "id": "003",
@@ -62,7 +68,7 @@
         "weight": "0.6",
         "status": {
           "label": "ready to send",
-          "details": ""
+          "details": "null"
         },
         "details": {
           "recipient": "S. Chen",
@@ -73,7 +79,7 @@
               "name": "Phone Cases",
               "qty": "1000",
               "valuePerUnit": "346.00",
-              "notice": ""
+              "notice": "null"
             }
           ]
         }
@@ -88,7 +94,7 @@
         "weight": "0.8",
         "status": {
           "label": "ready to send",
-          "details": ""
+          "details": "null"
         },
         "details": {
           "recipient": "S. Chen",
@@ -99,7 +105,7 @@
               "name": "Phone Cases",
               "qty": "1000",
               "valuePerUnit": "346.00",
-              "notice": ""
+              "notice": "null"
             }
           ]
         }

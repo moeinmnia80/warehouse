@@ -1,12 +1,18 @@
 import { useRef, useState } from "react";
 import { PdfIcon, TrashIcon, UploadIcon } from "@/assets/index";
+import { toast } from "@/store/toast.store";
+import { useSuiteUpload } from "@/feature/suite";
 
-export const AddInvoicesModal = () => {
+export const AddInvoicesModal = ({
+  packageId,
+}: {
+  packageId: string | null;
+}) => {
   // add file to state for submit/show
   //multiple
   const [file, setFile] = useState<File[]>([]);
   //   Error Handling
-  const [error, setError] = useState("");
+  const [error, setError] = useState<string | null>(null);
   // select input
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -38,11 +44,6 @@ export const AddInvoicesModal = () => {
   // handle drop file
   const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    // prevent send more files
-    if (file.length > 3) {
-      setError("3 files not more");
-      return;
-    }
     const files = event.dataTransfer?.files;
     if (!files || files.length === 0) return;
     // for set one
@@ -56,9 +57,31 @@ export const AddInvoicesModal = () => {
     const modifyFile = file.filter((item) => item.name !== name);
     setFile([...modifyFile]);
   };
+  const { upload, isUploading } = useSuiteUpload();
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (file.length === 0) return;
+    setError(null);
 
+    const formData = new FormData();
+    file.forEach((file) => {
+      formData.append("packagePdf", file);
+    });
+    if (!packageId) return;
+    const res = await upload({
+      credentials: formData,
+      type: "pdf",
+      id: packageId,
+    });
+
+    if (res.success) {
+      toast.success("the file successfully uploaded");
+    } else {
+      toast.error("can't uploaded");
+    }
+  };
   return (
-    <form onSubmit={() => {}}>
+    <form onSubmit={handleSubmit}>
       {/* Drag boundary */}
       <div
         onDrop={handleDrop}
@@ -73,7 +96,6 @@ export const AddInvoicesModal = () => {
           onChange={(e) => handleChange(e)}
           className="hidden"
           multiple
-          maxLength={3}
         />
         <div className="flex gap-2">
           {file ? (
@@ -113,7 +135,6 @@ export const AddInvoicesModal = () => {
           )}
           {/* Upload button */}
           <button
-            onClick={(e) => e.preventDefault()}
             type="submit"
             disabled={!file.length}
             className="flex-center flex-col gap-2 size-30 bg-b-secondary border border-bo-primary rounded-lg disabled:opacity-50 disabled:cursor-default"
@@ -121,7 +142,9 @@ export const AddInvoicesModal = () => {
             {/* Upload Icon */}
             <UploadIcon className="size-10 stroke-st-primary" />
             {/* Text */}
-            <span className="text-t-primary text-2xl">Upload</span>
+            <span className="text-t-primary text-2xl">
+              {isUploading ? "uploading" : "upload"}
+            </span>
           </button>
         </div>
         {error && (
