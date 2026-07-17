@@ -44,8 +44,8 @@ export const LoginForm = () => {
     }
   };
   return (
-    <div className="form-box border border-bo-primary shadow-xs my-12 animate-slide-up">
-      <Logo className="self-center size-12 fill-st-primary" />
+    <div className="form-box border border-bo-primary text-tx-primary shadow-xs my-12 animate-slide-up ">
+      <Logo className="self-center size-12 fill-st-primary " />
       <h2 className="heading-2">Login Account</h2>
       <Form onSubmit={handleSubmit(onSubmit)}>
         <FormItem className="flex flex-col gap-2">
@@ -71,28 +71,25 @@ export const LoginForm = () => {
             {errors.password?.message}
           </Caption>
         </FormItem>
-        <FormItem className="flex-between">
-          <Label className="flex-center gap-1 text-lg font-medium text-t-primary">
+        <FormItem className="flex-between text-sm">
+          <Label className="flex-center gap-1">
             <Checkbox
               className="size-4 bg-b-checkbox border-bo-secondary rounded-sm shrink-0"
-              accentClass="stroke-t-primary"
+              accentClass="stroke-tx-primary"
             />
             Remember for 30 days
           </Label>
-          <Link
-            to={"/forget-password"}
-            className="text-lg font-medium text-t-primary text-right"
-          >
+          <Link to={"/forget-password"} className="text-right">
             Forget password
           </Link>
         </FormItem>
-        <Button className="btn btn--primary font-bold mt-4 px-2 transition-all duration-200 hover:bg-b-muted hover:text-t-primary">
+        <Button className="btn btn--primary font-semibold mt-4 transition-all duration-200 hover:text-t-primary">
           {isLoggingIn ? "Loading" : "Sign in"}
         </Button>
       </Form>
       <div className="flex items-center justify-center mt-4">
         <span className="inline-block w-full h-px bg-bo-primary"></span>
-        <span className="text-t-primary text-md px-2">or</span>
+        <span className="text-sm px-2">OR</span>
         <span className="inline-block w-full h-px bg-bo-primary"></span>
       </div>
       <Button className="btn-secondary gap-3 mt-4 px-2">
@@ -103,10 +100,10 @@ export const LoginForm = () => {
         <FacebookIcon className="size-5" />
         Sign in with Facebook
       </Button>
-      <div className="text-md font-light text-t-placeholder self-center mt-5">
+      <div className="text-md font-light text-tx-placeholder self-center mt-5">
         Don't have an account?{" "}
         <Link
-          className="text-lg text-t-primary font-bold ml-1"
+          className="text-md text-tx-primary font-bold ml-1"
           to={"/register"}
         >
           Register

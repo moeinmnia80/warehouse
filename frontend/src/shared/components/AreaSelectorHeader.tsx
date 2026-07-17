@@ -11,41 +11,40 @@ import {
 } from "@/shared/index";
 
 export const AreaSelectorHeader = () => {
-  const setArea = useAreaStore((s) => s.setArea);
-  const selectedArea = useAreaStore((s) => s.selectedArea);
+  const setArea = useAreaStore((state) => state.setArea);
+  const selectedArea = useAreaStore((state) => state.selectedArea);
   const isShow = useInPath("/dashboard");
   return (
     <Dropdown
-      className={`hidden w-fit min-w-22 h-11 rounded-full xl:flex items-center justify-center ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}
+      className={`hidden w-fit min-w-22 h-11 xl:flex items-center justify-center text-tx-primary rounded-full bg-b-primary border border-bo-primary`}
     >
-      <DropdownButton className="w-full flex-between p-2 px-3">
+      <DropdownButton className="w-full flex-between  p-2 px-3">
         <Image
           src={selectedArea?.src}
           alt={selectedArea?.name}
           className="w-6 h-4 object-contain"
         />
         {isShow && (
-          <p className="text-sm font-bold text-t-primary mx-2">
+          <p className="text-sm font-bold text-current mx-3">
             {selectedArea.desc}
           </p>
         )}
         <ChevronIcon className="size-4 fill-st-primary" />
       </DropdownButton>
-      <DropdownContent
-        className={`flex flex-col gap-1 items-center mt-2 rounded-xl p-1 animate-fade-in ${isShow ? "bg-b-primary border border-bo-primary" : "bg-b-third"}`}
-      >
+      <DropdownContent className="flex flex-col gap-1 items-center p-1 rounded-xl mt-2 animate-fade-in bg-b-primary border border-bo-primary">
         {areas.map((item) => (
           <DropdownItem
             key={item.name}
             onClick={() => setArea(item)}
-            className={`flex-between w-77 h-11 rounded-xl px-2 hover:bg-b-secondary ${selectedArea.name === item.name ? "bg-b-secondary" : ""}`}
+            className={`flex-between w-77 h-11 px-2 rounded-xl hover:bg-b-secondary 
+            ${selectedArea.name === item.name ? "bg-b-secondary" : ""}`}
           >
             <Image
               src={item.src}
               alt={item.name}
               className="w-6 h-4 object-contain"
             />
-            <p className="text-md text-t-primary font-semibold">{item.desc}</p>
+            <p className="text-sm text-current font-semibold">{item.desc}</p>
             <TickIcon
               className={`size-5 ${item.name === selectedArea.name ? "stroke-st-primary" : "invisible"}`}
             />

@@ -1,3 +1,4 @@
+import { Loading } from "@/shared";
 import { lazy, Suspense } from "react";
 import { MySuite } from "@/feature/suite/index";
 import { ProtectRoutes } from "@/feature/auth/index";
@@ -14,7 +15,7 @@ const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
 
 function RouterWrapper() {
   return (
-    <Suspense fallback={<></>}>
+    <Suspense fallback={<Loading />}>
       <Routes>
         <Route path="/" element={<Navigate to="/login" replace />} />
         <Route path="login" element={<LoginPage />} />

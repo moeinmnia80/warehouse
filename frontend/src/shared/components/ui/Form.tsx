@@ -54,7 +54,7 @@ export const Input = ({
   ...props
 }: ComponentProps<"input">) => {
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <input className={`w-full ${className}`} {...props} />
       {children}
     </div>
@@ -153,7 +153,7 @@ export const Password = ({
         {...props}
       />
       {children}
-      <span onClick={handleClick}>
+      <span onClick={handleClick} className="cursor-pointer">
         {isShow ? (
           <HiddenIcon
             className={`absolute right-3 top-1/2 -translate-y-1/2 

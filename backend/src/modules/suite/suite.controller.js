@@ -4,7 +4,7 @@ import {
   getSuiteData,
   addPackageImages,
   addPackagePdf,
-  getPackageIdImages,
+  getFiles,
 } from "./suite.services.js";
 
 export const getSuiteController = catchAsync(async (req, res) => {
@@ -27,10 +27,10 @@ export const addPackagePdfController = catchAsync(async (req, res) => {
   return res.status(200).json(result);
 });
 export const downloadInvoiceController = catchAsync(async (req, res) => {
-  const result = await downloadInvoice(req);
-  return res.download(result.fullPath, result.downloadName);
+  const result = await getFiles(req);
+  return res.sendFile(result.fullPath);
 });
 export const getPackageIdImagesController = catchAsync(async (req, res) => {
-  const result = await getPackageIdImages(req);
+  const result = await getFiles(req);
   return res.sendFile(result.fullPath);
 });

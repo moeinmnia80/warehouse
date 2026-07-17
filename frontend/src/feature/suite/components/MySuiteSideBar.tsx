@@ -12,47 +12,45 @@ export const MySuiteSideBar = () => {
 
   return (
     <aside className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 xl:max-w-100 xl:grid-cols-1 border border-bo-primary shadow-2xs">
-      <h4 className="text-center text-lg text-t-secondary font-medium col-span-2">
+      <h4 className="text-center text-md text-tx-secondary font-medium col-span-2">
         All values are in United States dollars (USD).
       </h4>
       {category === "Ready to Send" && (
-        <div className="border border-bo-primary rounded-xl text-t-primary col-span-2 lg:col-span-1 xl:col-span-2">
+        <div className="border border-bo-primary rounded-xl text-tx-primary col-span-2 lg:col-span-1 xl:col-span-2">
           <div className="p-5 border-b border-bo-primary">
-            <h2 className="text-current font-bold text-2xl">
-              Shipping Summary
-            </h2>
+            <h2 className="text-current font-bold text-lg">Shipping Summary</h2>
           </div>
           <div className="p-5">
-            <div className="flex flex-col gap-2 text-t-placeholder border-b border-bo-primary pb-4">
-              <p className="flex-between text-xl text-current">
+            <div className="flex flex-col gap-2 **:text-md **:text-tx-placeholder border-b border-bo-primary pb-4">
+              <p className="flex-between text-current">
                 Total Value
-                <span className="text-t-primary text-2xl font-medium">
+                <span className="text-lg text-tx-primary font-medium">
                   {/* {calculateData(sortedData).itemValues} */}
                 </span>
               </p>
-              <p className="flex-between text-xl text-current">
+              <p className="flex-between text-current">
                 Total Weight
-                <span className="text-t-primary text-2xl font-medium">
+                <span className="text-lg text-tx-primary font-medium">
                   {/* {calculateData(sortedData).totalWeight} */}
                 </span>
               </p>
-              <p className="flex-between text-xl text-current">
+              <p className="flex-between text-current">
                 Packages
-                <span className="text-t-primary text-2xl font-medium">
+                <span className="text-lg text-tx-primary font-medium">
                   {/* {sortedData.length} */}
                 </span>
               </p>
             </div>
-            <div className="flex flex-col gap-2 pt-4">
-              <p className="flex-between font-light text-xl text-current">
+            <div className="flex flex-col gap-2 pt-4 **:text-md **:text-tx-placeholder">
+              <p className="flex-between font-light text-current">
                 Subtotal
-                <span className="text-t-primary text-2xl font-medium">
+                <span className="text-tx-primary text-2xl font-medium">
                   {/* {calculateData(sortedData).subTotal} */}
                 </span>
               </p>
-              <p className="flex-between font-light text-xl text-current">
+              <p className="flex-between font-light text-current">
                 Estimated Shipping
-                <span className="text-t-primary text-2xl font-bold">
+                <span className="text-tx-primary text-2xl font-bold">
                   {/* {calculateData(sortedData).subTotal} */}
                 </span>
               </p>
@@ -68,7 +66,7 @@ export const MySuiteSideBar = () => {
             </Button>
             <div className="flex gap-3 border border-bo-primary rounded-xl p-5">
               <InfoIcon className="size-5 shrink-0 stroke-t-placeholder" />
-              <span className="text-t-placeholder text-lg">
+              <span className="text-tx-placeholder text-sm">
                 All items are subject to a customs duty upon receipt of package.
                 Payment will be due when your package is delivered.
               </span>
@@ -79,9 +77,9 @@ export const MySuiteSideBar = () => {
       <div className="flex gap-5 col-span-2 lg:col-span-1 lg:flex-col xl:col-span-2">
         <div className="flex-center flex-col w-full h-30.5 bg-b-secondary border border-bo-primary rounded-lg">
           <div className="flex-center size-14 bg-primary rounded-xl p-2">
-            <CalculatorIcon className="size-9 stroke-t-primary" />
+            <CalculatorIcon className="size-9 stroke-tx-primary" />
           </div>
-          <h3 className="text-md text-lg xl:text-xl font-semibold text-t-primary mt-3">
+          <h3 className="text-md xl:text-lg font-semibold text-tx-primary mt-3">
             Shipping Calculator
           </h3>
         </div>
@@ -90,9 +88,9 @@ export const MySuiteSideBar = () => {
        bg-b-secondary border border-bo-primary rounded-lg"
         >
           <div className="flex-center size-14 bg-primary rounded-xl p-2">
-            <BookIcon className="size-9 stroke-t-primary" />
+            <BookIcon className="size-9 stroke-tx-primary" />
           </div>
-          <h3 className="text-md text-lg xl:text-xl font-semibold text-t-primary mt-3">
+          <h3 className="text-md xl:text-lg font-semibold text-tx-primary mt-3">
             Address Book
           </h3>
         </div>

@@ -140,36 +140,18 @@ export const addPackagePdf = (req) => {
   updateSuite(suite);
   return { status: "success", message: "pdf uploaded", data: newData };
 };
-export const downloadInvoice = (req) => {
+export const getFiles = (req) => {
   const { id: userId } = req.user;
   const { packageId, fileName } = req.params;
-
+  const type = req.originalUrl.includes("invoice") ? "invoices" : "images";
   const suite = findSuiteByUserId(userId);
   if (!suite) throw Errors.notFound("Suite");
 
   const pkg = suite.packages.find((p) => p.packageId === packageId);
   if (!pkg) throw Errors.notFound("Package not found in your suite");
 
-  const relativePath = pkg.invoices.find((inv) => inv.endsWith(fileName));
-  if (!relativePath) throw Errors.notFound("Invoice");
-
-  const fullPath = path.join(UPLOADS_ROOT, relativePath);
-  if (!fs.existsSync(fullPath)) throw Errors.notFound("File missing on disk");
-
-  return { fullPath, downloadName: `invoice-${packageId}.pdf` };
-};
-export const getPackageIdImages = (req) => {
-  const { id: userId } = req.user;
-  const { packageId, fileName } = req.params;
-
-  const suite = findSuiteByUserId(userId);
-  if (!suite) throw Errors.notFound("Suite");
-
-  const pkg = suite.packages.find((p) => p.packageId === packageId);
-  if (!pkg) throw Errors.notFound("Package not found in your suite");
-
-  const relativePath = pkg.images.find((img) => img.name.endsWith(fileName));
-  if (!relativePath) throw Errors.notFound("images");
+  const relativePath = pkg[type].find((img) => img.name.includes(fileName));
+  if (!relativePath) throw Errors.notFound(type);
 
   const fullPath = path.join(UPLOADS_ROOT, relativePath.url);
   if (!fs.existsSync(fullPath)) throw Errors.notFound("File missing on disk");

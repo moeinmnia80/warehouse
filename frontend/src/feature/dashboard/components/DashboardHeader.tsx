@@ -11,9 +11,9 @@ export const DashboardHeader = () => {
         <SuiteHeader />
       ) : (
         <>
-          <div className="flex items-center gap-5 h-22.5 text-t-primary">
-            <HistoryIcon className="size-10 stroke-t-primary" />
-            <h2 className="text-3xl font-bold">Shipping History</h2>
+          <div className="flex items-center gap-5 h-22.5 text-tx-primary">
+            <HistoryIcon className="size-8 stroke-tx-primary" />
+            <h2 className="text-2xl font-bold">Shipping History</h2>
           </div>
         </>
       )}

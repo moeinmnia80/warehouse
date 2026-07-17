@@ -23,15 +23,15 @@ export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
         {/* first section */}
         <div className="p-5 border-b border-bo-primary">
           <div className="flex-between ">
-            <h3 className="text-t-primary font-bold text-2xl">Add Invoices</h3>
+            <h3 className="text-tx-primary font-bold text-xl">Add Invoices</h3>
             <Button
               onClick={handleCloseModal}
-              className="btn text-t-primary w-8 h-8 bg-b-transparent rounded-full"
+              className="btn text-tx-primary w-8 h-8 bg-b-transparent rounded-full"
             >
-              <CloseIcon className="size-3 fill-t-primary" />
+              <CloseIcon className="size-3 fill-tx-primary" />
             </Button>
           </div>
-          <p className="text-t-placeholder text-lg mt-2">
+          <p className="text-tx-placeholder text-md mt-2">
             You can add multiple invoices.
           </p>
         </div>

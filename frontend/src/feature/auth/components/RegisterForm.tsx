@@ -77,27 +77,27 @@ export const RegisterForm = () => {
         <Password
           className="form__input"
           variant="password"
-          classIcon="size-4 stroke-t-placeholder"
+          classIcon="size-4 stroke-tx-placeholder"
           {...register("password")}
         />
         <Caption className="text-sm text-error px-3 font-light">
           {errors.password?.message}
         </Caption>
       </FormItem>
-      <FormItem className="flex items-center gap-1">
+      <FormItem className="flex flex-col justify-center gap-1">
         <Label className="form__label flex items-center gap-1">
           <Checkbox
             className="size-4 bg-b-checkbox border-bo-secondary rounded-sm shrink-0"
-            accentClass="stroke-t-primary"
+            accentClass="stroke-tx-primary"
             {...register("policy", {
               required: "You must accept the policy",
             })}
             name="policy"
           />
-          <p className="text-md font-light max-w-60">
+          <p className="text-sm font-light max-w-60">
             By creating an account, you agree to the{" "}
-            <span className="font-bold">Terms & Conditions</span> and our
-            <span className="font-bold">Privacy Policy</span>
+            <span className="font-bold mx-1">Terms & Conditions</span> and our
+            <span className="font-bold mx-1">Privacy Policy</span>
           </p>
         </Label>
         <Caption className="text-sm text-error px-3 font-light">

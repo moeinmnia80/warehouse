@@ -20,34 +20,34 @@ export const UserMenuHeader = () => {
     <Dropdown>
       <DropdownButton className="flex-between w-fit shrink-0">
         <div className="text-left">
-          <h3 className="text-sm xl:text-xs font-bold text-t-primary">
-            <span className="capitalize">
+          <h3 className="text-sm xl:text-xs font-bold text-tx-primary">
+            <span className="capitalize text-current">
               {user?.gender === "male"
                 ? "mr"
                 : user?.gender === "female"
                   ? "mz"
                   : "mr"}
             </span>
-            <span className="uppercase">.{user?.fullName}</span>
+            <span className="uppercase text-current">.{user?.fullName}</span>
           </h3>
-          <p className="text-sm xl:text-xs font-bold text-t-placeholder capitalize">
+          <p className="text-sm xl:text-xs font-bold text-tx-placeholder capitalize">
             {user?.role}
           </p>
         </div>
         <ChevronIcon className="size-3 fill-st-primary ms-2" />
       </DropdownButton>
-      <DropdownContent className="bg-b-primary border border-bo-primary rounded-md p-1 mt-2 animate-fade-in">
+      <DropdownContent className="bg-b-primary border border-bo-primary rounded-md p-1 mt-2 animate-fade-in text-tx-primary">
         <DropdownItem>
           <Button
             onClick={handleLogout}
-            className="btn text-t-primary text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary"
+            className="btn text-current text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary"
           >
             Log Out
             <LogoutIcon className="size-4 fill-st-primary ms-5" />
           </Button>
         </DropdownItem>
         <DropdownItem>
-          <Button className="btn text-t-primary text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary">
+          <Button className="btn text-current text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary">
             Settings
             <SettingsIcon className="size-4 stroke-st-primary ms-5" />
           </Button>

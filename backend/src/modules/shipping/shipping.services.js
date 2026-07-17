@@ -17,7 +17,7 @@ export const getShippingData = (req) => {
   return {
     status: "success",
     message: "shipping  is already exist",
-    data: { ...existingShipping },
+    data: [...existingShipping],
   };
 };
 export const createShipping = (req) => {

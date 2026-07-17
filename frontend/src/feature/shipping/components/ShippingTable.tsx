@@ -1,14 +1,32 @@
-import { Table, TBody } from "@/shared/index";
-import { TableHeaderRow, useGetShippingQuery } from "@/feature/shipping/index";
+import { Table, TableSkeleton, TBody } from "@/shared/index";
+import {
+  TableDataRow,
+  TableHeaderRow,
+  useGetShippingQuery,
+} from "@/feature/shipping/index";
+import { Suspense } from "react";
 
 export const ShippingTable = () => {
   const { data } = useGetShippingQuery();
-  console.log(data);
+
   return (
     <div className="">
       <Table>
         <TableHeaderRow />
-        <TBody></TBody>
+        <TBody>
+          <Suspense
+            fallback={
+              <TableSkeleton
+                columns={["w-10", "w-20", "w-20", "w-20"]}
+                rows={3}
+              />
+            }
+          >
+            {data?.data.map((item) => (
+              <TableDataRow key={item.shipmentId} item={item} />
+            ))}
+          </Suspense>
+        </TBody>
       </Table>
     </div>
   );

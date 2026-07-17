@@ -2,20 +2,13 @@ import { NavLink } from "react-router";
 import { NAV_ITEMS } from "@/shared/index";
 
 export const NavLinks = () => (
-  <ul className="hidden gap-10 lg:flex">
+  <ul className="hidden lg:flex gap-5 xl:gap-8 text-tx-primary text-md font-medium *:cursor-pointer">
     {NAV_ITEMS.map(({ to, label }) => (
-      <li
-        key={to}
-        className="cursor-pointer text-t-secondary text-lg font-medium"
-      >
+      <li key={to} className="cursor-pointer text-current">
         <NavLink to={to}>{label}</NavLink>
       </li>
     ))}
-    <li className="cursor-pointer text-t-secondary text-lg font-medium">
-      Help
-    </li>
-    <li className="cursor-pointer text-t-secondary text-lg font-medium">
-      Contact Us
-    </li>
+    <li className="text-current ">Help</li>
+    <li className="text-current ">Contact Us</li>
   </ul>
 );

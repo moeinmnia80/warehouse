@@ -19,7 +19,7 @@ router.get("/", authenticate, getSuiteController);
 router.post("/create", authenticate, createSuiteController);
 // route
 router.get(
-  "/packages/:packageId/invoice/:fileName/download",
+  "/packages/:packageId/invoice/:fileName",
   authenticate,
   downloadInvoiceController,
 );
@@ -34,7 +34,6 @@ router.post(
   uploadPackageImages,
   addPackageImagesController,
 );
-
 router.post(
   "/packages/:packageId/pdf",
   authenticate,

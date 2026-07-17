@@ -6,9 +6,9 @@ const NotFoundPage = () => {
   return (
     <div
       className="absolute inset-0 z-50 flex-center flex-col
-      w-full h-svh bg-b-primary gap-2"
+      w-full h-svh text-tx-primary bg-b-primary gap-2"
     >
-      <h2 className="text-t-primary font-extrabold text-[120px]">404</h2>
+      <h2 className="font-extrabold text-[120px]">404</h2>
       <p className="text-md font-light text-t-secondary ">
         somethings went wrong
       </p>

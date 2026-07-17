@@ -28,7 +28,7 @@ export const CheckBox = ({
           <TickIcon className="size-4 stroke-st-primary hidden" />
         </span>
         <span
-          className={`text-xs font-light text-t-primary max-w-55 ${labelClass}`}
+          className={`text-xs font-light text-tx-primary max-w-55 ${labelClass}`}
         >
           {children}
         </span>

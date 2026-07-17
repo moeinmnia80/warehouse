@@ -31,9 +31,9 @@ const ForgetPasswordPage = () => {
 
   return (
     <section className="relative flex-center w-full h-dvh ">
-      <div className="form-box animate-slide-up">
+      <div className="form-box animate-slide-up text-tx-primary">
         <h2 className="heading-2">Forget Your Password</h2>
-        <p className="text-lg text-t-placeholder text-center mt-4">
+        <p className="text-md text-tx-placeholder text-center mt-4">
           Enter your email address below and we’ll send you password reset
           instructions.
         </p>
@@ -45,13 +45,13 @@ const ForgetPasswordPage = () => {
               {errors.email?.message}
             </Caption>
           </Label>
-          <Button className="btn btn--primary font-bold px-2">
+          <Button className="btn btn--primary font-semibold px-2">
             Reset Password
           </Button>
         </Form>
         <button
           type="button"
-          className="text-lg text-t-primary font-bold mt-6"
+          className="text-md font-bold mt-6"
           onClick={() => backToPrevPage()}
         >
           Go Back

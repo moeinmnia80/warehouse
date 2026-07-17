@@ -139,11 +139,6 @@ const DropzoneContext = createContext({} as DropzoneContextProps);
 //——————————————————————————————————
 //2-—————— Dropzone ————————————————
 //——————————————————————————————————
-// This is the "provider" component: it owns every piece of state that
-// the rest of the compound components need to share (the ref, the item
-// list, the error). Nothing here renders DOM itself — it just wires up
-// context so DropzoneArea, DropzoneButton, etc. can all talk to the
-// same state even though they're separate components.
 
 export const Dropzone = ({
   children,
@@ -301,9 +296,9 @@ export const DropzoneArea = ({ children, ...props }: ComponentProps<"div">) => {
     accept,
     maxFiles,
     inputRef,
-    setLocalItems,
     setError,
     isDragActive,
+    setLocalItems,
     setIsDragActive,
   } = useContext(DropzoneContext);
 
@@ -397,7 +392,7 @@ export const DropzoneWrapper = ({ children }: ComponentProps<"div">) => {
 //—————————————————————————————————————————
 //4-—————— DropzoneButton —————————————————
 //—————————————————————————————————————————
-
+// add file
 interface DropzoneButtonProps extends Omit<
   ComponentProps<"button">,
   "onClick"
@@ -429,9 +424,6 @@ export const DropzoneButton = ({
 //—————————————————————————————————————————
 //5-—————— DropzoneSubmitButton ———————————
 //—————————————————————————————————————————
-// Separate from DropzoneButton on purpose: that one opens the file picker,
-// this one hands the newly picked (local) files off to onSubmit. Disabled
-// while there's nothing new to submit, or while a submission is in flight.
 
 interface DropzoneSubmitButtonProps extends Omit<
   ComponentProps<"button">,
@@ -470,13 +462,6 @@ export const DropzoneSubmitButton = ({
 //—————————————————————————————————————————
 //6-—————— DropzoneImagePreview ———————————
 //—————————————————————————————————————————
-// A remote image already has a URL (item.file.url). A local File does not
-// — the browser needs URL.createObjectURL(file) to turn it into something
-// an <img src> can load. That URL holds the file's data in memory until
-// you call URL.revokeObjectURL, so it MUST be cleaned up. Putting that in
-// its own component means React runs the cleanup automatically: when this
-// item is removed from the list, this component unmounts, and the
-// effect's cleanup function fires and revokes the URL for us.
 
 const DropzoneImagePreview = ({
   item,
@@ -487,20 +472,6 @@ const DropzoneImagePreview = ({
 }) => {
   const imgRef = useRef<HTMLImageElement>(null);
 
-  // Creation AND cleanup both live in this one effect on purpose. In dev,
-  // React 18 Strict Mode runs an effect's setup, then its cleanup, then
-  // setup again — to catch effects that break when run twice. If the URL
-  // were created outside the effect (e.g. in useState's initializer) but
-  // only revoked inside it, that fake cleanup pass would revoke a URL
-  // the effect never re-creates, leaving the <img> pointing at a dead
-  // blob URL (a broken-image icon) — which is exactly the bug you saw.
-  // Keeping create+revoke together means each setup pass makes a fresh,
-  // valid URL, so the double-invoke is harmless.
-  //
-  // Setting img.src through the ref (imperatively) rather than storing it
-  // in state also means there's no setState call in this effect at all —
-  // this is a legitimate "sync with an external system" effect (the DOM),
-  // not a derived-state one.
   useEffect(() => {
     const url = URL.createObjectURL(item.file);
     if (imgRef.current) imgRef.current.src = url;
@@ -535,7 +506,7 @@ interface DropzoneFileListProps extends ComponentProps<"ul"> {
    *  route needs a token (as opposed to being a plain public URL), pass
    *  a component here that fetches and renders it yourself — e.g. one
    *  built on an RTK Query endpoint. Called only for "remote" items. */
-  renderRemotePreview?: (item: RemoteDropzoneItem) => React.ReactNode;
+  renderRemotePreview: (item: RemoteDropzoneItem) => React.ReactNode;
   /** Same idea as renderRemotePreview, but for clicking the filename to
    *  download. Leave unset if item.file.url is a plain public URL (the
    *  built-in <a download> handles that fine). Provide this if your
@@ -545,10 +516,9 @@ interface DropzoneFileListProps extends ComponentProps<"ul"> {
 }
 
 export const DropzoneFileList = ({
-  itemClassName,
   children,
+  itemClassName,
   renderRemotePreview,
-  onDownload,
   ...props
 }: DropzoneFileListProps) => {
   const { items, error, handleRemove, removingIds } =
@@ -563,49 +533,28 @@ export const DropzoneFileList = ({
             return (
               <li
                 key={item.id}
-                className={cn("relative", itemClassName)}
                 aria-busy={isRemoving}
+                className={cn("relative", itemClassName)}
               >
                 <div className="flex flex-col justify-center w-full h-full text-xs p-2 overflow-hidden">
-                  {item.file.type?.includes("pdf") ? (
+                  {item.kind === "remote" ? (
+                    renderRemotePreview(item)
+                  ) : isImageItem(item) ? (
+                    <DropzoneImagePreview
+                      item={item}
+                      className="absolute inset-0 overflow-hidden rounded-md"
+                    />
+                  ) : (
                     <>
-                      {item.kind === "remote" && onDownload ? (
-                        <button
-                          type="button"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            onDownload(item);
-                          }}
-                          className="truncate underline text-left text-b-primary text-xs"
-                          title={getItemName(item)}
-                        >
-                          {getItemName(item)}
-                          Download
-                        </button>
-                      ) : (
-                        <p className="truncate" title={getItemName(item)}>
-                          {getItemName(item)}
-                        </p>
-                      )}
-
+                      <p className="truncate" title={getItemName(item)}>
+                        {getItemName(item)}
+                      </p>
                       <span className="text-current font-light opacity-70">
                         {getItemSize(item) / (1024 * 1024) <= 0.1
                           ? (getItemSize(item) / 1024).toFixed(2) + " KB"
                           : (getItemSize(item) / (1024 * 1024)).toFixed(2) +
                             " Mb"}
-                        {item.kind === "remote" && "  uploaded"}
                       </span>
-                    </>
-                  ) : (
-                    <>
-                      {item.kind === "local" && isImageItem(item) && (
-                        <DropzoneImagePreview
-                          item={item}
-                          className="absolute inset-0 overflow-hidden rounded-md"
-                        />
-                      )}
-                      {item.kind === "remote" && renderRemotePreview?.(item)}
                     </>
                   )}
                 </div>
@@ -639,29 +588,6 @@ export const DropzoneFileList = ({
 
 /* 
 ? Example usage:
-
-  import { buildPackageImageUrl } from "./package-image.utils";
-
-  const BASE_URL = "http://localhost:5000";
-  const { packageId } = useParams(); // e.g. "03-218-9705"
-
-  // Your endpoint that LISTS a package's images — adjust this to
-  // whatever your actual list endpoint/hook returns.
-  const { data: packageImages } = usePackageImagesQuery(packageId);
-  // packageImages assumed shaped like: [{ fileName, size }, ...]
-  // ⚠️ confirm the real field names your API returns (id? size? both?) —
-  // a mismatch here is what caused the NaNMb / blank-name bug earlier.
-
-  const existingFiles: RemoteDropzoneFile[] = useMemo(
-    () =>
-      (packageImages ?? []).map((img) => ({
-        id: img.fileName, // swap for a real id field if your API has one
-        name: img.fileName,
-        size: img.size,
-        url: buildPackageImageUrl(BASE_URL, packageId, img.fileName),
-      })),
-    [packageImages, packageId],
-  );
 
   <Dropzone
     maxFiles={5}

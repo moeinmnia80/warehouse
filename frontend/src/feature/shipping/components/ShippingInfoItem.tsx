@@ -7,8 +7,8 @@ export const ShippingInfoItem = ({
 }: ComponentProps<"div">) => {
   return (
     <div {...props}>
-      <InfoIcon className="size-6 shrink-0 stroke-t-primary mt-0.5 float-left" />
-      <p className="text-xl">{children}</p>
+      <InfoIcon className="size-6 shrink-0 stroke-tx-primary mt-0.5 float-left" />
+      <p>{children}</p>
     </div>
   );
 };

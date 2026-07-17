@@ -19,25 +19,23 @@ export const LineItemRow = ({ item, index }: LineItemRowProps) => {
       <div className="flex flex-col">
         <div className="flex items-center w-full">
           <div className="w-3/6">
-            <h3 className="text-lg text-t-primary font-bold">{item.name}</h3>
-            <p className="text-md font-medium text-t-placeholder mt-3">
+            <h3 className="text-md font-bold">{item.name}</h3>
+            <p className="text-md text-tx-placeholder mt-3">
               Schedule B: 4555-233-41: {item.name}
             </p>
           </div>
-          <div className="flex w-3/6">
-            <div className="w-1/3 flex-1 text-center text-md text-t-primary font-bold">
-              {item.qty}
-            </div>
-            <div className="w-1/3 flex-1 text-center text-md text-t-primary font-bold">
+          <div className="flex w-3/6 text-md font-bold">
+            <div className="w-1/3 flex-1 text-center">{item.qty}</div>
+            <div className="w-1/3 flex-1 text-center">
               {(+item.valuePerUnit).toFixed(2)} USD
             </div>
-            <div className="w-1/3 flex-1 text-center text-md text-t-primary font-bold">
+            <div className="w-1/3 flex-1 text-center">
               {(+item.valuePerUnit * +item.qty).toFixed(2)} USD
             </div>
           </div>
         </div>
         {item.notice && (
-          <p className="flex items-center  gap-2 text-md font-medium text-t-placeholder mt-4">
+          <p className="flex items-center  gap-2 text-md font-medium text-tx-placeholder mt-4">
             <DangerIcon className="shrink-0 size-4 stroke-warning" />
             {item.notice}
           </p>

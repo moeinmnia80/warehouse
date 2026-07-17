@@ -44,7 +44,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
         className={`
           flex flex-col md:flex-center md:flex-row
           mb-4 last:mb-0 md:mb-0 rounded-xl md:rounded-none
-          text-t-secondary text-md text-left
+          text-tx-secondary text-sm text-left
           border border-bo-primary md:border-b-0
           md:first:border-t-0! md:last:border-b! md:last:rounded-b-xl! md:*:py-4
           ${isExpanded ? "md:max-h-18 border-b! rounded-b-xl" : ""} md:*:px-2 md:*:shrink-0 overflow-auto`}
@@ -63,10 +63,10 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
         </TD>
         <TD
           className="flex md:min-w-30 md:flex-2 text-current"
-          dataCell="Barcode - vendor"
+          dataCell="Vendor - Barcode"
         >
           <div className="flex-center flex-col md:items-start! w-full">
-            <div className="font-bold text-t-primary">{item.vendor}</div>
+            <div className="font-bold text-tx-primary">{item.vendor}</div>
             <div className="font-light">{item.barcode}</div>
           </div>
         </TD>
@@ -91,7 +91,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
             className="flex md:min-w-20 md:flex-1 text-current"
             dataCell="Total Values"
           >
-            <div className="flex-center flex-col md:items-start! w-full">
+            <div className="flex-center flex-col md:flex-row md:justify-start! w-full">
               <span className="mr-0.5">$</span>
               <span className="font-bold">{item.totalValues}</span>
             </div>

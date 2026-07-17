@@ -28,8 +28,8 @@ export const Toaster = ({ id, text, type }: ToastItem) => {
         isLeaving ? " opacity-0" : ""
       }`}
     >
-      <InfoIcon className="size-6 stroke-t-primary" strokeWidth={1.5} />
-      <p className="text-t-primary text-sm ms-3.5 font-light">{text}</p>
+      <InfoIcon className="size-6 stroke-tx-primary" strokeWidth={1.5} />
+      <p className="text-tx-primary text-sm ms-3.5 font-light">{text}</p>
     </div>
   );
 };

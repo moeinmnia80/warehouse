@@ -17,26 +17,27 @@ export interface ShippingState {
     range: DateRange;
   };
 }
+export interface ShippingRow {
+  shipmentId: string;
+  userId: string;
+  carrier: string;
+  description: string;
+  invoice: {
+    file: string;
+    type: string;
+  };
+  charge: "100";
+  status: "register" | "delivered";
+  notice: string | null;
+  timestamps: {
+    created_at: string;
+    shipped_at: string | null;
+    delivered_at: string | null;
+  };
+  packages: TableRow[];
+}
 export interface ShippingResponse {
   status: "success" | "fail";
   message: string;
-  data: {
-    shipmentId: string;
-    userId: string;
-    carrier: string;
-    description: string;
-    invoice: {
-      file: string;
-      type: string;
-    };
-    charge: "100";
-    status: "register" | "delivered";
-    notice: string | null;
-    timestamps: {
-      created_at: string;
-      shipped_at: string | null;
-      delivered_at: string | null;
-    };
-    packages: TableRow[];
-  };
+  data: ShippingRow[];
 }

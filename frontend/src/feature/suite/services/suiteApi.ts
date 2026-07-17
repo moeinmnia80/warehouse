@@ -25,6 +25,33 @@ export const suiteApi = baseApi.injectEndpoints({
         url: `/my-suite/packages/${packageId}/images/${fileName}`,
         responseHandler: (response) => response.blob(),
       }),
+      transformErrorResponse: async (response) => {
+        try {
+          const text = await (response.data as Blob).text();
+          return { status: response.status, data: JSON.parse(text) };
+        } catch {
+          return { status: response.status, data: null };
+        }
+      },
+      keepUnusedDataFor: 300,
+    }),
+    getPackageInvoice: builder.query<
+      Blob,
+      { packageId: string; fileName: string }
+    >({
+      query: ({ packageId, fileName }) => ({
+        url: `/my-suite/packages/${packageId}/invoice/${fileName}`,
+        responseHandler: (response) => response.blob(),
+      }),
+      transformErrorResponse: async (response) => {
+        try {
+          const text = await (response.data as Blob).text();
+          return { status: response.status, data: JSON.parse(text) };
+        } catch {
+          return { status: response.status, data: null };
+        }
+      },
+      keepUnusedDataFor: 300,
     }),
   }),
 });
@@ -33,4 +60,5 @@ export const {
   useGetSuiteQuery,
   useSendDataMutation,
   useGetPackageImageQuery,
+  useGetPackageInvoiceQuery,
 } = suiteApi;

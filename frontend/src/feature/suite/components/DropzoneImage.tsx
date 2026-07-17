@@ -7,8 +7,7 @@ import {
   DropzoneSubmitButton,
 } from "@/shared/index";
 import { toast } from "@/store/toast.store";
-import { useSuiteUpload } from "@/feature/suite";
-import { PackageImageThumbnail } from "./PackageImageThumbnail";
+import { FilePreview, useSuiteUpload } from "@/feature/suite";
 
 export const DropzoneImage = ({ data }: { data: TableRow }) => {
   const { upload } = useSuiteUpload();
@@ -36,25 +35,25 @@ export const DropzoneImage = ({ data }: { data: TableRow }) => {
       }}
     >
       <DropzoneArea className="cursor-pointer rounded-xl py-3">
-        <p className="text-sm text-t-placeholder">
+        <p className="text-sm text-tx-placeholder">
           Drag & drop images here, or click anywhere, or
         </p>
-        <p className="text-sm text-t-placeholder">
+        <p className="text-sm text-tx-placeholder">
           PDF up to 5MB — max 5 files
         </p>
         <DropzoneFileList
           className="flex gap-2 mt-3"
-          itemClassName="flex-center flex-col bg-b-primary size-22 text-sm text-t-primary font-semibold border border-bo-primary rounded-xl animate-fade-in"
+          itemClassName="flex-center flex-col bg-b-primary size-22 text-sm font-semibold border border-bo-primary rounded-xl animate-fade-in"
           renderRemotePreview={(item) => (
-            <PackageImageThumbnail
+            <FilePreview
               packageId={data.packageId}
-              fileName={item.file.name}
+              item={item.file}
               className="rounded-md"
             />
           )}
         />
       </DropzoneArea>
-      <DropzoneSubmitButton className="flex-center gap-1 w-fit py-3 px-8 text-xl text-b-primary font-semibold bg-t-primary rounded-xl disabled:opacity-15 disabled:cursor-default">
+      <DropzoneSubmitButton className="flex-center gap-1 w-fit py-3 px-8 text-md text-b-primary font-semibold bg-tx-primary rounded-xl disabled:opacity-15 disabled:cursor-default">
         Upload
         <UploadIcon className="size-4 stroke-b-primary" />
       </DropzoneSubmitButton>

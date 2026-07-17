@@ -103,7 +103,7 @@ export const AddInvoicesModal = ({
               {file.map((item) => (
                 <div
                   key={item.name}
-                  className="relative flex-center flex-col gap-2 size-30 bg-b-secondary border border-bo-primary rounded-lg overflow-hidden p-2 animate-fade-in"
+                  className="relative flex-center flex-col size-30 bg-b-secondary border border-bo-primary rounded-lg overflow-hidden p-2 animate-fade-in text-tx-secondary text-xs"
                 >
                   {/* Trash Wrapper */}
                   <span
@@ -117,11 +117,9 @@ export const AddInvoicesModal = ({
                   {/* Pdf Icon */}
                   <PdfIcon className="size-10 stroke-st-primary" />
                   {/* File<name> */}
-                  <span className="text-t-secondary text-xs line-clamp-2">
-                    {item.name}
-                  </span>
+                  <span className="line-clamp-2">{item.name}</span>
                   {/* File<size> */}
-                  <span className="text-t-secondary text-xs line-clamp-2">
+                  <span className=" line-clamp-2">
                     {(item.size / (1024 * 1024)).toFixed(2)}
                     <span className="ml-1">Mb</span>
                   </span>
@@ -137,12 +135,12 @@ export const AddInvoicesModal = ({
           <button
             type="submit"
             disabled={!file.length}
-            className="flex-center flex-col gap-2 size-30 bg-b-secondary border border-bo-primary rounded-lg disabled:opacity-50 disabled:cursor-default"
+            className="flex-center flex-col  size-30 bg-b-secondary border border-bo-primary rounded-lg disabled:opacity-50 disabled:cursor-default"
           >
             {/* Upload Icon */}
             <UploadIcon className="size-10 stroke-st-primary" />
             {/* Text */}
-            <span className="text-t-primary text-2xl">
+            <span className="text-tx-primary text-xl">
               {isUploading ? "uploading" : "upload"}
             </span>
           </button>
@@ -153,13 +151,13 @@ export const AddInvoicesModal = ({
           </>
         )}
         {/* Info/Caption */}
-        <span className="text-xs text-t-secondary">
+        <span className="text-sm text-tx-secondary">
           You can drag/drop files
         </span>
       </div>
-      <div className="p-5  border-t border-bo-primary">
+      <div className="p-5 border-t border-bo-primary">
         <button
-          className="btn max-w-full bg-t-primary text-b-primary rounded-lg"
+          className="btn max-w-full bg-tx-primary text-b-primary rounded-lg"
           onClick={(e) => handleClick(e)}
         >
           Add Invoice

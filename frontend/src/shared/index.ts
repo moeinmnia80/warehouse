@@ -36,8 +36,8 @@ export { useTheme } from "@/shared/hooks/useTheme";
 export { useInPath } from "@/shared/hooks/useInPath";
 export { useOverflow } from "@/shared/hooks/useOverflow";
 export { useScrolled } from "@/shared/hooks/useScrolled";
+export { useObjectUrl } from "@/shared/hooks/useObjectUrl";
 export { useClickOutside } from "@/shared/hooks/useClickOutside";
-export { useObjectUrlOnImg } from "@/shared/hooks/useObjectUrlOnImg";
 // context
 export { ThemeContext } from "@/shared/context/context";
 // constants
@@ -82,7 +82,9 @@ export {
   ToggleButton,
 } from "@/shared/components/ui/Toggle";
 export { Button } from "@/shared/components/ui/Button";
+export { Loading } from "@/shared/components/ui/Loading";
 export { CheckBox } from "@/shared/components/ui/CheckBox";
+export { TableSkeleton } from "@/shared/components/TableSkeleton";
 export {
   Dropdown,
   DropdownItem,

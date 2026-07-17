@@ -22,36 +22,26 @@ const Footer = ({ className, ...props }: ComponentProps<"footer">) => {
         <div className="flex justify-between items-center py-16">
           <div className="flex items-center gap-2">
             <Logo className="size-7 fill-st-primary" />
-            <h2 className="text-2xl font-bold text-st-primary">Markist</h2>
+            <h2 className="text-2xl font-bold text-tx-primary">Markist</h2>
           </div>
-          <ul className="hidden gap-10 lg:flex">
-            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+          <ul className="hidden gap-10 lg:flex text-tx-primary text-md font-medium *:cursor-pointer">
+            <li>
               <NavLink to={"dashboard/my-suite"}>My Suit</NavLink>
             </li>
-            <li className="cursor-pointer text-t-secondary text-lg font-medium">
+            <li>
               <NavLink to="dashboard/shipping">Shipping History</NavLink>
             </li>
-            <li className="cursor-pointer text-t-secondary text-lg font-medium">
-              Help
-            </li>
-            <li className="cursor-pointer text-t-secondary text-lg font-medium">
-              Contact Us
-            </li>
+            <li>Help</li>
+            <li>Contact Us</li>
           </ul>
           <SocialMedia className="size-3 xl:size-5 fill-st-primary" />
         </div>
         <div className="w-full h-px bg-b-secondary"></div>
-        <div className="grid grid-cols-1 lg:grid-cols-2 auto-rows-auto items-center gap-2 py-12">
-          <p className="font-medium text-t-secondary text-sm lg:text-lg">
-            @ All Rights Reserved - 2025
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-2 auto-rows-auto items-center gap-2 text-tx-secondary **:text-sm **:lg:text-md py-12">
+          <p className="text-current">@ All Rights Reserved - 2025</p>
           <div className="flex items-center justify-center md:justify-end gap-8  row-start-2 lg:row-auto">
-            <p className="font-medium text-t-secondary text-sm lg:text-lg">
-              Terms of Service
-            </p>
-            <p className="font-medium text-t-secondary text-sm lg:text-lg">
-              Privacy Policy
-            </p>
+            <p className="text-current">Terms of Service</p>
+            <p className="text-current">Privacy Policy</p>
             <Dropdown>
               <DropdownButton className="flex-between w-25 h-9 bg-b-primary border border-bo-primary rounded-xl p-2">
                 <Image
@@ -60,7 +50,7 @@ const Footer = ({ className, ...props }: ComponentProps<"footer">) => {
                   src={selectedArea.src}
                   alt={selectedArea.name}
                 />
-                <p className="text-md text-t-secondary">{selectedArea.lang}</p>
+                <p>{selectedArea.lang}</p>
                 <ChevronIcon className="size-4 fill-st-primary" />
               </DropdownButton>
               <DropdownContent className="flex flex-col gap-1 bg-b-primary border border-bo-primary my-1 p-1 rounded-xl animate-fade-in">
@@ -76,7 +66,7 @@ const Footer = ({ className, ...props }: ComponentProps<"footer">) => {
                       src={item.src}
                       alt={item.name}
                     />
-                    <p className="text-md text-t-secondary">{item.lang}</p>
+                    <p>{item.lang}</p>
                   </DropdownItem>
                 ))}
               </DropdownContent>

@@ -26,7 +26,7 @@ export const TableHeaderRow = ({ sortedData }: TableHeaderRowProps) => {
 
   return (
     <THead>
-      <Row className="hidden md:flex items-center bg-b-table border border-b-none border-bo-primary rounded-t-xl text-t-primary">
+      <Row className="hidden md:flex items-center bg-b-table border border-b-none border-bo-primary rounded-t-xl **:whitespace-nowrap **:text-sm! text-tx-primary">
         <TD className="min-w-10 py-4 px-3">
           <Label onClick={(e) => e.stopPropagation()}>
             <Checkbox
@@ -40,12 +40,12 @@ export const TableHeaderRow = ({ sortedData }: TableHeaderRowProps) => {
           <TD
             key={item.key}
             onClick={(e) => handleSortChange(e, item.key, dispatch)}
-            className={`flex items-center gap-1 text-md text-current cursor-pointer px-2 ${isVisible(item.key, category) ? "" : "hidden"} ${item.className}`}
+            className={`flex items-center gap-1 text-current cursor-pointer px-2 ${isVisible(item.key, category) ? "" : "hidden"} ${item.className}`}
           >
             {item.name}
             {item.sortable && (
               <ChevronIcon
-                className={`size-3 fill-t-secondary ${sort.key === item.key ? (sort.type === "asc" ? "" : "rotate-180") : "-rotate-90"} transition duration-200`}
+                className={`size-3 fill-tx-secondary ${sort.key === item.key ? (sort.type === "asc" ? "" : "rotate-180") : "-rotate-90"} transition duration-200`}
               />
             )}
           </TD>
