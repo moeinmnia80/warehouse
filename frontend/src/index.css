@@ -235,7 +235,7 @@
   .background-checkered {
     position: absolute;
     inset: 0;
-    background: url("./src/assets/images/Background.png") no-repeat center;
+    background: url("./assets/images/Background.Webp") no-repeat center;
     background-size: cover;
     z-index: 1;
   }

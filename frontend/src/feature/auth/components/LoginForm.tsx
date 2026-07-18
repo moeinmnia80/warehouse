@@ -63,7 +63,7 @@ export const LoginForm = () => {
           </Label>
           <Password
             variant="password"
-            classIcon="size-4 stroke-t-placeholder"
+            classIcon="size-4 stroke-tx-placeholder"
             className="form__input"
             {...register("password")}
           />
