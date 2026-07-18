@@ -1,4 +1,4 @@
-import { Button } from "@/shared";
+import { BackgroundPattern, Button } from "@/shared";
 import { Link } from "react-router";
 import { RegisterForm } from "@/feature/auth";
 import { Logo, GoogleIcon, FacebookIcon } from "@/assets/index";
@@ -33,7 +33,7 @@ const RegisterPage = () => {
           </Link>
         </div>
       </div>
-      <div className="background-checkered opacity-dyn"></div>
+      <BackgroundPattern />
     </section>
   );
 };

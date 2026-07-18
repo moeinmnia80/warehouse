@@ -85,6 +85,7 @@ export { Button } from "@/shared/components/ui/Button";
 export { Loading } from "@/shared/components/ui/Loading";
 export { CheckBox } from "@/shared/components/ui/CheckBox";
 export { TableSkeleton } from "@/shared/components/TableSkeleton";
+export { BackgroundPattern } from "@/shared/components/ui/BackgroundPattern";
 export {
   Dropdown,
   DropdownItem,

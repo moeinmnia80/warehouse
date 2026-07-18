@@ -9,6 +9,7 @@ import {
   FormItem,
   resetPasswordSchema,
   type ResetPasswordData,
+  BackgroundPattern,
 } from "@/shared/index";
 
 const ResetPasswordPage = () => {
@@ -62,7 +63,7 @@ const ResetPasswordPage = () => {
           </Button>
         </Form>
       </div>
-      <div className="background-checkered opacity-dyn"></div>
+      <BackgroundPattern />
     </section>
   );
 };

@@ -86,7 +86,7 @@
   --color-st-primary: oklch(98% 0 0);
 
   /* Opacity */
-  --opacity-dyn: 0.05;
+  --opacity-dyn: 0.08;
 }
 
 @layer base {
@@ -229,14 +229,6 @@
     max-width: 256px;
 
     overflow: auto;
-  }
-
-  .background-checkered {
-    position: absolute;
-    inset: 0;
-    background: url("/assets/images/Background.Webp") no-repeat center;
-    background-size: cover;
-    z-index: 1;
   }
   /* button */
   .btn {

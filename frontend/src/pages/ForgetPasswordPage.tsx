@@ -9,6 +9,7 @@ import {
   Caption,
   forgetPasswordSchema,
   type ForgetPasswordData,
+  BackgroundPattern,
 } from "@/shared/index";
 
 const ForgetPasswordPage = () => {
@@ -57,7 +58,7 @@ const ForgetPasswordPage = () => {
           Go Back
         </button>
       </div>
-      <div className="background-checkered opacity-dyn"></div>
+      <BackgroundPattern />
     </section>
   );
 };
