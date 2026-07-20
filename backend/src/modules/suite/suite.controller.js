@@ -28,6 +28,7 @@ export const addPackagePdfController = catchAsync(async (req, res) => {
 });
 export const downloadInvoiceController = catchAsync(async (req, res) => {
   const result = await getFiles(req);
+  res.set("Content-Type", "application/octet-stream");
   return res.sendFile(result.fullPath);
 });
 export const getPackageIdImagesController = catchAsync(async (req, res) => {

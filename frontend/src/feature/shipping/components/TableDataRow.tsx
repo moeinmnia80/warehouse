@@ -8,7 +8,6 @@ interface TableDataRowProps extends ComponentProps<"div"> {
 
 export const TableDataRow = ({ item }: TableDataRowProps) => {
   const date = new Date(item.timestamps.created_at);
-  console.log(item);
 
   return (
     <>

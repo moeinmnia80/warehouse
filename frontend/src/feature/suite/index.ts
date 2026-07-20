@@ -15,13 +15,13 @@ export {
 // types
 export type {
   TabsType,
-  LineItem,
   CategoryType,
+  SuitePayload,
+  TabCountType,
   SuiteResponse,
   UploadResponse,
-  MySuiteTabProps,
   MutationDataType,
-  MySuiteTableProps,
+  LineItemRowProps,
 } from "@/feature/suite/types/suite.types";
 export type { TableState } from "@/feature/suite/types/suiteStore.types";
 // services

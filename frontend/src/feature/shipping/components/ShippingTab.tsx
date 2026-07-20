@@ -4,8 +4,8 @@ import { DateRangeFilter } from "@/feature/shipping/index";
 
 export const ShippingTab = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-1 flex-col md:flex-row w-full">
-      <Form className="flex-center w-full min-w-60 mt-0!">
+    <div className="grid grid-cols-1 xl:grid-cols-2 gap-1 flex-col md:flex-row w-full">
+      <Form className="flex-center w-full xl:max-w-100 mt-0!">
         <Label className="flex w-full relative">
           <SearchIcon className="absolute left-2 top-1/2 -translate-y-1/2 size-4 stroke-tx-placeholder" />
           <Input
@@ -16,7 +16,7 @@ export const ShippingTab = () => {
           />
         </Label>
       </Form>
-      <div className="flex w-full">
+      <div className="flex w-full @container">
         <DateRangeFilter />
       </div>
     </div>

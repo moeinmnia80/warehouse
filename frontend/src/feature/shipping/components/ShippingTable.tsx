@@ -22,7 +22,7 @@ export const ShippingTable = () => {
               />
             }
           >
-            {data?.data.map((item) => (
+            {data?.map((item) => (
               <TableDataRow key={item.shipmentId} item={item} />
             ))}
           </Suspense>

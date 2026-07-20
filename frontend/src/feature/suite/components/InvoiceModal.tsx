@@ -1,13 +1,19 @@
 import { CloseIcon } from "@/assets/index";
 import { useAppSelector } from "@/store/redux/store";
 import { useOverflow, Button } from "@/shared/index";
-import { AddInvoicesModal } from "@/feature/suite/index";
+import { AddInvoicesModal, useGetSuiteQuery } from "@/feature/suite/index";
 interface InvoiceModalProps {
   handleCloseModal: () => void;
 }
 export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
   const modal = useAppSelector((state) => state.suite.modal);
+  const { pkg } = useGetSuiteQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      pkg: data?.packages.find((pkg) => pkg.packageId === modal.packageId),
+    }),
+  });
   useOverflow(modal.open);
+
   return (
     // main wrapper fixed screen
     // close when click outer modal
@@ -36,7 +42,7 @@ export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
           </p>
         </div>
         {/* second section */}
-        <AddInvoicesModal packageId={modal.packageId} />
+        <AddInvoicesModal item={pkg} packageId={modal.packageId} />
       </div>
     </div>
   );

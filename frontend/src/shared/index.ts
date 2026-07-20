@@ -6,7 +6,7 @@ export {
   setCookie,
   removeCookie,
 } from "@/shared/utils/cookie.utils";
-
+export { calcSize } from "@/shared/utils/calculateSize";
 // export type
 export type {
   AreaType,

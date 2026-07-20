@@ -153,9 +153,9 @@
       min-height: 50px;
       width: 50%;
       /* color - background */
-      color: var(--color-t-primary);
+      color: var(--color-tx-primary);
       font-weight: bold;
-      background-color: var(--color-b-secondary);
+      background-color: var(--color-b-table);
       border-right: 1px solid var(--color-bo-primary);
       /* offsets */
       padding: 1em;

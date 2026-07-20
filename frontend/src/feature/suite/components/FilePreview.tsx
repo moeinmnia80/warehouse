@@ -1,4 +1,4 @@
-import { cn, useObjectUrl } from "@/shared";
+import { calcSize, cn } from "@/shared";
 import { DownloadIcon } from "lucide-react";
 import {
   useGetPackageImageQuery,
@@ -32,8 +32,7 @@ export const FilePreview = ({
     { packageId, fileName: item.name.split(".")[0] },
     { skip: !isPdf },
   );
-  const { data: blob, isFetching, isError } = isPdf ? invoiceQuery : imageQuery;
-  const objectUrl = useObjectUrl(blob);
+  const { data, isFetching, isError } = isPdf ? invoiceQuery : imageQuery;
   if (isError) {
     return (
       <div className={className}>
@@ -53,17 +52,13 @@ export const FilePreview = ({
       onClick={(e) => e.stopPropagation()}
       className="absolute inset-0 w-full h-full **:transition **:duration-150 **:delay-75"
     >
-      {objectUrl && isPdf ? (
+      {data && isPdf ? (
         <Suspense fallback={<>Loading</>}>
           <div className="flex item justify-center flex-col w-full h-full p-2 text-xs line-clamp-1">
             <p>{item.name}</p>
-            <p className="opacity-35">
-              {item.size / (1024 * 1024) <= 0.1
-                ? (item.size / 1024).toFixed(2) + " KB"
-                : (item.size / (1024 * 1024)).toFixed(2) + " Mb"}
-            </p>
+            <p className="opacity-35">{calcSize(item.size)}</p>
             <a
-              href={objectUrl}
+              href={data}
               className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary z-10 rounded-full opacity-55 "
               target="_blank"
               download
@@ -75,17 +70,17 @@ export const FilePreview = ({
       ) : (
         <>
           <img
-            src={objectUrl}
+            src={data}
             alt={item.name}
             className={cn("w-full h-full object-cover", className)}
             draggable={false}
             loading="eager"
             decoding="async"
           />
-          {objectUrl && (
+          {data && (
             <a
               className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary z-10 rounded-full opacity-55"
-              href={objectUrl}
+              href={data}
               target="_blank"
               download
             >

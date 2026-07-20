@@ -1,5 +1,4 @@
-import { Loading } from "@/shared";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import { MySuite } from "@/feature/suite/index";
 import { ProtectRoutes } from "@/feature/auth/index";
 import { Navigate, Route, Routes } from "react-router";
@@ -15,23 +14,21 @@ const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
 
 function RouterWrapper() {
   return (
-    <Suspense fallback={<Loading />}>
-      <Routes>
-        <Route path="/" element={<Navigate to="/login" replace />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="register" element={<RegisterPage />} />
-        <Route path="forget-password" element={<ForgetPasswordPage />} />
-        <Route path="reset-password" element={<ResetPasswordPage />} />
-        <Route element={<ProtectRoutes />}>
-          <Route path="dashboard" element={<DashboardPage />}>
-            <Route index element={<Navigate to="my-suite" replace />} />
-            <Route path="my-suite" element={<MySuite />} />
-            <Route path="shipping" element={<ShippingHistory />} />
-          </Route>
+    <Routes>
+      <Route path="/" element={<Navigate to="/login" replace />} />
+      <Route path="login" element={<LoginPage />} />
+      <Route path="register" element={<RegisterPage />} />
+      <Route path="forget-password" element={<ForgetPasswordPage />} />
+      <Route path="reset-password" element={<ResetPasswordPage />} />
+      <Route element={<ProtectRoutes />}>
+        <Route path="dashboard" element={<DashboardPage />}>
+          <Route index element={<Navigate to="my-suite" replace />} />
+          <Route path="my-suite" element={<MySuite />} />
+          <Route path="shipping" element={<ShippingHistory />} />
         </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-    </Suspense>
+      </Route>
+      <Route path="*" element={<NotFoundPage />} />
+    </Routes>
   );
 }
 

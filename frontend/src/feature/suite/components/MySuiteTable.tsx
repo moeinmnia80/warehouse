@@ -7,13 +7,14 @@ import {
   useSuiteFilter,
   TableHeaderRow,
   handleCloseModal,
-  type MySuiteTableProps,
+  useGetSuiteQuery,
 } from "@/feature/suite/index";
 
-export const MySuiteTable = ({ data, isLoading }: MySuiteTableProps) => {
+export const MySuiteTable = () => {
   const dispatch = useAppDispatch();
+  const { data, isLoading } = useGetSuiteQuery();
   const modal = useAppSelector((state) => state.suite.modal);
-  const sortedData = useSuiteFilter((data?.data.packages ?? []) as TableRow[]);
+  const sortedData = useSuiteFilter((data?.packages ?? []) as TableRow[]);
 
   if (isLoading) {
     return (

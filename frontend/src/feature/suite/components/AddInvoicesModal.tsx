@@ -1,11 +1,14 @@
 import { useRef, useState } from "react";
-import { PdfIcon, TrashIcon, UploadIcon } from "@/assets/index";
 import { toast } from "@/store/toast.store";
 import { useSuiteUpload } from "@/feature/suite";
+import { PdfIcon, TrashIcon, UploadIcon } from "@/assets/index";
+import { calcSize, type TableRow } from "@/shared";
 
 export const AddInvoicesModal = ({
+  item,
   packageId,
 }: {
+  item: TableRow | undefined;
   packageId: string | null;
 }) => {
   // add file to state for submit/show
@@ -98,6 +101,13 @@ export const AddInvoicesModal = ({
           multiple
         />
         <div className="flex gap-2">
+          {item &&
+            item.invoices.map((inv) => (
+              <div className="flex-center flex-col size-30 p-2 border border-bo-primary rounded-lg text-tx-primary text-xs text-center">
+                {inv.name}
+                <span className="text-tx-secondary">{calcSize(inv.size)}</span>
+              </div>
+            ))}
           {file ? (
             <>
               {file.map((item) => (
@@ -135,7 +145,7 @@ export const AddInvoicesModal = ({
           <button
             type="submit"
             disabled={!file.length}
-            className="flex-center flex-col  size-30 bg-b-secondary border border-bo-primary rounded-lg disabled:opacity-50 disabled:cursor-default"
+            className="flex-center flex-col size-30 bg-b-secondary border border-bo-primary rounded-lg disabled:opacity-50 disabled:cursor-default"
           >
             {/* Upload Icon */}
             <UploadIcon className="size-10 stroke-st-primary" />

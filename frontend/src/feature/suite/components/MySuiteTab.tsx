@@ -3,12 +3,19 @@ import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   tabs,
   handleTabChange,
-  type MySuiteTabProps,
+  useGetSuiteQuery,
+  useSuiteTabCounts,
+  type TabCountType,
 } from "@/feature/suite/index";
 
-export const MySuiteTab = ({ tabCount }: MySuiteTabProps) => {
+export const MySuiteTab = () => {
   const dispatch = useAppDispatch();
-  const { category } = useAppSelector((state) => state.suite);
+
+  const { data } = useGetSuiteQuery();
+
+  const category = useAppSelector((state) => state.suite.category);
+
+  const tabCount: TabCountType = useSuiteTabCounts(data);
   return (
     <div className="grid grid-cols-2 auto-rows-9 lg:grid-cols-3 xl:grid-cols-4 gap-2 py-6 mx-6 border-b border-bo-primary ">
       {tabs.map((tab) => (

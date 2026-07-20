@@ -1,13 +1,13 @@
 import { Logo } from "@/assets/index";
-import { type ComponentProps } from "react";
 import { Link } from "react-router";
+import { type ComponentProps } from "react";
 import {
   NavLinks,
+  useInPath,
+  useScrolled,
   ThemeToggle,
   UserMenuHeader,
   AreaSelectorHeader,
-  useScrolled,
-  useInPath,
 } from "@/shared/index";
 
 const Header = (props: ComponentProps<"header">) => {

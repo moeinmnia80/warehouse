@@ -110,12 +110,12 @@ const toggleAll = (
 const calculateData = (sortedData: TableRow[]) => {
   // item values
   let itemValues: string | number = sortedData.reduce(
-    (acc, cur) => acc + +cur.itemValues,
+    (acc, cur) => acc + Number(cur.itemValues),
     0,
   );
   // total weight
   let totalWeight: string | number = sortedData.reduce(
-    (acc, cur) => acc + +cur.weight,
+    (acc, cur) => acc + Number(cur.weight),
     0,
   );
   // sub total = 10% + shipping cost

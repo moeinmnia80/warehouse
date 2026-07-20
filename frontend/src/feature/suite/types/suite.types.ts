@@ -1,30 +1,30 @@
 import type { TableRow } from "@/shared";
 
-// use in row content details - my suite table > row content
-export type LineItem = {
-  id: string;
-  name: string;
-  scheduleCode: string;
-  qty: number;
-  valuePerUnit: number;
-  totalValue: number;
-  warning?: string;
-};
+export interface LineItemRowProps {
+  item: {
+    id: string;
+    name: string;
+    qty: string;
+    valuePerUnit: string;
+    notice: string | null;
+  };
+  index: number;
+}
 export type CategoryType =
-  | "View All"
-  | "Action Required"
-  | "In Review"
-  | "Ready to Send";
+  "View All" | "Action Required" | "In Review" | "Ready to Send";
 
 // api resp type
+// the actual payload you want to work with everywhere in your app
+export interface SuitePayload {
+  id: string;
+  userId: string;
+  packages: TableRow[];
+}
+
 export interface SuiteResponse {
   id: string;
   message: string;
-  data: {
-    id: string;
-    userId: string;
-    packages: TableRow[];
-  };
+  data: SuitePayload;
 }
 
 export interface UploadResponse {
@@ -37,11 +37,7 @@ export interface MutationDataType {
   type: "pdf" | "images";
   id: string;
 }
-// MySuiteTable Comp
-export interface MySuiteTableProps {
-  data: SuiteResponse | undefined;
-  isLoading: boolean;
-}
+
 // MySuiteTab Comp
 export interface TabsType {
   id: number;
@@ -49,11 +45,9 @@ export interface TabsType {
   className: string;
   value: CategoryType;
 }
-export interface MySuiteTabProps {
-  tabCount: {
-    inReview: number;
-    actionRequired: number;
-    readyToSend: number;
-    viewAll: number;
-  };
+export interface TabCountType {
+  inReview: number;
+  actionRequired: number;
+  readyToSend: number;
+  viewAll: number;
 }

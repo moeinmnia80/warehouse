@@ -11,6 +11,7 @@ import {
 
 export const DropzoneDocument = ({ data }: { data: TableRow }) => {
   const { upload } = useSuiteUpload();
+
   return (
     <Dropzone
       maxFiles={3}
@@ -29,7 +30,7 @@ export const DropzoneDocument = ({ data }: { data: TableRow }) => {
         if (res.success) {
           toast.success("files successfully uploaded");
         } else {
-          toast.error("something went wrong ... try another time");
+          toast.error(res.error ?? "something went wrong ... try another time");
         }
       }}
     >

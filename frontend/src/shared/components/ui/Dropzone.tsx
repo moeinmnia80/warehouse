@@ -216,6 +216,7 @@ export const Dropzone = ({
       await onSubmit?.(localFiles);
     } finally {
       setIsSubmitting(false);
+      setLocalItems([]);
     }
   };
 

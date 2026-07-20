@@ -1,3 +1,6 @@
+import type { SerializedError } from "@reduxjs/toolkit";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -50,4 +53,18 @@ export interface ErrorResponse {
     status: "fail" | "success";
   };
   status: string;
+}
+
+export type AuthResult =
+  | { success: true }
+  | { success: false; error: FetchBaseQueryError | SerializedError | string };
+// useAuth
+export interface UseAuthReturn {
+  user: User | null;
+  isLoggingIn: boolean;
+  isLoggingOut: boolean;
+  isRegistering: boolean;
+  login: (credentials: LoginCredentials) => Promise<AuthResult>;
+  logout: () => Promise<void>;
+  register: (credentials: RegisterCredentials) => Promise<AuthResult>;
 }

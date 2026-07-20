@@ -1,15 +1,5 @@
 import { DangerIcon } from "@/assets/index";
-
-type LineItemRowProps = {
-  item: {
-    id: string;
-    name: string;
-    qty: string;
-    valuePerUnit: string;
-    notice: string | null;
-  };
-  index: number;
-};
+import type { LineItemRowProps } from "@/feature/suite";
 
 export const LineItemRow = ({ item, index }: LineItemRowProps) => {
   return (

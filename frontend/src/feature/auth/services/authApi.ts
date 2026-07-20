@@ -13,6 +13,7 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["Auth"],
     }),
     login: builder.mutation<AuthResponse, LoginCredentials>({
       query: (credentials) => ({
@@ -20,15 +21,19 @@ export const authApi = baseApi.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["Auth"],
     }),
     logout: builder.mutation<void, void>({
       query: () => ({
         url: "/auth/logout",
         method: "POST",
       }),
+      invalidatesTags: ["Auth"],
     }),
     getCurrentUser: builder.query<GetMe, void>({
       query: () => "/auth/me",
+      providesTags: ["Auth"],
+      keepUnusedDataFor: 600,
     }),
   }),
 });

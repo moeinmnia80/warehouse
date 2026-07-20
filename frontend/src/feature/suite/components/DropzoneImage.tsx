@@ -11,7 +11,6 @@ import { FilePreview, useSuiteUpload } from "@/feature/suite";
 
 export const DropzoneImage = ({ data }: { data: TableRow }) => {
   const { upload } = useSuiteUpload();
-
   return (
     <Dropzone
       maxFiles={5}
@@ -30,7 +29,7 @@ export const DropzoneImage = ({ data }: { data: TableRow }) => {
         if (res.success) {
           toast.success("files successfully uploaded");
         } else {
-          toast.error("something went wrong ... try another time");
+          toast.error(res.error ?? "something went wrong ... try another time");
         }
       }}
     >
@@ -39,7 +38,7 @@ export const DropzoneImage = ({ data }: { data: TableRow }) => {
           Drag & drop images here, or click anywhere, or
         </p>
         <p className="text-sm text-tx-placeholder">
-          PDF up to 5MB — max 5 files
+          Images up to 5MB — max 5 files
         </p>
         <DropzoneFileList
           className="flex gap-2 mt-3"

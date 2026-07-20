@@ -1,5 +1,6 @@
 import { Button } from "@/shared/index";
 import { useAppSelector } from "@/store/redux/store";
+import { calculateData, useGetSuiteQuery } from "@/feature/suite";
 import {
   BookIcon,
   InfoIcon,
@@ -8,6 +9,14 @@ import {
 } from "@/assets/index";
 
 export const MySuiteSideBar = () => {
+  const { data } = useGetSuiteQuery(undefined, {
+    selectFromResult: ({ data }) => ({
+      data: data?.packages.filter(
+        (pkg) => pkg.status.label === "ready to send",
+      ),
+    }),
+  });
+
   const category = useAppSelector((state) => state.suite.category);
 
   return (
@@ -25,19 +34,19 @@ export const MySuiteSideBar = () => {
               <p className="flex-between text-current">
                 Total Value
                 <span className="text-lg text-tx-primary font-medium">
-                  {/* {calculateData(sortedData).itemValues} */}
+                  {data && calculateData(data).itemValues}
                 </span>
               </p>
               <p className="flex-between text-current">
                 Total Weight
                 <span className="text-lg text-tx-primary font-medium">
-                  {/* {calculateData(sortedData).totalWeight} */}
+                  {data && calculateData(data).totalWeight}
                 </span>
               </p>
               <p className="flex-between text-current">
                 Packages
                 <span className="text-lg text-tx-primary font-medium">
-                  {/* {sortedData.length} */}
+                  {data && data.length}
                 </span>
               </p>
             </div>
@@ -45,13 +54,13 @@ export const MySuiteSideBar = () => {
               <p className="flex-between font-light text-current">
                 Subtotal
                 <span className="text-tx-primary text-2xl font-medium">
-                  {/* {calculateData(sortedData).subTotal} */}
+                  {data && calculateData(data).subTotal}
                 </span>
               </p>
               <p className="flex-between font-light text-current">
                 Estimated Shipping
                 <span className="text-tx-primary text-2xl font-bold">
-                  {/* {calculateData(sortedData).subTotal} */}
+                  {data && calculateData(data).subTotal}
                 </span>
               </p>
               <p className="font-light text-lg text-current underline">
@@ -65,7 +74,7 @@ export const MySuiteSideBar = () => {
               Create Ship Request
             </Button>
             <div className="flex gap-3 border border-bo-primary rounded-xl p-5">
-              <InfoIcon className="size-5 shrink-0 stroke-t-placeholder" />
+              <InfoIcon className="size-5 shrink-0 stroke-tx-placeholder" />
               <span className="text-tx-placeholder text-sm">
                 All items are subject to a customs duty upon receipt of package.
                 Payment will be due when your package is delivered.

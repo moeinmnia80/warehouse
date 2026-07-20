@@ -1,7 +1,7 @@
-import type { SuiteResponse } from "@/feature/suite/index";
+import type { SuitePayload } from "@/feature/suite/index";
 
-export function useSuiteTabCounts(data?: SuiteResponse) {
-  const packages = data?.data.packages ?? [];
+export function useSuiteTabCounts(data?: SuitePayload) {
+  const packages = data?.packages ?? [];
   return packages.reduce(
     (acc, item) => {
       acc.viewAll++;

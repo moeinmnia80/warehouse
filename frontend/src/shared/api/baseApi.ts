@@ -11,6 +11,16 @@ export const baseApi = createApi({
       return headers;
     },
   }),
-  tagTypes: ["auth"],
+  refetchOnFocus: false,
+  refetchOnReconnect: false,
+  refetchOnMountOrArgChange: false,
+  tagTypes: [
+    "Auth",
+    "Suite",
+    "Package",
+    "Shipping",
+    "PackageDocs",
+    "PackageImages",
+  ],
   endpoints: () => ({}),
 });
