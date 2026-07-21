@@ -1,5 +1,14 @@
 import type { TableRow } from "@/shared";
 
+export interface LineItem {
+  id: string;
+  name: string;
+  qty: number;
+  scheduleCode: string;
+  valuePerUnit: number;
+  totalValue: number;
+  warning?: string;
+}
 export interface LineItemRowProps {
   item: {
     id: string;

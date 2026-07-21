@@ -15,6 +15,7 @@ export {
 // types
 export type {
   TabsType,
+  LineItem,
   CategoryType,
   SuitePayload,
   TabCountType,
