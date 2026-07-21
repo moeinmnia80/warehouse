@@ -1,11 +1,11 @@
 import { Router } from "express";
 import {
-  createSuiteController,
   getSuiteController,
-  addPackageImagesController,
+  getImagesController,
+  getInvoiceController,
+  createSuiteController,
   addPackagePdfController,
-  downloadInvoiceController,
-  getPackageIdImagesController,
+  addPackageImagesController,
 } from "./suite.controller.js";
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import {
@@ -21,12 +21,12 @@ router.post("/create", authenticate, createSuiteController);
 router.get(
   "/packages/:packageId/invoice/:fileName",
   authenticate,
-  downloadInvoiceController,
+  getInvoiceController,
 );
 router.get(
   "/packages/:packageId/images/:fileName",
   authenticate,
-  getPackageIdImagesController,
+  getImagesController,
 );
 router.post(
   "/packages/:packageId/images",

@@ -150,11 +150,11 @@ export const getFiles = (req) => {
   const pkg = suite.packages.find((p) => p.packageId === packageId);
   if (!pkg) throw Errors.notFound("Package not found in your suite");
 
-  const relativePath = pkg[type].find((img) => img.name.includes(fileName));
+  const relativePath = pkg[type].find((file) => file.name.includes(fileName));
   if (!relativePath) throw Errors.notFound(type);
 
   const fullPath = path.join(UPLOADS_ROOT, relativePath.url);
   if (!fs.existsSync(fullPath)) throw Errors.notFound("File missing on disk");
 
-  return { fullPath, downloadName: `image-${packageId}` };
+  return { fullPath, downloadName: `${relativePath.name}` };
 };

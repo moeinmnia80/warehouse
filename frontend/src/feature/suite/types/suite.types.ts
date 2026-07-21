@@ -51,3 +51,7 @@ export interface TabCountType {
   readyToSend: number;
   viewAll: number;
 }
+export interface GetPackageProps {
+  packageId: string;
+  fileName: string;
+}

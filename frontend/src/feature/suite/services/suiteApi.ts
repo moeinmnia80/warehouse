@@ -1,5 +1,7 @@
 import { baseApi } from "@/shared/index";
+import { toast } from "@/store/toast.store";
 import type {
+  GetPackageProps,
   MutationDataType,
   SuitePayload,
   SuiteResponse,
@@ -36,6 +38,15 @@ export const suiteApi = baseApi.injectEndpoints({
         method: "POST",
         body: credentials,
       }),
+      // notification handler
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success("file successfully uploaded");
+        } catch (error) {
+          toast.error(`${error}`);
+        }
+      },
       invalidatesTags: (_result, _error, { type, id }) => [
         { type: "Suite", id: "LIST" },
         type === "images"
@@ -43,35 +54,20 @@ export const suiteApi = baseApi.injectEndpoints({
           : { type: "PackageDocs", id },
       ],
     }),
-    getPackageImage: builder.query<
-      string,
-      { packageId: string; fileName: string }
-    >({
+    getPackageImage: builder.query<string, GetPackageProps>({
       query: ({ packageId, fileName }) => ({
         url: `/my-suite/packages/${packageId}/images/${fileName}`,
         responseHandler: (response) => response.blob(),
       }),
+      // when data received
       transformResponse: (blob: Blob) => URL.createObjectURL(blob),
+      // after data received
       providesTags: (_result, _err, { packageId, fileName }) => [
         { type: "PackageImages", id: `${packageId}-${fileName}` },
       ],
-      transformErrorResponse: async (response) => {
-        if (response.data instanceof Blob) {
-          try {
-            const text = await response.data.text();
-            return { status: response.status, data: JSON.parse(text) };
-          } catch {
-            return { status: response.status, data: "خطای ناشناخته در سرور" };
-          }
-        }
-        return { status: response.status, data: response.data };
-      },
       keepUnusedDataFor: 300,
     }),
-    getPackageInvoice: builder.query<
-      string,
-      { packageId: string; fileName: string }
-    >({
+    getPackageInvoice: builder.query<string, GetPackageProps>({
       query: ({ packageId, fileName }) => ({
         url: `/my-suite/packages/${packageId}/invoice/${fileName}`,
         responseHandler: (response) => response.blob(),
@@ -80,17 +76,6 @@ export const suiteApi = baseApi.injectEndpoints({
       providesTags: (_result, _err, { packageId, fileName }) => [
         { type: "PackageDocs", id: `${packageId}-${fileName}` },
       ],
-      transformErrorResponse: async (response) => {
-        if (response.data instanceof Blob) {
-          try {
-            const text = await response.data.text();
-            return { status: response.status, data: JSON.parse(text) };
-          } catch {
-            return { status: response.status, data: "خطای ناشناخته در سرور" };
-          }
-        }
-        return { status: response.status, data: response.data };
-      },
       keepUnusedDataFor: 300,
     }),
   }),
@@ -100,5 +85,7 @@ export const {
   useGetSuiteQuery,
   useSendDataMutation,
   useGetPackageImageQuery,
+  useLazyGetPackageImageQuery,
   useGetPackageInvoiceQuery,
+  useLazyGetPackageInvoiceQuery,
 } = suiteApi;

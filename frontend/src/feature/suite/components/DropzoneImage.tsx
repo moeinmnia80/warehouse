@@ -1,4 +1,5 @@
 import { UploadIcon } from "@/assets";
+import { FilePreview, useSuiteUpload } from "@/feature/suite";
 import {
   Dropzone,
   DropzoneArea,
@@ -6,8 +7,6 @@ import {
   DropzoneFileList,
   DropzoneSubmitButton,
 } from "@/shared/index";
-import { toast } from "@/store/toast.store";
-import { FilePreview, useSuiteUpload } from "@/feature/suite";
 
 export const DropzoneImage = ({ data }: { data: TableRow }) => {
   const { upload } = useSuiteUpload();
@@ -20,17 +19,11 @@ export const DropzoneImage = ({ data }: { data: TableRow }) => {
         const formData = new FormData();
         files.forEach((file) => formData.append("images", file));
 
-        const res = await upload({
+        await upload({
           credentials: formData,
           id: data.packageId,
           type: "images",
         });
-
-        if (res.success) {
-          toast.success("files successfully uploaded");
-        } else {
-          toast.error(res.error ?? "something went wrong ... try another time");
-        }
       }}
     >
       <DropzoneArea className="cursor-pointer rounded-xl py-3">

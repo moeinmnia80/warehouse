@@ -1,5 +1,4 @@
 import { UploadIcon } from "@/assets";
-import { toast } from "@/store/toast.store";
 import { FilePreview, useSuiteUpload } from "@/feature/suite";
 import {
   Dropzone,
@@ -21,17 +20,11 @@ export const DropzoneDocument = ({ data }: { data: TableRow }) => {
         const formData = new FormData();
         files.forEach((file) => formData.append("packagePdf", file));
 
-        const res = await upload({
+        await upload({
           credentials: formData,
           id: data.packageId,
           type: "pdf",
         });
-
-        if (res.success) {
-          toast.success("files successfully uploaded");
-        } else {
-          toast.error(res.error ?? "something went wrong ... try another time");
-        }
       }}
     >
       <DropzoneArea className="cursor-pointer rounded-xl py-3">

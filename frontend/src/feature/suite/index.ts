@@ -20,6 +20,7 @@ export type {
   TabCountType,
   SuiteResponse,
   UploadResponse,
+  GetPackageProps,
   MutationDataType,
   LineItemRowProps,
 } from "@/feature/suite/types/suite.types";
@@ -31,6 +32,8 @@ export {
   useSendDataMutation,
   useGetPackageImageQuery,
   useGetPackageInvoiceQuery,
+  useLazyGetPackageImageQuery,
+  useLazyGetPackageInvoiceQuery,
 } from "@/feature/suite/services/suiteApi";
 // hooks
 export { useSuiteUpload } from "@/feature/suite/hooks/useSuiteUpload";
