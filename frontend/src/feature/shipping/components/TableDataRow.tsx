@@ -1,5 +1,5 @@
 import type { ComponentProps } from "react";
-import { CheckBox, Label, Row, TD } from "@/shared";
+import { Checkbox, Label, Row, TD } from "@/shared";
 import type { ShippingRow } from "@/feature/shipping";
 
 interface TableDataRowProps extends ComponentProps<"div"> {
@@ -14,7 +14,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
       <Row className="flex flex-col md:flex-center md:flex-row min-h-18 text-sm rounded-xl overflow-hidden text-tx-primary border border-bo-primary md:rounded-t-none md:border-t-0 md:last:rounded-b-xl md:*:py-4 md:*:px-2">
         <TD className="hidden md:flex items-center justify-center min-w-10">
           <Label>
-            <CheckBox />
+            <Checkbox accentClass="stroke-st-primary" />
           </Label>
         </TD>
         <TD className="flex items-center text-current flex-1" dataCell="Date">

@@ -37,9 +37,12 @@ export const LoginForm = () => {
       toast.success("Logged in successfully");
       navigate("/dashboard");
     } else {
+      console.log(result);
+
       toast.error(
-        (result.error as ErrorResponse).data.error.message ||
-          "Logged in Failed",
+        (result.error as ErrorResponse).data
+          ? (result.error as ErrorResponse).data.error.message
+          : "Logged in Failed",
       );
     }
   };

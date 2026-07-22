@@ -68,7 +68,7 @@ interface CheckboxProps extends Omit<ComponentProps<"input">, "type"> {
   accentClass: string;
 }
 export const Checkbox = ({
-  className = "size-4 rounded-sm border-gray-300",
+  className,
   children,
   accentClass = "stroke-gray-300",
   ...props
@@ -80,7 +80,7 @@ export const Checkbox = ({
         className={`
         peer-checked:*:inline-block 
         flex items-center justify-center
-        border ${className}`}
+        border size-4 rounded-sm border-bo-secondary ${className}`}
       >
         <TickIcon className={`hidden ${accentClass}`} />
       </span>
@@ -171,10 +171,3 @@ export const Password = ({
     </div>
   );
 };
-// size-4 bg-b-checkbox
-// border-bo-secondary rounded-sm
-// <span
-//   className={` ${labelClass}`}
-// >
-//   {children}
-// </span>
