@@ -22,11 +22,6 @@ export const getShippingData = (req) => {
 };
 export const createShipping = (req) => {
   const { user, body } = req;
-  const existingShipments = findShippingByShippingId(body.shipmentId);
-
-  if (existingShipments) {
-    throw Errors.conflict("there is a shipment for this Id.");
-  }
 
   const newShipment = {
     shipmentId: "SHP-" + crypto.randomUUID(),

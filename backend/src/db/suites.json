@@ -54,10 +54,10 @@
         "images": [
           {
             "id": "9c866729-8c91-4c81-a47f-208c66197b5e",
-            "url": "packages/03-218-9705/1784207004254.jpg",
-            "name": "walling-e_MdMMKrgdY-unsplash.jpg",
+            "url": "packages/03-218-9705/1784207004254.webp",
+            "name": "walling-e_MdMMKrgdY-unsplash.webp",
             "size": 1282897,
-            "type": "jpg"
+            "type": "webp"
           }
         ]
       },
@@ -112,10 +112,10 @@
         "images": [
           {
             "id": "996f5813-2cb6-45ca-93cb-ce1308b31213",
-            "url": "packages/03-854-9235/1784207070802.jpg",
-            "name": "mohammad-rahmani-N5bT5RctFZ8-unsplash.jpg",
+            "url": "packages/03-854-9235/1784207070802.webp",
+            "name": "mohammad-rahmani-N5bT5RctFZ8-unsplash.webp",
             "size": 3696721,
-            "type": "jpg"
+            "type": "webp"
           }
         ]
       },
