@@ -1,4 +1,5 @@
-interface TableSkeletonProps {
+import type { ComponentProps } from "react";
+interface TableSkeletonProps extends ComponentProps<"div"> {
   rows?: number; // how many skeleton rows to render
   columns?: string[]; // widths in px or tailwind scale units, e.g. [40, 120, 100, 100, 100, 80]
   rowHeight?: string; // tailwind height class, e.g. "h-18"
@@ -8,16 +9,17 @@ export const TableSkeleton = ({
   columns = ["w-40", "w-120", "w-100", "w-100", "w-100", "w-80"],
   rows = 3,
   rowHeight = "h-18",
+  ...props
 }: TableSkeletonProps) => {
   return (
-    <div className="p-5">
-      <div className="border border-bo-primary rounded-xl overflow-hidden">
+    <div {...props}>
+      <div className="border border-bo-primary rounded-sm overflow-hidden">
         {/* header row */}
         <div className="flex-between h-11 bg-b-table border-b border-bo-primary px-5">
           {columns.map((width, i) => (
             <div
               key={`head-${i}`}
-              className={`h-4 ${width} bg-b-muted rounded-full animate-pulse-slow opacity-20`}
+              className={`h-4 ${width} bg-b-muted rounded-sm animate-pulse-slow opacity-20`}
             />
           ))}
         </div>
@@ -33,7 +35,7 @@ export const TableSkeleton = ({
             {columns.map((width, colIdx) => (
               <div
                 key={`cell-${rowIdx}-${colIdx}`}
-                className={`h-4 ${width} bg-b-muted rounded-full animate-pulse-slow opacity-20`}
+                className={`h-4 ${width} bg-b-muted rounded-sm animate-pulse-slow opacity-20`}
               />
             ))}
           </div>

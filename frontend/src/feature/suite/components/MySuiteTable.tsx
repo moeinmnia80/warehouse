@@ -19,8 +19,9 @@ export const MySuiteTable = () => {
   if (isLoading) {
     return (
       <TableSkeleton
-        columns={["w-15", "w-30", "w-30", "w-25", "w-20", "w-20"]}
+        className="p-6"
         rows={3}
+        columns={["w-15", "w-30", "w-30", "w-25", "w-20", "w-20"]}
       />
     );
   }

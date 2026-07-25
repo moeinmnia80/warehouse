@@ -4,30 +4,25 @@ import {
   TableHeaderRow,
   useGetShippingQuery,
 } from "@/feature/shipping/index";
-import { Suspense } from "react";
 
 export const ShippingTable = () => {
-  const { data } = useGetShippingQuery();
+  const { data, isLoading } = useGetShippingQuery();
 
+  if (isLoading)
+    return (
+      <TableSkeleton
+        columns={["w-20", "w-20", "w-20", "w-20", "w-20"]}
+        rows={1}
+      />
+    );
   return (
-    <div className="">
-      <Table>
-        <TableHeaderRow />
-        <TBody>
-          <Suspense
-            fallback={
-              <TableSkeleton
-                columns={["w-10", "w-20", "w-20", "w-20"]}
-                rows={3}
-              />
-            }
-          >
-            {data?.map((item) => (
-              <TableDataRow key={item.shipmentId} item={item} />
-            ))}
-          </Suspense>
-        </TBody>
-      </Table>
-    </div>
+    <Table>
+      <TableHeaderRow />
+      <TBody>
+        {data?.map((item) => (
+          <TableDataRow key={item.shipmentId} item={item} />
+        ))}
+      </TBody>
+    </Table>
   );
 };
