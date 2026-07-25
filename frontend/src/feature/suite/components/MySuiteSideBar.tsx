@@ -1,6 +1,10 @@
 import { Button } from "@/shared/index";
 import { useAppSelector } from "@/store/redux/store";
-import { calculateData, useGetSuiteQuery } from "@/feature/suite";
+import {
+  calculateData,
+  SUITE_CATEGORY,
+  useGetSuiteQuery,
+} from "@/feature/suite";
 import {
   BookIcon,
   InfoIcon,
@@ -24,7 +28,7 @@ export const MySuiteSideBar = () => {
       <h4 className="text-center text-md text-tx-secondary font-medium col-span-2">
         All values are in United States dollars (USD).
       </h4>
-      {category === "Ready to Send" && (
+      {category === SUITE_CATEGORY.READY_TO_SEND && (
         <div className="border border-bo-primary rounded-xl text-tx-primary col-span-2 lg:col-span-1 xl:col-span-2">
           <div className="p-5 border-b border-bo-primary">
             <h2 className="text-current font-bold text-lg">Shipping Summary</h2>

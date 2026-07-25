@@ -10,7 +10,7 @@ import {
   DropdownContent,
 } from "@/shared/index";
 
-export const AreaSelectorHeader = () => {
+export const AreaSelector = () => {
   const setArea = useAreaStore((state) => state.setArea);
   const selectedArea = useAreaStore((state) => state.selectedArea);
   const isShow = useInPath("/dashboard");

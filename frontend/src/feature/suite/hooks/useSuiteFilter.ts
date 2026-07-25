@@ -7,7 +7,7 @@ export const useSuiteFilter = (data: TableRow[]) => {
 
   if (!data) return;
   const filterData =
-    category === "View All"
+    category === "view all"
       ? data
       : data.filter(
           (item) => item.status.label === category.toLocaleLowerCase(),

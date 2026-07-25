@@ -1,12 +1,12 @@
 // export utils
 export { cn } from "@/shared/utils/merge.utils";
+export { calculateFileSize } from "@/shared/utils/calculateFileSize.utils";
 export { changeTheme, themeCheck } from "@/shared/utils/theme.utils";
 export {
   getCookie,
   setCookie,
   removeCookie,
 } from "@/shared/utils/cookie.utils";
-export { calcSize } from "@/shared/utils/calculateSize";
 // export type
 export type {
   AreaType,
@@ -51,12 +51,12 @@ export { baseApi } from "@/shared/api/baseApi";
 // components
 export { Image } from "@/shared/components/ui/Image";
 export { Toaster } from "@/shared/components/Toaster";
-export { NavLinks } from "@/shared/components/NavLinksHeader";
+export { NavLinks } from "@/shared/layout/Header/NavLinks";
+export { UserMenu } from "@/shared/layout/Header/UserMenu";
 export { ThemeToggle } from "@/shared/components/ThemeToggle";
 export { SocialMedia } from "@/shared/components/SocialMedia";
+export { AreaSelector } from "@/shared/layout/Header/AreaSelector";
 export { ToastContainer } from "@/shared/components/ToastContainer";
-export { UserMenuHeader } from "@/shared/components/UserMenuHeader";
-export { AreaSelectorHeader } from "@/shared/components/AreaSelectorHeader";
 export {
   Form,
   Email,

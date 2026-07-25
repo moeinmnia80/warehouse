@@ -3,7 +3,6 @@ export {
   isVisible,
   toggleAll,
   allChecked,
-  checkStatus,
   handleAction,
   calculateData,
   handleRowExpand,
@@ -11,6 +10,7 @@ export {
   handleTabChange,
   handleCloseModal,
   handleSortChange,
+  checkCategoryStatus,
 } from "@/feature/suite/utils/suiteTable.utils";
 // types
 export type {

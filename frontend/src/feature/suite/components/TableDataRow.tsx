@@ -12,11 +12,11 @@ import {
 import { TD, Row, Label, Checkbox, type TableRow } from "@/shared/index";
 import {
   isVisible,
-  checkStatus,
   handleAction,
   SUITE_CATEGORY,
   handleRowToggle,
   ExpandedRowDetails,
+  checkCategoryStatus,
 } from "@/feature/suite/index";
 
 // Static — built once at module load, not on every render.
@@ -32,11 +32,13 @@ interface TableDataRowProps {
 
 export const TableDataRow = ({ item }: TableDataRowProps) => {
   const dispatch = useAppDispatch();
-  const { category, rowExpanded, rowChecked } = useAppSelector(
-    (state) => state.suite,
-  );
-  const isExpanded = !!rowExpanded[item.packageId];
+
+  const category = useAppSelector((state) => state.suite.category);
+  const rowChecked = useAppSelector((state) => state.suite.rowChecked);
+  const rowExpanded = useAppSelector((state) => state.suite.rowExpanded);
+
   const isChecked = !!rowChecked[item.packageId];
+  const isExpanded = !!rowExpanded[item.packageId];
 
   return (
     <React.Fragment>
@@ -138,7 +140,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
                 </div>
               ) : (
                 <div
-                  className={`tag text-sm ${checkStatus(item.status.label.toLowerCase())}`}
+                  className={`tag text-sm ${checkCategoryStatus(item.status.label)}`}
                 >
                   {STATUS_ICON[item.status.label.toLowerCase()]}
                   {item.status.label}

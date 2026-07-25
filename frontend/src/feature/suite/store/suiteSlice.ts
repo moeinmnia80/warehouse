@@ -7,7 +7,7 @@ const initialState: TableState = {
   rowChecked: {},
   rowExpanded: {},
   sort: { key: null, type: "asc" },
-  category: "View All",
+  category: "view all",
   modal: { open: false, packageId: null },
 };
 // Slice

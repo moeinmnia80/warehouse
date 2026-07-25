@@ -11,11 +11,12 @@ import {
   rowExpanded,
   changeCategory,
 } from "@/feature/suite/store/suiteSlice";
-/* 
-    check status for give correct class to status tag 
+
+/**
+ @param {CategoryType} status - ready to send | in review | action required | view all (default).
 */
-export const checkStatus = (status: string) => {
-  switch (status) {
+export const checkCategoryStatus = (status: CategoryType) => {
+  switch (status.toLocaleLowerCase()) {
     case "ready to send":
       return "ready";
     case "in review":
@@ -23,7 +24,7 @@ export const checkStatus = (status: string) => {
     case "action required":
       return "required";
     default:
-      throw "unknown status";
+      throw "view all";
   }
 };
 /*------------------------------------*/

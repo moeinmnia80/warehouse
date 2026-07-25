@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { toast } from "@/store/toast.store";
 import { useSuiteUpload } from "@/feature/suite";
 import { PdfIcon, TrashIcon, UploadIcon } from "@/assets/index";
-import { calcSize, type TableRow } from "@/shared";
+import { calculateFileSize, type TableRow } from "@/shared";
 
 export const AddInvoicesModal = ({
   item,
@@ -105,7 +105,9 @@ export const AddInvoicesModal = ({
             item.invoices.map((inv) => (
               <div className="flex-center flex-col size-30 p-2 border border-bo-primary rounded-lg text-tx-primary text-xs text-center">
                 {inv.name}
-                <span className="text-tx-secondary">{calcSize(inv.size)}</span>
+                <span className="text-tx-secondary">
+                  {calculateFileSize(inv.size)}
+                </span>
               </div>
             ))}
           {file ? (

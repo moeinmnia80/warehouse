@@ -46,7 +46,7 @@ export const SuiteHeader = () => {
           <Button
             className="h-fit py-2 text-sm md:text-md font-semibold underline"
             onClick={() => {
-              dispatch(changeCategory("Ready to Send"));
+              dispatch(changeCategory("ready to send"));
             }}
           >
             View Queue

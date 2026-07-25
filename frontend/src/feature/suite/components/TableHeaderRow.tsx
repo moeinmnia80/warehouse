@@ -22,7 +22,9 @@ interface TableHeaderRowProps {
 
 export const TableHeaderRow = ({ sortedData }: TableHeaderRowProps) => {
   const dispatch = useAppDispatch();
-  const { category, sort, rowChecked } = useAppSelector((state) => state.suite);
+  const sort = useAppSelector((state) => state.suite.sort);
+  const category = useAppSelector((state) => state.suite.category);
+  const rowChecked = useAppSelector((state) => state.suite.rowChecked);
 
   return (
     <THead>

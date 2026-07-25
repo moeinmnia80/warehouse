@@ -1,4 +1,4 @@
-import { calcSize, cn } from "@/shared";
+import { calculateFileSize, cn } from "@/shared";
 import { DownloadIcon } from "lucide-react";
 import {
   useGetPackageImageQuery,
@@ -56,7 +56,7 @@ export const FilePreview = ({
         <Suspense fallback={<>Loading</>}>
           <div className="flex item justify-center flex-col w-full h-full p-2 text-xs line-clamp-1">
             <p>{item.name}</p>
-            <p className="opacity-35">{calcSize(item.size)}</p>
+            <p className="opacity-35">{calculateFileSize(item.size)}</p>
 
             <a
               href={data}

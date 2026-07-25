@@ -20,7 +20,7 @@ export interface LineItemRowProps {
   index: number;
 }
 export type CategoryType =
-  "View All" | "Action Required" | "In Review" | "Ready to Send";
+  "view all" | "action required" | "in review" | "ready to send";
 
 // api resp type
 // the actual payload you want to work with everywhere in your app

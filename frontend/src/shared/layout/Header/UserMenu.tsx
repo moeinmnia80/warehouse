@@ -8,7 +8,7 @@ import {
   DropdownContent,
 } from "@/shared/index";
 
-export const UserMenuHeader = () => {
+export const UserMenu = () => {
   const { logout, user } = useAuth();
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {

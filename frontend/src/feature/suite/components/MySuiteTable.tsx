@@ -1,4 +1,4 @@
-import { Table, TBody, type TableRow } from "@/shared/index";
+import { Table, TBody } from "@/shared/index";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   InvoiceModal,
@@ -14,7 +14,7 @@ export const MySuiteTable = () => {
   const dispatch = useAppDispatch();
   const { data, isLoading } = useGetSuiteQuery();
   const modal = useAppSelector((state) => state.suite.modal);
-  const sortedData = useSuiteFilter((data?.packages ?? []) as TableRow[]);
+  const sortedData = useSuiteFilter(data?.packages ?? []);
 
   if (isLoading) {
     return (

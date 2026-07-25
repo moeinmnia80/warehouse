@@ -6,8 +6,8 @@ import {
   useInPath,
   useScrolled,
   ThemeToggle,
-  UserMenuHeader,
-  AreaSelectorHeader,
+  UserMenu,
+  AreaSelector,
 } from "@/shared/index";
 
 const Header = (props: ComponentProps<"header">) => {
@@ -23,8 +23,8 @@ const Header = (props: ComponentProps<"header">) => {
         </Link>
         {isShow && <NavLinks />}
         <div className="flex-center gap-4">
-          <AreaSelectorHeader />
-          {!isShow ? <ThemeToggle /> : <UserMenuHeader />}
+          <AreaSelector />
+          {!isShow ? <ThemeToggle /> : <UserMenu />}
         </div>
       </header>
     </>

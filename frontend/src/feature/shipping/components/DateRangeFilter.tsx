@@ -17,10 +17,8 @@ import {
 } from "@/feature/shipping/index";
 
 export const DateRangeFilter = () => {
-  // use store
-  const { dateFilter } = useAppSelector((state) => state.shipping);
-  // operator
   const dispatch = useAppDispatch();
+  const dateFilter = useAppSelector((state) => state.shipping.dateFilter);
 
   return (
     <div className="flex flex-col items-center justify-end w-full gap-1 **:text-tx-primary **:text-sm **:whitespace-nowrap @md:flex-row">

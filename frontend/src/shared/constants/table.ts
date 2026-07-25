@@ -8,7 +8,7 @@ export const RAW_DATA = [
     totalValues: "112.50",
     weight: "2.4",
     status: {
-      label: "In Review",
+      label: "in review",
       details: "",
     },
     details: {
@@ -27,7 +27,7 @@ export const RAW_DATA = [
     totalValues: "32.20",
     weight: "1.1",
     status: {
-      label: "In Review",
+      label: "in review",
       details: "",
     },
     details: {
@@ -46,7 +46,7 @@ export const RAW_DATA = [
     totalValues: "102.00",
     weight: "1.1",
     status: {
-      label: "Ready to Send",
+      label: "ready to send",
       details: "",
     },
     details: {
@@ -65,7 +65,7 @@ export const RAW_DATA = [
     totalValues: "450.15",
     weight: "5.8",
     status: {
-      label: "Action Required",
+      label: "action required",
       details: "Upload Merchant Invoice",
     },
     details: {
@@ -84,7 +84,7 @@ export const RAW_DATA = [
     totalValues: "79.00",
     weight: "0.6",
     status: {
-      label: "Ready to Send",
+      label: "ready to send",
       details: "",
     },
     details: {
@@ -103,7 +103,7 @@ export const RAW_DATA = [
     totalValues: "314.20",
     weight: "0.8",
     status: {
-      label: "Ready to Send",
+      label: "ready to send",
       details: "",
     },
     details: {
@@ -119,56 +119,56 @@ export const COLUMNS = [
     name: "Form",
     key: "vendor",
     sortable: true,
-    tabs: ["View All", "Action Required", "In Review", "Ready to Send"],
+    tabs: ["view all", "action required", "in review", "ready to send"],
     className: "min-w-30 flex-2 shrink-0 py-4",
   },
   {
     name: "PackageId",
     key: "packageId",
     sortable: true,
-    tabs: ["View All", "Action Required", "In Review", "Ready to Send"],
+    tabs: ["view all", "action required", "in review", "ready to send"],
     className: "min-w-25 flex-2 shrink-0 py-4",
   },
   {
     name: "Data Received",
     key: "dataReceived",
     sortable: true,
-    tabs: ["View All", "Action Required", "In Review", "Ready to Send"],
+    tabs: ["view all", "action required", "in review", "ready to send"],
     className: "min-w-20 flex-2 shrink-0 py-4",
   },
   {
     name: "Item Values",
     key: "itemValues",
     sortable: true,
-    tabs: ["View All", "Ready to Send"],
+    tabs: ["view all", "ready to send"],
     className: "min-w-20 flex-1 shrink-0 py-4",
   },
   {
     name: "Total Values",
     key: "totalValues",
     sortable: true,
-    tabs: ["In Review"],
+    tabs: ["in review"],
     className: "min-w-20 flex-1 shrink-0 py-4",
   },
   {
     name: "Weight",
     key: "weight",
     sortable: true,
-    tabs: ["View All", "In Review", "Ready to Send"],
+    tabs: ["view all", "in review", "ready to send"],
     className: "min-w-20 flex-1 shrink-0 py-4 justify-center",
   },
   {
     name: "Status",
     key: "status",
     sortable: false,
-    tabs: ["View All", "Action Required"],
+    tabs: ["view all", "action required"],
     className: "min-w-30 flex-2 shrink-0 py-4 justify-center",
   },
   {
     name: "Action",
     key: "action",
     sortable: false,
-    tabs: ["View All", "Action Required", "In Review", "Ready to Send"],
+    tabs: ["view all", "action required", "in review", "ready to send"],
     className: "min-w-25 flex-1 shrink-0 py-4 justify-center",
   },
 ];
