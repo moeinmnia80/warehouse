@@ -1,5 +1,19 @@
 import type { TableRow } from "@/shared";
 
+// Components
+export interface TableDataRowProps {
+  item: TableRow;
+}
+export interface ExpandedRowDetailsProps {
+  data: TableRow;
+}
+export interface InvoiceModalProps {
+  handleCloseModal: () => void;
+}
+export interface AddInvoiceModalProps {
+  item: TableRow | undefined;
+  packageId: string | null;
+}
 export interface LineItem {
   id: string;
   name: string;

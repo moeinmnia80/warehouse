@@ -1,19 +1,17 @@
 import { DangerousIcon } from "@/assets/index";
+import { RowContent, RowContentSection } from "@/shared/index";
 import {
   LineItemRow,
   DropzoneImage,
   DropzoneDocument,
+  type ExpandedRowDetailsProps,
+  SUITE_CATEGORY,
 } from "@/feature/suite/index";
-import { RowContent, RowContentSection, type TableRow } from "@/shared/index";
 
-interface ExpandedRowDetailsProps {
-  item: TableRow;
-}
-
-export const ExpandedRowDetails = ({ item }: ExpandedRowDetailsProps) => {
+export const ExpandedRowDetails = ({ data }: ExpandedRowDetailsProps) => {
   return (
     <RowContent className="flex flex-col bg-b-table rounded-xl transition duration-300 my-2 animate-fade-in border border-bo-primary">
-      {item.status.label === "in review" && (
+      {data.status.label === SUITE_CATEGORY.IN_REVIEW && (
         <RowContentSection className="p-6 flex flex-col border-b border-bo-primary">
           <div className="flex flex-col md:flex-row md:items-center gap-3">
             <h2 className="text-tx-primary text-xl font-bold">
@@ -25,7 +23,7 @@ export const ExpandedRowDetails = ({ item }: ExpandedRowDetailsProps) => {
             </span>
           </div>
           <p className="max-w-125 text-md font-medium text-tx-placeholder mt-3">
-            {item.status.details}
+            {data.status.details}
           </p>
         </RowContentSection>
       )}
@@ -35,7 +33,7 @@ export const ExpandedRowDetails = ({ item }: ExpandedRowDetailsProps) => {
             <div className="w-3/6">
               <h3 className="text-md font-semibold">Package Detail</h3>
               <p className="text-md font-medium text-tx-placeholder mt-1">
-                To: {item.details.recipient}
+                To: {data.details.recipient}
               </p>
             </div>
             <div className="flex w-3/6">
@@ -52,8 +50,8 @@ export const ExpandedRowDetails = ({ item }: ExpandedRowDetailsProps) => {
           </div>
         </div>
         <div className="rounded-xl border border-bo-primary overflow-hidden">
-          {item.details.items.map((li, index) => (
-            <LineItemRow key={li.id} item={li} index={index} />
+          {data.details.items.map((lineItem, index) => (
+            <LineItemRow key={lineItem.id} item={lineItem} index={index} />
           ))}
         </div>
         <p className="max-w-190 text-md font-medium text-tx-placeholder">
@@ -67,12 +65,12 @@ export const ExpandedRowDetails = ({ item }: ExpandedRowDetailsProps) => {
 
       <RowContentSection className="relative p-6 pr-0 mr-6 md:p-6 md:mr-0 border-b border-bo-primary overflow-auto text-tx-primary">
         <h3 className="text-lg font-bold">photos</h3>
-        <DropzoneImage data={item} />
+        <DropzoneImage data={data} />
       </RowContentSection>
 
       <RowContentSection className="p-6 text-tx-primary">
         <h3 className="text-lg font-bold">Add Documents</h3>
-        <DropzoneDocument data={item} />
+        <DropzoneDocument data={data} />
       </RowContentSection>
     </RowContent>
   );

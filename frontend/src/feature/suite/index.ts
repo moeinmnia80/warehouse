@@ -1,16 +1,12 @@
 // utils
 export {
-  isVisible,
-  toggleAll,
-  allChecked,
-  handleAction,
-  calculateData,
-  handleRowExpand,
-  handleRowToggle,
-  handleTabChange,
-  handleCloseModal,
-  handleSortChange,
+  formatWeight,
+  formatCurrency,
+  createRowActions,
+  areAllRowsChecked,
   checkCategoryStatus,
+  isColumnVisibleInTab,
+  calculateSuiteSummary,
 } from "@/feature/suite/utils/suiteTable.utils";
 // types
 export type {
@@ -24,6 +20,10 @@ export type {
   GetPackageProps,
   MutationDataType,
   LineItemRowProps,
+  TableDataRowProps,
+  InvoiceModalProps,
+  AddInvoiceModalProps,
+  ExpandedRowDetailsProps,
 } from "@/feature/suite/types/suite.types";
 export type { TableState } from "@/feature/suite/types/suiteStore.types";
 // services

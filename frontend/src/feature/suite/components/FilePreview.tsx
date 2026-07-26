@@ -4,7 +4,6 @@ import {
   useGetPackageImageQuery,
   useGetPackageInvoiceQuery,
 } from "@/feature/suite";
-import { Suspense } from "react";
 export interface RemoteDropzoneFile {
   id: string;
   name: string;
@@ -33,6 +32,7 @@ export const FilePreview = ({
     { skip: !isPdf },
   );
   const { data, isFetching, isError } = isPdf ? invoiceQuery : imageQuery;
+
   if (isError) {
     return (
       <div className={className}>
@@ -53,21 +53,19 @@ export const FilePreview = ({
       className="absolute inset-0 w-full h-full **:transition **:duration-150 **:delay-75"
     >
       {data && isPdf ? (
-        <Suspense fallback={<>Loading</>}>
-          <div className="flex item justify-center flex-col w-full h-full p-2 text-xs line-clamp-1">
-            <p>{item.name}</p>
-            <p className="opacity-35">{calculateFileSize(item.size)}</p>
+        <div className="flex item justify-center flex-col w-full h-full p-2 text-xs line-clamp-1">
+          <p>{item.name}</p>
+          <p className="opacity-35">{calculateFileSize(item.size)}</p>
 
-            <a
-              href={data}
-              className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary z-10 rounded-full opacity-55 "
-              target="_blank"
-              download={`${item.name}`}
-            >
-              <DownloadIcon className="size-3 stroke-tx-primary hover:stroke-success" />
-            </a>
-          </div>
-        </Suspense>
+          <a
+            href={data}
+            className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary z-10 rounded-full opacity-55 "
+            target="_blank"
+            download={`${item.name}`}
+          >
+            <DownloadIcon className="size-3 stroke-tx-primary hover:stroke-success" />
+          </a>
+        </div>
       ) : (
         <>
           <img

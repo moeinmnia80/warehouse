@@ -1,7 +1,9 @@
 import { Button } from "@/shared/index";
 import { useAppSelector } from "@/store/redux/store";
 import {
-  calculateData,
+  calculateSuiteSummary,
+  formatCurrency,
+  formatWeight,
   SUITE_CATEGORY,
   useGetSuiteQuery,
 } from "@/feature/suite";
@@ -24,7 +26,7 @@ export const MySuiteSideBar = () => {
   const category = useAppSelector((state) => state.suite.category);
 
   return (
-    <aside className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 xl:max-w-100 xl:grid-cols-1 border border-bo-primary shadow-2xs">
+    <div className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 xl:max-w-100 xl:grid-cols-1 border border-bo-primary shadow-2xs">
       <h4 className="text-center text-md text-tx-secondary font-medium col-span-2">
         All values are in United States dollars (USD).
       </h4>
@@ -38,13 +40,15 @@ export const MySuiteSideBar = () => {
               <p className="flex-between text-current">
                 Total Value
                 <span className="text-lg text-tx-primary font-medium">
-                  {data && calculateData(data).itemValues}
+                  {data &&
+                    formatCurrency(calculateSuiteSummary(data).itemValues)}
                 </span>
               </p>
               <p className="flex-between text-current">
                 Total Weight
                 <span className="text-lg text-tx-primary font-medium">
-                  {data && calculateData(data).totalWeight}
+                  {data &&
+                    formatWeight(calculateSuiteSummary(data).totalWeight)}
                 </span>
               </p>
               <p className="flex-between text-current">
@@ -58,13 +62,13 @@ export const MySuiteSideBar = () => {
               <p className="flex-between font-light text-current">
                 Subtotal
                 <span className="text-tx-primary text-2xl font-medium">
-                  {data && calculateData(data).subTotal}
+                  {data && formatCurrency(calculateSuiteSummary(data).subTotal)}
                 </span>
               </p>
               <p className="flex-between font-light text-current">
                 Estimated Shipping
                 <span className="text-tx-primary text-2xl font-bold">
-                  {data && calculateData(data).subTotal}
+                  {data && formatCurrency(calculateSuiteSummary(data).subTotal)}
                 </span>
               </p>
               <p className="font-light text-lg text-current underline">
@@ -108,6 +112,6 @@ export const MySuiteSideBar = () => {
           </h3>
         </div>
       </div>
-    </aside>
+    </div>
   );
 };

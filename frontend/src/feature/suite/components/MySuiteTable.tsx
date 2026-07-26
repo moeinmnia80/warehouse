@@ -6,12 +6,13 @@ import {
   TableSkeleton,
   useSuiteFilter,
   TableHeaderRow,
-  handleCloseModal,
   useGetSuiteQuery,
+  createRowActions,
 } from "@/feature/suite/index";
 
 export const MySuiteTable = () => {
   const dispatch = useAppDispatch();
+  const rowActions = createRowActions(dispatch);
   const { data, isLoading } = useGetSuiteQuery();
   const modal = useAppSelector((state) => state.suite.modal);
   const sortedData = useSuiteFilter(data?.packages ?? []);
@@ -38,7 +39,7 @@ export const MySuiteTable = () => {
         </TBody>
 
         {modal.open && (
-          <InvoiceModal handleCloseModal={() => handleCloseModal(dispatch)} />
+          <InvoiceModal handleCloseModal={() => rowActions.closeModal()} />
         )}
       </Table>
     </div>

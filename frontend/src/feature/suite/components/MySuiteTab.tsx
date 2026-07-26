@@ -2,15 +2,16 @@ import { Button } from "@/shared/index";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   tabs,
-  handleTabChange,
   useGetSuiteQuery,
   useSuiteTabCounts,
   type TabCountType,
+  createRowActions,
 } from "@/feature/suite/index";
 
 export const MySuiteTab = () => {
   const dispatch = useAppDispatch();
   const { data } = useGetSuiteQuery();
+  const rowActions = createRowActions(dispatch);
   const tabCount: TabCountType = useSuiteTabCounts(data);
   const category = useAppSelector((state) => state.suite.category);
 
@@ -20,7 +21,7 @@ export const MySuiteTab = () => {
         <Button
           className={`btn btn--third  h-9 font-semibold transition duration-200
             ${category === tab.value ? "bg-tx-primary text-b-primary" : ""} capitalize`}
-          onClick={(e) => handleTabChange(tab.value, e, dispatch)}
+          onClick={(e) => rowActions.changeTab(tab.value, e)}
           value={tab.value}
           key={tab.id}
         >

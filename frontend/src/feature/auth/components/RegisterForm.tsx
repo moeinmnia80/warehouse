@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form";
-import { toast } from "@/store/toast.store";
 import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth, type ErrorResponse } from "@/feature/auth/index";
+import { useAuth } from "@/feature/auth/index";
 import {
   Form,
   Email,
@@ -34,12 +33,7 @@ export const RegisterForm = () => {
     const result = await registerData({ fullName, email, password, username });
 
     if (result?.success) {
-      toast.success("Registered successfully");
       navigate("/login", { replace: true });
-    } else {
-      toast.error(
-        (result.error as ErrorResponse).data.error.message || "Register Failed",
-      );
     }
   };
   return (

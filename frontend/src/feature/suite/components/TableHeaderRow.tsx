@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import { ChevronIcon } from "@/assets/index";
+import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   TD,
   Row,
@@ -10,11 +10,10 @@ import {
   type TableRow,
 } from "@/shared/index";
 import {
-  isVisible,
-  toggleAll,
-  allChecked,
-  handleSortChange,
-} from "@/feature/suite/index";
+  createRowActions,
+  areAllRowsChecked,
+  isColumnVisibleInTab,
+} from "@/feature/suite";
 
 interface TableHeaderRowProps {
   sortedData: TableRow[] | undefined;
@@ -22,6 +21,7 @@ interface TableHeaderRowProps {
 
 export const TableHeaderRow = ({ sortedData }: TableHeaderRowProps) => {
   const dispatch = useAppDispatch();
+  const rowActions = createRowActions(dispatch);
   const sort = useAppSelector((state) => state.suite.sort);
   const category = useAppSelector((state) => state.suite.category);
   const rowChecked = useAppSelector((state) => state.suite.rowChecked);
@@ -33,16 +33,17 @@ export const TableHeaderRow = ({ sortedData }: TableHeaderRowProps) => {
           <Label onClick={(e) => e.stopPropagation()}>
             <Checkbox
               accentClass="stroke-st-primary"
-              onChange={() => toggleAll(dispatch, sortedData, rowChecked)}
-              checked={allChecked(sortedData, rowChecked)}
+              onChange={() => rowActions.toggleAllRows(sortedData, rowChecked)}
+              checked={areAllRowsChecked(sortedData, rowChecked)}
             />
           </Label>
         </TD>
+
         {COLUMNS.map((item) => (
           <TD
             key={item.key}
-            onClick={(e) => handleSortChange(e, item.key, dispatch)}
-            className={`flex items-center gap-1 text-current cursor-pointer px-2 ${isVisible(item.key, category) ? "" : "hidden"} ${item.className}`}
+            onClick={(e) => rowActions.changeSort(item.key, e)}
+            className={`flex items-center gap-1 text-current cursor-pointer px-2 ${isColumnVisibleInTab(item.key, category) ? "" : "hidden"} ${item.className}`}
           >
             {item.name}
             {item.sortable && (

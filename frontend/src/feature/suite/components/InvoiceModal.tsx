@@ -1,10 +1,12 @@
 import { CloseIcon } from "@/assets/index";
 import { useAppSelector } from "@/store/redux/store";
 import { useOverflow, Button } from "@/shared/index";
-import { AddInvoicesModal, useGetSuiteQuery } from "@/feature/suite/index";
-interface InvoiceModalProps {
-  handleCloseModal: () => void;
-}
+import {
+  AddInvoicesModal,
+  useGetSuiteQuery,
+  type InvoiceModalProps,
+} from "@/feature/suite/index";
+
 export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
   const modal = useAppSelector((state) => state.suite.modal);
   const { pkg } = useGetSuiteQuery(undefined, {
@@ -15,8 +17,6 @@ export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
   useOverflow(modal.open);
 
   return (
-    // main wrapper fixed screen
-    // close when click outer modal
     <div
       onClick={handleCloseModal}
       className={`${modal.open ? "grid" : "hidden"} fixed inset-0 h-svh z-40 place-items-center bg-b-transparent backdrop-blur-sm animate-fade-in`}
@@ -26,7 +26,6 @@ export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
         onClick={(e) => e.stopPropagation()}
         className="w-[95vw] max-w-200 bg-b-primary rounded-xl"
       >
-        {/* first section */}
         <div className="p-5 border-b border-bo-primary">
           <div className="flex-between ">
             <h3 className="text-tx-primary font-bold text-xl">Add Invoices</h3>
@@ -41,7 +40,7 @@ export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
             You can add multiple invoices.
           </p>
         </div>
-        {/* second section */}
+
         <AddInvoicesModal item={pkg} packageId={modal.packageId} />
       </div>
     </div>

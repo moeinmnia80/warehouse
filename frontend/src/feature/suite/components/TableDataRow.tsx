@@ -1,22 +1,22 @@
 import React from "react";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
+import { TD, Row, Label, Checkbox } from "@/shared/index";
 import {
+  PdfIcon,
   TickIcon,
   ShowIcon,
   DangerIcon,
   HiddenIcon,
   SearchIcon,
   UploadIcon,
-  PdfIcon,
 } from "@/assets/index";
-import { TD, Row, Label, Checkbox, type TableRow } from "@/shared/index";
 import {
-  isVisible,
-  handleAction,
   SUITE_CATEGORY,
-  handleRowToggle,
+  createRowActions,
   ExpandedRowDetails,
   checkCategoryStatus,
+  isColumnVisibleInTab,
+  type TableDataRowProps,
 } from "@/feature/suite/index";
 
 // Static — built once at module load, not on every render.
@@ -26,13 +26,9 @@ const STATUS_ICON: Record<string, React.ReactNode> = {
   "action required": <DangerIcon className="size-3 stroke-error" />,
 };
 
-interface TableDataRowProps {
-  item: TableRow;
-}
-
 export const TableDataRow = ({ item }: TableDataRowProps) => {
   const dispatch = useAppDispatch();
-
+  const rowActions = createRowActions(dispatch);
   const category = useAppSelector((state) => state.suite.category);
   const rowChecked = useAppSelector((state) => state.suite.rowChecked);
   const rowExpanded = useAppSelector((state) => state.suite.rowExpanded);
@@ -58,7 +54,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           >
             <Checkbox
               accentClass="stroke-st-primary"
-              onChange={(e) => handleRowToggle(e, item.packageId, dispatch)}
+              onChange={(e) => rowActions.toggleRow(item.packageId, e)}
               checked={isChecked}
             />
           </Label>
@@ -88,7 +84,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
             {item.dataReceived}
           </div>
         </TD>
-        {isVisible("totalValues", category) && (
+        {isColumnVisibleInTab("totalValues", category) && (
           <TD
             className="flex md:min-w-20 md:flex-1 text-current"
             dataCell="Total Values"
@@ -99,7 +95,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
             </div>
           </TD>
         )}
-        {isVisible("itemValues", category) && (
+        {isColumnVisibleInTab("itemValues", category) && (
           <TD
             className="flex md:min-w-20 md:flex-1 text-current"
             dataCell="Item Values"
@@ -113,7 +109,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
             </div>
           </TD>
         )}
-        {isVisible("weight", category) && (
+        {isColumnVisibleInTab("weight", category) && (
           <TD
             className="flex md:min-w-20 md:flex-1 text-current md:text-center"
             dataCell="Weight"
@@ -124,7 +120,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
             </div>
           </TD>
         )}
-        {isVisible("status", category) && (
+        {isColumnVisibleInTab("status", category) && (
           <TD
             className={`flex md:flex-center md:min-w-30 md:flex-2 text-current md:text-center ${category === SUITE_CATEGORY.ACTION_REQUIRED ? "md:flex-2" : ""}`}
             dataCell="status"
@@ -150,7 +146,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           </TD>
         )}
         <TD
-          onClick={() => handleAction(item.packageId, category, dispatch)}
+          onClick={() => rowActions.resolveRowAction(item.packageId, category)}
           className="flex md:flex-center! md:gap-2 md:min-w-25 md:flex-1 md:shrink-0 md:py-4 text-t-secondary md:text-center cursor-pointer"
           dataCell="action"
         >
@@ -180,7 +176,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
         </TD>
       </Row>
 
-      {isExpanded && <ExpandedRowDetails item={item} />}
+      {isExpanded && <ExpandedRowDetails data={item} />}
     </React.Fragment>
   );
 };

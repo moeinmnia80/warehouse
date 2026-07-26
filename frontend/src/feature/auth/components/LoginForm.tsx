@@ -1,9 +1,8 @@
 import { useForm } from "react-hook-form";
-import { toast } from "@/store/toast.store";
+import { useAuth } from "@/feature/auth/index";
 import { Link, useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Logo, GoogleIcon, FacebookIcon } from "@/assets/index";
-import { useAuth, type ErrorResponse } from "@/feature/auth/index";
 import {
   Form,
   Email,
@@ -18,32 +17,20 @@ import {
 } from "@/shared/index";
 
 export const LoginForm = () => {
-  // validation form data - zod
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
-  // login api
+
   const { login, isLoggingIn } = useAuth();
-  // navigate to path ...
   const navigate = useNavigate();
 
-  // form handler
   const onSubmit = async (formData: LoginFormData) => {
     const result = await login(formData);
 
     if (result?.success) {
-      toast.success("Logged in successfully");
       navigate("/dashboard");
-    } else {
-      console.log(result);
-
-      toast.error(
-        (result.error as ErrorResponse).data
-          ? (result.error as ErrorResponse).data.error.message
-          : "Logged in Failed",
-      );
     }
   };
   return (
