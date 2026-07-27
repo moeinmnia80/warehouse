@@ -10,11 +10,12 @@ import "./index.css";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Provider store={store}>
-        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <Provider store={store}>
           <App />
-        </GoogleOAuthProvider>
-      </Provider>
+        </Provider>
+      </GoogleOAuthProvider>
+      ,
     </BrowserRouter>
   </StrictMode>,
 );

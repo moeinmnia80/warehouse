@@ -24,7 +24,6 @@ export const LoginForm = () => {
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
 
   const { login, isLoggingIn } = useAuth();
-
   const navigate = useNavigate();
 
   const onSubmit = async (formData: LoginFormData) => {
