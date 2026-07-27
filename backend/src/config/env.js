@@ -12,6 +12,7 @@ const env = {
   dbUniqueId: process.env.DB_UNIQUE_ID || "",
   dbPrivateKey: process.env.DB_PRIVATE_KEY || "",
   dbExpiredKey: process.env.DB_EXPIRED_KEY || "",
+  dbGoogleClientId: process.env.DB_GOOGLE_CLIENT_ID || "",
 };
 
 export default env;

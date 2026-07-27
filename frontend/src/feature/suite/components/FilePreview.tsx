@@ -59,7 +59,7 @@ export const FilePreview = ({
 
           <a
             href={data}
-            className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary z-10 rounded-full opacity-55 "
+            className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary rounded-full opacity-55"
             target="_blank"
             download={`${item.name}`}
           >
@@ -78,7 +78,7 @@ export const FilePreview = ({
           />
           {data && (
             <a
-              className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary z-10 rounded-full opacity-55"
+              className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary rounded-full opacity-55"
               href={data}
               target="_blank"
               download={`${item.name}`}

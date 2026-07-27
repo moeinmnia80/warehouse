@@ -27,8 +27,9 @@ const deleteUploadedFiles = (files) => {
 
 export const getSuiteData = (req) => {
   const { id } = req.user;
-  const existingSuite = findSuiteByUserId(id);
-  if (!existingSuite) throw Errors.notFound("Suite");
+  let existingSuite = findSuiteByUserId(id);
+  if (!existingSuite) existingSuite = createSuite(req.user);
+
   const { packages, id: suiteId } = existingSuite;
   return {
     status: "success",

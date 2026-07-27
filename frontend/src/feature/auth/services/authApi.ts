@@ -50,11 +50,25 @@ export const authApi = baseApi.injectEndpoints({
 
       invalidatesTags: ["Auth"],
     }),
-    logout: builder.mutation<void, void>({
-      query: () => ({
-        url: "/auth/logout",
+    loginWithGoogle: builder.mutation<AuthResponse, { token: string }>({
+      query: (credentials) => ({
+        url: "/auth/login/google",
         method: "POST",
+        body: credentials,
       }),
+      onQueryStarted: async (_arg, { queryFulfilled }) => {
+        try {
+          await queryFulfilled;
+          toast.success("Logged in successfully");
+        } catch (error) {
+          toast.error(
+            (error as { error: ErrorResponse }).error.data
+              ? (error as { error: ErrorResponse }).error.data.error.message
+              : "Logged in Failed",
+          );
+        }
+      },
+
       invalidatesTags: ["Auth"],
     }),
     getCurrentUser: builder.query<GetMe, void>({
@@ -67,7 +81,7 @@ export const authApi = baseApi.injectEndpoints({
 
 export const {
   useLoginMutation,
-  useLogoutMutation,
   useRegisterMutation,
   useGetCurrentUserQuery,
+  useLoginWithGoogleMutation,
 } = authApi;

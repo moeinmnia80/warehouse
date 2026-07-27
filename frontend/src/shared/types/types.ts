@@ -1,7 +1,5 @@
 export interface contextType {
-  /* initial value */
   theme: string | null;
-  /* This way is better instead of pass state fn as props */
   themeToggler: () => void;
 }
 

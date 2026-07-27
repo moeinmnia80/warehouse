@@ -4,6 +4,7 @@ import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 export interface LoginCredentials {
   email: string;
   password: string;
+  googleToken?: string;
 }
 export interface RegisterCredentials {
   fullName: string;
@@ -14,11 +15,26 @@ export interface RegisterCredentials {
 export interface User {
   id: string;
   email: string;
-  fullName: string;
+  fullName?: string;
   role: "admin" | "manager";
-  gender: "male" | "female" | null;
+  gender?: "male" | "female" | null;
 }
 
+export interface GetMe {
+  status: "success" | "fail";
+  message: string;
+  data: {
+    fullName: string;
+    email: string;
+    role: "admin" | "manager";
+    gender: null | "male" | "female";
+    id: string;
+  };
+}
+export interface AuthState {
+  status: "loading" | "authenticated" | "unauthenticated";
+  user: User | null;
+}
 export interface AuthResponse {
   status: "success" | "fail";
   message: string;
@@ -31,22 +47,6 @@ export interface AuthResponse {
     token: string;
   };
 }
-export interface GetMe {
-  status: "success" | "fail";
-  message: string;
-  data: {
-    fullName: string;
-    email: string;
-    role: "admin" | "manager";
-    gender: null | "male" | "female";
-    id: string;
-  };
-}
-
-export interface AuthState {
-  status: "loading" | "authenticated" | "unauthenticated";
-  user: User | null;
-}
 export interface ErrorResponse {
   data: {
     error: { code: string; message: string };
@@ -54,17 +54,23 @@ export interface ErrorResponse {
   };
   status: string;
 }
-
+export interface RegisterType {
+  label: string;
+  id: string;
+  type: string;
+  placeholder: string;
+  autoComplete: string;
+  name: "fullName" | "username" | "email" | "password";
+}
 export type AuthResult =
   | { success: true }
   | { success: false; error: FetchBaseQueryError | SerializedError | string };
-// useAuth
 export interface UseAuthReturn {
   user: User | null;
   isLoggingIn: boolean;
-  isLoggingOut: boolean;
   isRegistering: boolean;
+  isLoggingInWithGoogle: boolean;
   login: (credentials: LoginCredentials) => Promise<AuthResult>;
-  logout: () => Promise<void>;
   register: (credentials: RegisterCredentials) => Promise<AuthResult>;
+  loginWithGoogle: (credentials: { token: string }) => Promise<AuthResult>;
 }

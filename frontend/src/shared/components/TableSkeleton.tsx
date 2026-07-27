@@ -1,8 +1,8 @@
 import type { ComponentProps } from "react";
 interface TableSkeletonProps extends ComponentProps<"div"> {
-  rows?: number; // how many skeleton rows to render
-  columns?: string[]; // widths in px or tailwind scale units, e.g. [40, 120, 100, 100, 100, 80]
-  rowHeight?: string; // tailwind height class, e.g. "h-18"
+  rows?: number;
+  columns?: string[];
+  rowHeight?: string;
 }
 
 export const TableSkeleton = ({
@@ -14,7 +14,6 @@ export const TableSkeleton = ({
   return (
     <div {...props}>
       <div className="border border-bo-primary rounded-sm overflow-hidden">
-        {/* header row */}
         <div className="flex-between h-11 bg-b-table border-b border-bo-primary px-5">
           {columns.map((width, i) => (
             <div
@@ -24,7 +23,6 @@ export const TableSkeleton = ({
           ))}
         </div>
 
-        {/* body rows */}
         {Array.from({ length: rows }).map((_, rowIdx) => (
           <div
             key={`row-${rowIdx}`}

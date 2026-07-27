@@ -5,6 +5,9 @@ export const LoginUserSchema = z.object({
   email: z.string().email(),
   password: z.string().min(8),
 });
+export const LoginWithGooglUserSchema = z.object({
+  token: z.string(),
+});
 export const RegisterUserSchema = z.object({
   fullName: z.string().min(2).max(50),
   username: z.string().min(2).max(50),

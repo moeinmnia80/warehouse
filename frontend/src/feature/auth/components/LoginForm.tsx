@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import { useAuth } from "@/feature/auth/index";
+import { GoogleLoginButton, useAuth } from "@/feature/auth/index";
 import { Link, useNavigate } from "react-router";
+import { Logo, FacebookIcon } from "@/assets/index";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Logo, GoogleIcon, FacebookIcon } from "@/assets/index";
 import {
   Form,
   Email,
@@ -24,6 +24,7 @@ export const LoginForm = () => {
   } = useForm<LoginFormData>({ resolver: zodResolver(loginSchema) });
 
   const { login, isLoggingIn } = useAuth();
+
   const navigate = useNavigate();
 
   const onSubmit = async (formData: LoginFormData) => {
@@ -82,10 +83,7 @@ export const LoginForm = () => {
         <span className="text-sm px-2">OR</span>
         <span className="inline-block w-full h-px bg-bo-primary"></span>
       </div>
-      <Button className="btn-secondary gap-3 mt-4 px-2">
-        <GoogleIcon className="size-5" />
-        Sign in with Google
-      </Button>
+      <GoogleLoginButton />
       <Button className="btn-secondary gap-3 mt-4 px-2">
         <FacebookIcon className="size-5" />
         Sign in with Facebook

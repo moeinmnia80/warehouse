@@ -14,5 +14,13 @@
     "gender": "male",
     "role": "admin",
     "createdAt": "2026-07-14T14:34:57.042Z"
+  },
+  {
+    "id": "27f36b79-5be5-48c9-931c-95c1f4a20abe",
+    "email": "moeinmohammadnia1370@gmail.com",
+    "fullName": "Moein",
+    "role": "manager",
+    "createdAt": "2026-07-27T09:48:00.685Z",
+    "provider": "google"
   }
 ]

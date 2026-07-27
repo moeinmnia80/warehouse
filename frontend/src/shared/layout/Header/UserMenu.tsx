@@ -6,14 +6,18 @@ import {
   DropdownItem,
   DropdownButton,
   DropdownContent,
+  removeCookie,
 } from "@/shared/index";
+import { useNavigate } from "react-router";
 
 export const UserMenu = () => {
-  const { logout, user } = useAuth();
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await logout();
+    removeCookie("auth-token");
+    navigate("/login");
   };
 
   return (

@@ -2,9 +2,9 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import env from "../../config/env.js";
 import { Errors } from "../../utils/errors.js";
+import { OAuth2Client } from "google-auth-library";
 import { createUser, findUserById } from "./auth.repository.js";
 import { findUserByEmail, findUserByUsername } from "./auth.repository.js";
-
 export const loginUser = async ({ email, password }) => {
   const existingUser = findUserByEmail(email);
 
@@ -31,6 +31,44 @@ export const loginUser = async ({ email, password }) => {
     status: "success",
     message: "User logged in successfully",
     data: { fullName, email, role, gender, id, token },
+  };
+};
+export const loginWithGoogle = async ({ token }) => {
+  const client = new OAuth2Client(env.dbGoogleClientId);
+
+  const decodedData = await client.verifyIdToken({
+    idToken: token,
+    audience: env.dbGoogleClientId,
+  });
+
+  const payload = decodedData.getPayload();
+  let existingUser = findUserByEmail(payload.email);
+
+  if (!existingUser) {
+    existingUser = await createUser({
+      id: crypto.randomUUID(),
+      email: payload.email,
+      fullName: payload.name,
+      role: "manager",
+      createdAt: new Date(),
+      provider: "google",
+    });
+  }
+  const newToken = jwt.sign(
+    { id: existingUser.id, role: existingUser.role },
+    env.dbPrivateKey,
+    {
+      algorithm: "HS256",
+      expiresIn: env.dbExpiredKey,
+    },
+  );
+
+  const { email, role, id, fullName } = existingUser;
+
+  return {
+    status: "success",
+    message: "User logged in successfully",
+    data: { fullName, email, role, id, token: newToken },
   };
 };
 

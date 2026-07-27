@@ -10,7 +10,7 @@ export const Table = ({
   ...props
 }: ComponentProps<"div">) => {
   return (
-    <div className="md:overflow-auto md:max-h-auto">
+    <div className="md:overflow-auto md:max-h-150">
       <div role="table" className={cn("md:min-w-max", className)} {...props}>
         {children}
       </div>
@@ -29,7 +29,7 @@ export const THead = ({
   return (
     <div
       role="rowgroup"
-      className={cn("md:min-w-max md:sticky md:top-0 md:z-10", className)}
+      className={cn("md:min-w-max md:sticky md:top-0 md:z-20", className)}
       {...props}
     >
       {children}

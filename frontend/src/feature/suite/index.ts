@@ -15,6 +15,7 @@ export type {
   CategoryType,
   SuitePayload,
   TabCountType,
+  SuiteSummary,
   SuiteResponse,
   UploadResponse,
   GetPackageProps,
@@ -41,10 +42,11 @@ export { useSuiteUpload } from "@/feature/suite/hooks/useSuiteUpload";
 export { useSuiteFilter } from "@/feature/suite/hooks/useSuiteFilter";
 export { useSuiteTabCounts } from "@/feature/suite/hooks/useSuiteTabCounts";
 // constants
-export { tabs } from "@/feature/suite/constants/tabs";
+export { tabs } from "@/feature/suite/constants/suiteTabs";
 export { lineItems } from "@/feature/suite/constants/lineItem";
-export { SUITE_CATEGORY } from "@/feature/suite/constants/table";
+export { SUITE_CATEGORY } from "@/feature/suite/constants/suiteTable";
 export { swiperSlides } from "@/feature/suite/constants/swiperSlides";
+export { SUITE_TABLE_HEADER_COLUMNS } from "@/feature/suite/constants/suiteTable";
 // components
 export { MySuite } from "@/feature/suite/components/MySuite";
 export { MySuiteTab } from "@/feature/suite/components/MySuiteTab";

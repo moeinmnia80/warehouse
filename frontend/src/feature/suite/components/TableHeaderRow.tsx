@@ -1,18 +1,11 @@
 import { ChevronIcon } from "@/assets/index";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
-import {
-  TD,
-  Row,
-  THead,
-  Label,
-  COLUMNS,
-  Checkbox,
-  type TableRow,
-} from "@/shared/index";
+import { TD, Row, THead, Label, Checkbox, type TableRow } from "@/shared/index";
 import {
   createRowActions,
   areAllRowsChecked,
   isColumnVisibleInTab,
+  SUITE_TABLE_HEADER_COLUMNS,
 } from "@/feature/suite";
 
 interface TableHeaderRowProps {
@@ -39,7 +32,7 @@ export const TableHeaderRow = ({ sortedData }: TableHeaderRowProps) => {
           </Label>
         </TD>
 
-        {COLUMNS.map((item) => (
+        {SUITE_TABLE_HEADER_COLUMNS.map((item) => (
           <TD
             key={item.key}
             onClick={(e) => rowActions.changeSort(item.key, e)}

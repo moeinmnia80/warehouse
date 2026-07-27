@@ -5,6 +5,7 @@ export const baseApi = createApi({
   reducerPath: "baseAPI",
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_API_URL,
+    credentials: "include",
     prepareHeaders: (headers) => {
       const token = getCookie("auth-token");
       if (token) headers.set("Authorization", `Bearer ${token}`);

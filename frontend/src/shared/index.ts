@@ -17,7 +17,7 @@ export type {
   ToastType,
   contextType,
 } from "@/shared/types/types";
-export type { ErrorType } from "@/shared/types/error.type";
+export type { ErrorType } from "@/shared/types/error.types";
 // schema
 export {
   loginSchema,
@@ -36,16 +36,13 @@ export { useTheme } from "@/shared/hooks/useTheme";
 export { useInPath } from "@/shared/hooks/useInPath";
 export { useOverflow } from "@/shared/hooks/useOverflow";
 export { useScrolled } from "@/shared/hooks/useScrolled";
-export { useObjectUrl } from "@/shared/hooks/useObjectUrl";
 export { useClickOutside } from "@/shared/hooks/useClickOutside";
 // context
 export { ThemeContext } from "@/shared/context/context";
 // constants
 export { areas } from "@/shared/constants/areas";
 export { NAV_ITEMS } from "@/shared/constants/navLinks";
-export { registerInput } from "@/shared/constants/inputs";
-export { COLUMNS, RAW_DATA } from "@/shared/constants/table";
-export { PATHS_WITHOUT_FOOTER } from "@/shared/constants/hiddenFooter";
+export { PATHS_WITHOUT_FOOTER } from "@/shared/constants/path";
 //api
 export { baseApi } from "@/shared/api/baseApi";
 // components

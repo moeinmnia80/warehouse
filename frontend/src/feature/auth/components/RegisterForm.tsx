@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useAuth } from "@/feature/auth/index";
+import { registerInput, useAuth } from "@/feature/auth/index";
 import {
   Form,
   Email,
@@ -12,7 +12,6 @@ import {
   Checkbox,
   FormItem,
   Password,
-  registerInput,
   registerSchema,
   type RegisterFormData,
 } from "@/shared/index";

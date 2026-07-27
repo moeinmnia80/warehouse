@@ -1,9 +1,7 @@
+import { cn } from "@/shared";
 import { useState, type ComponentProps } from "react";
 import { TickIcon, HiddenIcon, ShowIcon } from "@/assets/index";
 
-// ------------------------------------------------------------
-//1-————— Form ————————————————————————————————————————————————
-// ------------------------------------------------------------
 export const Form = ({
   className,
   children,
@@ -11,7 +9,7 @@ export const Form = ({
 }: ComponentProps<"form">) => {
   return (
     <>
-      <form className={`flex flex-col gap-4 mt-6 ${className}`} {...props}>
+      <form className={cn("flex flex-col gap-4 mt-6", className)} {...props}>
         {children}
       </form>
     </>
@@ -27,27 +25,21 @@ export const FormItem = ({
 }: ComponentProps<"div">) => {
   return (
     <>
-      <div className={`relative ${className}`} {...props}>
+      <div className={cn("relative", className)} {...props}>
         {children}
       </div>
     </>
   );
 };
-// ------------------------------------------------------------
-//3-————— Label ———————————————————————————————————————————————
-// ------------------------------------------------------------
+
 export const Label = ({ children, ...props }: ComponentProps<"label">) => {
   return <label {...props}>{children}</label>;
 };
-// ------------------------------------------------------------
-//4-————— Caption —————————————————————————————————————————————
-// ------------------------------------------------------------
+
 export const Caption = ({ children, ...props }: ComponentProps<"p">) => {
   return <p {...props}>{children}</p>;
 };
-// ------------------------------------------------------------
-//5-————— Input ———————————————————————————————————————————————
-// ------------------------------------------------------------
+
 export const Input = ({
   className,
   children,
@@ -55,7 +47,7 @@ export const Input = ({
 }: ComponentProps<"input">) => {
   return (
     <div className="relative w-full">
-      <input className={`w-full ${className}`} {...props} />
+      <input className={cn("w-full", className)} {...props} />
       {children}
     </div>
   );
@@ -77,20 +69,18 @@ export const Checkbox = ({
     <>
       <input className="peer w-0 hidden" type="checkbox" {...props} />
       <span
-        className={`
-        peer-checked:*:inline-block 
-        flex items-center justify-center
-        border size-4 rounded-sm border-bo-secondary ${className}`}
+        className={cn(
+          "peer-checked:*:inline-block flex items-center justify-center border size-4 rounded-sm border-bo-secondary",
+          className,
+        )}
       >
-        <TickIcon className={`hidden ${accentClass}`} />
+        <TickIcon className={cn("hidden", accentClass)} />
       </span>
       {children}
     </>
   );
 };
-// ------------------------------------------------------------
-//7-————— Email ———————————————————————————————————————————————
-// ------------------------------------------------------------
+
 type EmailProps = Omit<ComponentProps<"input">, "name" | "type" | "id">;
 export const Email = ({
   className,
@@ -106,16 +96,14 @@ export const Email = ({
         name="email"
         className={`w-full ${className}`}
         placeholder={placeholder ? placeholder : "Enter email address"}
-        autoComplete="email"
+        autoComplete="email webauthn"
         {...props}
       />
       {children}
     </div>
   );
 };
-// ------------------------------------------------------------
-//8-————— Password ————————————————————————————————————————————
-// ------------------------------------------------------------
+
 interface PasswordProps extends Omit<
   ComponentProps<"input">,
   "name" | "type" | "id" | "onClick"
@@ -147,9 +135,9 @@ export const Password = ({
         type={isShow ? "text" : "password"}
         id={variant}
         name={variant}
-        className={`w-full ${className}`}
+        className={cn("w-full", className)}
         placeholder={placeholder}
-        autoComplete="new-password"
+        autoComplete="new-password webauthn"
         {...props}
       />
       {children}

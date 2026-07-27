@@ -6,7 +6,6 @@ export const useOverflow = (isOpen: boolean) => {
       document.body.style.overflow = "hidden";
     }
 
-    // cleanup: always restore on close or unmount
     return () => {
       document.body.style.overflow = "";
     };

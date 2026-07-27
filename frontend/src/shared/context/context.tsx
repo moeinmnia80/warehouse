@@ -7,15 +7,8 @@ import {
   useState,
   type ComponentProps,
 } from "react";
-/* 
-  use context for change theme in project as state management 
-  (more like system distributed) 
-*/
+
 const ThemeContext = createContext({} as contextType);
-/* 
-  in react 18+ we never use FC because is verbosity for no real gain 
-  also we should never use .Provider in parent context element
-*/
 
 const ThemeProvider = ({ children }: ComponentProps<"div">) => {
   const [theme, setTheme] = useState<string>(themeCheck());

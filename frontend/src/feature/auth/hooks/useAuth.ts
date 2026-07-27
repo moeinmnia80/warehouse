@@ -1,31 +1,29 @@
-import { useNavigate } from "react-router";
-import { removeCookie, setCookie } from "@/shared/index";
+import { setCookie } from "@/shared/index";
+import type { SerializedError } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 
 import {
-  logoutAction,
   setCredentials,
-  useLoginMutation,
-  useLogoutMutation,
-  useRegisterMutation,
   type AuthResult,
+  useLoginMutation,
+  type UseAuthReturn,
+  useRegisterMutation,
   type LoginCredentials,
   type RegisterCredentials,
-  type UseAuthReturn,
+  useLoginWithGoogleMutation,
 } from "@/feature/auth/index";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import type { SerializedError } from "@reduxjs/toolkit";
 
 export const useAuth = (): UseAuthReturn => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
   const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
-  const [logoutMutation, { isLoading: isLoggingOut }] = useLogoutMutation();
+
   const [registerMutation, { isLoading: isRegistering }] =
     useRegisterMutation();
-
-  const navigate = useNavigate();
+  const [loginWithGoogleMutation, { isLoading: isLoggingInWithGoogle }] =
+    useLoginWithGoogleMutation();
 
   const register = async (
     credentials: RegisterCredentials,
@@ -66,27 +64,34 @@ export const useAuth = (): UseAuthReturn => {
       };
     }
   };
-
-  const logout = async (): Promise<void> => {
+  const loginWithGoogle = async (credentials: {
+    token: string;
+  }): Promise<AuthResult> => {
     try {
-      await logoutMutation().unwrap();
+      const {
+        data: { id, email, token, role, fullName },
+      } = await loginWithGoogleMutation(credentials).unwrap();
+
+      dispatch(setCredentials({ id, email, role, fullName }));
+      setCookie("auth-token", token);
+
+      return { success: true };
     } catch (error) {
-      console.error("Logout error:", error);
-      throw error;
-    } finally {
-      dispatch(logoutAction());
-      removeCookie("auth-token");
-      navigate("/login");
+      return {
+        success: false,
+        error:
+          (error as FetchBaseQueryError | SerializedError) ?? "Login error",
+      };
     }
   };
 
   return {
     user,
     isLoggingIn,
-    isLoggingOut,
     isRegistering,
+    isLoggingInWithGoogle,
     login,
-    logout,
     register,
+    loginWithGoogle,
   };
 };

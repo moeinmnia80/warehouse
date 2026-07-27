@@ -1,6 +1,6 @@
 import type { TableRow } from "@/shared";
 
-// Components
+// components/*
 export interface TableDataRowProps {
   item: TableRow;
 }
@@ -36,8 +36,7 @@ export interface LineItemRowProps {
 export type CategoryType =
   "view all" | "action required" | "in review" | "ready to send";
 
-// api resp type
-// the actual payload you want to work with everywhere in your app
+// service/*
 export interface SuitePayload {
   id: string;
   userId: string;
@@ -60,8 +59,11 @@ export interface MutationDataType {
   type: "pdf" | "images";
   id: string;
 }
-
-// MySuiteTab Comp
+export interface GetPackageProps {
+  packageId: string;
+  fileName: string;
+}
+// MySuiteTab Component
 export interface TabsType {
   id: number;
   key: "inReview" | "actionRequired" | "readyToSend" | "viewAll";
@@ -74,7 +76,9 @@ export interface TabCountType {
   readyToSend: number;
   viewAll: number;
 }
-export interface GetPackageProps {
-  packageId: string;
-  fileName: string;
+// utils
+export interface SuiteSummary {
+  itemValues: number;
+  totalWeight: number;
+  subTotal: number;
 }

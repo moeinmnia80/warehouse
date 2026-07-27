@@ -1,6 +1,6 @@
-import type { AreaType } from "@/shared/types/types";
 import flag1 from "@/assets/images/flag-1.png";
 import flag2 from "@/assets/images/flag-2.png";
+import type { AreaType } from "@/shared/types/types";
 
 export const areas: AreaType[] = [
   {
