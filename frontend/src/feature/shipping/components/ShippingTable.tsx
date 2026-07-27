@@ -1,4 +1,4 @@
-import { Table, TableSkeleton, TBody } from "@/shared/index";
+import { Table, TableEmpty, TableSkeleton, TBody } from "@/shared/index";
 import {
   TableDataRow,
   TableHeaderRow,
@@ -19,9 +19,13 @@ export const ShippingTable = () => {
     <Table>
       <TableHeaderRow />
       <TBody>
-        {data?.map((item) => (
-          <TableDataRow key={item.shipmentId} item={item} />
-        ))}
+        {data?.length ? (
+          data?.map((item) => (
+            <TableDataRow key={item.shipmentId} item={item} />
+          ))
+        ) : (
+          <TableEmpty />
+        )}
       </TBody>
     </Table>
   );

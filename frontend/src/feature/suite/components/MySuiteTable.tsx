@@ -1,4 +1,4 @@
-import { Table, TBody } from "@/shared/index";
+import { Table, TableEmpty, TBody } from "@/shared";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   InvoiceModal,
@@ -33,9 +33,16 @@ export const MySuiteTable = () => {
         <TableHeaderRow sortedData={sortedData} />
 
         <TBody>
-          {sortedData?.map((item) => (
-            <TableDataRow key={item.packageId} item={item} />
-          ))}
+          {sortedData?.length ? (
+            sortedData?.map((item) => (
+              <TableDataRow key={item.packageId} item={item} />
+            ))
+          ) : (
+            <TableEmpty
+              title="No packages found"
+              description="This suite doesn't have any packages yet."
+            />
+          )}
         </TBody>
 
         {modal.open && (

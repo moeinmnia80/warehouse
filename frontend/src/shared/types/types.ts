@@ -69,3 +69,10 @@ export interface ToastState {
   add: (text: string, type?: ToastType) => string;
   remove: (id: string) => void;
 }
+export interface TableEmptyProps {
+  title?: string;
+  description?: string;
+  icon?: React.ReactNode;
+  action?: React.ReactNode;
+  className?: string;
+}

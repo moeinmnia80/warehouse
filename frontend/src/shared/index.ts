@@ -16,6 +16,7 @@ export type {
   ToastState,
   ToastType,
   contextType,
+  TableEmptyProps,
 } from "@/shared/types/types";
 export type { ErrorType } from "@/shared/types/error.types";
 // schema
@@ -50,6 +51,7 @@ export { Image } from "@/shared/components/ui/Image";
 export { Toaster } from "@/shared/components/Toaster";
 export { NavLinks } from "@/shared/layout/Header/NavLinks";
 export { UserMenu } from "@/shared/layout/Header/UserMenu";
+export { TableEmpty } from "@/shared/components/TableEmpty";
 export { ThemeToggle } from "@/shared/components/ThemeToggle";
 export { SocialMedia } from "@/shared/components/SocialMedia";
 export { AreaSelector } from "@/shared/layout/Header/AreaSelector";

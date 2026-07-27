@@ -2,7 +2,7 @@ import { ShippingInfoItem } from "@/feature/shipping/index";
 
 export const ShippingInfo = () => {
   return (
-    <div className="flex flex-col gap-4 h-fit text-tx-primary  **:text-sm">
+    <div className="flex flex-col gap-4 h-fit text-tx-primary  **:text-sm animate-slide-down">
       <ShippingInfoItem className="flex items-center gap-3 w-full bg-b-primary border border-bo-primary rounded-xl p-5  font-medium animate-fade-in">
         <span>
           View your completed shipments, transactions and orders here. Ship

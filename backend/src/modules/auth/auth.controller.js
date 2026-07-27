@@ -18,7 +18,6 @@ export const loginWithGoogleUserController = catchAsync(async (req, res) => {
 
 export const registerUserController = catchAsync(async (req, res) => {
   const result = await registerUser(req.body);
-
   return res.status(201).json(result);
 });
 export const getUserController = catchAsync(async (req, res) => {

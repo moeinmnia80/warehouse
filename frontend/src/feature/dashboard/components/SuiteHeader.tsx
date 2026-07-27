@@ -15,7 +15,7 @@ export const SuiteHeader = () => {
     }),
   });
   return (
-    <div className="flex h-38 md:h-26">
+    <div className="flex h-38 md:h-26 animate-slide-down">
       <div className="flex flex-col gap-1 justify-center lg:justify-between h-full w-fit border-e border-bo-primary pe-4 sm:pe-8">
         <h3 className="text-tx-primary font-bold text-xl lg:text-2xl xl:text-3xl ">
           Packages in Suite {id}

@@ -1,23 +1,28 @@
 import { useAuth } from "@/feature/auth";
+import { useNavigate } from "react-router";
+import { useAppDispatch } from "@/store/redux/store";
 import { ChevronIcon, LogoutIcon, SettingsIcon } from "@/assets";
 import {
   Button,
+  baseApi,
   Dropdown,
   DropdownItem,
+  removeCookie,
   DropdownButton,
   DropdownContent,
-  removeCookie,
 } from "@/shared/index";
-import { useNavigate } from "react-router";
 
 export const UserMenu = () => {
   const { user } = useAuth();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     removeCookie("auth-token");
     navigate("/login");
+    // remove cache after logout
+    dispatch(baseApi.util.resetApiState());
   };
 
   return (

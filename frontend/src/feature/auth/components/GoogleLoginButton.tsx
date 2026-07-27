@@ -6,6 +6,7 @@ import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { useRef } from "react";
 
 export const GoogleLoginButton = () => {
+  // TODO: this comp have error, so need error handling
   const hiddenButtonRef = useRef<HTMLDivElement>(null);
   const { loginWithGoogle } = useAuth();
   const navigate = useNavigate();

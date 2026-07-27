@@ -73,6 +73,7 @@
   --color-b-secondary: oklch(25% 0.005 230);
   --color-b-muted: oklch(50% 0.0077 140);
   --color-b-table: oklch(30% 0.01 217);
+  --color-b-checkbox: oklch(20.7% 0.004 229);
 
   /* Text */
   --color-tx-primary: oklch(98% 0 0);
