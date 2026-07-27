@@ -11,7 +11,7 @@ export type {
   RegisterCredentials,
 } from "@/feature/auth/types/auth.types";
 // constants
-export { registerInput } from "@/feature/auth/constants/Input.constants";
+export { registerInput } from "@/feature/auth/constants/input";
 // services
 export {
   authApi,
