@@ -3,17 +3,14 @@ import { MySuite } from "@/feature/suite/index";
 import { ProtectRoutes } from "@/feature/auth/index";
 import { Navigate, Route, Routes } from "react-router";
 
-// Lazy-loaded — each becomes its own chunk, fetched only when visited
 const NotFoundPage = lazy(() => import("@/pages/404"));
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"));
 const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
 const ResetPasswordPage = lazy(() => import("@/pages/ResetPasswordPage"));
 const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
-const ShippingHistory = lazy(() =>
-  import("@/feature/shipping/index").then((module) => ({
-    default: module.ShippingHistory,
-  })),
+const ShippingHistory = lazy(
+  () => import("@/feature/shipping/components/ShippingHistory"),
 );
 
 function RouterWrapper() {

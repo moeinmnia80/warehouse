@@ -32,7 +32,6 @@ export { ShippingInfo } from "@/feature/shipping/components/ShippingInfo";
 export { ShippingTable } from "@/feature/shipping/components/ShippingTable";
 export { TableHeaderRow } from "@/feature/shipping/components/TableHeaderRow";
 export { DateRangeFilter } from "@/feature/shipping/components/DateRangeFilter";
-export { ShippingHistory } from "@/feature/shipping/components/ShippingHistory";
 export { ShippingInfoItem } from "@/feature/shipping/components/ShippingInfoItem";
 // api
 export { useGetShippingQuery } from "@/feature/shipping/services/shippingApi";

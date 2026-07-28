@@ -4,7 +4,7 @@ import {
   ShippingTable,
 } from "@/feature/shipping/index";
 
-export const ShippingHistory = () => {
+const ShippingHistory = () => {
   return (
     <div>
       <ShippingInfo />
@@ -16,3 +16,4 @@ export const ShippingHistory = () => {
     </div>
   );
 };
+export default ShippingHistory;

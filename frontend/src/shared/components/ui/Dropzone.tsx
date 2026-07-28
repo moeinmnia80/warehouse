@@ -219,12 +219,10 @@ export const DropzoneArea = ({ children, ...props }: ComponentProps<"div">) => {
   const addFiles = (incoming: File[]) => {
     const rejected = incoming.filter((file) => !isFileAccepted(file, accept));
     if (rejected.length > 0) {
-      setError(`only ${accept} files are allowed`);
-      return;
+      return setError(`only ${accept} files are allowed`);
     }
     if (items.length + incoming.length > maxFiles) {
-      setError(`max upload files is ${maxFiles}`);
-      return;
+      return setError(`max upload files is ${maxFiles}`);
     }
     setError(null);
     const newItems: LocalDropzoneItem[] = incoming.map((file) => ({

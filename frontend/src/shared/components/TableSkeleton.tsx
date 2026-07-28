@@ -1,4 +1,5 @@
 import type { ComponentProps } from "react";
+import { Row, Table, TD, THead } from "@/shared";
 interface TableSkeletonProps extends ComponentProps<"div"> {
   rows?: number;
   columns?: string[];
@@ -13,32 +14,32 @@ export const TableSkeleton = ({
 }: TableSkeletonProps) => {
   return (
     <div {...props}>
-      <div className="border border-bo-primary rounded-sm overflow-hidden">
-        <div className="flex-between h-11 bg-b-table border-b border-bo-primary px-5">
+      <Table className="border border-bo-primary rounded-sm overflow-hidden">
+        <THead className="flex-between h-11 bg-b-table border-b border-bo-primary px-5">
           {columns.map((width, i) => (
-            <div
+            <TD
               key={`head-${i}`}
               className={`h-4 ${width} bg-b-muted rounded-sm animate-pulse-slow opacity-20`}
             />
           ))}
-        </div>
+        </THead>
 
         {Array.from({ length: rows }).map((_, rowIdx) => (
-          <div
+          <Row
             key={`row-${rowIdx}`}
             className={`flex-between ${rowHeight} px-5 ${
               rowIdx !== rows - 1 ? "border-b border-bo-primary" : ""
             }`}
           >
             {columns.map((width, colIdx) => (
-              <div
+              <TD
                 key={`cell-${rowIdx}-${colIdx}`}
                 className={`h-4 ${width} bg-b-muted rounded-sm animate-pulse-slow opacity-20`}
               />
             ))}
-          </div>
+          </Row>
         ))}
-      </div>
+      </Table>
     </div>
   );
 };

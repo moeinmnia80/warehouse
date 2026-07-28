@@ -22,9 +22,6 @@ interface DropdownContextType {
 }
 
 const DropDownContext = createContext({} as DropdownContextType);
-//--------------------------------------------------------------
-//1-————— Dropdown ————————————————————————————————————————————
-//--------------------------------------------------------------
 
 export const Dropdown = ({
   className,
@@ -59,9 +56,7 @@ export const Dropdown = ({
     </DropDownContext>
   );
 };
-//----------------------------------------------------------------
-//2-————— Dropdown Button ————————————————————————————————————————
-//----------------------------------------------------------------
+
 interface DropdownButtonProps extends Omit<
   ComponentProps<"button">,
   "onClick"
@@ -88,9 +83,6 @@ export const DropdownButton = ({
     </button>
   );
 };
-//----------------------------------------------------------------
-//3-————— Dropdown Content ———————————————————————————————————————
-//----------------------------------------------------------------
 
 const EDGE_PADDING = 8;
 
@@ -145,18 +137,14 @@ export const DropdownContent = ({
     </div>
   );
 };
-//----------------------------------------------------------------
-//4-————— Dropdown Label ————————————————————————————————————————
-//----------------------------------------------------------------
+
 export const DropdownLabel = ({
   children,
   ...props
 }: ComponentProps<"div">) => {
   return <div {...props}>{children}</div>;
 };
-//-------------------------------------------------------------
-//5-————— Dropdown Item ————————————————————————————————————————
-//-------------------------------------------------------------
+
 interface DropdownItemProps extends Omit<ComponentProps<"div">, "onClick"> {
   /* custom handleClick with on (open/close:boolean) value */
   onClick?: (on?: boolean) => void;
@@ -183,9 +171,6 @@ export const DropdownItem = ({
     </div>
   );
 };
-//----------------------------------------------------------------
-//6-————— Dropdown Separator —————————————————————————————————————
-//----------------------------------------------------------------
 
 export const DropdownSeparator = ({
   children,
