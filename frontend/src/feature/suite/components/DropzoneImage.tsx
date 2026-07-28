@@ -26,7 +26,7 @@ export const DropzoneImage = ({ data }: { data: TableRow }) => {
         });
       }}
     >
-      <DropzoneArea className="cursor-pointer rounded-xl py-3">
+      <DropzoneArea className="cursor-pointer rounded-xl px-2 mt-2 py-3 data-active:bg-b-secondary transition duration-300">
         <p className="text-sm text-tx-placeholder">
           Drag & drop images here, or click anywhere, or
         </p>
@@ -45,7 +45,7 @@ export const DropzoneImage = ({ data }: { data: TableRow }) => {
           )}
         />
       </DropzoneArea>
-      <DropzoneSubmitButton className="flex-center gap-1 w-fit py-3 px-8 text-md text-b-primary font-semibold bg-tx-primary rounded-xl disabled:opacity-15 disabled:cursor-default">
+      <DropzoneSubmitButton className="flex-center gap-1 w-fit py-3 px-8 mt-2 text-md text-b-primary font-semibold bg-tx-primary rounded-xl disabled:opacity-15 disabled:cursor-default">
         Upload
         <UploadIcon className="size-4 stroke-b-primary" />
       </DropzoneSubmitButton>

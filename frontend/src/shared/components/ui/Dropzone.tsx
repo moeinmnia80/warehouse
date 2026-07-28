@@ -1,4 +1,4 @@
-import { cn } from "@/shared/utils/merge.utils";
+import { cn, calculateFileSize } from "@/shared";
 import {
   useRef,
   useState,
@@ -20,12 +20,9 @@ const ACCEPT_PRESETS = {
 } as const;
 
 type AcceptPreset = keyof typeof ACCEPT_PRESETS;
-// `string & {}` keeps the ACCEPT_PRESETS keys autocompleting in your editor
-// while still allowing any other custom string to be passed.
-type AcceptValue = AcceptPreset | (string & {});
 
-const resolveAccept = (accept: AcceptValue): string =>
-  accept in ACCEPT_PRESETS ? ACCEPT_PRESETS[accept as AcceptPreset] : accept;
+const resolveAccept = (accept: AcceptPreset): string =>
+  accept in ACCEPT_PRESETS ? ACCEPT_PRESETS[accept] : accept;
 
 export interface RemoteDropzoneFile {
   id: string;
@@ -57,7 +54,6 @@ const IMAGE_EXTENSION_RE = /\.(png|jpe?g|gif|webp|svg|bmp|avif)$/i;
 const isImageItem = (item: DropzoneItem): boolean => {
   if (item.kind === "local") return item.file.type.startsWith("image/");
   if (item.file.type) return item.file.type.startsWith("image/");
-  // No mime type from the API — fall back to guessing from the name.
   return IMAGE_EXTENSION_RE.test(item.file.name);
 };
 
@@ -66,7 +62,7 @@ interface DropzoneProps extends Omit<
   "onDrop" | "onDragOver" | "onSubmit"
 > {
   maxFiles?: number;
-  accept?: AcceptValue;
+  accept?: AcceptPreset;
   initialFiles?: RemoteDropzoneFile[];
   /** Called with the newly picked/dropped (not-yet-uploaded) files
    *  whenever that set changes. Remote files are never included here. */
@@ -107,9 +103,9 @@ export const Dropzone = ({
   ...props
 }: DropzoneProps) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
-  // Only locally picked/dropped files live in state — remote files come
-  // entirely from the initialFiles prop
+
   const [localItems, setLocalItems] = useState<LocalDropzoneItem[]>([]);
+
   const [error, setError] = useState<string | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
 
@@ -238,7 +234,6 @@ export const DropzoneArea = ({ children, ...props }: ComponentProps<"div">) => {
     const formFiles = e.target.files;
     if (!formFiles || formFiles.length === 0) return;
     addFiles(Array.from(formFiles));
-    // reset so selecting the same file again still fires onChange
     e.target.value = "";
   };
 
@@ -249,8 +244,6 @@ export const DropzoneArea = ({ children, ...props }: ComponentProps<"div">) => {
 
   const handleDragLeave = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
-    // Only clear when the pointer actually leaves the boundary, not when it
-    // moves over a child element inside it (dragleave fires for those too).
     if (event.currentTarget.contains(event.relatedTarget as Node)) return;
     setIsDragActive(false);
   };
@@ -375,31 +368,17 @@ const DropzoneImagePreview = ({
         alt={getItemName(item)}
         className="w-full h-full object-cover"
         draggable={false}
+        loading="lazy"
+        decoding="async"
+        fetchPriority="low"
       />
     </div>
   );
 };
 
-// Renders both local (pending) and remote (already-uploaded) files with
-// a remove button on each. Removing calls the shared handleRemove, which
-// runs your onRemove callback and only drops the item once it resolves.
-// Image files get a thumbnail via DropzoneImagePreview; everything else
-// falls back to the plain name/size row.
-
 interface DropzoneFileListProps extends ComponentProps<"ul"> {
   itemClassName?: string;
-  /** Dropzone has no idea how your backend authenticates requests, so it
-   *  can't fetch a protected remote image's bytes itself. If your image
-   *  route needs a token (as opposed to being a plain public URL), pass
-   *  a component here that fetches and renders it yourself — e.g. one
-   *  built on an RTK Query endpoint. Called only for "remote" items. */
   renderRemotePreview: (item: RemoteDropzoneItem) => React.ReactNode;
-  /** Same idea as renderRemotePreview, but for clicking the filename to
-   *  download. Leave unset if item.file.url is a plain public URL (the
-   *  built-in <a download> handles that fine). Provide this if your
-   *  download route also needs an auth header — fetch the blob yourself
-   *  and trigger the save (e.g. via a temporary object URL + <a>.click()). */
-  onDownload?: (item: RemoteDropzoneItem) => void;
 }
 
 export const DropzoneFileList = ({
@@ -431,10 +410,7 @@ export const DropzoneFileList = ({
                         {getItemName(item)}
                       </p>
                       <span className="text-current font-light opacity-70">
-                        {getItemSize(item) / (1024 * 1024) <= 0.1
-                          ? (getItemSize(item) / 1024).toFixed(2) + " KB"
-                          : (getItemSize(item) / (1024 * 1024)).toFixed(2) +
-                            " Mb"}
+                        {calculateFileSize(getItemSize(item))}
                       </span>
                     </>
                   )}

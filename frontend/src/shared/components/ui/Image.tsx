@@ -13,7 +13,7 @@ export const Image = ({ src, alt, imageClass, ...props }: ImageProps) => {
         src={src}
         alt={alt}
         className={`w-full h-full ${imageClass ? imageClass : "object-cover"}`}
-        loading="eager"
+        loading="lazy"
         decoding="async"
       />
     </div>
