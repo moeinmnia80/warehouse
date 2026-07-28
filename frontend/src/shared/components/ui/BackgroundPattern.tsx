@@ -7,8 +7,9 @@ export const BackgroundPattern = () => {
         src={Background}
         alt="background pattern"
         className="w-full h-full object-cover"
+        loading="lazy"
+        decoding="async"
         fetchPriority="auto"
-        decoding="auto"
       />
     </div>
   );

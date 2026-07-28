@@ -24,7 +24,7 @@ export const Toaster = ({ id, text, type }: ToastItem) => {
 
   return (
     <div
-      className={`relative flex items-center min-w-90 h-11 bg-b-primary border ${setStyleType()} rounded-lg px-4 transition-all animate-slide-up duration-200 ${
+      className={`relative flex items-center min-w-90 h-11 bg-b-secondary border ${setStyleType()} rounded-lg px-4 transition-all animate-slide-up duration-200 ${
         isLeaving ? " opacity-0" : ""
       }`}
     >

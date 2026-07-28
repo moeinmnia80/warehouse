@@ -40,15 +40,17 @@ export const MySuiteSideBar = () => {
               <p className="flex-between text-current">
                 Total Value
                 <span className="text-lg text-tx-primary font-medium">
-                  {data &&
-                    formatCurrency(calculateSuiteSummary(data).itemValues)}
+                  {data
+                    ? formatCurrency(calculateSuiteSummary(data).itemValues)
+                    : "0"}
                 </span>
               </p>
               <p className="flex-between text-current">
                 Total Weight
                 <span className="text-lg text-tx-primary font-medium">
-                  {data &&
-                    formatWeight(calculateSuiteSummary(data).totalWeight)}
+                  {data
+                    ? formatWeight(calculateSuiteSummary(data).totalWeight)
+                    : "0"}
                 </span>
               </p>
               <p className="flex-between text-current">
@@ -62,13 +64,17 @@ export const MySuiteSideBar = () => {
               <p className="flex-between font-light text-current">
                 Subtotal
                 <span className="text-tx-primary text-2xl font-medium">
-                  {data && formatCurrency(calculateSuiteSummary(data).subTotal)}
+                  {data
+                    ? formatCurrency(calculateSuiteSummary(data).subTotal)
+                    : "0"}
                 </span>
               </p>
               <p className="flex-between font-light text-current">
                 Estimated Shipping
                 <span className="text-tx-primary text-2xl font-bold">
-                  {data && formatCurrency(calculateSuiteSummary(data).subTotal)}
+                  {data
+                    ? formatCurrency(calculateSuiteSummary(data).subTotal)
+                    : "0"}
                 </span>
               </p>
               <p className="font-light text-lg text-current underline">

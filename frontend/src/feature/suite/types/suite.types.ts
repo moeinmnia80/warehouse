@@ -14,16 +14,7 @@ export interface AddInvoiceModalProps {
   item: TableRow | undefined;
   packageId: string | null;
 }
-export interface LineItem {
-  id: string;
-  name: string;
-  qty: number;
-  scheduleCode: string;
-  valuePerUnit: number;
-  totalValue: number;
-  warning?: string;
-}
-export interface LineItemRowProps {
+export interface ExpandedRowPackageItemProps {
   item: {
     id: string;
     name: string;
@@ -33,6 +24,12 @@ export interface LineItemRowProps {
   };
   index: number;
 }
+export interface FilePreviewProps {
+  packageId: string;
+  className?: string;
+  item: { id: string; name: string; size: number; url?: string; type?: string };
+}
+
 export type CategoryType =
   "view all" | "action required" | "in review" | "ready to send";
 
@@ -42,24 +39,23 @@ export interface SuitePayload {
   userId: string;
   packages: TableRow[];
 }
-
 export interface SuiteResponse {
   id: string;
   message: string;
   data: SuitePayload;
 }
-
+export interface UploadPayload {
+  credentials: FormData;
+  type: "pdf" | "images";
+  id: string;
+}
 export interface UploadResponse {
   status: "success" | "fail";
   message: string;
   data: string;
 }
-export interface MutationDataType {
-  credentials: FormData;
-  type: "pdf" | "images";
-  id: string;
-}
-export interface GetPackageProps {
+
+export interface PackagePayload {
   packageId: string;
   fileName: string;
 }
@@ -70,7 +66,7 @@ export interface TabsType {
   className: string;
   value: CategoryType;
 }
-export interface TabCountType {
+export interface TabsCountType {
   inReview: number;
   actionRequired: number;
   readyToSend: number;

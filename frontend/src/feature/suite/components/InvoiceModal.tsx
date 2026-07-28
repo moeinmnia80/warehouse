@@ -21,7 +21,6 @@ export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
       onClick={handleCloseModal}
       className={`${modal.open ? "grid" : "hidden"} fixed inset-0 h-svh z-40 place-items-center bg-b-transparent backdrop-blur-sm animate-fade-in`}
     >
-      {/* prevent stopPropagation */}
       <div
         onClick={(e) => e.stopPropagation()}
         className="w-[95vw] max-w-200 bg-b-primary rounded-xl"

@@ -1,10 +1,10 @@
 import { baseApi } from "@/shared/index";
 import { toast } from "@/store/toast.store";
 import type {
-  GetPackageProps,
-  MutationDataType,
   SuitePayload,
+  UploadPayload,
   SuiteResponse,
+  PackagePayload,
   UploadResponse,
 } from "@/feature/suite/index";
 
@@ -32,7 +32,7 @@ export const suiteApi = baseApi.injectEndpoints({
           : [{ type: "Suite", id: "LIST" }],
       keepUnusedDataFor: 300,
     }),
-    sendData: builder.mutation<UploadResponse, MutationDataType>({
+    sendData: builder.mutation<UploadResponse, UploadPayload>({
       query: ({ credentials, type, id }) => ({
         url: `/my-suite/packages/${id}/${type}`,
         method: "POST",
@@ -54,7 +54,7 @@ export const suiteApi = baseApi.injectEndpoints({
           : { type: "PackageDocs", id },
       ],
     }),
-    getPackageImage: builder.query<string, GetPackageProps>({
+    getPackageImage: builder.query<string, PackagePayload>({
       query: ({ packageId, fileName }) => ({
         url: `/my-suite/packages/${packageId}/images/${fileName}`,
         responseHandler: (response) => response.blob(),
@@ -67,7 +67,7 @@ export const suiteApi = baseApi.injectEndpoints({
       ],
       keepUnusedDataFor: 300,
     }),
-    getPackageInvoice: builder.query<string, GetPackageProps>({
+    getPackageInvoice: builder.query<string, PackagePayload>({
       query: ({ packageId, fileName }) => ({
         url: `/my-suite/packages/${packageId}/invoice/${fileName}`,
         responseHandler: (response) => response.blob(),
@@ -85,7 +85,5 @@ export const {
   useGetSuiteQuery,
   useSendDataMutation,
   useGetPackageImageQuery,
-  useLazyGetPackageImageQuery,
   useGetPackageInvoiceQuery,
-  useLazyGetPackageInvoiceQuery,
 } = suiteApi;

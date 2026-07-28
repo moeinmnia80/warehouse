@@ -45,7 +45,7 @@ export const AddInvoicesModal = ({
     addFiles(event.dataTransfer.files);
   };
 
-  /** Opens the hidden file input via the visible "Add Invoice" button. */
+  /** Opens the hidden file input via the visible button. */
   const triggerFileInputClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     inputRef.current?.click();

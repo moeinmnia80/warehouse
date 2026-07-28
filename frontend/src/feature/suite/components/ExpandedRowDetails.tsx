@@ -1,11 +1,11 @@
 import { DangerousIcon } from "@/assets/index";
 import { RowContent, RowContentSection } from "@/shared/index";
 import {
-  LineItemRow,
   DropzoneImage,
-  DropzoneDocument,
-  type ExpandedRowDetailsProps,
   SUITE_CATEGORY,
+  DropzoneDocument,
+  ExpandedRowPackageItem,
+  type ExpandedRowDetailsProps,
 } from "@/feature/suite/index";
 
 export const ExpandedRowDetails = ({ data }: ExpandedRowDetailsProps) => {
@@ -50,8 +50,12 @@ export const ExpandedRowDetails = ({ data }: ExpandedRowDetailsProps) => {
           </div>
         </div>
         <div className="rounded-xl border border-bo-primary overflow-hidden">
-          {data.details.items.map((lineItem, index) => (
-            <LineItemRow key={lineItem.id} item={lineItem} index={index} />
+          {data.details.items.map((packageItem, index) => (
+            <ExpandedRowPackageItem
+              index={index}
+              item={packageItem}
+              key={packageItem.id}
+            />
           ))}
         </div>
         <p className="max-w-190 text-md font-medium text-tx-placeholder">

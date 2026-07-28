@@ -1,20 +1,20 @@
-import { ResetIcon } from "@/assets/index";
+import { ResetIcon } from "@/assets";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
+  PRESETS,
+  rangeLabel,
+  setDatePreset,
+  resetDateFilter,
+  activePresetLabel,
+} from "@/feature/shipping";
+import {
   Dropdown,
-  DropdownButton,
-  DropdownContent,
   DropdownItem,
   DropdownLabel,
+  DropdownButton,
+  DropdownContent,
   DropdownSeparator,
-} from "@/shared/index";
-import {
-  PRESETS,
-  resetDateFilter,
-  setDatePreset,
-  activePresetLabel,
-  rangeLabel,
-} from "@/feature/shipping/index";
+} from "@/shared";
 
 export const DateRangeFilter = () => {
   const dispatch = useAppDispatch();
@@ -44,6 +44,10 @@ export const DateRangeFilter = () => {
             <DropdownLabel className="text-sm! text-tx-placeholder! py-3">
               Custom Range
             </DropdownLabel>
+            <DropdownItem
+              onClick={() => {}}
+              className="flex-between py-3"
+            ></DropdownItem>
           </DropdownContent>
         </Dropdown>
         <div className="flex-center w-full text-md">

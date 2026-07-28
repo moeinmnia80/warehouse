@@ -28,7 +28,7 @@ const ForgetPasswordPage = () => {
     }
   }
 
-  const backToPrevPage = () => navigate(-1);
+  const backToPrevPage = () => navigate("-1", { replace: true });
 
   return (
     <section className="relative flex-center w-full h-dvh ">

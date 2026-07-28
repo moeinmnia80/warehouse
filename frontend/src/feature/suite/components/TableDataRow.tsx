@@ -1,6 +1,7 @@
 import React from "react";
-import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import { TD, Row, Label, Checkbox } from "@/shared/index";
+import { useAppDispatch, useAppSelector } from "@/store/redux/store";
+
 import {
   PdfIcon,
   TickIcon,
@@ -17,9 +18,10 @@ import {
   checkCategoryStatus,
   isColumnVisibleInTab,
   type TableDataRowProps,
+  formatCurrency,
+  formatWeight,
 } from "@/feature/suite/index";
 
-// Static — built once at module load, not on every render.
 const STATUS_ICON: Record<string, React.ReactNode> = {
   "in review": <SearchIcon className="size-3 stroke-warning" />,
   "ready to send": <TickIcon className="size-3 stroke-success" />,
@@ -90,8 +92,9 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
             dataCell="Total Values"
           >
             <div className="flex-center flex-col md:flex-row md:justify-start! w-full">
-              <span className="mr-0.5">$</span>
-              <span className="font-bold">{item.totalValues}</span>
+              <span className="font-bold">
+                {formatCurrency(+item.totalValues)}
+              </span>
             </div>
           </TD>
         )}
@@ -102,8 +105,9 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           >
             <div className="flex-center flex-col md:items-start! w-full">
               <div className="flex-center">
-                <span className="mr-0.5">$</span>
-                <span className="font-bold">{item.itemValues}</span>
+                <span className="font-bold">
+                  {formatCurrency(+item.itemValues)}
+                </span>
               </div>
               <div>Invoice Value</div>
             </div>
@@ -115,8 +119,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
             dataCell="Weight"
           >
             <div className="flex-center w-full">
-              {item.weight}
-              <span className="ml-1">Ibs</span>
+              {formatWeight(+item.weight)}
             </div>
           </TD>
         )}
@@ -150,7 +153,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           className="flex md:flex-center! md:gap-2 md:min-w-25 md:flex-1 md:shrink-0 md:py-4 text-t-secondary md:text-center cursor-pointer"
           dataCell="action"
         >
-          <div className="flex-center gap-1 w-full">
+          <div className="flex-center gap-1.5 w-full">
             {category === SUITE_CATEGORY.ACTION_REQUIRED ? (
               <>
                 {item.invoices.map((i) => (
@@ -175,7 +178,6 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           </div>
         </TD>
       </Row>
-
       {isExpanded && <ExpandedRowDetails data={item} />}
     </React.Fragment>
   );

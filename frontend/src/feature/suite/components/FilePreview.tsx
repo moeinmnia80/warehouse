@@ -1,25 +1,16 @@
 import { calculateFileSize, cn } from "@/shared";
 import { DownloadIcon } from "lucide-react";
 import {
+  type FilePreviewProps,
   useGetPackageImageQuery,
   useGetPackageInvoiceQuery,
 } from "@/feature/suite";
-export interface RemoteDropzoneFile {
-  id: string;
-  name: string;
-  size: number;
-  url?: string;
-  type?: string;
-}
+
 export const FilePreview = ({
-  packageId,
   item,
+  packageId,
   className,
-}: {
-  packageId: string;
-  item: RemoteDropzoneFile;
-  className?: string;
-}) => {
+}: FilePreviewProps) => {
   const isPdf = item.type === "pdf";
 
   const imageQuery = useGetPackageImageQuery(
@@ -33,34 +24,28 @@ export const FilePreview = ({
   );
   const { data, isFetching, isError } = isPdf ? invoiceQuery : imageQuery;
 
-  if (isError) {
-    return (
-      <div className={className}>
-        <span className="text-xs opacity-60">failed to load</span>
-      </div>
-    );
-  }
-  if (isFetching) {
-    return (
-      <div
-        className={`${className} absolute inset-0 animate-pulse bg-white/10`}
-      />
-    );
-  }
+  if (isError)
+    <div className={className}>
+      <span className="text-xs opacity-60">failed to load</span>
+    </div>;
+
+  if (isFetching)
+    <div
+      className={`${className} absolute inset-0 animate-pulse bg-white/10`}
+    />;
+
   return (
     <div
       onClick={(e) => e.stopPropagation()}
       className="absolute inset-0 w-full h-full **:transition **:duration-150 **:delay-75"
     >
       {data && isPdf ? (
-        <div className="flex item justify-center flex-col w-full h-full p-2 text-xs line-clamp-1">
-          <p>{item.name}</p>
-          <p className="opacity-35">{calculateFileSize(item.size)}</p>
-
+        <div className="flex justify-center flex-col w-full h-full p-2 text-xs cursor-default">
+          <p className="line-clamp-2">{item.name}</p>
+          <p className="opacity-30">{calculateFileSize(item.size)}</p>
           <a
             href={data}
             className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary rounded-full opacity-55"
-            target="_blank"
             download={`${item.name}`}
           >
             <DownloadIcon className="size-3 stroke-tx-primary hover:stroke-success" />
@@ -73,15 +58,15 @@ export const FilePreview = ({
             alt={item.name}
             className={cn("w-full h-full object-cover", className)}
             draggable={false}
-            loading="eager"
+            loading="lazy"
             decoding="async"
+            fetchPriority="auto"
           />
           {data && (
             <a
-              className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary rounded-full opacity-55"
               href={data}
-              target="_blank"
               download={`${item.name}`}
+              className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary rounded-full opacity-55"
             >
               <DownloadIcon className="size-3 stroke-tx-primary hover:stroke-success" />
             </a>

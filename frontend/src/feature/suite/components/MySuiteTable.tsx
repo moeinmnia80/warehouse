@@ -31,7 +31,6 @@ export const MySuiteTable = () => {
     <div className="rounded-xl m-6 overflow-hidden">
       <Table>
         <TableHeaderRow sortedData={sortedData} />
-
         <TBody>
           {sortedData?.length ? (
             sortedData?.map((item) => (

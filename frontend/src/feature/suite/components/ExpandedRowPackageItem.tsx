@@ -1,7 +1,10 @@
 import { DangerIcon } from "@/assets/index";
-import type { LineItemRowProps } from "@/feature/suite";
+import type { ExpandedRowPackageItemProps } from "@/feature/suite";
 
-export const LineItemRow = ({ item, index }: LineItemRowProps) => {
+export const ExpandedRowPackageItem = ({
+  item,
+  index,
+}: ExpandedRowPackageItemProps) => {
   return (
     <div
       className={index % 2 === 0 ? "bg-b-secondary p-4" : "bg-b-primary p-4"}

@@ -9,7 +9,7 @@ export const TableEmpty = ({
 }: TableEmptyProps) => {
   return (
     <div
-      className={`flex-center flex-col gap-3 h-42 text-center text-tx-primary border border-bo-primary rounded-b-xl ${className}`}
+      className={`flex-center flex-col gap-3 h-42 text-center text-tx-primary border border-bo-primary rounded-xl md:rounded-t-none ${className}`}
     >
       {icon && <div className="text-tx-secondary">{icon}</div>}
       <div className="flex flex-col gap-1">

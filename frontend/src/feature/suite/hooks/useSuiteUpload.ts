@@ -1,19 +1,21 @@
-import { useSendDataMutation, type MutationDataType } from "@/feature/suite";
+import { useSendDataMutation, type UploadPayload } from "@/feature/suite";
+import type { SerializedError } from "@reduxjs/toolkit";
+import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export const useSuiteUpload = () => {
   const [uploadMutation, { isLoading: isUploading }] = useSendDataMutation();
 
-  const upload = async ({ credentials, type, id }: MutationDataType) => {
+  const upload = async ({ credentials, type, id }: UploadPayload) => {
     try {
       await uploadMutation({ credentials, type, id }).unwrap();
-      return { success: true as const };
-    } catch (err) {
-      const message =
-        err && typeof err === "object" && "data" in err
-          ? String((err as { data?: unknown }).data)
-          : "upload file error";
-
-      return { success: false as const, error: message };
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error:
+          (error as FetchBaseQueryError | SerializedError) ??
+          "upload file error",
+      };
     }
   };
 

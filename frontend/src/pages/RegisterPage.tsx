@@ -1,7 +1,7 @@
-import { BackgroundPattern, Button } from "@/shared";
 import { Link } from "react-router";
-import { RegisterForm } from "@/feature/auth";
-import { Logo, GoogleIcon, FacebookIcon } from "@/assets/index";
+import { Logo, FacebookIcon } from "@/assets/index";
+import { BackgroundPattern, Button } from "@/shared";
+import { GoogleLoginButton, RegisterForm } from "@/feature/auth";
 
 const RegisterPage = () => {
   return (
@@ -15,10 +15,7 @@ const RegisterPage = () => {
           <span className="text-xs px-2">OR</span>
           <span className="inline-block w-full h-px bg-bo-primary"></span>
         </div>
-        <Button className="btn-secondary gap-3 mt-4 px-2">
-          <GoogleIcon className="size-5" />
-          Sign in with Google
-        </Button>
+        <GoogleLoginButton />
         <Button className="btn-secondary gap-3 mt-4 px-2">
           <FacebookIcon className="size-5" />
           Sign in with Facebook

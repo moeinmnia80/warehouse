@@ -3,23 +3,23 @@ import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   tabs,
   useGetSuiteQuery,
-  useSuiteTabCounts,
-  type TabCountType,
   createRowActions,
+  useSuiteTabCounts,
+  type TabsCountType,
 } from "@/feature/suite/index";
 
 export const MySuiteTab = () => {
   const dispatch = useAppDispatch();
   const { data } = useGetSuiteQuery();
   const rowActions = createRowActions(dispatch);
-  const tabCount: TabCountType = useSuiteTabCounts(data);
+  const tabCount: TabsCountType = useSuiteTabCounts(data);
   const category = useAppSelector((state) => state.suite.category);
 
   return (
     <div className="grid grid-cols-2 auto-rows-9 lg:grid-cols-3 xl:grid-cols-4 gap-2 py-6 mx-6 border-b border-bo-primary ">
       {tabs.map((tab) => (
         <Button
-          className={`btn btn--third  h-9 font-semibold transition duration-200
+          className={`btn btn--third h-9 font-semibold transition duration-200
             ${category === tab.value ? "bg-tx-primary text-b-primary" : ""} capitalize`}
           onClick={(e) => rowActions.changeTab(tab.value, e)}
           value={tab.value}

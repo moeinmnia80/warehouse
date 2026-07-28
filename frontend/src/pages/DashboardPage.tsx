@@ -6,7 +6,6 @@ const DashboardPage = () => {
       <section className="flex flex-col w-full gap-8 py-8">
         <DashboardHeader />
         <div>
-          {/* show nested routes */}
           <Outlet />
         </div>
       </section>

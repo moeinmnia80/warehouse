@@ -1,27 +1,24 @@
 import type { TableRow } from "@/shared/index";
-import type { CategoryType, TableState } from "@/feature/suite/index";
+import type { CategoryType, SuiteTableState } from "@/feature/suite/index";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
-// Table initialState
-const initialState: TableState = {
+const initialState: SuiteTableState = {
   rowChecked: {},
   rowExpanded: {},
   sort: { key: null, type: "asc" },
   category: "view all",
   modal: { open: false, packageId: null },
 };
-// Slice
+
 const suiteSlice = createSlice({
   name: "suiteSlice",
   initialState: initialState,
   reducers: {
-    // row operations
-    // check
     rowToggle: (state, action: PayloadAction<string>) => {
       const id = action.payload;
       state.rowChecked = { ...state.rowChecked, [id]: !state.rowChecked[id] };
     },
-    // check all row
+
     rowCheckAll: (state, action: PayloadAction<TableRow[]>) => {
       const checked: Record<string, boolean> = {};
       action.payload.forEach((item) => {
@@ -29,10 +26,11 @@ const suiteSlice = createSlice({
       });
       state.rowChecked = checked;
     },
-    // reset row state
+
     rowReset: (state) => {
       state.rowChecked = {};
     },
+
     rowExpanded: (state, action: PayloadAction<string>) => {
       const id = action.payload;
       state.rowExpanded = {
@@ -40,13 +38,12 @@ const suiteSlice = createSlice({
         [id]: !state.rowExpanded[id],
       };
     },
-    // change category
+
     changeCategory: (state, action: PayloadAction<CategoryType>) => {
-      /* close row when change category */
       state.rowExpanded = {};
       state.category = action.payload;
     },
-    // sort data based on key
+
     rowSort: (state, action: PayloadAction<string>) => {
       if (state.sort.key !== action.payload) {
         state.sort = {
@@ -65,7 +62,7 @@ const suiteSlice = createSlice({
         };
       }
     },
-    // Modal Handle
+
     openModal: (state, action: PayloadAction<string | null>) => {
       state.modal = { open: !state.modal.open, packageId: action.payload };
     },
@@ -75,9 +72,7 @@ const suiteSlice = createSlice({
   },
 });
 
-// export for use in store
 export default suiteSlice.reducer;
-// use in components
 export const {
   rowToggle,
   rowCheckAll,

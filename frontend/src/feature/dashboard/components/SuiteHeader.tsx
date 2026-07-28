@@ -1,7 +1,7 @@
+import { Button } from "@/shared";
 import { QueueIcon } from "@/assets/index";
 import { useGetSuiteQuery } from "@/feature/suite";
 import { useAppDispatch } from "@/store/redux/store";
-import { Button } from "@/shared/components/ui/Button";
 import { changeCategory } from "@/feature/suite/store/suiteSlice";
 
 export const SuiteHeader = () => {

@@ -1,6 +1,8 @@
 import type { ComponentProps } from "react";
 import { Checkbox, Label, Row, TD } from "@/shared";
 import type { ShippingRow } from "@/feature/shipping";
+import { formatCurrency } from "@/feature/suite";
+import { ShowIcon } from "@/assets";
 
 interface TableDataRowProps extends ComponentProps<"div"> {
   item: ShippingRow;
@@ -48,14 +50,17 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           dataCell="Charge"
         >
           <span className="flex-center justify-center w-full">
-            {item.charge}
+            {formatCurrency(+item.charge)}
           </span>
         </TD>
         <TD
           className="flex items-center text-current flex-1 md:justify-center"
           dataCell="Action"
         >
-          <span className="flex-center justify-center w-full ">view</span>
+          <span className="flex-center gap-1.5 justify-center w-full ">
+            view
+            <ShowIcon className="size-4 stroke-st-primary" />
+          </span>
         </TD>
       </Row>
     </>
