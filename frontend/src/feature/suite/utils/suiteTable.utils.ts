@@ -62,7 +62,7 @@ export const createRowActions = (dispatch: AppDispatch) => ({
   },
 
   resolveRowAction: (rowId: string, category: string) => {
-    if (category === "Action Required") {
+    if (category === "action required") {
       dispatch(openModal(rowId));
     } else {
       dispatch(rowExpanded(rowId));
