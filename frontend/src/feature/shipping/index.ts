@@ -6,14 +6,19 @@ export type {
   ShippingRow,
   ShippingState,
   ShippingResponse,
+  SearchFilterProps,
 } from "@/feature/shipping/types/types";
 // utils
 export {
   rangeLabel,
   formatDate,
-  getRangeFromPreset,
+  getTimeFromISO,
   activePresetLabel,
+  getRangeFromPreset,
+  checkInDateFilterRange,
 } from "@/feature/shipping/utils/datePicker";
+// hooks
+export { useSearchFilter } from "@/feature/shipping/hooks/useSearchFilter";
 // constants
 export { PRESETS } from "@/feature/shipping/constants/date";
 export { SHIPPING_COLUMNS } from "@/feature/shipping/constants/column";

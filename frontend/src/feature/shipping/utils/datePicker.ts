@@ -1,9 +1,6 @@
 import { PRESETS } from "@/feature/shipping/index";
 import type { DatePreset, DateRange } from "@/feature/shipping/index";
 
-// Turns a preset like "30d" into an actual from/to ISO range.
-// Keeping this logic here (not in the component) means the component
-// never has to know *how* "last 30 days" is calculated.
 const getRangeFromPreset = (preset: DatePreset): DateRange => {
   if (!preset || preset === "custom") return { from: null, to: null };
 
@@ -27,7 +24,7 @@ const getRangeFromPreset = (preset: DatePreset): DateRange => {
 
   return { from: from.toISOString(), to: to.toISOString() };
 };
-// change date format
+
 const formatDate = (iso: string | null) => {
   if (!iso) return "";
   return new Date(iso).toLocaleDateString("en-US", {
@@ -36,16 +33,41 @@ const formatDate = (iso: string | null) => {
     year: "numeric",
   });
 };
-// set correct value to show in label
+
 const activePresetLabel = (dateFilter: {
   preset: DatePreset;
   range: DateRange;
 }) => PRESETS.find((p) => p.value === dateFilter.preset)?.label ?? "Select";
 
-// set correct value to show in range
-const rangeLabel = (dateFilter: { preset: DatePreset; range: DateRange }) =>
-  dateFilter.range.from && dateFilter.range.to
+const rangeLabel = (dateFilter: { preset: DatePreset; range: DateRange }) => {
+  return dateFilter.range.from && dateFilter.range.to
     ? `${formatDate(dateFilter.range.from)} - ${formatDate(dateFilter.range.to)}`
     : "No range selected";
+};
 
-export { getRangeFromPreset, formatDate, activePresetLabel, rangeLabel };
+const getTimeFromISO = (date: string) => new Date(date).getTime();
+
+const checkInDateFilterRange = ({
+  dateFilterRange,
+  date,
+}: {
+  dateFilterRange: DateRange;
+  date: string;
+}) => {
+  if (!dateFilterRange.from || !dateFilterRange.to) return;
+
+  const time = getTimeFromISO(date);
+  const from = getTimeFromISO(dateFilterRange.from);
+  const to = getTimeFromISO(dateFilterRange.to);
+
+  return time >= from && time < to;
+};
+
+export {
+  formatDate,
+  rangeLabel,
+  getTimeFromISO,
+  activePresetLabel,
+  getRangeFromPreset,
+  checkInDateFilterRange,
+};

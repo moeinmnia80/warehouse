@@ -36,6 +36,16 @@ export interface ShippingRow {
   };
   packages: TableRow[];
 }
+// hooks
+export interface SearchFilterProps {
+  data: ShippingRow[] | undefined;
+  search: string;
+  dateFilter: {
+    preset: DatePreset;
+    range: DateRange;
+  };
+}
+// services
 export interface ShippingResponse {
   status: "success" | "fail";
   message: string;

@@ -12,8 +12,8 @@ const initialState: ShippingState = {
   search: "",
   sort: { key: null, type: "asc" },
   dateFilter: {
-    preset: "30d",
-    range: getRangeFromPreset("30d"),
+    preset: null,
+    range: getRangeFromPreset(null),
   },
 };
 

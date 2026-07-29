@@ -1,4 +1,4 @@
-import type { TableEmptyProps } from "@/shared";
+import { cn, type TableEmptyProps } from "@/shared";
 
 export const TableEmpty = ({
   title = "No data yet",
@@ -9,7 +9,10 @@ export const TableEmpty = ({
 }: TableEmptyProps) => {
   return (
     <div
-      className={`flex-center flex-col gap-3 h-42 text-center text-tx-primary border border-bo-primary rounded-xl md:rounded-t-none ${className}`}
+      className={cn(
+        "flex-center flex-col gap-3 h-42 text-center text-tx-primary border border-bo-primary rounded-xl md:rounded-t-none",
+        className,
+      )}
     >
       {icon && <div className="text-tx-secondary">{icon}</div>}
       <div className="flex flex-col gap-1">

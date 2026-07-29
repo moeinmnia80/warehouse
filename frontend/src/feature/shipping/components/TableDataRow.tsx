@@ -13,7 +13,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
 
   return (
     <>
-      <Row className="flex flex-col md:flex-center md:flex-row min-h-18 text-sm rounded-xl overflow-hidden text-tx-primary border border-bo-primary md:rounded-t-none md:border-t-0 md:last:rounded-b-xl md:*:py-4 md:*:px-2">
+      <Row className="overflow-hidden flex flex-col md:flex-center md:flex-row min-h-18 text-sm text-tx-primary border border-bo-primary rounded-xl md:rounded-b-none    md:rounded-t-none md:border-t-0 md:last:rounded-b-xl md:*:py-4 md:*:px-2 mb-4 last:mb-0 md:mb-0 animate-fade-in">
         <TD className="hidden md:flex items-center justify-center min-w-10">
           <Label>
             <Checkbox accentClass="stroke-st-primary" />
