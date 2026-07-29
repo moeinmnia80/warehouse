@@ -1,6 +1,10 @@
+import { Link } from "react-router";
+import { useAppDispatch } from "@/store/redux/store";
 import { ShippingInfoItem } from "@/feature/shipping/index";
+import { changeCategory } from "@/feature/suite/store/suiteSlice";
 
 export const ShippingInfo = () => {
+  const dispatch = useAppDispatch();
   return (
     <div className="flex flex-col gap-4 h-fit text-tx-primary  **:text-sm animate-slide-down">
       <ShippingInfoItem className="flex items-center gap-3 w-full bg-b-primary border border-bo-primary rounded-xl p-5  font-medium animate-fade-in">
@@ -8,9 +12,13 @@ export const ShippingInfo = () => {
           View your completed shipments, transactions and orders here. Ship
           requests still in process can be found in your
         </span>
-        <span className="w-fit h-fit text-blue-600 underline ml-0.5">
+        <Link
+          to={"/dashboard/my-suite"}
+          onClick={() => dispatch(changeCategory("ready to send"))}
+          className="w-fit h-fit text-blue-600 underline ml-0.5"
+        >
           Queue
-        </span>
+        </Link>
         .
       </ShippingInfoItem>
       <ShippingInfoItem className="flex items-center gap-3 w-full bg-b-primary border border-bo-primary rounded-xl p-5 font-medium animate-fade-in">

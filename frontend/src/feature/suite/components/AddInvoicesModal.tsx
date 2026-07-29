@@ -1,8 +1,11 @@
 import { useRef, useState } from "react";
-import { toast } from "@/store/toast.store";
-import { calculateFileSize } from "@/shared";
-import { PdfIcon, TrashIcon, UploadIcon } from "@/assets/index";
-import { useSuiteUpload, type AddInvoiceModalProps } from "@/feature/suite";
+import { UploadIcon } from "@/assets/index";
+import {
+  FilePreview,
+  InvoiceFile,
+  useSuiteUpload,
+  type AddInvoiceModalProps,
+} from "@/feature/suite";
 
 const MAX_FILES = 3;
 
@@ -13,12 +16,9 @@ export const AddInvoicesModal = ({
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
+
   const { upload, isUploading } = useSuiteUpload();
 
-  /**
-   * Adds newly selected files to state, enforcing the MAX_FILES limit
-   * against the *combined* total (existing + incoming), not just existing.
-   */
   const addFiles = (incoming: FileList | null) => {
     if (!incoming || incoming.length === 0) return;
 
@@ -45,7 +45,6 @@ export const AddInvoicesModal = ({
     addFiles(event.dataTransfer.files);
   };
 
-  /** Opens the hidden file input via the visible button. */
   const triggerFileInputClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     inputRef.current?.click();
@@ -55,7 +54,7 @@ export const AddInvoicesModal = ({
     setFiles((prev) => prev.filter((f) => f.name !== name));
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (files.length === 0 || !packageId) return;
 
@@ -64,17 +63,11 @@ export const AddInvoicesModal = ({
     const formData = new FormData();
     files.forEach((file) => formData.append("packagePdf", file));
 
-    const res = await upload({
+    await upload({
       credentials: formData,
       type: "pdf",
       id: packageId,
     });
-
-    if (res.success) {
-      toast.success("The file was successfully uploaded");
-    } else {
-      toast.error("Upload failed");
-    }
   };
 
   return (
@@ -86,7 +79,6 @@ export const AddInvoicesModal = ({
       >
         <input
           type="file"
-          title="file"
           ref={inputRef}
           accept=".pdf"
           onChange={handleFileInputChange}
@@ -96,51 +88,27 @@ export const AddInvoicesModal = ({
 
         <div className="flex gap-2">
           {pkg?.invoices.map((invoice) => (
-            <div
-              key={invoice.name}
-              className="flex-center flex-col size-30 p-2 border border-bo-primary rounded-lg text-tx-primary text-xs text-center"
-            >
-              {invoice.name}
-              <span className="text-tx-secondary">
-                {calculateFileSize(invoice.size)}
-              </span>
+            <div className="relative flex size-30 text-tx-primary text-xs text-center border border-bo-primary rounded-lg">
+              <FilePreview item={invoice} packageId={pkg.packageId} />
             </div>
           ))}
 
           {files.map((file) => (
-            <div
-              key={file.name}
-              className="relative flex-center flex-col size-30 bg-b-secondary border border-bo-primary rounded-lg overflow-hidden p-2 animate-fade-in text-tx-secondary text-xs"
-            >
-              <span
-                onClick={() => removeFile(file.name)}
-                className="absolute right-2 top-2 flex-center size-6 text-error bg-error-50 rounded-full cursor-pointer"
-              >
-                <TrashIcon className="size-4 stroke-error" />
-              </span>
-
-              <PdfIcon className="size-10 stroke-st-primary" />
-              <span className="line-clamp-2">{file.name}</span>
-              <span className="line-clamp-2">
-                {calculateFileSize(file.size)}
-              </span>
-            </div>
+            <InvoiceFile file={file} removeFile={removeFile} />
           ))}
 
           <button
             type="submit"
             disabled={!files.length}
-            className="flex-center flex-col size-30 bg-b-secondary border border-bo-primary rounded-lg disabled:opacity-50 disabled:cursor-default"
+            className="flex-center flex-col size-30 bg-b-primary border border-bo-primary rounded-lg disabled:opacity-50 disabled:cursor-default hover:bg-b-secondary transition duration-200"
           >
             <UploadIcon className="size-10 stroke-st-primary" />
-            <span className="text-tx-primary text-xl">
+            <span className="text-tx-primary text-sm uppercase">
               {isUploading ? "Uploading" : "Upload"}
             </span>
           </button>
         </div>
-
         {error && <span className="text-error bg-error-50">{error}</span>}
-
         <span className="text-sm text-tx-secondary">
           You can drag/drop files
         </span>
@@ -148,7 +116,7 @@ export const AddInvoicesModal = ({
 
       <div className="p-5 border-t border-bo-primary">
         <button
-          className="btn max-w-full bg-tx-primary text-b-primary rounded-lg"
+          className="btn max-w-full bg-tx-primary text-b-primary rounded-lg hover:opacity-30 transition duration-200 delay-75"
           onClick={triggerFileInputClick}
         >
           Add Invoice

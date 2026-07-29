@@ -47,6 +47,7 @@ export { SUITE_TABLE_HEADER_COLUMNS } from "@/feature/suite/constants/suiteTable
 export { MySuite } from "@/feature/suite/components/MySuite";
 export { TableSkeleton } from "@/shared/components/TableSkeleton";
 export { MySuiteTab } from "@/feature/suite/components/MySuiteTab";
+export { InvoiceFile } from "@/feature/suite/components/InvoiceFile";
 export { FilePreview } from "@/feature/suite/components/FilePreview";
 export { MySuiteTable } from "@/feature/suite/components/MySuiteTable";
 export { InvoiceModal } from "@/feature/suite/components/InvoiceModal";

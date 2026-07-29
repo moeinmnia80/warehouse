@@ -27,7 +27,13 @@ export interface ExpandedRowPackageItemProps {
 export interface FilePreviewProps {
   packageId: string;
   className?: string;
-  item: { id: string; name: string; size: number; url?: string; type?: string };
+  item: {
+    id?: string;
+    name: string;
+    size: number;
+    url?: string;
+    type?: string;
+  };
 }
 
 export type CategoryType =
