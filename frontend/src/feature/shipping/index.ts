@@ -37,6 +37,11 @@ export { ShippingInfo } from "@/feature/shipping/components/ShippingInfo";
 export { ShippingTable } from "@/feature/shipping/components/ShippingTable";
 export { TableHeaderRow } from "@/feature/shipping/components/TableHeaderRow";
 export { DateRangeFilter } from "@/feature/shipping/components/DateRangeFilter";
+export { ShippingAddress } from "@/feature/shipping/components/ShippingAddress";
 export { ShippingInfoItem } from "@/feature/shipping/components/ShippingInfoItem";
+export { ShippingRequestInfo } from "@/feature/shipping/components/ShippingRequestInfo";
+export { ShippingPaymentMethod } from "@/feature/shipping/components/ShippingPaymentMethod";
+export { ShippingRequestsTable } from "@/feature/shipping/components/ShippingRequestsTable";
+export { ShippingRequestSidebar } from "@/feature/shipping/components/ShippingRequestSidebar";
 // api
 export { useGetShippingQuery } from "@/feature/shipping/services/shippingApi";

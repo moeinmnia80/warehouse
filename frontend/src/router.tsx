@@ -12,6 +12,9 @@ const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
 const ShippingHistory = lazy(
   () => import("@/feature/shipping/components/ShippingHistory"),
 );
+const ShippingRequest = lazy(
+  () => import("@/feature/shipping/components/ShippingRequest"),
+);
 
 const routes = [
   { path: "/", element: <Navigate to="/login" replace /> },
@@ -28,7 +31,11 @@ const routes = [
         children: [
           { index: true, element: <Navigate to="my-suite" replace /> },
           { path: "my-suite", element: <MySuite /> },
-          { path: "shipping", element: <ShippingHistory /> },
+          {
+            path: "shipping",
+            element: <ShippingHistory />,
+          },
+          { path: "shipping-request", element: <ShippingRequest /> },
         ],
       },
     ],
