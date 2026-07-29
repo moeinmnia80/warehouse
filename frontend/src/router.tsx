@@ -1,7 +1,7 @@
 import { lazy } from "react";
 import { MySuite } from "@/feature/suite/index";
+import { Navigate, useRoutes } from "react-router";
 import { ProtectRoutes } from "@/feature/auth/index";
-import { Navigate, Route, Routes } from "react-router";
 
 const NotFoundPage = lazy(() => import("@/pages/404"));
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
@@ -13,24 +13,31 @@ const ShippingHistory = lazy(
   () => import("@/feature/shipping/components/ShippingHistory"),
 );
 
+const routes = [
+  { path: "/", element: <Navigate to="/login" replace /> },
+  { path: "login", element: <LoginPage /> },
+  { path: "register", element: <RegisterPage /> },
+  { path: "forget-password", element: <ForgetPasswordPage /> },
+  { path: "reset-password", element: <ResetPasswordPage /> },
+  {
+    element: <ProtectRoutes />,
+    children: [
+      {
+        path: "dashboard",
+        element: <DashboardPage />,
+        children: [
+          { index: true, element: <Navigate to="my-suite" replace /> },
+          { path: "my-suite", element: <MySuite /> },
+          { path: "shipping", element: <ShippingHistory /> },
+        ],
+      },
+    ],
+  },
+  { path: "*", element: <NotFoundPage /> },
+];
+
 function RouterWrapper() {
-  return (
-    <Routes>
-      <Route path="/" element={<Navigate to="/login" replace />} />
-      <Route path="login" element={<LoginPage />} />
-      <Route path="register" element={<RegisterPage />} />
-      <Route path="forget-password" element={<ForgetPasswordPage />} />
-      <Route path="reset-password" element={<ResetPasswordPage />} />
-      <Route element={<ProtectRoutes />}>
-        <Route path="dashboard" element={<DashboardPage />}>
-          <Route index element={<Navigate to="my-suite" replace />} />
-          <Route path="my-suite" element={<MySuite />} />
-          <Route path="shipping" element={<ShippingHistory />} />
-        </Route>
-      </Route>
-      <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-  );
+  return useRoutes(routes);
 }
 
 export default RouterWrapper;
