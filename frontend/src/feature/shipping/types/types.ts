@@ -1,5 +1,5 @@
 import type { TableRow } from "@/shared";
-
+// store
 export type DatePreset = "30d" | "60d" | "90d" | "1y" | "custom" | null;
 export interface DateRange {
   from: string | null; // ISO string, e.g. "2026-06-08T10:00:00.000Z"
@@ -35,6 +35,12 @@ export interface ShippingRow {
     delivered_at: string | null;
   };
   packages: TableRow[];
+}
+// comp
+export interface OptionItem {
+  id: string;
+  label: string;
+  price?: number;
 }
 // hooks
 export interface SearchFilterProps {

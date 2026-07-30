@@ -61,6 +61,7 @@ export {
   Email,
   Input,
   Label,
+  Radio,
   Caption,
   FormItem,
   Checkbox,
