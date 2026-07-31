@@ -1,11 +1,12 @@
 import { Button } from "@/shared/index";
+import { useNavigate } from "react-router";
 import { useAppSelector } from "@/store/redux/store";
 import {
-  calculateSuiteSummary,
-  formatCurrency,
   formatWeight,
+  formatCurrency,
   SUITE_CATEGORY,
   useGetSuiteQuery,
+  calculateSuiteSummary,
 } from "@/feature/suite";
 import {
   BookIcon,
@@ -22,8 +23,13 @@ export const MySuiteSideBar = () => {
       ),
     }),
   });
-
   const category = useAppSelector((state) => state.suite.category);
+
+  const navigate = useNavigate();
+
+  const createShipRequest = () => {
+    navigate("/dashboard/shipping-request");
+  };
 
   return (
     <div className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 xl:max-w-100 xl:grid-cols-1 border border-bo-primary shadow-2xs">
@@ -83,7 +89,10 @@ export const MySuiteSideBar = () => {
             </div>
           </div>
           <div className="p-5 flex flex-col gap-4">
-            <Button className="btn btn--primary font-bold">
+            <Button
+              onClick={createShipRequest}
+              className="btn btn--primary font-bold"
+            >
               <DeliveryIcon className="size-5 stroke-b-primary mr-2" />
               Create Ship Request
             </Button>
