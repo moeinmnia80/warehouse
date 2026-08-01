@@ -52,19 +52,25 @@ DB_EXPIRED_KEY=7d
 
 Create a `.env` file in the root directory fronend:
 or you can set in vite.config,js
+
 ```env
 VITE_API_URL="http://localhost:3000"
 ```
 
 ### Running the App
+
 frontend
+
 ```bash
 npm run dev
 ```
+
 backend
+
 ```bash
 npm run server
 ```
+
 The app will be available at `http://localhost:3000`.
 
 ## Project Structure
