@@ -52,24 +52,30 @@ DB_EXPIRED_KEY=7d
 
 Create a `.env` file in the root directory fronend:
 or you can set in vite.config,js
+
 ```env
 VITE_API_URL="http://localhost:3000"
 ```
 
 ### Running the App
+
 frontend
+
 ```bash
 npm run dev
 ```
+
 backend
+
 ```bash
 npm run server
 ```
+
 The app will be available at `http://localhost:3000`.
 
 ## Project Structure
 
-```
+```text
 Project - warehouse - Markist/
 ├── src/
 │   ├── feature/
@@ -117,5 +123,3 @@ For questions or support, please open an issue in this repository.
 
 [![loginPage](https://github.com/user-attachments/assets/d0086f22-ad2d-47bb-a653-be0e1c235a89)](https://github.com/user-attachments/assets/d0086f22-ad2d-47bb-a653-be0e1c235a89)
 [![suitePage](https://github.com/user-attachments/assets/4c9ff890-4db5-4804-9959-1fc8d34ffa7a)](https://github.com/user-attachments/assets/4c9ff890-4db5-4804-9959-1fc8d34ffa7a)
-
-
