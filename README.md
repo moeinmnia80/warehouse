@@ -115,6 +115,7 @@ For questions or support, please open an issue in this repository.
 
 ## Picture
 
-<img width="2561" height="1341" alt="loginPage" src="https://github.com/user-attachments/assets/d0086f22-ad2d-47bb-a653-be0e1c235a89" />
-<img width="2561" height="2127" alt="suitePage" src="https://github.com/user-attachments/assets/4c9ff890-4db5-4804-9959-1fc8d34ffa7a" />
+[![loginPage](https://github.com/user-attachments/assets/d0086f22-ad2d-47bb-a653-be0e1c235a89)](https://github.com/user-attachments/assets/d0086f22-ad2d-47bb-a653-be0e1c235a89)
+[![suitePage](https://github.com/user-attachments/assets/4c9ff890-4db5-4804-9959-1fc8d34ffa7a)](https://github.com/user-attachments/assets/4c9ff890-4db5-4804-9959-1fc8d34ffa7a)
+
 
