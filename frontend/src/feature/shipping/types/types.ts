@@ -1,4 +1,5 @@
 import type { TableRow } from "@/shared";
+import type { ComponentProps } from "react";
 // store
 export type DatePreset = "30d" | "60d" | "90d" | "1y" | "custom" | null;
 export interface DateRange {
@@ -41,6 +42,27 @@ export interface OptionItem {
   id: string;
   label: string;
   price?: number;
+}
+
+export type BrandCardType = "visa" | "mastercard";
+export interface PaymentMethods {
+  id: string;
+  brand: BrandCardType;
+  last4: string;
+  expiry: string;
+  isDefault: boolean;
+}
+export interface EntryHeaderProps extends ComponentProps<"div"> {
+  data: {
+    id: string;
+    isDefault: boolean;
+    brand?: BrandCardType;
+  };
+  title: string;
+}
+export interface InfoRowProps extends ComponentProps<"p"> {
+  label?: string;
+  value: string;
 }
 // hooks
 export interface SearchFilterProps {

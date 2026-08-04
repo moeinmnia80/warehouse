@@ -5,9 +5,13 @@ export type {
   DatePreset,
   OptionItem,
   ShippingRow,
+  InfoRowProps,
+  BrandCardType,
   ShippingState,
+  PaymentMethods,
   ShippingResponse,
   SearchFilterProps,
+  EntryHeaderProps,
 } from "@/feature/shipping/types/types";
 // utils
 export {
@@ -29,6 +33,8 @@ export {
   PACKING_OPTIONS,
   SHIPPING_METHODS,
   SHIPPING_PREFERENCES,
+  MOCK_PAYMENT_METHODS,
+  MOCK_SHIPPING_ADDRESSES,
 } from "@/feature/shipping/constants/shippingRequest";
 // store
 export {
@@ -57,5 +63,11 @@ export { ShippingRequestsTable } from "@/feature/shipping/components/ShippingReq
 export { ShippingRequestSidebar } from "@/feature/shipping/components/ShippingRequestSidebar";
 export { ShippingRequestTableDataRow } from "@/feature/shipping/components/ShippingRequestTableDataRow";
 export { ShippingRequestTableHeaderRow } from "@/feature/shipping/components/ShippingRequestTableHeaderRow";
+export {
+  InfoRow,
+  EntryCard,
+  IconButton,
+  EntryHeader,
+} from "@/feature/shipping/components/ShippingRequestInfoCard";
 // api
 export { useGetShippingQuery } from "@/feature/shipping/services/shippingApi";
