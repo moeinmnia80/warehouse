@@ -8,18 +8,21 @@ import {
   type ComponentProps,
 } from "react";
 
+interface SelectOption {
+  id: string | number;
+  label: string;
+  value?: string | number;
+}
 interface SelectContextProps {
   isOpen: boolean;
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedValue: string | number | null;
-  setSelectedValue: React.Dispatch<
-    React.SetStateAction<string | number | null>
-  >;
-  defaultValue: string | number;
+  selectedValue: SelectOption;
+  setSelectedValue: React.Dispatch<React.SetStateAction<SelectOption>>;
+  defaultValue: SelectOption;
 }
 
 interface SelectProps extends Omit<ComponentProps<"div">, "defaultValue"> {
-  defaultValue: string | number;
+  defaultValue: SelectOption;
 }
 
 const SelectContext = createContext({} as SelectContextProps);
@@ -27,11 +30,11 @@ const SelectContext = createContext({} as SelectContextProps);
 export const Select = ({
   children,
   className,
-  defaultValue = "select",
+  defaultValue = { id: "1", label: "Select" },
   ...props
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(defaultValue || null);
+  const [selectedValue, setSelectedValue] = useState(defaultValue);
 
   const domeNodeRef = useRef<HTMLDivElement | null>(null);
 
@@ -80,7 +83,12 @@ export const SelectButton = ({
       className={cn("cursor-pointer", className)}
       {...props}
     >
-      <span className="animate-fade-in">{selectedValue}</span>
+      <div className="flex justify-between w-full mr-2 animate-fade-in">
+        <span className="uppercase">{selectedValue!.label}</span>
+        <span className={selectedValue?.value ? "opacity-50" : "hidden"}>
+          {selectedValue?.value}
+        </span>
+      </div>
       <div className="flex items-center gap-2">
         <button
           type="button"
@@ -126,29 +134,32 @@ export const SelectContent = ({
 };
 
 interface SelectItemsProps extends Omit<ComponentProps<"li">, "onClick"> {
-  onClick?: (value: string | number) => void;
+  onClick?: (value: SelectOption) => void;
+  option: SelectOption;
 }
 
 export const SelectItems = ({
   onClick,
-  children,
+  option,
   ...props
 }: SelectItemsProps) => {
-  const { setSelectedValue, setIsOpen } = useContext(SelectContext);
+  const { selectedValue, setSelectedValue, setIsOpen } =
+    useContext(SelectContext);
 
-  const selectOptionClickHandler = (
-    e: React.MouseEvent<HTMLLIElement, MouseEvent>,
-  ) => {
-    const value = (e.target as HTMLLIElement).value;
+  const isNewOption = (option: SelectOption) => selectedValue.id !== option.id;
 
-    setSelectedValue(value);
-    setIsOpen((prev) => !prev);
+  const selectOptionClickHandler = () => {
+    onClick?.(option);
 
-    onClick?.(value);
+    if (isNewOption(option)) {
+      setSelectedValue(option);
+      setIsOpen(false);
+    }
   };
   return (
     <li onClick={selectOptionClickHandler} {...props}>
-      {children}
+      <span>{option.label}</span>
+      <span className="opacity-50">{option.value}</span>
     </li>
   );
 };
