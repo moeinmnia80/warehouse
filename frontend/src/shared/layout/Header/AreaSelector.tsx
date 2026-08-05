@@ -13,7 +13,7 @@ import {
 export const AreaSelector = () => {
   const setArea = useAreaStore((state) => state.setArea);
   const selectedArea = useAreaStore((state) => state.selectedArea);
-  const isShow = useInPath("/dashboard");
+  const isShow = useInPath("dashboard");
   return (
     <Dropdown
       className={`hidden w-fit min-w-22 h-11 xl:flex items-center justify-center text-tx-primary rounded-full bg-b-primary border border-bo-primary`}
