@@ -1,4 +1,7 @@
-import type { PaymentMethods } from "@/feature/shipping";
+import type {
+  PaymentMethodsType,
+  ShippingAddressType,
+} from "@/feature/shipping";
 
 export const SHIPPING_METHODS = [
   { id: "dhl-express", label: "DHL Express", price: 59.14 },
@@ -26,27 +29,36 @@ export const FIELD_NAMES = {
   exportDocumentation: "exportDocumentation",
 };
 
-export const MOCK_PAYMENT_METHODS: PaymentMethods[] = [
+export const MOCK_PAYMENT_METHODS: PaymentMethodsType[] = [
   {
     id: "pm_1",
     brand: "visa",
-    last4: "1234",
+    last4: "3532",
     expiry: "06/2027",
     isDefault: true,
   },
   {
     id: "pm_2",
     brand: "mastercard",
-    last4: "1234",
-    expiry: "06/2027",
+    last4: "4934",
+    expiry: "	2028/8",
     isDefault: false,
   },
 ];
 
-export const MOCK_SHIPPING_ADDRESSES = {
-  id: "addr_1",
-  name: "Robert Fox",
-  address: "Alex Lokien Kaya Ser'i Katki 12A Willemstad Curacao",
-  phone: "+1 (941) 538-6941",
-  isDefault: true,
-};
+export const MOCK_SHIPPING_ADDRESSES: ShippingAddressType[] = [
+  {
+    id: "addr_1",
+    name: "Mr. Juvenal Little",
+    address: "Overland Park, 	Kansas, 6920 W 105th St",
+    phone: "+1 (941) 538-6941",
+    isDefault: true,
+  },
+  {
+    id: "addr_2",
+    name: "Giuseppe Batz V",
+    address: "Saltillo, Mississippi, 104 Desert Cv",
+    phone: "+1 (662) 869-1611",
+    isDefault: false,
+  },
+];

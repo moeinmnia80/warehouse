@@ -8,10 +8,11 @@ export type {
   InfoRowProps,
   BrandCardType,
   ShippingState,
-  PaymentMethods,
+  EntryHeaderProps,
   ShippingResponse,
   SearchFilterProps,
-  EntryHeaderProps,
+  PaymentMethodsType,
+  ShippingAddressType,
 } from "@/feature/shipping/types/types";
 // utils
 export {

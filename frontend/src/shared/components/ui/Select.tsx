@@ -8,17 +8,17 @@ import {
   type ComponentProps,
 } from "react";
 
-interface SelectOption {
+export interface SelectOption {
   id: string | number;
   label: string;
   value?: string | number;
 }
 interface SelectContextProps {
   isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  selectedValue: SelectOption;
-  setSelectedValue: React.Dispatch<React.SetStateAction<SelectOption>>;
   defaultValue: SelectOption;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  selected: SelectOption;
+  setSelected: React.Dispatch<React.SetStateAction<SelectOption>>;
 }
 
 interface SelectProps extends Omit<ComponentProps<"div">, "defaultValue"> {
@@ -30,11 +30,11 @@ const SelectContext = createContext({} as SelectContextProps);
 export const Select = ({
   children,
   className,
-  defaultValue = { id: "1", label: "Select" },
+  defaultValue,
   ...props
 }: SelectProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState(defaultValue);
+  const [selected, setSelected] = useState(defaultValue);
 
   const domeNodeRef = useRef<HTMLDivElement | null>(null);
 
@@ -45,8 +45,8 @@ export const Select = ({
       value={{
         isOpen,
         setIsOpen,
-        selectedValue,
-        setSelectedValue,
+        selected,
+        setSelected,
         defaultValue,
       }}
     >
@@ -57,12 +57,19 @@ export const Select = ({
   );
 };
 
+interface SelectButtonProps extends Omit<ComponentProps<"div">, "onReset"> {
+  onReset?: () => void;
+  maxCharShow?: string;
+}
+
 export const SelectButton = ({
   onClick,
+  onReset,
   className,
+  maxCharShow = "max-w-45",
   ...props
-}: ComponentProps<"div">) => {
-  const { isOpen, setIsOpen, selectedValue, setSelectedValue, defaultValue } =
+}: SelectButtonProps) => {
+  const { isOpen, setIsOpen, selected, setSelected, defaultValue } =
     useContext(SelectContext);
 
   const openSelectMenu = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
@@ -74,19 +81,24 @@ export const SelectButton = ({
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>,
   ) => {
     e.stopPropagation();
-    setSelectedValue(defaultValue);
+    onReset?.();
+    setSelected(defaultValue);
   };
 
   return (
     <div
       onClick={openSelectMenu}
-      className={cn("cursor-pointer", className)}
+      className={cn("cursor-pointer gap-2", className)}
       {...props}
     >
-      <div className="flex justify-between w-full mr-2 animate-fade-in">
-        <span className="uppercase">{selectedValue!.label}</span>
-        <span className={selectedValue?.value ? "opacity-50" : "hidden"}>
-          {selectedValue?.value}
+      <div className="flex justify-between w-full animate-fade-in">
+        <span
+          className={`uppercase overflow-hidden text-ellipsis whitespace-nowrap ${maxCharShow}`}
+        >
+          {selected!.label}
+        </span>
+        <span className={selected?.value ? "opacity-50" : "hidden"}>
+          {selected?.value}
         </span>
       </div>
       <div className="flex items-center gap-2">
@@ -96,7 +108,7 @@ export const SelectButton = ({
           className={cn(
             "transition duration-200 delay-75",
             `${
-              selectedValue !== defaultValue
+              selected.id !== defaultValue.id
                 ? "block opacity-30 hover:opacity-50"
                 : "hidden"
             }`,
@@ -141,25 +153,24 @@ interface SelectItemsProps extends Omit<ComponentProps<"li">, "onClick"> {
 export const SelectItems = ({
   onClick,
   option,
+  children,
   ...props
 }: SelectItemsProps) => {
-  const { selectedValue, setSelectedValue, setIsOpen } =
-    useContext(SelectContext);
+  const { selected, setSelected, setIsOpen } = useContext(SelectContext);
 
-  const isNewOption = (option: SelectOption) => selectedValue.id !== option.id;
+  const isNewOption = (option: SelectOption) => selected.id !== option.id;
 
   const selectOptionClickHandler = () => {
     onClick?.(option);
 
     if (isNewOption(option)) {
-      setSelectedValue(option);
+      setSelected(option);
       setIsOpen(false);
     }
   };
   return (
     <li onClick={selectOptionClickHandler} {...props}>
-      <span>{option.label}</span>
-      <span className="opacity-50">{option.value}</span>
+      {children}
     </li>
   );
 };
