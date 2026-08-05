@@ -45,11 +45,18 @@ export interface OptionItem {
 }
 
 export type BrandCardType = "visa" | "mastercard";
-export interface PaymentMethods {
+export interface PaymentMethodsType {
   id: string;
   brand: BrandCardType;
   last4: string;
   expiry: string;
+  isDefault: boolean;
+}
+export interface ShippingAddressType {
+  id: string;
+  name: string;
+  address: string;
+  phone: string;
   isDefault: boolean;
 }
 export interface EntryHeaderProps extends ComponentProps<"div"> {

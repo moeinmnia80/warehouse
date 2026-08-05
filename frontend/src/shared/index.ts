@@ -90,6 +90,7 @@ export {
   SelectItems,
   SelectButton,
   SelectContent,
+  type SelectOption,
 } from "@/shared/components/ui/Select";
 export {
   Dropdown,
