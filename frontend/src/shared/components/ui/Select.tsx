@@ -36,9 +36,9 @@ export const Select = ({
   const [isOpen, setIsOpen] = useState(false);
   const [selected, setSelected] = useState(defaultValue);
 
-  const domeNodeRef = useRef<HTMLDivElement | null>(null);
+  const domNode = useRef<HTMLDivElement | null>(null);
 
-  useClickOutside({ dropdownRef: domeNodeRef, setState: setIsOpen });
+  useClickOutside({ domNode, setState: setIsOpen });
 
   return (
     <SelectContext
@@ -50,7 +50,7 @@ export const Select = ({
         defaultValue,
       }}
     >
-      <div ref={domeNodeRef} className={cn("relative", className)} {...props}>
+      <div ref={domNode} className={cn("relative", className)} {...props}>
         {children}
       </div>
     </SelectContext>
