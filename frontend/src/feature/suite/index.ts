@@ -53,7 +53,7 @@ export { MySuiteTable } from "@/feature/suite/components/MySuiteTable";
 export { InvoiceModal } from "@/feature/suite/components/InvoiceModal";
 export { TableDataRow } from "@/feature/suite/components/TableDataRow";
 export { DropzoneImage } from "@/feature/suite/components/DropzoneImage";
-export { MySuiteSideBar } from "@/feature/suite/components/MySuiteSideBar";
+export { MySuiteSidebar } from "@/feature/suite/components/MySuiteSidebar";
 export { TableHeaderRow } from "@/feature/suite/components/TableHeaderRow";
 export { AddInvoicesModal } from "@/feature/suite/components/AddInvoicesModal";
 export { DropzoneDocument } from "@/feature/suite/components/DropzoneDocument";
