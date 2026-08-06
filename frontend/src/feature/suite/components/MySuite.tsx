@@ -1,7 +1,7 @@
 import {
   MySuiteTab,
   MySuiteTable,
-  MySuiteSideBar,
+  MySuiteSidebar,
 } from "@/feature/suite/index";
 
 export const MySuite = () => {
@@ -11,7 +11,7 @@ export const MySuite = () => {
         <MySuiteTab />
         <MySuiteTable />
       </div>
-      <MySuiteSideBar />
+      <MySuiteSidebar />
     </div>
   );
 };
