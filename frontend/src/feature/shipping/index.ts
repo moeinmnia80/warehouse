@@ -13,6 +13,8 @@ export type {
   SearchFilterProps,
   PaymentMethodsType,
   ShippingAddressType,
+  UserPaymentResponse,
+  PaymentMethodsPayload,
 } from "@/feature/shipping/types/types";
 // utils
 export {
@@ -34,8 +36,8 @@ export {
   PACKING_OPTIONS,
   SHIPPING_METHODS,
   SHIPPING_PREFERENCES,
-  MOCK_PAYMENT_METHODS,
-  MOCK_SHIPPING_ADDRESSES,
+  DEFAULT_PAYMENT_METHOD,
+  DEFAULT_SHIPPING_ADDRESSES,
 } from "@/feature/shipping/constants/shippingRequest";
 // store
 export {
@@ -71,4 +73,8 @@ export {
   EntryHeader,
 } from "@/feature/shipping/components/ShippingRequestInfoCard";
 // api
-export { useGetShippingQuery } from "@/feature/shipping/services/shippingApi";
+export {
+  useGetShippingQuery,
+  useGetUserAddressQuery,
+  useGetUserPaymentMethodsQuery,
+} from "@/feature/shipping/services/shippingApi";

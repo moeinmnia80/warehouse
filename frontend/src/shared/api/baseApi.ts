@@ -20,8 +20,10 @@ export const baseApi = createApi({
     "Suite",
     "Package",
     "Shipping",
+    "UserAddress",
     "PackageDocs",
     "PackageImages",
+    "PaymentMethods",
   ],
   endpoints: () => ({}),
 });

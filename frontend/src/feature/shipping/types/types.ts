@@ -86,3 +86,35 @@ export interface ShippingResponse {
   message: string;
   data: ShippingRow[];
 }
+export interface PaymentMethodsPayload {
+  id: string;
+  brand: BrandCardType;
+  cardNumber: string;
+  last4: string;
+  isDefault: boolean;
+  expiry: string;
+}
+export interface UserPaymentResponse {
+  status: "success" | "fail";
+  message: string;
+  data: PaymentMethodsPayload[];
+}
+export interface UserAddressPayload {
+  id: string;
+  userId: string;
+  addressPrimary: string;
+  addressSecondary: string;
+  fullName: string;
+  country: string;
+  province: string;
+  city: string;
+  postalCode: string;
+  countryCode: string;
+  phoneNumber: string;
+  isDefault: boolean;
+}
+export interface UserAddressResponse {
+  status: "success" | "fail";
+  message: string;
+  data: UserAddressPayload[];
+}

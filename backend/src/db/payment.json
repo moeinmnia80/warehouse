@@ -1,0 +1,23 @@
+[
+  {
+    "userId": "1cde7495-bfc5-40c4-99bc-fd19f4f4c8b1",
+    "paymentMethods": [
+      {
+        "id": "pm-1",
+        "brand": "visa",
+        "cardNumber": "5437-3487-3493-6545",
+        "last4": "6545",
+        "expiry": "2027/8",
+        "isDefault": true
+      },
+      {
+        "id": "pm-2",
+        "brand": "mastercard",
+        "cardNumber": "2311-3123-3123-3232",
+        "last4": "3232",
+        "expiry": "2028/8",
+        "isDefault": false
+      }
+    ]
+  }
+]
