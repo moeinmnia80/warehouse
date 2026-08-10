@@ -8,6 +8,7 @@ import { notFound } from "./middlewares/notFound.middleware.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
 
 import { router as authRouter } from "./modules/auth/auth.routes.js";
+import { router as userRouter } from "./modules/user/user.routes.js";
 import { router as suiteRouter } from "./modules/suite/suite.routes.js";
 import { router as shippingRouter } from "./modules/shipping/shipping.routes.js";
 import { authenticate } from "./middlewares/auth.middleware.js";
@@ -26,6 +27,7 @@ app.use((req, res, next) => {
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ───── Routes ──────────────────────────────────────────
 app.use("/auth", authRouter);
+app.use("/user", userRouter);
 app.use("/my-suite", suiteRouter);
 app.use("/shipping", shippingRouter);
 // ───── 404 ─────────────────────────────────────────────

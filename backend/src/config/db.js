@@ -3,6 +3,8 @@ const files = {
   users: "./src/db/users.json",
   suites: "./src/db/suites.json",
   shipping: "./src/db/shipping.json",
+  payment: "./src/db/payment.json",
+  address: "./src/db/address.json",
 };
 export const connectDB = {
   readData: (collection) => {

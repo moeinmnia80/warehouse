@@ -1,5 +1,12 @@
 import { baseApi } from "@/shared/index";
-import type { ShippingResponse, ShippingRow } from "@/feature/shipping";
+import type {
+  ShippingRow,
+  ShippingResponse,
+  UserPaymentResponse,
+  PaymentMethodsPayload,
+} from "@/feature/shipping";
+import { toast } from "@/store/toast.store";
+import type { UserAddressPayload, UserAddressResponse } from "../types/types";
 
 export const shippingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -24,7 +31,40 @@ export const shippingApi = baseApi.injectEndpoints({
           : [{ type: "Shipping", id: "LIST" }],
       keepUnusedDataFor: 300,
     }),
+    getUserPaymentMethods: builder.query<PaymentMethodsPayload[], void>({
+      query: () => "/user/payment",
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+        } catch (error) {
+          toast.error(`${error}`);
+        }
+      },
+      transformResponse: (response: UserPaymentResponse) => response.data,
+      providesTags: (result) =>
+        result
+          ? result.map((pm) => ({ type: "PaymentMethods", id: pm.id }))
+          : [{ type: "PaymentMethods", id: "LIST" }],
+      keepUnusedDataFor: 300,
+    }),
+    getUserAddress: builder.query<UserAddressPayload[], void>({
+      query: () => "/user/address",
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+        } catch (error) {
+          toast.error(`${error}`);
+        }
+      },
+      transformResponse: (response: UserAddressResponse) => response.data,
+      providesTags: [{ type: "UserAddress", id: "LIST" }],
+      keepUnusedDataFor: 300,
+    }),
   }),
 });
 
-export const { useGetShippingQuery } = shippingApi;
+export const {
+  useGetShippingQuery,
+  useGetUserAddressQuery,
+  useGetUserPaymentMethodsQuery,
+} = shippingApi;

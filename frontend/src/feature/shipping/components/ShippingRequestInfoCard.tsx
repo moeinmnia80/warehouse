@@ -78,7 +78,10 @@ export const InfoRow = ({
   className,
   ...props
 }: InfoRowProps) => (
-  <p className={cn("flex gap-1.5 text-sm mt-1.5", className)} {...props}>
+  <p
+    className={cn("flex gap-1.5 text-sm mt-1.5 animate-fade-in", className)}
+    {...props}
+  >
     <span className={label ? "inline-block opacity-50" : "hidden"}>
       {label}:
     </span>
@@ -88,7 +91,7 @@ export const InfoRow = ({
 
 export function CardBrandChip({ brand }: { brand: BrandCardType }) {
   return (
-    <span className="flex h-8 w-12 items-center rounded border border-bo-primary p-1.5 bg-white">
+    <span className="flex h-8 w-12 items-center rounded border border-bo-primary p-1.5 bg-white animate-fade-in">
       <VisaIcon className={brand === "visa" ? "size-full" : "hidden"} />
       <MastercardIcon
         className={brand === "mastercard" ? "size-full" : "hidden"}
