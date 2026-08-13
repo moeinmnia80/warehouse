@@ -1,4 +1,7 @@
 import fs from "fs";
+import env from "./env.js";
+import postgres from "postgres";
+
 const files = {
   users: "./src/db/users.json",
   suites: "./src/db/suites.json",
@@ -6,6 +9,19 @@ const files = {
   payment: "./src/db/payment.json",
   address: "./src/db/address.json",
 };
+
+const connectionString = env.dbPostgresUrl;
+
+if (!connectionString) {
+  throw new Error("POSTGRES_URL is not set in .env");
+}
+
+const sql = postgres(connectionString, {
+  ssl: "require",
+});
+
+export default sql;
+
 export const connectDB = {
   readData: (collection) => {
     let users = [];

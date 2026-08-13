@@ -5,8 +5,9 @@ import { Errors } from "../../utils/errors.js";
 import { OAuth2Client } from "google-auth-library";
 import { createUser, findUserById } from "./auth.repository.js";
 import { findUserByEmail, findUserByUsername } from "./auth.repository.js";
+
 export const loginUser = async ({ email, password }) => {
-  const existingUser = findUserByEmail(email);
+  const existingUser = await findUserByEmail(email);
 
   if (!existingUser) {
     throw Errors.notFound("User");
@@ -72,9 +73,9 @@ export const loginWithGoogle = async ({ token }) => {
   };
 };
 
-export const registerUser = async ({ email, username, password, ...rest }) => {
-  const existingUserByEmail = findUserByEmail(email);
-  const existingUserByUsername = findUserByUsername(username);
+export const registerUser = async ({ email, fullName, username, password }) => {
+  const existingUserByEmail = await findUserByEmail(email);
+  const existingUserByUsername = await findUserByUsername(username);
 
   if (existingUserByEmail) {
     throw Errors.conflict("User with this email already exists");
@@ -88,19 +89,20 @@ export const registerUser = async ({ email, username, password, ...rest }) => {
   } catch (error) {
     throw Errors.internal("Error occurred");
   }
+
   const newUser = {
     id: crypto.randomUUID(),
-    ...rest,
     email,
     username,
     password: hashPassword,
-    phone: { primary: null, secondary: null, alternate: null, fax: null },
-    gender: null,
+    first_name: fullName,
+    last_name: "",
+    gender: "male",
     role: "manager",
-    createdAt: new Date(),
+    created_at: new Date(),
   };
 
-  const user = createUser(newUser);
+  const user = await createUser(newUser);
   if (!user) {
     throw Errors.internal("Error occurred while creating user");
   }
@@ -108,7 +110,7 @@ export const registerUser = async ({ email, username, password, ...rest }) => {
     algorithm: "HS256",
     expiresIn: env.dbExpiredKey,
   });
-  const { fullName, gender, role, id } = user;
+  const { gender, role, id } = user;
 
   return {
     status: "success",
@@ -117,9 +119,9 @@ export const registerUser = async ({ email, username, password, ...rest }) => {
   };
 };
 
-export const getMe = (req) => {
+export const getMe = async (req) => {
   const { id } = req.user;
-  const existingUserById = findUserById(id);
+  const existingUserById = await findUserById(id);
   if (!existingUserById) {
     throw Errors.notFound("User");
   }

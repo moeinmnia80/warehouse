@@ -1,24 +1,18 @@
-import { connectDB } from "../../config/db.js";
+import sql, { connectDB } from "../../config/db.js";
 
-// login
-export const findUserByEmail = (email) => {
-  const data = connectDB.readData("users");
-  return data.find((user) => user.email === email) || null;
+export const findUserByEmail = async (email) => {
+  const [user] = await sql`SELECT * FROM users WHERE email = ${email}`;
+  return user;
 };
-export const findUserById = (id) => {
-  const data = connectDB.readData("users");
-  return data.find((user) => user.id === id) || null;
+export const findUserById = async (id) => {
+  const [user] = await sql`SELECT * FROM users WHERE id = ${id}`;
+  return user;
 };
-export const findUserByUsername = (username) => {
-  const data = connectDB.readData("users");
-  return data.find((user) => user.username === username) || null;
+export const findUserByUsername = async (username) => {
+  const [user] = await sql`SELECT * FROM users WHERE username = ${username}`;
+  return user;
 };
-// register
-export const createUser = (newUser) => {
-  let data = connectDB.readData("users");
-  data.push(newUser);
-  const user = connectDB.writeData("users", data);
-
-  //* result
-  return user[0] || null;
+export const createUser = async (newUser) => {
+  const [user] = await sql`INSERT INTO users ${sql(newUser)} RETURNING *`;
+  return user;
 };
