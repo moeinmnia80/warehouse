@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { validate } from "../../middlewares/validate.js";
+import { validate } from "../../middlewares/validate.middleware.js";
 import { authenticate } from "../../middlewares/auth.middleware.js";
 import { authLimiter } from "../../middlewares/limiter.middleware.js";
 import {

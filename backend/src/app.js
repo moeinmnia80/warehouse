@@ -9,6 +9,8 @@ import { notFound } from "./middlewares/notFound.middleware.js";
 import { authenticate } from "./middlewares/auth.middleware.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
 import { appLimiter } from "./middlewares/limiter.middleware.js";
+import { requestId } from "./middlewares/requestId.middleware.js";
+import { requestLogger } from "./middlewares/logger.middleware.js";
 
 import { router as authRouter } from "./modules/auth/auth.routes.js";
 import { router as userRouter } from "./modules/user/user.routes.js";
@@ -20,12 +22,12 @@ const app = express();
 app.use(helmet());
 app.use(cors(corsOption));
 app.use(appLimiter);
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  res.set("X-Request-Id", crypto.randomUUID());
-  next();
-});
+
+app.use(requestId);
+app.use(requestLogger);
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ───── Routes ──────────────────────────────────────────
