@@ -1,6 +1,17 @@
 import fs from "fs";
+import { Pool } from "pg";
+import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+
 import env from "./env.js";
-import postgres from "postgres";
+
+const pool = new Pool({
+  connectionString: env.dbURL,
+});
+const adapter = new PrismaPg(pool);
+
+const db = new PrismaClient({ adapter, errorFormat: "pretty" });
+export default db;
 
 const files = {
   users: "./src/db/users.json",
@@ -9,18 +20,6 @@ const files = {
   payment: "./src/db/payment.json",
   address: "./src/db/address.json",
 };
-
-const connectionString = env.dbPostgresUrl;
-
-if (!connectionString) {
-  throw new Error("POSTGRES_URL is not set in .env");
-}
-
-const sql = postgres(connectionString, {
-  ssl: "require",
-});
-
-export default sql;
 
 export const connectDB = {
   readData: (collection) => {

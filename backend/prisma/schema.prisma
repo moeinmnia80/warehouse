@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Gender {
+  male
+  female
+}
+
+enum Role {
+  manager
+  admin
+}
+
+enum Provider {
+  local
+  google
+  facebook
+}
+
+enum PhoneType {
+  primary
+  secondary
+  alternate
+  fax
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  firstName String   @map("first_name") @db.VarChar(255)
+  lastName  String   @map("last_name") @db.VarChar(255)
+  email     String   @unique @db.VarChar(255)
+  username  String   @unique @db.VarChar(50)
+  password  String   @db.VarChar(255)
+  gender    Gender   @default(male)
+  role      Role     @default(manager)
+  provider  Provider @default(local)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  phones    UserPhone[]
+  addresses UserAddress[]
+
+  @@map("users")
+}
+
+model UserPhone {
+  id          Int       @id @default(autoincrement())
+  userId      String    @map("user_id") @db.Uuid
+  phoneType   PhoneType @default(primary) @map("phone_type")
+  phoneNumber String    @map("phone_number") @db.VarChar(20)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_phones")
+}
+
+model UserAddress {
+  addressId        Int     @id @default(autoincrement()) @map("address_id")
+  userId           String  @map("user_id") @db.Uuid
+  addressPrimary   String  @map("address_primary") @db.VarChar(255)
+  addressSecondary String? @map("address_secondary") @db.VarChar(255)
+  fullName         String  @map("full_name") @db.VarChar(255)
+  country          String  @db.VarChar(40)
+  province         String? @db.VarChar(40)
+  city             String? @db.VarChar(40)
+  postalCode       String  @unique @map("postal_code") @db.VarChar(10)
+  countryCode      String? @map("country_code") @db.VarChar(10)
+  phoneNumber      String  @map("phone_number") @db.VarChar(20)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_address")
+}

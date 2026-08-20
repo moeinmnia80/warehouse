@@ -14,6 +14,7 @@ const env = {
   dbExpiredKey: process.env.DB_EXPIRED_KEY || "",
   dbGoogleClientId: process.env.DB_GOOGLE_CLIENT_ID || "",
   dbPostgresUrl: process.env.POSTGRES_URL,
+  dbURL: process.env.DB_URL || "",
 };
 
 export default env;

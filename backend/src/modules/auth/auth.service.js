@@ -76,10 +76,8 @@ export const registerUser = async ({ email, fullName, username, password }) => {
     );
   }
 
-  let hashPassword;
-  try {
-    hashPassword = await bcrypt.hash(password, 10);
-  } catch (error) {
+  const hashPassword = await bcrypt.hash(password, 10);
+  if (!hashPassword) {
     throw Errors.internal("Error occurred");
   }
 
@@ -89,6 +87,7 @@ export const registerUser = async ({ email, fullName, username, password }) => {
     hashedPassword: hashPassword,
     fullName,
   });
+
   const user = await createUser(newUser);
   if (!user) {
     throw Errors.internal("Error occurred while creating user");
