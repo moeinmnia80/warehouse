@@ -2,34 +2,42 @@ import path from "path";
 import cors from "cors";
 import helmet from "helmet";
 import express from "express";
+import cookieParser from "cookie-parser";
 
+import env from "./config/env.js";
 import corsOption from "./config/cors.js";
+
 import { notFound } from "./middlewares/notFound.middleware.js";
+import { authenticate } from "./middlewares/auth.middleware.js";
 import { errorHandler } from "./middlewares/error.middleware.js";
+import { appLimiter } from "./middlewares/limiter.middleware.js";
+import { requestId } from "./middlewares/requestId.middleware.js";
+import { requestLogger } from "./middlewares/logger.middleware.js";
 
 import { router as authRouter } from "./modules/auth/auth.routes.js";
 import { router as userRouter } from "./modules/user/user.routes.js";
 import { router as suiteRouter } from "./modules/suite/suite.routes.js";
 import { router as shippingRouter } from "./modules/shipping/shipping.routes.js";
-import { authenticate } from "./middlewares/auth.middleware.js";
 
 const app = express();
 
 app.use(helmet());
 app.use(cors(corsOption));
-app.use(express.json({ limit: "1mb" }));
+app.use(appLimiter);
+
+app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use((req, res, next) => {
-  res.set("X-Request-Id", crypto.randomUUID());
-  next();
-});
+app.use(cookieParser(env.cookieKey));
+
+app.use(requestId);
+app.use(requestLogger);
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ───── Routes ──────────────────────────────────────────
-app.use("/auth", authRouter);
-app.use("/user", userRouter);
-app.use("/my-suite", suiteRouter);
-app.use("/shipping", shippingRouter);
+app.use("/auth", authenticate, authRouter);
+app.use("/user", authenticate, userRouter);
+app.use("/my-suite", authenticate, suiteRouter);
+app.use("/shipping", authenticate, shippingRouter);
 // ───── 404 ─────────────────────────────────────────────
 app.use(notFound);
 // ── Error handler ──────────────────────────────────────

@@ -14,6 +14,7 @@ export const MySuiteTable = () => {
   const dispatch = useAppDispatch();
   const rowActions = createRowActions(dispatch);
   const { data, isLoading } = useGetSuiteQuery();
+
   const modal = useAppSelector((state) => state.suite.modal);
   const sortedData = useSuiteFilter(data?.packages ?? []);
 

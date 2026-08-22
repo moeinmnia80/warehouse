@@ -1,4 +1,18 @@
 import fs from "fs";
+import { Pool } from "pg";
+import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+
+import env from "./env.js";
+
+const pool = new Pool({
+  connectionString: env.dbURL,
+});
+const adapter = new PrismaPg(pool);
+
+const db = new PrismaClient({ adapter, errorFormat: "pretty" });
+export default db;
+
 const files = {
   users: "./src/db/users.json",
   suites: "./src/db/suites.json",
@@ -6,6 +20,7 @@ const files = {
   payment: "./src/db/payment.json",
   address: "./src/db/address.json",
 };
+
 export const connectDB = {
   readData: (collection) => {
     let users = [];

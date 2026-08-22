@@ -1,5 +1,7 @@
 import { Router } from "express";
-import { validate } from "../../middlewares/validate.js";
+import { validate } from "../../middlewares/validate.middleware.js";
+import { authenticate } from "../../middlewares/auth.middleware.js";
+import { authLimiter } from "../../middlewares/limiter.middleware.js";
 import {
   getUserController,
   loginUserController,
@@ -11,23 +13,26 @@ import {
   RegisterUserSchema,
   LoginWithGooglUserSchema,
 } from "./auth.schemas.js";
-import { authenticate } from "../../middlewares/auth.middleware.js";
 
 export const router = Router();
 
 router.get("/me", authenticate, getUserController);
-router.post("/login", validate(LoginUserSchema), loginUserController);
+router.post(
+  "/login",
+  authLimiter,
+  validate(LoginUserSchema),
+  loginUserController,
+);
 router.post(
   "/login/google",
+  authLimiter,
   validate(LoginWithGooglUserSchema),
   loginWithGoogleUserController,
 );
 router.post("/register", validate(RegisterUserSchema), registerUserController);
 router.post("/forget-password", (req, res) => {
-  // Handle forget password logic here
   res.send("Forget password route");
 });
 router.patch("/reset-password", (req, res) => {
-  // Handle reset password logic here
   res.send("Reset password route");
 });
