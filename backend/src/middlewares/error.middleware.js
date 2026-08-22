@@ -1,4 +1,4 @@
-import multer from "multer";
+import { mapMulterError } from "../utils/mapMulterError.js";
 import { mapDatabaseError } from "../utils/mapDatabaseError.js";
 
 export const errorHandler = (err, req, res, next) => {
@@ -6,13 +6,7 @@ export const errorHandler = (err, req, res, next) => {
   const errorCode = err.errorCode || "INTERNAL_ERROR";
 
   err = mapDatabaseError(err);
-
-  if (err instanceof multer.MulterError) {
-    return res.status(400).json({
-      status: "fail",
-      error: { code: err?.code, message: err.message },
-    });
-  }
+  err = mapMulterError(err);
 
   console.error({
     timestamp: new Date().toISOString(),

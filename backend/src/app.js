@@ -2,7 +2,9 @@ import path from "path";
 import cors from "cors";
 import helmet from "helmet";
 import express from "express";
+import cookieParser from "cookie-parser";
 
+import env from "./config/env.js";
 import corsOption from "./config/cors.js";
 
 import { notFound } from "./middlewares/notFound.middleware.js";
@@ -25,16 +27,17 @@ app.use(appLimiter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser(env.cookieKey));
 
 app.use(requestId);
 app.use(requestLogger);
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ───── Routes ──────────────────────────────────────────
-app.use("/auth", authRouter);
-app.use("/user", userRouter);
-app.use("/my-suite", suiteRouter);
-app.use("/shipping", shippingRouter);
+app.use("/auth", authenticate, authRouter);
+app.use("/user", authenticate, userRouter);
+app.use("/my-suite", authenticate, suiteRouter);
+app.use("/shipping", authenticate, shippingRouter);
 // ───── 404 ─────────────────────────────────────────────
 app.use(notFound);
 // ── Error handler ──────────────────────────────────────

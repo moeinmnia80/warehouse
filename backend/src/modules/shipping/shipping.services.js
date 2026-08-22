@@ -1,15 +1,16 @@
 import { Errors } from "../../utils/errors.js";
-import env from "../../config/env.js";
+import { Shipping } from "./shipping.model.js";
+
 import {
   createNewShipping,
-  findShippingByShippingId,
   findShippingByUserId,
+  findShippingByShippingId,
 } from "./shipping.repository.js";
 
-export const getShippingData = (req) => {
+export const getShippingData = async (req) => {
   const { id } = req.user;
-  const existingShipping = findShippingByUserId(id);
 
+  const existingShipping = await findShippingByUserId(id);
   if (!existingShipping) {
     throw Errors.notFound("there is not any shipment for this user");
   }
@@ -20,53 +21,44 @@ export const getShippingData = (req) => {
     data: [...existingShipping],
   };
 };
-export const createShipping = (req) => {
+export const createShipping = async (req) => {
   const { user, body } = req;
 
-  const newShipment = {
-    shipmentId: "SHP-" + crypto.randomUUID(),
-    userId: user.id,
-    carrier: body.vendor,
-
-    status: "register",
-    notice: "",
-    timestamps: {
-      created_at: new Date(),
-      shipped_at: null,
-      delivered_at: null,
-    },
-    packages: body.packages,
-  };
-  const shipping = createNewShipping(newShipment);
+  const newShipment = new Shipping({ userId: user.id, carrier: body.vendor });
+  const shipping = await createNewShipping(newShipment);
   if (!shipping) {
     throw Errors.internal("Error occurred while creating suite");
   }
+
   return {
     status: "success",
     message: "suite founded successfully",
     data: { ...shipping },
   };
 };
-export const attachInvoice = (req, file) => {
-  const shipment = findShippingByShippingId(req.params.shipmentId);
+
+export const attachInvoice = async (req, file) => {
+  const shipment = await findShippingByShippingId(req.params.shipmentId);
   if (!shipment) throw Errors.notFound("shipment not found");
 
-  shipment.invoice = { file: file.path, type: "pdf", uploadedAt: new Date() };
-  updateShipping(shipment); // you'll need this in shipping.repository.js, same pattern as updateSuite above
+  const savedInvoice = await updateShippingInvoice(shipment.shipmentId, file);
 
   return {
     status: "success",
-    message: "invoice attached",
-    data: shipment.invoice,
+    message: "invoice attached successfully",
+    data: savedInvoice,
   };
 };
 
-export const getInvoicePath = (req) => {
-  const shipment = findShippingByShippingId(req.params.shipmentId);
+export const getInvoicePath = async (req) => {
+  const shipment = await findShippingByShippingId(req.params.shipmentId);
   if (!shipment) throw Errors.notFound("shipment not found");
+
   if (shipment.userId !== req.user.id) {
-    throw Errors.forbidden("you cannot access this invoice"); // regular user can only download their own
+    throw Errors.forbidden("you cannot access this invoice");
   }
-  if (!shipment.invoice?.file) throw Errors.notFound("no invoice uploaded yet");
-  return shipment.invoice.file;
+
+  if (!shipment.invoice) throw Errors.notFound("no invoice uploaded yet");
+
+  return shipment.invoice.url;
 };

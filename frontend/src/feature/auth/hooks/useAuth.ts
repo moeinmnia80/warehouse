@@ -1,4 +1,3 @@
-import { setCookie } from "@/shared/index";
 import type { SerializedError } from "@reduxjs/toolkit";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 
@@ -30,11 +29,10 @@ export const useAuth = (): UseAuthReturn => {
   ): Promise<AuthResult> => {
     try {
       const {
-        data: { id, email, fullName, gender, token, role },
+        data: { id, email, fullName, gender, role },
       } = await registerMutation(credentials).unwrap();
 
       dispatch(setCredentials({ id, email, fullName, gender, role }));
-      setCookie("auth-token", token);
 
       return { success: true };
     } catch (error) {
@@ -49,11 +47,10 @@ export const useAuth = (): UseAuthReturn => {
   const login = async (credentials: LoginCredentials): Promise<AuthResult> => {
     try {
       const {
-        data: { id, email, fullName, gender, token, role },
+        data: { id, email, fullName, gender, role },
       } = await loginMutation(credentials).unwrap();
 
       dispatch(setCredentials({ id, email, fullName, gender, role }));
-      setCookie("auth-token", token);
 
       return { success: true };
     } catch (error) {
@@ -69,11 +66,10 @@ export const useAuth = (): UseAuthReturn => {
   }): Promise<AuthResult> => {
     try {
       const {
-        data: { id, email, token, role, fullName },
+        data: { id, email, role, fullName },
       } = await loginWithGoogleMutation(credentials).unwrap();
 
       dispatch(setCredentials({ id, email, role, fullName }));
-      setCookie("auth-token", token);
 
       return { success: true };
     } catch (error) {

@@ -1,16 +1,17 @@
-import { connectDB } from "../../config/db.js";
+import db, { connectDB } from "../../config/db.js";
 
-export const findSuiteByUserId = (id) => {
-  const data = connectDB.readData("suites");
-  return data.find((suite) => suite.userId === id) || null;
-};
+export const findSuiteByUserId = (id) =>
+  db.suite.findFirst({ where: { userId: id }, include: { packages: true } });
 
-export const createNewSuite = (newSuiteData) => {
-  const data = connectDB.readData("suites");
-  const newData = [...data, newSuiteData];
-  connectDB.writeData("suites", newData);
-  return newSuiteData;
-};
+export const createNewSuite = (newSuite) =>
+  db.suite.create({
+    data: {
+      userId: newSuite.userId,
+      name: newSuite.name,
+      zonePrefix: newSuite?.zonePrefix,
+      description: newSuite.description ?? null,
+    },
+  });
 
 export const updateSuite = (updatedSuite) => {
   const data = connectDB.readData("suites");

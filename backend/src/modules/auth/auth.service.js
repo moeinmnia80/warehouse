@@ -16,8 +16,8 @@ const signToken = (user) =>
   });
 
 const toPublicUser = (user) => {
-  const { first_name, last_name, email, role, gender, provider, id } = user;
-  return { first_name, last_name, email, role, gender, provider, id };
+  const { firstName, lastName, email, role, gender, provider, id } = user;
+  return { firstName, lastName, email, role, gender, provider, id };
 };
 
 export const loginUser = async ({ email, password }) => {
@@ -93,12 +93,10 @@ export const registerUser = async ({ email, fullName, username, password }) => {
     throw Errors.internal("Error occurred while creating user");
   }
 
-  const token = signToken(user);
-
   return {
     status: "success",
     message: "User registered successfully",
-    data: { ...toPublicUser(user), token },
+    data: { ...toPublicUser(user) },
   };
 };
 

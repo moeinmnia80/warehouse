@@ -7,7 +7,6 @@ import {
   addPackagePdfController,
   addPackageImagesController,
 } from "./suite.controller.js";
-import { authenticate } from "../../middlewares/auth.middleware.js";
 import {
   uploadPackageImages,
   uploadPackagePdf,
@@ -15,28 +14,18 @@ import {
 
 export const router = Router();
 
-router.get("/", authenticate, getSuiteController);
-router.post("/create", authenticate, createSuiteController);
+router.get("/", getSuiteController);
+router.post("/create", createSuiteController);
 // route
-router.get(
-  "/packages/:packageId/invoice/:fileName",
-  authenticate,
-  getInvoiceController,
-);
-router.get(
-  "/packages/:packageId/images/:fileName",
-  authenticate,
-  getImagesController,
-);
+router.get("/packages/:packageId/invoice/:fileName", getInvoiceController);
+router.get("/packages/:packageId/images/:fileName", getImagesController);
 router.post(
   "/packages/:packageId/images",
-  authenticate,
   uploadPackageImages,
   addPackageImagesController,
 );
 router.post(
   "/packages/:packageId/pdf",
-  authenticate,
   uploadPackagePdf,
   addPackagePdfController,
 );
