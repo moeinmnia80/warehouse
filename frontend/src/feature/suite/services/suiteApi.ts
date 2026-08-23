@@ -17,13 +17,14 @@ export const suiteApi = baseApi.injectEndpoints({
         result
           ? [
               { type: "Suite" as const, id: "LIST" },
+
               ...result.packages.flatMap((pkg) => [
                 { type: "Suite" as const, id: pkg.packageId },
-                ...pkg.images.map((img) => ({
+                ...(pkg.images || []).map((img) => ({
                   type: "PackageImages" as const,
                   id: `${pkg.packageId}-${img.name}`,
                 })),
-                ...pkg.invoices.map((inv) => ({
+                ...(pkg.invoices || []).map((inv) => ({
                   type: "PackageDocs" as const,
                   id: `${pkg.packageId}-${inv.name}`,
                 })),

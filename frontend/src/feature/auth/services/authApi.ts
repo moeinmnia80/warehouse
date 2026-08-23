@@ -73,6 +73,26 @@ export const authApi = baseApi.injectEndpoints({
 
       invalidatesTags: ["Auth"],
     }),
+    forgetPassword: builder.mutation<AuthResponse, { email: string }>({
+      query: (credentials) => ({
+        url: "/auth/forget-password",
+        method: "POST",
+        body: credentials,
+      }),
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success("user founded successfully");
+        } catch (error) {
+          toast.error(
+            (error as { error: ErrorResponse }).error.data
+              ? (error as { error: ErrorResponse }).error.data.error.message
+              : "Logged in Failed",
+          );
+        }
+      },
+      invalidatesTags: ["Auth"],
+    }),
     getCurrentUser: builder.query<GetMe, void>({
       query: () => "/auth/me",
       providesTags: ["Auth"],
@@ -85,5 +105,6 @@ export const {
   useLoginMutation,
   useRegisterMutation,
   useGetCurrentUserQuery,
+  useForgetPasswordMutation,
   useLoginWithGoogleMutation,
 } = authApi;

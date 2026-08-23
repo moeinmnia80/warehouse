@@ -1,8 +1,10 @@
-import type { AuthState, User } from "@/feature/auth/index";
+import type { User } from "@/shared";
+import type { AuthState } from "@/feature/auth/index";
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: AuthState = {
   user: null,
+  email: null,
   status: "loading",
 };
 const authSlice = createSlice({
@@ -17,8 +19,15 @@ const authSlice = createSlice({
       state.user = null;
       state.status = "unauthenticated";
     },
+    setEmailForgetPassword: (
+      state,
+      action: PayloadAction<{ email: string }>,
+    ) => {
+      state.email = action.payload.email;
+    },
   },
 });
 
 export default authSlice.reducer;
-export const { setCredentials, logoutAction } = authSlice.actions;
+export const { setCredentials, logoutAction, setEmailForgetPassword } =
+  authSlice.actions;

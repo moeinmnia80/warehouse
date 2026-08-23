@@ -1,5 +1,7 @@
-import type { SerializedError } from "@reduxjs/toolkit";
+import type { User } from "@/shared";
+
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
+import { useForgetPasswordMutation, type AuthApiError } from "@/feature/auth";
 
 import {
   setCredentials,
@@ -10,84 +12,67 @@ import {
   type LoginCredentials,
   type RegisterCredentials,
   useLoginWithGoogleMutation,
+  type ForgetPasswordCredentials,
 } from "@/feature/auth/index";
-import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export const useAuth = (): UseAuthReturn => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
   const [loginMutation, { isLoading: isLoggingIn }] = useLoginMutation();
-
   const [registerMutation, { isLoading: isRegistering }] =
     useRegisterMutation();
   const [loginWithGoogleMutation, { isLoading: isLoggingInWithGoogle }] =
     useLoginWithGoogleMutation();
+  const [forgetPasswordMutation, { isLoading: isRequestingReset }] =
+    useForgetPasswordMutation();
 
-  const register = async (
-    credentials: RegisterCredentials,
+  const runAuthMutation = async (
+    mutate: () => Promise<{ data: User }>,
+    fallbackMessage: string,
   ): Promise<AuthResult> => {
     try {
-      const {
-        data: { id, email, fullName, gender, role },
-      } = await registerMutation(credentials).unwrap();
-
-      dispatch(setCredentials({ id, email, fullName, gender, role }));
-
+      const { data } = await mutate();
+      dispatch(setCredentials(data));
       return { success: true };
     } catch (error) {
       return {
         success: false,
-        error:
-          (error as FetchBaseQueryError | SerializedError) ?? "Register error",
+        error: (error as AuthApiError) ?? fallbackMessage,
       };
     }
   };
 
-  const login = async (credentials: LoginCredentials): Promise<AuthResult> => {
-    try {
-      const {
-        data: { id, email, fullName, gender, role },
-      } = await loginMutation(credentials).unwrap();
+  const register = (credentials: RegisterCredentials) =>
+    runAuthMutation(
+      () => registerMutation(credentials).unwrap(),
+      "Register error",
+    );
 
-      dispatch(setCredentials({ id, email, fullName, gender, role }));
+  const login = (credentials: LoginCredentials) =>
+    runAuthMutation(() => loginMutation(credentials).unwrap(), "Login error");
 
-      return { success: true };
-    } catch (error) {
-      return {
-        success: false,
-        error:
-          (error as FetchBaseQueryError | SerializedError) ?? "Login error",
-      };
-    }
-  };
-  const loginWithGoogle = async (credentials: {
-    token: string;
-  }): Promise<AuthResult> => {
-    try {
-      const {
-        data: { id, email, role, fullName },
-      } = await loginWithGoogleMutation(credentials).unwrap();
+  const loginWithGoogle = (credentials: { token: string }) =>
+    runAuthMutation(
+      () => loginWithGoogleMutation(credentials).unwrap(),
+      "Login error",
+    );
 
-      dispatch(setCredentials({ id, email, role, fullName }));
-
-      return { success: true };
-    } catch (error) {
-      return {
-        success: false,
-        error:
-          (error as FetchBaseQueryError | SerializedError) ?? "Login error",
-      };
-    }
-  };
+  const forgetPassword = (credentials: ForgetPasswordCredentials) =>
+    runAuthMutation(
+      () => forgetPasswordMutation(credentials).unwrap(),
+      "The password reset request failed.",
+    );
 
   return {
     user,
     isLoggingIn,
     isRegistering,
+    isRequestingReset,
     isLoggingInWithGoogle,
     login,
     register,
+    forgetPassword,
     loginWithGoogle,
   };
 };

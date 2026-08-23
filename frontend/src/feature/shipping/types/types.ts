@@ -1,4 +1,4 @@
-import type { TableRow } from "@/shared";
+import type { Shipping } from "@/shared";
 import type { ComponentProps } from "react";
 // store
 export type DatePreset = "30d" | "60d" | "90d" | "1y" | "custom" | null;
@@ -17,25 +17,6 @@ export interface ShippingState {
     preset: DatePreset;
     range: DateRange;
   };
-}
-export interface ShippingRow {
-  shipmentId: string;
-  userId: string;
-  carrier: string;
-  description: string;
-  invoice: {
-    file: string;
-    type: string;
-  };
-  charge: "100";
-  status: "register" | "delivered";
-  notice: string | null;
-  timestamps: {
-    created_at: string;
-    shipped_at: string | null;
-    delivered_at: string | null;
-  };
-  packages: TableRow[];
 }
 // comp
 export interface OptionItem {
@@ -73,7 +54,7 @@ export interface InfoRowProps extends ComponentProps<"p"> {
 }
 // hooks
 export interface SearchFilterProps {
-  data: ShippingRow[] | undefined;
+  data: Shipping[] | undefined;
   search: string;
   dateFilter: {
     preset: DatePreset;
@@ -84,7 +65,7 @@ export interface SearchFilterProps {
 export interface ShippingResponse {
   status: "success" | "fail";
   message: string;
-  data: ShippingRow[];
+  data: Shipping[];
 }
 export interface PaymentMethodsPayload {
   id: string;

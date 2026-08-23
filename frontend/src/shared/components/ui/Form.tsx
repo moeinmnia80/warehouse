@@ -9,7 +9,11 @@ export const Form = ({
 }: ComponentProps<"form">) => {
   return (
     <>
-      <form className={cn("flex flex-col gap-4 mt-6", className)} {...props}>
+      <form
+        className={cn("flex flex-col gap-4 mt-6", className)}
+        {...props}
+        noValidate
+      >
         {children}
       </form>
     </>

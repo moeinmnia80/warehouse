@@ -18,6 +18,9 @@ const env = {
   dbURL: process.env.DB_URL || "",
   supabaseUrl: process.env.SUPABASE_URL || "",
   supabaseAnonKey: process.env.SUPABASE_ANON_KEY || "",
+  smtpUser: process.env.SMTP_USER || "",
+  smtpPass: process.env.SMTP_PASS || "",
+  redisUrl: process.env.UPSTASH_REDIS_URL || "",
 };
 
 export default env;

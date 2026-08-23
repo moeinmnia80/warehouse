@@ -5,19 +5,26 @@ import {
   loginUser,
   registerUser,
   loginWithGoogle,
+  forgetPassword,
 } from "./auth.service.js";
 
 export const loginUserController = catchAsync(async (req, res) => {
-  const result = await loginUser(req.body);
-  res.cookie("auth-token", result.data.token, cookieOptions);
+  const {
+    data: { token, ...result },
+    ...rest
+  } = await loginUser(req.body);
+  res.cookie("auth-token", token, cookieOptions);
   res.set("Catch-Control", "public", "max-age=3600");
-  return res.status(200).json(result);
+  return res.status(200).json({ ...rest, data: result });
 });
 
 export const loginWithGoogleUserController = catchAsync(async (req, res) => {
-  const result = await loginWithGoogle(req.body);
-  res.cookie("auth-token", result.data.token, cookieOptions);
-  return res.status(200).json(result);
+  const {
+    data: { token, ...result },
+    ...rest
+  } = await loginWithGoogle(req.body);
+  res.cookie("auth-token", token, cookieOptions);
+  return res.status(200).json({ ...rest, data: result });
 });
 
 export const registerUserController = catchAsync(async (req, res) => {
@@ -25,8 +32,14 @@ export const registerUserController = catchAsync(async (req, res) => {
   res.set("Catch-Control", "public", "max-age=86400");
   return res.status(201).json(result);
 });
+
 export const getUserController = catchAsync(async (req, res) => {
   const result = await getMe(req);
   res.set("Catch-Control", "private", "max-age=3600");
+  return res.status(200).json(result);
+});
+
+export const forgetPasswordController = catchAsync(async (req, res) => {
+  const result = await forgetPassword(req);
   return res.status(200).json(result);
 });

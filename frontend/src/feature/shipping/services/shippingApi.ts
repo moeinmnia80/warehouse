@@ -1,6 +1,6 @@
 import { baseApi } from "@/shared/index";
 import type {
-  ShippingRow,
+  Shipping,
   ShippingResponse,
   UserPaymentResponse,
   PaymentMethodsPayload,
@@ -10,7 +10,7 @@ import type { UserAddressPayload, UserAddressResponse } from "../types/types";
 
 export const shippingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getShipping: builder.query<ShippingRow[], void>({
+    getShipping: builder.query<Shipping[], void>({
       query: () => "/shipping",
       transformResponse: (response: ShippingResponse) => response.data,
       providesTags: (result) =>

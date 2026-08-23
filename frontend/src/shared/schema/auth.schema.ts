@@ -11,7 +11,11 @@ export const loginSchema = z.object({
 });
 // register
 export const registerSchema = z.object({
-  fullName: z
+  firstName: z
+    .string()
+    .min(3, "fullname must be over 3 characters.")
+    .max(20, "fullname must be at least 20 characters long."),
+  lastName: z
     .string()
     .min(3, "fullname must be over 3 characters.")
     .max(20, "fullname must be at least 20 characters long."),

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router";
 const NotFoundPage = () => {
   const navigate = useNavigate();
   return (
-    <div
+    <section
       className="absolute inset-0 z-50 flex-center flex-col
       w-full h-svh text-tx-primary bg-b-primary gap-2"
     >
@@ -16,7 +16,7 @@ const NotFoundPage = () => {
       <Button onClick={() => navigate(-1)} className="btn btn--border max-w-40">
         Home
       </Button>
-    </div>
+    </section>
   );
 };
 

@@ -5,9 +5,12 @@ import { OAuth2Client } from "google-auth-library";
 import env from "../../config/env.js";
 import { User } from "./auth.model.js";
 import { Errors } from "../../utils/errors.js";
+import { redis } from "../../config/cache.js";
 
 import { createUser, findUserById } from "./auth.repository.js";
 import { findUserByEmail, findUserByUsername } from "./auth.repository.js";
+import { sendDynamicEmail } from "../../utils/emailService.js";
+import { generateOtpCode } from "../../utils/otpService.js";
 
 const signToken = (user) =>
   jwt.sign({ id: user.id, role: user.role }, env.dbPrivateKey, {
@@ -100,8 +103,7 @@ export const registerUser = async ({ email, fullName, username, password }) => {
   };
 };
 
-export const getMe = async (req) => {
-  const { id } = req.user;
+export const getMe = async ({ user: { id } }) => {
   const existingUserById = await findUserById(id);
   if (!existingUserById) {
     throw Errors.notFound("User");
@@ -111,5 +113,29 @@ export const getMe = async (req) => {
     status: "success",
     message: "User retrieved successfully",
     data: { ...toPublicUser(existingUserById) },
+  };
+};
+
+export const forgetPassword = async ({ body: { email } }) => {
+  const existingUserByEmail = await findUserByEmail(email);
+  if (!existingUserByEmail) {
+    throw Errors.notFound("User");
+  }
+
+  const code = generateOtpCode();
+  const key = `otp:${email}`;
+  await redis.set(key, code, "EX", 120);
+
+  const emailResult = await sendDynamicEmail(email, "OTP", {
+    otpCode: code,
+    expiresInMinutes: 2,
+  });
+  if (!emailResult.success) {
+    throw Errors.externalApi("SMS provider");
+  }
+  return {
+    status: "success",
+    message: "User founded",
+    data: { ...toPublicUser(existingUserByEmail) },
   };
 };

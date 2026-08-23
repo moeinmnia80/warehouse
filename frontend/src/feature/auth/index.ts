@@ -1,14 +1,15 @@
 export type {
-  User,
   GetMe,
   AuthState,
   AuthResult,
+  AuthApiError,
   AuthResponse,
   RegisterType,
   UseAuthReturn,
   ErrorResponse,
   LoginCredentials,
   RegisterCredentials,
+  ForgetPasswordCredentials,
 } from "@/feature/auth/types/auth.types";
 // constants
 export { registerInput } from "@/feature/auth/constants/input";
@@ -18,12 +19,17 @@ export {
   useLoginMutation,
   useRegisterMutation,
   useGetCurrentUserQuery,
+  useForgetPasswordMutation,
   useLoginWithGoogleMutation,
 } from "@/feature/auth/services/authApi";
 // hooks
 export { useAuth } from "@/feature/auth/hooks/useAuth";
 // store
-export { setCredentials, logoutAction } from "@/feature/auth/store/authSlice";
+export {
+  logoutAction,
+  setCredentials,
+  setEmailForgetPassword,
+} from "@/feature/auth/store/authSlice";
 // components
 export { LoginForm } from "@/feature/auth/components/LoginForm";
 export { RegisterForm } from "@/feature/auth/components/RegisterForm";

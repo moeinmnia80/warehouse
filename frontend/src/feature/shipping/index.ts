@@ -4,7 +4,6 @@ export type {
   DateRange,
   DatePreset,
   OptionItem,
-  ShippingRow,
   InfoRowProps,
   BrandCardType,
   ShippingState,

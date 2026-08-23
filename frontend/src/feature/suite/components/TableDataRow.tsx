@@ -83,7 +83,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           dataCell="Data Received"
         >
           <div className="flex-center flex-col md:items-start! w-full">
-            {item.dataReceived}
+            {new Date(item.dataReceived).toLocaleDateString()}
           </div>
         </TD>
         {isColumnVisibleInTab("totalValues", category) && (
@@ -133,16 +133,16 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
                 <div className="flex flex-col gap-1">
                   <span className="tag text-sm text-error bg-error-50">
                     <DangerIcon className="size-3 stroke-error" />
-                    {item.status.details}
+                    {item.statusDetails}
                   </span>
                   <span className="text-xs">As required by Customs</span>
                 </div>
               ) : (
                 <div
-                  className={`tag text-sm ${checkCategoryStatus(item.status.label)}`}
+                  className={`tag text-sm ${checkCategoryStatus(item.statusLabel)}`}
                 >
-                  {STATUS_ICON[item.status.label.toLowerCase()]}
-                  {item.status.label}
+                  {STATUS_ICON[item.statusLabel.toLowerCase()]}
+                  {item.statusLabel}
                 </div>
               )}
             </div>
@@ -156,12 +156,12 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           <div className="flex-center gap-1.5 w-full">
             {category === SUITE_CATEGORY.ACTION_REQUIRED ? (
               <>
-                {item.invoices.map((i) => (
+                {(item.invoices || []).map((i) => (
                   <div title={i.name} key={i.id} className="">
                     <PdfIcon className="size-5 stroke-st-primary" />
                   </div>
                 ))}
-                {!item.invoices.length && <p>Upload Invoice</p>}
+                {!item?.invoices?.length && <p>Upload Invoice</p>}
                 <UploadIcon className="size-4 stroke-st-primary" />
               </>
             ) : isExpanded ? (

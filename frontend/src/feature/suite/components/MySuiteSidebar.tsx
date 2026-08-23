@@ -18,9 +18,7 @@ import {
 export const MySuiteSidebar = () => {
   const { data } = useGetSuiteQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      data: data?.packages.filter(
-        (pkg) => pkg.status.label === "ready to send",
-      ),
+      data: data?.packages.filter((pkg) => pkg.statusLabel === "ready to send"),
     }),
   });
   const category = useAppSelector((state) => state.suite.category);

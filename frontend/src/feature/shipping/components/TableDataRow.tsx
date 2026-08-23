@@ -1,11 +1,11 @@
 import type { ComponentProps } from "react";
 import { Checkbox, Label, Row, TD } from "@/shared";
-import type { ShippingRow } from "@/feature/shipping";
+import type { Shipping } from "@/feature/shipping";
 import { formatCurrency } from "@/feature/suite";
 import { ShowIcon } from "@/assets";
 
 interface TableDataRowProps extends ComponentProps<"div"> {
-  item: ShippingRow;
+  item: Shipping;
 }
 
 export const TableDataRow = ({ item }: TableDataRowProps) => {

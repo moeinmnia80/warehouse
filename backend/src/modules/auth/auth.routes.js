@@ -7,11 +7,13 @@ import {
   loginUserController,
   registerUserController,
   loginWithGoogleUserController,
+  forgetPasswordController,
 } from "./auth.controller.js";
 import {
   LoginUserSchema,
   RegisterUserSchema,
   LoginWithGooglUserSchema,
+  ForgetPasswordSchema,
 } from "./auth.schemas.js";
 
 export const router = Router();
@@ -30,9 +32,13 @@ router.post(
   loginWithGoogleUserController,
 );
 router.post("/register", validate(RegisterUserSchema), registerUserController);
-router.post("/forget-password", (req, res) => {
-  res.send("Forget password route");
-});
+router.post(
+  "/forget-password",
+  authenticate,
+  authLimiter,
+  validate(ForgetPasswordSchema),
+  forgetPasswordController,
+);
 router.patch("/reset-password", (req, res) => {
   res.send("Reset password route");
 });
