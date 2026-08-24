@@ -1,23 +1,29 @@
-import env from "../../config/env.js";
 import { Errors } from "../../utils/errors.js";
 import { findPackageOrThrow } from "./suite.utils.js";
-import { processAndUploadFiles } from "../../utils/uploadSupabase.js";
+import {
+  getPublicFileUrl,
+  processAndUploadFiles,
+} from "../../utils/uploadSupabase.js";
 
 import {
   updateSuite,
   createNewSuite,
   findSuiteByUserId,
+  addImagesToPackage,
+  addInvoicesToPackage,
 } from "./suite.repository.js";
 
 import {
+  BUCKET_NAME,
   MAX_IMAGES_PER_PACKAGE,
   MAX_INVOICES_PER_PACKAGE,
 } from "../../constants/suite.constants.js";
+import { supabase } from "../../config/supabase.js";
 
 export const getSuiteData = async (req) => {
   const { id } = req.user;
   let existingSuite = await findSuiteByUserId(id);
-  if (!existingSuite) existingSuite = createSuite(req.user);
+  if (!existingSuite) existingSuite = await createSuite(req.user);
 
   const { packages, id: suiteId } = existingSuite;
   return {
@@ -39,14 +45,13 @@ export const createSuite = async ({ id, suiteName }) => {
   const suite = await createNewSuite(newSuite);
   if (!suite) throw Errors.internal("Error occurred while creating suite");
 
-  env.dbUniqueId += 1;
   return { status: "success", message: "suite created", data: suite };
 };
 
 export const addPackageImages = async (req) => {
   const { id: userId } = req.user;
   const { packageId } = req.params;
-  const files = req.files;
+  const files = req.files || [];
 
   const { suite, pkg } = await findPackageOrThrow(userId, packageId);
 
@@ -58,6 +63,11 @@ export const addPackageImages = async (req) => {
   }
 
   const incomingNames = files.map((f) => f.originalname.trim().toLowerCase());
+
+  const hasInBatchDuplicates =
+    new Set(incomingNames).size !== incomingNames.length;
+  if (hasInBatchDuplicates) throw Errors.badRequest("This Files already exist");
+
   const isDuplicate = pkg.images?.some((img) =>
     incomingNames.includes(img.name.trim().toLowerCase()),
   );
@@ -65,8 +75,16 @@ export const addPackageImages = async (req) => {
 
   const newData = await processAndUploadFiles(files, "images", packageId);
 
-  pkg.images = [...(pkg.images || []), ...newData];
-  updateSuite(suite);
+  const imagesToSave = newData.map((file) => ({
+    url: file.url,
+    name: file.originalname || file.name,
+    size: file.size,
+    type: file.mimetype || file.type,
+  }));
+
+  await addImagesToPackage(packageId, imagesToSave);
+
+  pkg.images = [...(pkg.images || []), ...imagesToSave];
 
   return { status: "success", message: "images uploaded", data: pkg.images };
 };
@@ -74,7 +92,7 @@ export const addPackageImages = async (req) => {
 export const addPackagePdf = async (req) => {
   const { id: userId } = req.user;
   const { packageId } = req.params;
-  const files = req.files;
+  const files = req.files || [];
 
   const { suite, pkg } = await findPackageOrThrow(userId, packageId);
 
@@ -86,6 +104,11 @@ export const addPackagePdf = async (req) => {
   }
 
   const incomingNames = files.map((f) => f.originalname.trim().toLowerCase());
+
+  const hasInBatchDuplicates =
+    new Set(incomingNames).size !== incomingNames.length;
+  if (hasInBatchDuplicates) throw Errors.badRequest("This Files already exist");
+
   const isDuplicate = pkg.invoices?.some((inv) =>
     incomingNames.includes(inv.name.trim().toLowerCase()),
   );
@@ -93,21 +116,40 @@ export const addPackagePdf = async (req) => {
 
   const newData = await processAndUploadFiles(files, "invoices", packageId);
 
-  pkg.invoices = [...(pkg.invoices || []), ...newData];
-  updateSuite(suite);
+  const invoicesToSave = newData.map((file) => ({
+    url: file.url,
+    name: file.originalname || file.name,
+    size: file.size,
+    type: file.mimetype || file.type,
+  }));
 
+  await addInvoicesToPackage(packageId, invoicesToSave);
   return { status: "success", message: "pdf uploaded", data: newData };
 };
 
 export const getFiles = async (req) => {
   const { id: userId } = req.user;
   const { packageId, fileName } = req.params;
+
+  if (!fileName || fileName === "undefined") {
+    throw Errors.badRequest("File name parameter is required");
+  }
+
   const type = req.originalUrl.includes("invoice") ? "invoices" : "images";
 
   const { pkg } = await findPackageOrThrow(userId, packageId);
 
-  const fileRecord = pkg[type].find((file) => file.name.includes(fileName));
-  if (!fileRecord) throw Errors.notFound(type);
+  const fileRecord = pkg[type]?.find(
+    (file) =>
+      file.name?.toLowerCase().includes(fileName.toLowerCase()) ||
+      file.url?.toLowerCase().includes(fileName.toLowerCase()),
+  );
 
-  return { fileUrl: fileRecord.url, downloadName: fileRecord.name };
+  if (!fileRecord) {
+    throw Errors.notFound(`${type} with name or ID '${fileName}' not found`);
+  }
+
+  const fullPublicUrl = getPublicFileUrl(fileRecord.url);
+
+  return { fileUrl: fullPublicUrl, downloadName: fileRecord.name };
 };
