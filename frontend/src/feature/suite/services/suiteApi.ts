@@ -55,25 +55,19 @@ export const suiteApi = baseApi.injectEndpoints({
           : { type: "PackageDocs", id },
       ],
     }),
-    getPackageImage: builder.query<string, PackagePayload>({
+    getPackageImage: builder.query<{ fileUrl: string }, PackagePayload>({
       query: ({ packageId, fileName }) => ({
         url: `/my-suite/packages/${packageId}/images/${fileName}`,
-        responseHandler: (response) => response.blob(),
       }),
-      // when data received
-      transformResponse: (blob: Blob) => URL.createObjectURL(blob),
-      // after data received
       providesTags: (_result, _err, { packageId, fileName }) => [
         { type: "PackageImages", id: `${packageId}-${fileName}` },
       ],
       keepUnusedDataFor: 300,
     }),
-    getPackageInvoice: builder.query<string, PackagePayload>({
+    getPackageInvoice: builder.query<{ fileUrl: string }, PackagePayload>({
       query: ({ packageId, fileName }) => ({
         url: `/my-suite/packages/${packageId}/invoice/${fileName}`,
-        responseHandler: (response) => response.blob(),
       }),
-      transformResponse: (blob: Blob) => URL.createObjectURL(blob),
       providesTags: (_result, _err, { packageId, fileName }) => [
         { type: "PackageDocs", id: `${packageId}-${fileName}` },
       ],

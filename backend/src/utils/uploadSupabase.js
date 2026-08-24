@@ -5,38 +5,63 @@ import { supabase } from "../config/supabase.js";
 
 import { BUCKET_NAME } from "../constants/suite.constants.js";
 
-export const uploadFileToSupabase = async (file, folderName, packageId) => {
+export const uploadFileToSupabase = async (file, packageId) => {
   const fileExt = path.extname(file.originalname);
-  const fileName = `${folderName}/${packageId}/${Date.now()}${fileExt}`;
+  const serverFileName = `${Date.now()}${fileExt}`;
+
+  const relativePath = `packages/${packageId}/${serverFileName}`;
 
   const { data, error } = await supabase.storage
     .from(BUCKET_NAME)
-    .upload(fileName, file.buffer, {
+    .upload(relativePath, file.buffer, {
       contentType: file.mimetype,
-      upsert: false,
+      upsert: true,
     });
 
   if (error) throw Errors.internal(`Supabase upload failed: ${error.message}`);
 
-  const { data: publicUrlData } = supabase.storage
-    .from(BUCKET_NAME)
-    .getPublicUrl(data.path);
-
-  return publicUrlData.publicUrl;
+  return {
+    path: relativePath,
+  };
 };
 
 export const processAndUploadFiles = async (files, folderName, packageId) => {
   const uploadPromises = files.map(async (file) => {
-    const fileUrl = await uploadFileToSupabase(file, folderName, packageId);
+    const { path: fileUrlPath } = await uploadFileToSupabase(file, packageId);
+
+    const originalName = Buffer.from(file.originalname, "latin1").toString(
+      "utf8",
+    );
+
+    const fullPublicUrl = getPublicFileUrl(fileUrlPath);
+
     return {
       id: crypto.randomUUID(),
-      url: fileUrl,
-      name: Buffer.from(file.originalname, "latin1").toString("utf8"),
+      url: fullPublicUrl,
+      path: fileUrlPath,
+      name: originalName,
       size: file.size,
-      type: file.originalname.split(".").pop(),
+      type: originalName.split(".").pop(),
       packageId,
     };
   });
 
   return Promise.all(uploadPromises);
+};
+
+export const deleteFileFromSupabase = async (filePath) => {
+  const { data, error } = await supabase.storage
+    .from(BUCKET_NAME)
+    .remove([filePath]);
+
+  if (error) throw Errors.internal(`Supabase delete failed: ${error.message}`);
+
+  return data;
+};
+
+export const getPublicFileUrl = (filePath) => {
+  const { data } = supabase.storage
+    .from(BUCKET_NAME)
+    .getPublicUrl(filePath, { download: true });
+  return data.publicUrl;
 };

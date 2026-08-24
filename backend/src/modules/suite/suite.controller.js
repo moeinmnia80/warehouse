@@ -27,10 +27,10 @@ export const addPackagePdfController = catchAsync(async (req, res) => {
   return res.status(200).json(result);
 });
 export const getInvoiceController = catchAsync(async (req, res) => {
-  const result = await getFiles(req);
-  return res.sendFile(result.fullPath);
+  const { fileUrl } = await getFiles(req);
+  return res.status(200).json({ fileUrl });
 });
 export const getImagesController = catchAsync(async (req, res) => {
-  const result = await getFiles(req);
-  return res.sendFile(result.fullPath);
+  const { fileUrl } = await getFiles(req);
+  return res.status(200).json({ fileUrl });
 });
