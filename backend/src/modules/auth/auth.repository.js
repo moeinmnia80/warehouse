@@ -9,3 +9,13 @@ export const findUserByUsername = (username) =>
   db.user.findUnique({ where: { username } });
 
 export const createUser = (newUser) => db.user.create({ data: newUser });
+
+export const updateUser = (userData) =>
+  db.user.update({
+    where: {
+      email: userData.email,
+    },
+    data: {
+      password: userData.password,
+    },
+  });

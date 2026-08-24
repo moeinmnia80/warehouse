@@ -1,6 +1,7 @@
 import { ChevronIcon } from "@/assets/index";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
-import { TD, Row, THead, Label, Checkbox, type TableRow } from "@/shared/index";
+import { TD, Row, THead, Label, Checkbox, type Package } from "@/shared/index";
+
 import {
   createRowActions,
   areAllRowsChecked,
@@ -9,7 +10,7 @@ import {
 } from "@/feature/suite";
 
 interface TableHeaderRowProps {
-  sortedData: TableRow[] | undefined;
+  sortedData: Package[] | undefined;
 }
 
 export const TableHeaderRow = ({ sortedData }: TableHeaderRowProps) => {

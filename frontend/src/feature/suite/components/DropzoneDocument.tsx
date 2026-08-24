@@ -2,13 +2,13 @@ import { UploadIcon } from "@/assets";
 import { FilePreview, useSuiteUpload } from "@/feature/suite";
 import {
   Dropzone,
+  type Package,
   DropzoneArea,
-  type TableRow,
   DropzoneFileList,
   DropzoneSubmitButton,
 } from "@/shared";
 
-export const DropzoneDocument = ({ data }: { data: TableRow }) => {
+export const DropzoneDocument = ({ data }: { data: Package }) => {
   const { upload } = useSuiteUpload();
 
   return (

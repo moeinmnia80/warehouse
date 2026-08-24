@@ -1,37 +1,46 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { setEmail, useAuth } from "@/feature/auth";
+import { useAppDispatch } from "@/store/redux/store";
+
 import {
   Form,
   Label,
   Email,
   Button,
   Caption,
+  backToPrevPage,
+  BackgroundPattern,
   forgetPasswordSchema,
   type ForgetPasswordData,
-  BackgroundPattern,
+  Spinner,
 } from "@/shared/index";
 
 const ForgetPasswordPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<ForgetPasswordData>({
     resolver: zodResolver(forgetPasswordSchema),
   });
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-  function onSubmit(data: ForgetPasswordData) {
-    if (data.email) {
-      navigate("/reset-password");
+  const { forgetPassword, isRequestingReset } = useAuth();
+
+  async function onSubmit(data: ForgetPasswordData) {
+    const result = await forgetPassword({ email: data.email });
+    if (result.success) {
+      dispatch(setEmail({ email: data.email }));
+      navigate("/verify-otp", { replace: true });
     }
   }
 
-  const backToPrevPage = () => navigate("-1", { replace: true });
-
   return (
-    <section className="relative flex-center w-full h-dvh ">
+    <div className="relative flex-center w-full h-dvh ">
       <div className="form-box animate-slide-up text-tx-primary">
         <h2 className="heading-2">Forget Your Password</h2>
         <p className="text-md text-tx-placeholder text-center mt-4">
@@ -46,20 +55,27 @@ const ForgetPasswordPage = () => {
               {errors.email?.message}
             </Caption>
           </Label>
-          <Button className="btn btn--primary font-semibold px-2">
-            Reset Password
+          <Button
+            disabled={!isValid || !isDirty || isRequestingReset}
+            className="btn btn--primary font-semibold px-2 disabled:opacity-25 disabled:cursor-default"
+          >
+            {isRequestingReset ? (
+              <Spinner className="size-6 text-b-primary" />
+            ) : (
+              "Reset Password"
+            )}
           </Button>
         </Form>
         <button
           type="button"
           className="text-md font-bold mt-6"
-          onClick={() => backToPrevPage()}
+          onClick={() => backToPrevPage(navigate)}
         >
           Go Back
         </button>
       </div>
       <BackgroundPattern />
-    </section>
+    </div>
   );
 };
 

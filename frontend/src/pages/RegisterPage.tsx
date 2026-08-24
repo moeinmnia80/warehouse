@@ -12,7 +12,7 @@ const RegisterPage = () => {
         <RegisterForm />
         <div className="flex items-center justify-center mt-4">
           <span className="inline-block w-full h-px bg-bo-primary"></span>
-          <span className="text-xs px-2">OR</span>
+          <span className="text-sm px-2">OR</span>
           <span className="inline-block w-full h-px bg-bo-primary"></span>
         </div>
         <GoogleLoginButton />

@@ -10,9 +10,8 @@ export const SuiteHeader = ({ ...props }: ComponentProps<"div">) => {
   const { id, count } = useGetSuiteQuery(undefined, {
     selectFromResult: ({ data }) => ({
       id: data?.id,
-      count: data?.packages.filter(
-        (pkg) => pkg.status.label === "ready to send",
-      ).length,
+      count: data?.packages.filter((pkg) => pkg.statusLabel === "ready to send")
+        .length,
     }),
   });
   return (

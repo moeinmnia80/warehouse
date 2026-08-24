@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
-import { GoogleLoginButton, useAuth } from "@/feature/auth/index";
 import { Link, useNavigate } from "react-router";
-import { Logo, FacebookIcon } from "@/assets/index";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Logo, FacebookIcon } from "@/assets/index";
+import { GoogleLoginButton, useAuth } from "@/feature/auth/index";
+
 import {
   Form,
   Email,
@@ -14,6 +16,7 @@ import {
   FormItem,
   loginSchema,
   type LoginFormData,
+  Spinner,
 } from "@/shared/index";
 
 export const LoginForm = () => {
@@ -28,7 +31,6 @@ export const LoginForm = () => {
 
   const onSubmit = async (formData: LoginFormData) => {
     const result = await login(formData);
-
     if (result?.success) {
       navigate("/dashboard", { replace: true });
     }
@@ -73,8 +75,15 @@ export const LoginForm = () => {
             Forget password
           </Link>
         </FormItem>
-        <Button className="btn btn--primary font-semibold mt-4 transition-all duration-200 hover:text-t-primary">
-          {isLoggingIn ? "Loading" : "Sign in"}
+        <Button
+          className="btn btn--primary font-semibold mt-4 transition-all duration-200 hover:text-t-primary disabled:opacity-25 disabled:cursor-default"
+          disabled={isLoggingIn}
+        >
+          {isLoggingIn ? (
+            <Spinner className="size-6 text-b-primary" />
+          ) : (
+            "Sign in"
+          )}
         </Button>
       </Form>
       <div className="flex items-center justify-center mt-4">

@@ -1,7 +1,7 @@
-import type { TableRow } from "@/shared";
+import type { Package } from "@/shared";
 import { useAppSelector } from "@/store/redux/store";
 
-export const useSuiteFilter = (data: TableRow[]) => {
+export const useSuiteFilter = (data: Package[]) => {
   const sort = useAppSelector((state) => state.suite.sort);
   const category = useAppSelector((state) => state.suite.category);
 
@@ -10,12 +10,12 @@ export const useSuiteFilter = (data: TableRow[]) => {
     category === "view all"
       ? data
       : data.filter(
-          (item) => item.status.label === category.toLocaleLowerCase(),
+          (item) => item.statusLabel === category.toLocaleLowerCase(),
         );
 
   const sortedData = () => {
     if (!sort.key) return filterData;
-    const key = sort.key as keyof TableRow;
+    const key = sort.key as keyof Package;
     const arr = [...filterData];
 
     arr.sort((a, b) => {

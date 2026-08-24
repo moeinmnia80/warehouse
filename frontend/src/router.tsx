@@ -7,6 +7,7 @@ const NotFoundPage = lazy(() => import("@/pages/404"));
 const LoginPage = lazy(() => import("@/pages/LoginPage"));
 const RegisterPage = lazy(() => import("@/pages/RegisterPage"));
 const DashboardPage = lazy(() => import("@/pages/DashboardPage"));
+const OTPVerifyPage = lazy(() => import("@/pages/OTPVerifyPage"));
 const ResetPasswordPage = lazy(() => import("@/pages/ResetPasswordPage"));
 const ForgetPasswordPage = lazy(() => import("@/pages/ForgetPasswordPage"));
 const ShippingHistory = lazy(
@@ -21,6 +22,7 @@ const routes = [
   { path: "login", element: <LoginPage /> },
   { path: "register", element: <RegisterPage /> },
   { path: "forget-password", element: <ForgetPasswordPage /> },
+  { path: "verify-otp", element: <OTPVerifyPage /> },
   { path: "reset-password", element: <ResetPasswordPage /> },
   {
     element: <ProtectRoutes />,

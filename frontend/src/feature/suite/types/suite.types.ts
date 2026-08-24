@@ -1,27 +1,21 @@
-import type { TableRow } from "@/shared";
+import type { Item, Package } from "@/shared";
 
 // components/*
 export interface TableDataRowProps {
-  item: TableRow;
+  item: Package;
 }
 export interface ExpandedRowDetailsProps {
-  data: TableRow;
+  data: Package;
 }
 export interface InvoiceModalProps {
   handleCloseModal: () => void;
 }
 export interface AddInvoiceModalProps {
-  item: TableRow | undefined;
+  item: Package | undefined;
   packageId: string | null;
 }
 export interface ExpandedRowPackageItemProps {
-  item: {
-    id: string;
-    name: string;
-    qty: string;
-    valuePerUnit: string;
-    notice: string | null;
-  };
+  item: Item;
   index: number;
 }
 export interface FilePreviewProps {
@@ -43,7 +37,7 @@ export type CategoryType =
 export interface SuitePayload {
   id: string;
   userId: string;
-  packages: TableRow[];
+  packages: Package[];
 }
 export interface SuiteResponse {
   id: string;

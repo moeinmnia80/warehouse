@@ -1,16 +1,25 @@
 import { Router } from "express";
 import { validate } from "../../middlewares/validate.middleware.js";
 import { authenticate } from "../../middlewares/auth.middleware.js";
-import { authLimiter } from "../../middlewares/limiter.middleware.js";
+import {
+  authLimiter,
+  otpCooldownLimiter,
+  otpMaxAttemptsLimiter,
+} from "../../middlewares/limiter.middleware.js";
 import {
   getUserController,
   loginUserController,
+  verifyOtpController,
   registerUserController,
+  regenerateOtpController,
+  forgetPasswordController,
   loginWithGoogleUserController,
+  resetPasswordController,
 } from "./auth.controller.js";
 import {
   LoginUserSchema,
   RegisterUserSchema,
+  ForgetPasswordSchema,
   LoginWithGooglUserSchema,
 } from "./auth.schemas.js";
 
@@ -30,9 +39,18 @@ router.post(
   loginWithGoogleUserController,
 );
 router.post("/register", validate(RegisterUserSchema), registerUserController);
-router.post("/forget-password", (req, res) => {
-  res.send("Forget password route");
-});
-router.patch("/reset-password", (req, res) => {
-  res.send("Reset password route");
-});
+router.post(
+  "/forget-password",
+  otpMaxAttemptsLimiter,
+  validate(ForgetPasswordSchema),
+  forgetPasswordController,
+);
+router.patch("/reset-password", otpMaxAttemptsLimiter, resetPasswordController);
+
+router.post(
+  "/resend-otp",
+  otpCooldownLimiter,
+  otpMaxAttemptsLimiter,
+  regenerateOtpController,
+);
+router.post("/verify-otp", otpMaxAttemptsLimiter, verifyOtpController);

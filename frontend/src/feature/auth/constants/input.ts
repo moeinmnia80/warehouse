@@ -2,11 +2,19 @@ import type { RegisterType } from "@/feature/auth";
 
 export const registerInput: RegisterType[] = [
   {
-    label: "Full Name",
-    id: "fullName",
+    label: "First Name",
+    id: "firstName",
     type: "text",
-    name: "fullName",
-    placeholder: "Enter full name",
+    name: "firstName",
+    placeholder: "Enter first name",
+    autoComplete: "name",
+  },
+  {
+    label: "Last Name",
+    id: "lastName",
+    type: "text",
+    name: "lastName",
+    placeholder: "Enter last name",
     autoComplete: "name",
   },
   {

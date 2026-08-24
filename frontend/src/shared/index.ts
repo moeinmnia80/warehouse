@@ -1,20 +1,29 @@
 // export utils
 export { cn } from "@/shared/utils/merge.utils";
-export { calculateFileSize } from "@/shared/utils/calculateFileSize.utils";
+export { backToPrevPage } from "@/shared/utils/history.utils";
 export { changeTheme, themeCheck } from "@/shared/utils/theme.utils";
-export {
-  getCookie,
-  setCookie,
-  removeCookie,
-} from "@/shared/utils/cookie.utils";
+export { calculateFileSize } from "@/shared/utils/calculateFileSize.utils";
 // export type
 export type {
+  Item,
+  Role,
+  User,
+  Suite,
+  Gender,
+  Status,
+  Invoice,
+  Package,
+  Provider,
   AreaType,
+  Shipping,
   DataState,
-  TableRow,
+  PhoneType,
+  ImageType,
   ToastItem,
-  ToastState,
+  UserPhone,
   ToastType,
+  ToastState,
+  UserAddress,
   contextType,
   TableEmptyProps,
 } from "@/shared/types/types";
@@ -48,7 +57,9 @@ export { PATHS_WITHOUT_FOOTER } from "@/shared/constants/path";
 export { baseApi } from "@/shared/api/baseApi";
 // components
 export { Image } from "@/shared/components/ui/Image";
+export { Timer } from "@/shared/components/ui/Timer";
 export { Toaster } from "@/shared/components/Toaster";
+export { Spinner } from "@/shared/components/ui/Spinner";
 export { NavLinks } from "@/shared/layout/Header/NavLinks";
 export { UserMenu } from "@/shared/layout/Header/UserMenu";
 export { TableEmpty } from "@/shared/components/TableEmpty";

@@ -3,12 +3,12 @@ import { FilePreview, useSuiteUpload } from "@/feature/suite";
 import {
   Dropzone,
   DropzoneArea,
-  type TableRow,
+  type Package,
   DropzoneFileList,
   DropzoneSubmitButton,
 } from "@/shared/index";
 
-export const DropzoneImage = ({ data }: { data: TableRow }) => {
+export const DropzoneImage = ({ data }: { data: Package }) => {
   const { upload } = useSuiteUpload();
   return (
     <Dropzone

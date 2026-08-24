@@ -5,9 +5,9 @@ export function useSuiteTabCounts(data?: SuitePayload) {
   return packages.reduce(
     (acc, item) => {
       acc.viewAll++;
-      if (item.status.label === "in review") acc.inReview++;
-      if (item.status.label === "action required") acc.actionRequired++;
-      if (item.status.label === "ready to send") acc.readyToSend++;
+      if (item.statusLabel === "in review") acc.inReview++;
+      if (item.statusLabel === "action required") acc.actionRequired++;
+      if (item.statusLabel === "ready to send") acc.readyToSend++;
       return acc;
     },
     { inReview: 0, actionRequired: 0, readyToSend: 0, viewAll: 0 },
