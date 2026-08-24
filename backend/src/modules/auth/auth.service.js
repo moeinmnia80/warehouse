@@ -66,7 +66,13 @@ export const loginWithGoogle = async ({ token }) => {
   };
 };
 
-export const registerUser = async ({ email, fullName, username, password }) => {
+export const registerUser = async ({
+  email,
+  firstName,
+  lastName,
+  username,
+  password,
+}) => {
   const existingUserByEmail = await findUserByEmail(email);
   if (existingUserByEmail) {
     throw Errors.conflict("User with this email already exists");
@@ -86,9 +92,10 @@ export const registerUser = async ({ email, fullName, username, password }) => {
 
   const newUser = User.fromLocalSignup({
     email,
+    lastName,
     username,
+    firstName,
     hashedPassword: hashPassword,
-    fullName,
   });
 
   const user = await createUser(newUser);
