@@ -1,11 +1,15 @@
 import { catchAsync } from "../../utils/async.js";
 import { cookieOptions } from "../../config/cookie.js";
+
 import {
   getMe,
   loginUser,
+  verifyOtp,
   registerUser,
-  loginWithGoogle,
+  regenerateOtp,
+  resetPassword,
   forgetPassword,
+  loginWithGoogle,
 } from "./auth.service.js";
 
 export const loginUserController = catchAsync(async (req, res) => {
@@ -41,5 +45,20 @@ export const getUserController = catchAsync(async (req, res) => {
 
 export const forgetPasswordController = catchAsync(async (req, res) => {
   const result = await forgetPassword(req);
+  return res.status(200).json(result);
+});
+
+export const regenerateOtpController = catchAsync(async (req, res) => {
+  const result = await regenerateOtp(req);
+  return res.status(201).json(result);
+});
+
+export const verifyOtpController = catchAsync(async (req, res) => {
+  const result = await verifyOtp(req);
+  return res.status(200).json(result);
+});
+
+export const resetPasswordController = catchAsync(async (req, res) => {
+  const result = await resetPassword(req);
   return res.status(200).json(result);
 });

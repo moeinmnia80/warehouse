@@ -19,15 +19,11 @@ const authSlice = createSlice({
       state.user = null;
       state.status = "unauthenticated";
     },
-    setEmailForgetPassword: (
-      state,
-      action: PayloadAction<{ email: string }>,
-    ) => {
+    setEmail: (state, action: PayloadAction<{ email: string }>) => {
       state.email = action.payload.email;
     },
   },
 });
 
 export default authSlice.reducer;
-export const { setCredentials, logoutAction, setEmailForgetPassword } =
-  authSlice.actions;
+export const { setCredentials, logoutAction, setEmail } = authSlice.actions;

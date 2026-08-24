@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { setEmailForgetPassword, useAuth } from "@/feature/auth";
+import { setEmail, useAuth } from "@/feature/auth";
+import { useAppDispatch } from "@/store/redux/store";
 
 import {
   Form,
@@ -26,16 +26,15 @@ const ForgetPasswordPage = () => {
   } = useForm<ForgetPasswordData>({
     resolver: zodResolver(forgetPasswordSchema),
   });
-  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const { forgetPassword, isRequestingReset } = useAuth();
 
   async function onSubmit(data: ForgetPasswordData) {
-    dispatch(setEmailForgetPassword({ email: data.email }));
-
     const result = await forgetPassword({ email: data.email });
     if (result.success) {
+      dispatch(setEmail({ email: data.email }));
       navigate("/verify-otp", { replace: true });
     }
   }

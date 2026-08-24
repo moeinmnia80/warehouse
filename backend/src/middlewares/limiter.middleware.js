@@ -21,3 +21,27 @@ export const authLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
 });
+
+export const otpCooldownLimiter = rateLimit({
+  windowMs: 2 * 60 * 1000,
+  max: 1,
+  message: {
+    error: {
+      message: "Please wait 2 minutes before requesting a new code.",
+    },
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+export const otpMaxAttemptsLimiter = rateLimit({
+  windowMs: 25 * 60 * 1000,
+  max: 3,
+  message: {
+    error: {
+      message: "Too many OTP requests. Please try again after 25 minutes.",
+    },
+  },
+  standardHeaders: true,
+  legacyHeaders: false,
+});

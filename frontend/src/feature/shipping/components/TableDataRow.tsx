@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 import { Checkbox, Label, Row, TD } from "@/shared";
-import type { Shipping } from "@/feature/shipping";
+import type { Shipping } from "@/shared";
 import { formatCurrency } from "@/feature/suite";
 import { ShowIcon } from "@/assets";
 
@@ -9,7 +9,7 @@ interface TableDataRowProps extends ComponentProps<"div"> {
 }
 
 export const TableDataRow = ({ item }: TableDataRowProps) => {
-  const date = new Date(item.timestamps.created_at);
+  const date = new Date(item.createdAt);
 
   return (
     <>
@@ -29,12 +29,12 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           dataCell="Invoice"
         >
           <span className="flex-center justify-center w-full md:justify-start!">
-            {item.invoice.file ?? "nothing"}
+            {item?.invoice?.name ?? "nothing"}
           </span>
         </TD>
         <TD className="flex items-center text-current flex-1" dataCell="Type">
           <span className="flex-center justify-center w-full md:justify-start!">
-            {item.invoice.type.toUpperCase()}
+            {item?.invoice?.type.toUpperCase()}
           </span>
         </TD>
         <TD
@@ -50,7 +50,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           dataCell="Charge"
         >
           <span className="flex-center justify-center w-full">
-            {formatCurrency(+item.charge)}
+            {item.charge && formatCurrency(+item.charge)}
           </span>
         </TD>
         <TD

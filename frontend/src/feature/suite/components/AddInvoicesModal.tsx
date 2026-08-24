@@ -87,7 +87,7 @@ export const AddInvoicesModal = ({
         />
 
         <div className="flex gap-2">
-          {pkg?.invoices.map((invoice) => (
+          {pkg?.invoices?.map((invoice) => (
             <div className="relative flex size-30 text-tx-primary text-xs text-center border border-bo-primary rounded-lg">
               <FilePreview item={invoice} packageId={pkg.packageId} />
             </div>

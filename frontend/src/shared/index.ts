@@ -57,6 +57,7 @@ export { PATHS_WITHOUT_FOOTER } from "@/shared/constants/path";
 export { baseApi } from "@/shared/api/baseApi";
 // components
 export { Image } from "@/shared/components/ui/Image";
+export { Timer } from "@/shared/components/ui/Timer";
 export { Toaster } from "@/shared/components/Toaster";
 export { Spinner } from "@/shared/components/ui/Spinner";
 export { NavLinks } from "@/shared/layout/Header/NavLinks";

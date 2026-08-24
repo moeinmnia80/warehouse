@@ -45,14 +45,14 @@ const rangeLabel = (dateFilter: { preset: DatePreset; range: DateRange }) => {
     : "No range selected";
 };
 
-const getTimeFromISO = (date: string) => new Date(date).getTime();
+const getTimeFromISO = (date: string | Date) => new Date(date).getTime();
 
 const checkInDateFilterRange = ({
   dateFilterRange,
   date,
 }: {
   dateFilterRange: DateRange;
-  date: string;
+  date: string | Date;
 }) => {
   if (!dateFilterRange.from || !dateFilterRange.to) return;
 

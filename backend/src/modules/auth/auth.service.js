@@ -7,7 +7,7 @@ import { User } from "./auth.model.js";
 import { Errors } from "../../utils/errors.js";
 import { redis } from "../../config/cache.js";
 
-import { createUser, findUserById } from "./auth.repository.js";
+import { createUser, findUserById, updateUser } from "./auth.repository.js";
 import { findUserByEmail, findUserByUsername } from "./auth.repository.js";
 import { sendDynamicEmail } from "../../utils/emailService.js";
 import { generateOtpCode } from "../../utils/otpService.js";
@@ -131,11 +131,61 @@ export const forgetPassword = async ({ body: { email } }) => {
     expiresInMinutes: 2,
   });
   if (!emailResult.success) {
-    throw Errors.externalApi("SMS provider");
+    throw Errors.externalApi("Email provider");
   }
   return {
     status: "success",
     message: "User founded",
     data: { ...toPublicUser(existingUserByEmail) },
+  };
+};
+
+export const regenerateOtp = async ({ body: { email } }) => {
+  const code = generateOtpCode();
+  const key = `otp:${email}`;
+  await redis.set(key, code, "EX", 120);
+
+  const emailResult = await sendDynamicEmail(email, "OTP", {
+    otpCode: code,
+    expiresInMinutes: 2,
+  });
+  if (!emailResult.success) {
+    throw Errors.externalApi("Email provider");
+  }
+
+  return { status: "success", message: "opt created successfully" };
+};
+
+export const verifyOtp = async ({ body: { email, otpCode } }) => {
+  const key = `otp:${email}`;
+
+  const storedOtp = await redis.get(key);
+  if (!storedOtp) {
+    throw Errors.badRequest("Verification code has expired or was not found.");
+  }
+  if (+storedOtp !== +otpCode) {
+    throw Errors.badRequest("Invalid verification code.");
+  }
+
+  await redis.del(key);
+
+  return { status: "success", message: "Email verified successfully." };
+};
+
+export const resetPassword = async ({ body: { email, newPassword } }) => {
+  const existingUserByEmail = await findUserByEmail(email);
+  if (!existingUserByEmail) {
+    throw Errors.notFound("User");
+  }
+  const hashPassword = await bcrypt.hash(newPassword, 10);
+  if (!hashPassword) {
+    throw Errors.internal("Error occurred");
+  }
+
+  await updateUser({ email, password: hashPassword });
+
+  return {
+    status: "success",
+    message: "Password updated successfully.",
   };
 };

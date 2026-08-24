@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
-import { GoogleLoginButton, useAuth } from "@/feature/auth/index";
 import { Link, useNavigate } from "react-router";
-import { Logo, FacebookIcon } from "@/assets/index";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { Logo, FacebookIcon } from "@/assets/index";
+import { GoogleLoginButton, useAuth } from "@/feature/auth/index";
+
 import {
   Form,
   Email,

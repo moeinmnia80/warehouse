@@ -34,7 +34,7 @@ app.use(requestLogger);
 
 app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ───── Routes ──────────────────────────────────────────
-app.use("/auth", authenticate, authRouter);
+app.use("/auth", authRouter);
 app.use("/user", authenticate, userRouter);
 app.use("/my-suite", authenticate, suiteRouter);
 app.use("/shipping", authenticate, shippingRouter);

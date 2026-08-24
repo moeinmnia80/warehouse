@@ -1,7 +1,13 @@
 import type { User } from "@/shared";
 
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
-import { useForgetPasswordMutation, type AuthApiError } from "@/feature/auth";
+import {
+  useForgetPasswordMutation,
+  useResendOptMutation,
+  useResetPasswordMutation,
+  useVerifyOtpCodeMutation,
+  type AuthApiError,
+} from "@/feature/auth";
 
 import {
   setCredentials,
@@ -12,7 +18,6 @@ import {
   type LoginCredentials,
   type RegisterCredentials,
   useLoginWithGoogleMutation,
-  type ForgetPasswordCredentials,
 } from "@/feature/auth/index";
 
 export const useAuth = (): UseAuthReturn => {
@@ -26,6 +31,12 @@ export const useAuth = (): UseAuthReturn => {
     useLoginWithGoogleMutation();
   const [forgetPasswordMutation, { isLoading: isRequestingReset }] =
     useForgetPasswordMutation();
+  const [resendOptMutation, { isLoading: isResendOpt }] =
+    useResendOptMutation();
+  const [verifyOtpCodeMutation, { isLoading: isVerifying }] =
+    useVerifyOtpCodeMutation();
+  const [resetPasswordMutation, { isLoading: isResetting }] =
+    useResetPasswordMutation();
 
   const runAuthMutation = async (
     mutate: () => Promise<{ data: User }>,
@@ -58,20 +69,75 @@ export const useAuth = (): UseAuthReturn => {
       "Login error",
     );
 
-  const forgetPassword = (credentials: ForgetPasswordCredentials) =>
-    runAuthMutation(
-      () => forgetPasswordMutation(credentials).unwrap(),
-      "The password reset request failed.",
-    );
+  const forgetPassword = async (credentials: {
+    email: string;
+  }): Promise<AuthResult> => {
+    try {
+      await forgetPasswordMutation(credentials).unwrap();
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: (error as AuthApiError) ?? "The password reset request failed.",
+      };
+    }
+  };
+  const resendOpt = async (credentials: {
+    email: string;
+  }): Promise<AuthResult> => {
+    try {
+      await resendOptMutation(credentials).unwrap();
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: (error as AuthApiError) ?? "failed regenerate opt code.",
+      };
+    }
+  };
+  const verifyOtpCode = async (credentials: {
+    email: string;
+    otpCode: string;
+  }): Promise<AuthResult> => {
+    try {
+      await verifyOtpCodeMutation(credentials).unwrap();
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: (error as AuthApiError) ?? "failed verify opt code.",
+      };
+    }
+  };
 
+  const resetPassword = async (credentials: {
+    email: string;
+    newPassword: string;
+  }): Promise<AuthResult> => {
+    try {
+      await resetPasswordMutation(credentials).unwrap();
+      return { success: true };
+    } catch (error) {
+      return {
+        success: false,
+        error: (error as AuthApiError) ?? "failed password reset.",
+      };
+    }
+  };
   return {
     user,
+    isResetting,
     isLoggingIn,
+    isResendOpt,
+    isVerifying,
     isRegistering,
     isRequestingReset,
     isLoggingInWithGoogle,
     login,
     register,
+    resendOpt,
+    verifyOtpCode,
+    resetPassword,
     forgetPassword,
     loginWithGoogle,
   };

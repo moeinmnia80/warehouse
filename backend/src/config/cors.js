@@ -2,7 +2,7 @@ import env from "./env.js";
 
 const corsOption = {
   origin: [env.clientUrl, "https://warehouse-markist.vercel.app"],
-  methods: ["GET", "POST", "DELETE", "PUT"],
+  methods: ["GET", "POST", "DELETE", "PUT", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
 };

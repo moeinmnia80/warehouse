@@ -11,17 +11,17 @@ export const useSearchFilter = ({
   if (!data) return [];
   if (!search && !dateFilter.preset) return data;
 
-  if (data) {
-    const matchSearch = data.filter(
-      ({ description, invoice }) =>
-        description.includes(search) || invoice.file === search,
-    );
-    // matchDateFilter
-    return matchSearch.filter(({ timestamps }) =>
-      checkInDateFilterRange({
-        dateFilterRange: dateFilter.range,
-        date: timestamps.created_at,
-      }),
-    );
-  }
+  const lowerSearch = search.toLowerCase();
+  const matchSearch = data.filter(
+    ({ description, invoice }) =>
+      description?.toLowerCase().includes(lowerSearch) ||
+      invoice?.name?.toLowerCase().includes(lowerSearch),
+  );
+
+  return matchSearch.filter(({ createdAt }) =>
+    checkInDateFilterRange({
+      dateFilterRange: dateFilter.range,
+      date: createdAt,
+    }),
+  );
 };

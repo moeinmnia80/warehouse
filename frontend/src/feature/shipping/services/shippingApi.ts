@@ -1,6 +1,5 @@
-import { baseApi } from "@/shared/index";
+import { baseApi, type Shipping } from "@/shared/index";
 import type {
-  Shipping,
   ShippingResponse,
   UserPaymentResponse,
   PaymentMethodsPayload,
@@ -22,13 +21,13 @@ export const shippingApi = baseApi.injectEndpoints({
                   type: "Shipping" as const,
                   id: shipment.shipmentId,
                 },
-                ...shipment.packages.map((pkg) => ({
+                ...(shipment.packages || []).map((pkg) => ({
                   type: "Package" as const,
                   id: pkg.packageId,
                 })),
               ]),
             ]
-          : [{ type: "Shipping", id: "LIST" }],
+          : [{ type: "Shipping" as const, id: "LIST" }],
       keepUnusedDataFor: 300,
     }),
     getUserPaymentMethods: builder.query<PaymentMethodsPayload[], void>({
@@ -43,8 +42,14 @@ export const shippingApi = baseApi.injectEndpoints({
       transformResponse: (response: UserPaymentResponse) => response.data,
       providesTags: (result) =>
         result
-          ? result.map((pm) => ({ type: "PaymentMethods", id: pm.id }))
-          : [{ type: "PaymentMethods", id: "LIST" }],
+          ? [
+              ...result.map((pm) => ({
+                type: "PaymentMethods" as const,
+                id: pm.id,
+              })),
+              { type: "PaymentMethods" as const, id: "LIST" },
+            ]
+          : [{ type: "PaymentMethods" as const, id: "LIST" }],
       keepUnusedDataFor: 300,
     }),
     getUserAddress: builder.query<UserAddressPayload[], void>({
@@ -57,7 +62,7 @@ export const shippingApi = baseApi.injectEndpoints({
         }
       },
       transformResponse: (response: UserAddressResponse) => response.data,
-      providesTags: [{ type: "UserAddress", id: "LIST" }],
+      providesTags: [{ type: "UserAddress" as const, id: "LIST" }],
       keepUnusedDataFor: 300,
     }),
   }),

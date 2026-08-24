@@ -13,6 +13,7 @@ export { LightIcon } from "@/assets/icons/LightIcon";
 export { QueueIcon } from "@/assets/icons/QueueIcon";
 export { ResetIcon } from "@/assets/icons/ResetIcon";
 export { TrashIcon } from "@/assets/icons/TrashIcon";
+export { RecallIcon } from "@/assets/icons/RecallIcon";
 export { DangerIcon } from "@/assets/icons/DangerIcon";
 export { GoogleIcon } from "@/assets/icons/GoogleIcon";
 export { HiddenIcon } from "@/assets/icons/HiddenIcon";

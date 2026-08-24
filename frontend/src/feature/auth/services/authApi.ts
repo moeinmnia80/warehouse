@@ -5,6 +5,7 @@ import type {
   AuthResponse,
   ErrorResponse,
   LoginCredentials,
+  OPTResponse,
 } from "@/feature/auth/index";
 
 export const authApi = baseApi.injectEndpoints({
@@ -93,6 +94,73 @@ export const authApi = baseApi.injectEndpoints({
       },
       invalidatesTags: ["Auth"],
     }),
+    resendOpt: builder.mutation<OPTResponse, { email: string }>({
+      query: (credentials) => ({
+        url: "/auth/resend-otp",
+        method: "POST",
+        body: credentials,
+      }),
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success("OPT code successfully regenerated");
+        } catch (error) {
+          toast.error(
+            (error as { error: ErrorResponse }).error.data
+              ? (error as { error: ErrorResponse }).error.data.error.message
+              : "Failed to regenerate OTP code",
+          );
+        }
+      },
+      invalidatesTags: ["Auth"],
+    }),
+    verifyOtpCode: builder.mutation<
+      OPTResponse,
+      { email: string; otpCode: string }
+    >({
+      query: (credentials) => ({
+        url: "/auth/verify-otp",
+        method: "POST",
+        body: credentials,
+      }),
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success("OPT code successfully verifying");
+        } catch (error) {
+          toast.error(
+            (error as { error: ErrorResponse }).error.data
+              ? (error as { error: ErrorResponse }).error.data.error.message
+              : "Failed to verify OTP code",
+          );
+        }
+      },
+      invalidatesTags: ["Auth"],
+    }),
+
+    resetPassword: builder.mutation<
+      OPTResponse,
+      { email: string; newPassword: string }
+    >({
+      query: (credentials) => ({
+        url: "/auth/reset-password",
+        method: "PATCH",
+        body: credentials,
+      }),
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled;
+          toast.success("password successfully reset");
+        } catch (error) {
+          toast.error(
+            (error as { error: ErrorResponse }).error.data
+              ? (error as { error: ErrorResponse }).error.data.error.message
+              : "Failed to reset password",
+          );
+        }
+      },
+      invalidatesTags: ["Auth"],
+    }),
     getCurrentUser: builder.query<GetMe, void>({
       query: () => "/auth/me",
       providesTags: ["Auth"],
@@ -104,7 +172,10 @@ export const authApi = baseApi.injectEndpoints({
 export const {
   useLoginMutation,
   useRegisterMutation,
+  useResendOptMutation,
   useGetCurrentUserQuery,
+  useVerifyOtpCodeMutation,
+  useResetPasswordMutation,
   useForgetPasswordMutation,
   useLoginWithGoogleMutation,
 } = authApi;

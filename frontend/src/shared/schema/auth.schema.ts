@@ -28,6 +28,7 @@ export const registerSchema = z.object({
 export const forgetPasswordSchema = z.object({
   email: z.email("Email is not valid."),
 });
+
 export const resetPasswordSchema = z
   .object({
     password: z.string().min(8, "Password must be at least 8 characters long."),

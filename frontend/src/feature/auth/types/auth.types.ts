@@ -2,6 +2,10 @@ import type { User } from "@/shared";
 import type { SerializedError } from "@reduxjs/toolkit";
 import type { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
+export interface OtpInputGroupProps {
+  digits: string[];
+  onChange: (index: number, value: string) => void;
+}
 export interface LoginCredentials {
   email: string;
   password: string;
@@ -30,7 +34,12 @@ export interface AuthState {
 export interface AuthResponse {
   status: "success" | "fail";
   message: string;
-  data: User & { otpCode?: string };
+  data: User;
+}
+
+export interface OPTResponse {
+  status: "success" | "fail";
+  message: string;
 }
 export interface ErrorResponse {
   data: {
@@ -49,16 +58,27 @@ export interface RegisterType {
 }
 export type AuthResult =
   | { success: true }
-  | { success: true; otpCode: string }
   | { success: false; error: FetchBaseQueryError | SerializedError | string };
 export interface UseAuthReturn {
   user: User | null;
   isLoggingIn: boolean;
+  isVerifying: boolean;
+  isResendOpt: boolean;
+  isResetting: boolean;
   isRegistering: boolean;
   isRequestingReset: boolean;
   isLoggingInWithGoogle: boolean;
   login: (credentials: LoginCredentials) => Promise<AuthResult>;
   register: (credentials: RegisterCredentials) => Promise<AuthResult>;
+  resendOpt: (credentials: { email: string }) => Promise<AuthResult>;
+  resetPassword: (credentials: {
+    email: string;
+    newPassword: string;
+  }) => Promise<AuthResult>;
+  verifyOtpCode: (credentials: {
+    email: string;
+    otpCode: string;
+  }) => Promise<AuthResult>;
   forgetPassword: (
     credentials: ForgetPasswordCredentials,
   ) => Promise<AuthResult>;

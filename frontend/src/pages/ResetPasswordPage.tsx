@@ -1,5 +1,9 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
+
+import { useAuth, useRequireAuth } from "@/feature/auth";
+
 import {
   Form,
   Label,
@@ -7,10 +11,12 @@ import {
   Caption,
   Password,
   FormItem,
+  BackgroundPattern,
   resetPasswordSchema,
   type ResetPasswordData,
-  BackgroundPattern,
+  Spinner,
 } from "@/shared/index";
+import { useAppSelector } from "@/store/redux/store";
 
 const ResetPasswordPage = () => {
   const {
@@ -20,17 +26,32 @@ const ResetPasswordPage = () => {
   } = useForm<ResetPasswordData>({
     resolver: zodResolver(resetPasswordSchema),
   });
-  function onSubmit(data: ResetPasswordData) {
-    console.log(data);
-    console.log(errors);
-  }
+
+  const email = useAppSelector((state) => state.auth.email);
+  const navigate = useNavigate();
+
+  const { resetPassword, isResetting } = useAuth();
+
+  const { isAuthenticated } = useRequireAuth("/login", email);
+  if (!isAuthenticated) return;
+
+  const onSubmit = async (data: ResetPasswordData) => {
+    if (!email) return;
+    const result = await resetPassword({
+      email: email,
+      newPassword: data.password,
+    });
+
+    if (result.success) {
+      navigate("/login", { replace: true });
+    }
+  };
   return (
     <section className="relative flex-center w-full h-dvh ">
       <div className="form-box animate-slide-up text-tx-primary">
         <h2 className="heading-2">Reset Password</h2>
         <p className="text-md text-tx-placeholder text-center mt-4">
-          Create a new password for task hub account by filling out the form
-          below
+          Set a new password for your Markist account.
         </p>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <FormItem className="flex flex-col gap-2">
@@ -59,7 +80,11 @@ const ResetPasswordPage = () => {
             </Caption>
           </FormItem>
           <Button className="btn btn--primary font-semibold px-2">
-            Reset Password
+            {isResetting ? (
+              <Spinner className="size-3 text-tx-primary" />
+            ) : (
+              "Reset Password"
+            )}
           </Button>
         </Form>
       </div>
