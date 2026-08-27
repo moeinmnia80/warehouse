@@ -25,6 +25,8 @@ export type {
   ToastState,
   UserAddress,
   contextType,
+  PaginationData,
+  PaginationProps,
   TableEmptyProps,
 } from "@/shared/types/types";
 export type { ErrorType } from "@/shared/types/error.types";
@@ -47,6 +49,7 @@ export { useInPath } from "@/shared/hooks/useInPath";
 export { useOverflow } from "@/shared/hooks/useOverflow";
 export { useScrolled } from "@/shared/hooks/useScrolled";
 export { useClickOutside } from "@/shared/hooks/useClickOutside";
+export { usePagination, DOTS } from "@/shared/hooks/usePagination";
 // context
 export { ThemeContext } from "@/shared/context/context";
 // constants
@@ -65,6 +68,7 @@ export { UserMenu } from "@/shared/layout/Header/UserMenu";
 export { TableEmpty } from "@/shared/components/TableEmpty";
 export { ThemeToggle } from "@/shared/components/ThemeToggle";
 export { SocialMedia } from "@/shared/components/SocialMedia";
+export { Pagination } from "@/shared/components/ui/Pagination";
 export { AreaSelector } from "@/shared/layout/Header/AreaSelector";
 export { ToastContainer } from "@/shared/components/ToastContainer";
 export {

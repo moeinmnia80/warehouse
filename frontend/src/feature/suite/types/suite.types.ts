@@ -1,4 +1,4 @@
-import type { Item, Package } from "@/shared";
+import type { Item, Package, PaginationData } from "@/shared";
 
 // components/*
 export interface TableDataRowProps {
@@ -38,6 +38,7 @@ export interface SuitePayload {
   id: string;
   userId: string;
   packages: Package[];
+  pagination: PaginationData;
 }
 export interface SuiteResponse {
   id: string;

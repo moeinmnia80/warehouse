@@ -10,8 +10,8 @@ import type {
 
 export const suiteApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getSuite: builder.query<SuitePayload, void>({
-      query: () => "/my-suite",
+    getSuite: builder.query<SuitePayload, { page: number }>({
+      query: ({ page }) => `/my-suite?page=${page}`,
       transformResponse: (response: SuiteResponse) => response.data,
       providesTags: (result) =>
         result

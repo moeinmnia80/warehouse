@@ -18,18 +18,22 @@ import {
   MAX_IMAGES_PER_PACKAGE,
   MAX_INVOICES_PER_PACKAGE,
 } from "../../constants/suite.constants.js";
-import { supabase } from "../../config/supabase.js";
 
 export const getSuiteData = async (req) => {
   const { id } = req.user;
-  let existingSuite = await findSuiteByUserId(id);
+  const { page } = req.query;
+
+  let existingSuite = await findSuiteByUserId(id, page);
   if (!existingSuite) existingSuite = await createSuite(req.user);
 
-  const { packages, id: suiteId } = existingSuite;
+  const {
+    suite: { packages, id: suiteId },
+    pagination,
+  } = existingSuite;
   return {
     status: "success",
     message: "suite fetched",
-    data: { id: suiteId, userId: id, packages },
+    data: { id: suiteId, userId: id, packages, pagination },
   };
 };
 
