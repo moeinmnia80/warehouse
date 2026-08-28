@@ -10,13 +10,13 @@ import type {
 
 export const suiteApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getSuite: builder.query<SuitePayload, void>({
-      query: () => "/my-suite",
+    getSuite: builder.query<SuitePayload, { page: number }>({
+      query: ({ page }) => `/my-suite?page=${page}`,
       transformResponse: (response: SuiteResponse) => response.data,
       providesTags: (result) =>
         result
           ? [
-              { type: "Suite" as const, id: "LIST" },
+              { type: "Suite" as const, id: "List" },
 
               ...result.packages.flatMap((pkg) => [
                 { type: "Suite" as const, id: pkg.packageId },
@@ -30,7 +30,7 @@ export const suiteApi = baseApi.injectEndpoints({
                 })),
               ]),
             ]
-          : [{ type: "Suite", id: "LIST" }],
+          : [{ type: "Suite", id: "List" }],
       keepUnusedDataFor: 300,
     }),
     sendData: builder.mutation<UploadResponse, UploadPayload>({

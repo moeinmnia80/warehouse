@@ -1,4 +1,7 @@
 import { Router } from "express";
+
+import { SuiteQueryParams } from "./suite.schema.js";
+import { validate } from "../../middlewares/validate.middleware.js";
 import {
   getSuiteController,
   getImagesController,

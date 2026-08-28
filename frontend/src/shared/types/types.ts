@@ -155,3 +155,20 @@ export interface TableEmptyProps {
   action?: React.ReactNode;
   className?: string;
 }
+
+export interface PaginationData {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPrevPage: boolean;
+}
+
+export interface PaginationProps {
+  pagination: PaginationData;
+  onPageChange: (page: number) => void;
+  isLoading?: boolean;
+  siblingCount?: number;
+  className?: string;
+}

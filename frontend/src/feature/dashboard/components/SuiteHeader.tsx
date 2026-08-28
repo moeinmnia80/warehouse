@@ -1,24 +1,39 @@
-import { Button } from "@/shared";
-import { QueueIcon } from "@/assets/index";
 import { type ComponentProps } from "react";
-import { useGetSuiteQuery } from "@/feature/suite";
+
+import { QueueIcon } from "@/assets/index";
 import { useAppDispatch } from "@/store/redux/store";
-import { changeCategory } from "@/feature/suite/store/suiteSlice";
+import { Button, usePaginationParams } from "@/shared";
+import { changeCategory, useGetSuiteQuery } from "@/feature/suite";
 
 export const SuiteHeader = ({ ...props }: ComponentProps<"div">) => {
   const dispatch = useAppDispatch();
-  const { id, count } = useGetSuiteQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      id: data?.id,
-      count: data?.packages.filter((pkg) => pkg.statusLabel === "ready to send")
-        .length,
-    }),
-  });
+
+  const { page } = usePaginationParams();
+
+  const { id, zonePrefix, count, isLoading } = useGetSuiteQuery(
+    { page },
+    {
+      selectFromResult: ({ data, isLoading }) => ({
+        isLoading,
+        id: data?.id,
+        zonePrefix: data?.zonePrefix,
+        count: data?.packages.filter(
+          (pkg) => pkg.statusLabel === "ready to send",
+        ).length,
+      }),
+    },
+  );
+
   return (
     <div {...props}>
       <div className="flex flex-col gap-1 justify-center lg:justify-between h-full w-fit border-e border-bo-primary pe-4 sm:pe-8">
-        <h3 className="text-tx-primary font-bold text-xl lg:text-2xl xl:text-3xl ">
-          Packages in Suite {id}
+        <h3 className="flex-center text-tx-primary font-bold text-xl lg:text-2xl xl:text-3xl ">
+          Packages in Suite{" "}
+          {!isLoading ? (
+            id && zonePrefix && `${zonePrefix}${id}`
+          ) : (
+            <div className="w-10 h-4 bg-tx-placeholder rounded-lg animate-pulse"></div>
+          )}
         </h3>
         <p className="flex flex-col gap-2 lg:flex-row text-tx-secondary text-sm lg:text-md font-medium">
           My Shipping Schedule:

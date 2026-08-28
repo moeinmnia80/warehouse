@@ -8,6 +8,17 @@ export {
   isColumnVisibleInTab,
   calculateSuiteSummary,
 } from "@/feature/suite/utils/suiteTable.utils";
+//store
+export {
+  rowSort,
+  rowReset,
+  openModal,
+  rowToggle,
+  closeModal,
+  rowCheckAll,
+  rowExpanded,
+  changeCategory,
+} from "@/feature/suite/store/suiteSlice";
 // types
 export type {
   TabsType,

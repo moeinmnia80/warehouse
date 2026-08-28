@@ -1,18 +1,47 @@
 import db from "../../config/db.js";
 
-export const findSuiteByUserId = (userId) =>
-  db.suite.findUnique({
-    where: { userId },
-    include: {
-      packages: {
-        include: {
-          items: true,
-          invoices: true,
-          images: true,
+export const findSuiteByUserId = async (userId, page = 1, limit = 5) => {
+  const skip = (page - 1) * limit;
+
+  const [suite, totalPackages] = await db.$transaction([
+    db.suite.findUnique({
+      where: { userId },
+      include: {
+        packages: {
+          skip,
+          take: limit,
+          include: {
+            items: true,
+            invoices: true,
+            images: true,
+          },
         },
       },
+    }),
+
+    db.package.count({
+      where: {
+        suite: {
+          userId,
+        },
+      },
+    }),
+  ]);
+
+  if (!suite) return null;
+
+  return {
+    suite,
+    pagination: {
+      total: totalPackages,
+      page,
+      limit,
+      totalPages: Math.ceil(totalPackages / limit),
+      hasNextPage: skip + limit < totalPackages,
+      hasPrevPage: page > 1,
     },
-  });
+  };
+};
 
 export const createNewSuite = (newSuite) =>
   db.suite.create({

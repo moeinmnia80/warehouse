@@ -1,4 +1,10 @@
-import { Table, TableEmpty, TBody } from "@/shared";
+import {
+  Table,
+  TableEmpty,
+  TBody,
+  Pagination,
+  usePaginationParams,
+} from "@/shared";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   InvoiceModal,
@@ -13,7 +19,10 @@ import {
 export const MySuiteTable = () => {
   const dispatch = useAppDispatch();
   const rowActions = createRowActions(dispatch);
-  const { data, isLoading } = useGetSuiteQuery();
+
+  const { page, setPage } = usePaginationParams();
+
+  const { data, isLoading, isFetching } = useGetSuiteQuery({ page });
 
   const modal = useAppSelector((state) => state.suite.modal);
   const sortedData = useSuiteFilter(data?.packages ?? []);
@@ -22,7 +31,7 @@ export const MySuiteTable = () => {
     return (
       <TableSkeleton
         className="p-6"
-        rows={3}
+        rows={5}
         columns={["w-15", "w-30", "w-30", "w-25", "w-20", "w-20"]}
       />
     );
@@ -49,6 +58,16 @@ export const MySuiteTable = () => {
           <InvoiceModal handleCloseModal={() => rowActions.closeModal()} />
         )}
       </Table>
+      <div className="relative flex-center mt-4">
+        {data?.pagination && (
+          <Pagination
+            onPageChange={(value) => setPage(value)}
+            isLoading={isFetching}
+            pagination={data.pagination}
+            className=""
+          />
+        )}
+      </div>
     </div>
   );
 };

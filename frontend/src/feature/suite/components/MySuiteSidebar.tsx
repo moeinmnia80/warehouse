@@ -1,4 +1,4 @@
-import { Button, cn } from "@/shared/index";
+import { Button, cn, usePaginationParams } from "@/shared/index";
 import { useNavigate } from "react-router";
 import { useAppSelector } from "@/store/redux/store";
 import {
@@ -16,11 +16,18 @@ import {
 } from "@/assets/index";
 
 export const MySuiteSidebar = () => {
-  const { data } = useGetSuiteQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      data: data?.packages.filter((pkg) => pkg.statusLabel === "ready to send"),
-    }),
-  });
+  const { page } = usePaginationParams();
+
+  const { data } = useGetSuiteQuery(
+    { page },
+    {
+      selectFromResult: ({ data }) => ({
+        data: data?.packages.filter(
+          (pkg) => pkg.statusLabel === "ready to send",
+        ),
+      }),
+    },
+  );
   const category = useAppSelector((state) => state.suite.category);
 
   const navigate = useNavigate();
