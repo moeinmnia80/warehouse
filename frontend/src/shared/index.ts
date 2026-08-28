@@ -50,6 +50,7 @@ export { useOverflow } from "@/shared/hooks/useOverflow";
 export { useScrolled } from "@/shared/hooks/useScrolled";
 export { useClickOutside } from "@/shared/hooks/useClickOutside";
 export { usePagination, DOTS } from "@/shared/hooks/usePagination";
+export { usePaginationParams } from "@/shared/hooks/usePaginationParams";
 // context
 export { ThemeContext } from "@/shared/context/context";
 // constants

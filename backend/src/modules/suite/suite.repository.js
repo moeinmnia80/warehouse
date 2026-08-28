@@ -1,6 +1,6 @@
 import db from "../../config/db.js";
 
-export const findSuiteByUserId = async (userId, page = 1, limit = 3) => {
+export const findSuiteByUserId = async (userId, page = 1, limit = 5) => {
   const skip = (page - 1) * limit;
 
   const [suite, totalPackages] = await db.$transaction([

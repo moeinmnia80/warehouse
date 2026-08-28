@@ -62,7 +62,6 @@ const suiteSlice = createSlice({
         };
       }
     },
-
     openModal: (state, action: PayloadAction<string | null>) => {
       state.modal = { open: !state.modal.open, packageId: action.payload };
     },

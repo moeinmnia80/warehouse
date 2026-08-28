@@ -1,4 +1,4 @@
-import { Button } from "@/shared/index";
+import { Button, usePaginationParams } from "@/shared/index";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   tabs,
@@ -10,8 +10,12 @@ import {
 
 export const MySuiteTab = () => {
   const dispatch = useAppDispatch();
-  const { data } = useGetSuiteQuery();
   const rowActions = createRowActions(dispatch);
+
+  const { page } = usePaginationParams();
+
+  const { data } = useGetSuiteQuery({ page });
+
   const tabCount: TabsCountType = useSuiteTabCounts(data);
   const category = useAppSelector((state) => state.suite.category);
 

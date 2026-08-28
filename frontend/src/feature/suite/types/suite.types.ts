@@ -36,6 +36,8 @@ export type CategoryType =
 // service/*
 export interface SuitePayload {
   id: string;
+  name: string;
+  zonePrefix: string;
   userId: string;
   packages: Package[];
   pagination: PaginationData;

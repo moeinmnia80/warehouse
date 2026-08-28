@@ -22,7 +22,7 @@ export const TableHeaderRow = ({ sortedData }: TableHeaderRowProps) => {
 
   return (
     <THead>
-      <Row className="hidden md:flex items-center bg-b-table border border-b-none border-bo-primary rounded-t-xl **:whitespace-nowrap **:text-sm! text-tx-primary">
+      <Row className="hidden md:flex items-center bg-b-table border border-b-none border-bo-primary rounded-t-xl **:whitespace-nowrap **:text-sm! text-tx-primary h-11">
         <TD className="min-w-10 py-4 px-3">
           <Label onClick={(e) => e.stopPropagation()}>
             <Checkbox

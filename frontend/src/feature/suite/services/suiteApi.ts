@@ -16,7 +16,7 @@ export const suiteApi = baseApi.injectEndpoints({
       providesTags: (result) =>
         result
           ? [
-              { type: "Suite" as const, id: "LIST" },
+              { type: "Suite" as const, id: "List" },
 
               ...result.packages.flatMap((pkg) => [
                 { type: "Suite" as const, id: pkg.packageId },
@@ -30,7 +30,7 @@ export const suiteApi = baseApi.injectEndpoints({
                 })),
               ]),
             ]
-          : [{ type: "Suite", id: "LIST" }],
+          : [{ type: "Suite", id: "List" }],
       keepUnusedDataFor: 300,
     }),
     sendData: builder.mutation<UploadResponse, UploadPayload>({

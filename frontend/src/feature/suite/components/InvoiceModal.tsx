@@ -1,6 +1,6 @@
 import { CloseIcon } from "@/assets/index";
 import { useAppSelector } from "@/store/redux/store";
-import { useOverflow, Button } from "@/shared/index";
+import { useOverflow, Button, usePaginationParams } from "@/shared/index";
 import {
   AddInvoicesModal,
   useGetSuiteQuery,
@@ -9,11 +9,17 @@ import {
 
 export const InvoiceModal = ({ handleCloseModal }: InvoiceModalProps) => {
   const modal = useAppSelector((state) => state.suite.modal);
-  const { pkg } = useGetSuiteQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      pkg: data?.packages.find((pkg) => pkg.packageId === modal.packageId),
-    }),
-  });
+
+  const { page } = usePaginationParams();
+
+  const { pkg } = useGetSuiteQuery(
+    { page },
+    {
+      selectFromResult: ({ data }) => ({
+        pkg: data?.packages.find((pkg) => pkg.packageId === modal.packageId),
+      }),
+    },
+  );
   useOverflow(modal.open);
 
   return (

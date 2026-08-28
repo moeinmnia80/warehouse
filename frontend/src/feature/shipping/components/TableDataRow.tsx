@@ -1,8 +1,7 @@
-import type { ComponentProps } from "react";
-import { Checkbox, Label, Row, TD } from "@/shared";
-import type { Shipping } from "@/shared";
-import { formatCurrency } from "@/feature/suite";
 import { ShowIcon } from "@/assets";
+import type { ComponentProps } from "react";
+import { formatCurrency } from "@/feature/suite";
+import { Checkbox, Label, Row, TD, type Shipping } from "@/shared";
 
 interface TableDataRowProps extends ComponentProps<"div"> {
   item: Shipping;

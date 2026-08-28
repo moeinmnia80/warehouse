@@ -27,13 +27,20 @@ export const getSuiteData = async (req) => {
   if (!existingSuite) existingSuite = await createSuite(req.user);
 
   const {
-    suite: { packages, id: suiteId },
+    suite: { packages, id: suiteId, name, zonePrefix },
     pagination,
   } = existingSuite;
   return {
     status: "success",
     message: "suite fetched",
-    data: { id: suiteId, userId: id, packages, pagination },
+    data: {
+      id: suiteId,
+      userId: id,
+      name,
+      zonePrefix,
+      packages,
+      pagination,
+    },
   };
 };
 
