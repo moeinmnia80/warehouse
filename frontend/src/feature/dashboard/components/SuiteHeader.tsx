@@ -2,7 +2,7 @@ import { type ComponentProps } from "react";
 
 import { QueueIcon } from "@/assets/index";
 import { useAppDispatch } from "@/store/redux/store";
-import { Button, usePaginationParams } from "@/shared";
+import { Button, InlineSkeleton, usePaginationParams } from "@/shared";
 import { changeCategory, useGetSuiteQuery } from "@/feature/suite";
 
 export const SuiteHeader = ({ ...props }: ComponentProps<"div">) => {
@@ -32,7 +32,7 @@ export const SuiteHeader = ({ ...props }: ComponentProps<"div">) => {
           {!isLoading ? (
             id && zonePrefix && `${zonePrefix}${id}`
           ) : (
-            <div className="w-10 h-4 bg-tx-placeholder rounded-lg animate-pulse"></div>
+            <InlineSkeleton className="w-10" />
           )}
         </h3>
         <p className="flex flex-col gap-2 lg:flex-row text-tx-secondary text-sm lg:text-md font-medium">
@@ -56,7 +56,7 @@ export const SuiteHeader = ({ ...props }: ComponentProps<"div">) => {
         </div>
         <div className="flex flex-col md:justify-center text-center text-tx-primary md:text-left">
           <div className=" text-lg md:text-2xl lg:text-3xl font-bold">
-            {count}
+            {isLoading ? <InlineSkeleton /> : count && count}
           </div>
           <Button
             className="h-fit py-2 text-sm md:text-md font-semibold underline"

@@ -100,6 +100,7 @@ export {
 export { Button } from "@/shared/components/ui/Button";
 export { Loading } from "@/shared/components/ui/Loading";
 export { TableSkeleton } from "@/shared/components/TableSkeleton";
+export { InlineSkeleton } from "@/shared/components/InlineSkeleton";
 export { BackgroundPattern } from "@/shared/components/ui/BackgroundPattern";
 export {
   Select,
