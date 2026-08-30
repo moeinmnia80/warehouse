@@ -2,18 +2,21 @@ import fs from "fs";
 import path from "path";
 import chalk from "chalk";
 
-const LOG_DIR = path.join(process.cwd(), "logs");
-const LOG_FILE = path.join(LOG_DIR, "access.log");
+let logStream;
+if (!isProduction) {
+  const LOG_DIR = path.join(process.cwd(), "logs");
+  const LOG_FILE = path.join(LOG_DIR, "access.log");
 
-const ensureLogDir = () => {
-  if (!fs.existsSync(LOG_DIR)) {
-    fs.mkdirSync(LOG_DIR, { recursive: true });
-  }
-};
+  const ensureLogDir = () => {
+    if (!fs.existsSync(LOG_DIR)) {
+      fs.mkdirSync(LOG_DIR, { recursive: true });
+    }
+  };
 
-ensureLogDir();
+  ensureLogDir();
 
-const logStream = fs.createWriteStream(LOG_FILE, { flags: "a" });
+  logStream = fs.createWriteStream(LOG_FILE, { flags: "a" });
+}
 
 export function requestLogger(req, res, next) {
   const start = Date.now();
@@ -33,7 +36,7 @@ export function requestLogger(req, res, next) {
 
     console.log(consoleMsg);
 
-    logStream.write(fileMsg);
+    !isProduction && logStream.write(fileMsg);
   });
 
   next();
