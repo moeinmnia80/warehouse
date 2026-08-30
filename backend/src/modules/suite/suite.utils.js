@@ -2,7 +2,7 @@ import { Errors } from "../../utils/errors.js";
 import { findSuiteByUserId } from "./suite.repository.js";
 
 export const findPackageOrThrow = async (userId, packageId) => {
-  const suite = await findSuiteByUserId(userId);
+  const { suite } = await findSuiteByUserId(userId);
   if (!suite) throw Errors.notFound("Suite");
 
   const pkg = suite.packages.find((p) => p.packageId === packageId);

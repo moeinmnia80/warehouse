@@ -15,6 +15,7 @@ export const uploadFileToSupabase = async (file, packageId) => {
     .from(BUCKET_NAME)
     .upload(relativePath, file.buffer, {
       contentType: file.mimetype,
+      cacheControl: 3600,
       upsert: true,
     });
 
@@ -60,8 +61,6 @@ export const deleteFileFromSupabase = async (filePath) => {
 };
 
 export const getPublicFileUrl = (filePath) => {
-  const { data } = supabase.storage
-    .from(BUCKET_NAME)
-    .getPublicUrl(filePath, { download: true });
+  const { data } = supabase.storage.from(BUCKET_NAME).getPublicUrl(filePath);
   return data.publicUrl;
 };

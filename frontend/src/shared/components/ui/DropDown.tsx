@@ -130,7 +130,7 @@ export const DropdownContent = ({
       ref={contentRef}
       data-side={side}
       data-align={align}
-      className={`${positionStyle} ${className ? className : ""} z-50`}
+      className={`z-50 duration-200 transition-all ${positionStyle} ${className}`}
       {...props}
     >
       {children}
