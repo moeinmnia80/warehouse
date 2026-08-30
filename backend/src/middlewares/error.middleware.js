@@ -8,18 +8,19 @@ export const errorHandler = (err, req, res, next) => {
   const statusCode = err.statusCode || 500;
   const errorCode = err.errorCode || "INTERNAL_ERROR";
 
-  console.error({
+  console.error("FULL ERROR DETAILS:", {
     timestamp: new Date().toISOString(),
     status: statusCode,
     code: errorCode,
     message: err.message,
-    stack: process.env.NODE_ENV === "development" ? err.stack : undefined,
+    originalError: err.originalError || err,
+    stack: err.stack,
     path: req.originalUrl,
     method: req.method,
   });
 
-  const isOperational = err.isOperational || false;
-  const message = isOperational ? err.message : "Internal Server Error";
+  const isKnownError = err.isOperational || errorCode !== "INTERNAL_ERROR";
+  const message = isKnownError ? err.message : "Internal Server Error";
 
   res.status(statusCode).json({
     status: statusCode >= 500 ? "error" : "fail",

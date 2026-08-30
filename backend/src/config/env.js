@@ -10,6 +10,7 @@ const env = {
   dbExpiredKey: process.env.DB_EXPIRED_KEY || "",
   dbGoogleClientId: process.env.DB_GOOGLE_CLIENT_ID || "",
   dbURL: process.env.DB_URL || "",
+  dbDirectURL: process.env.DIRECT_URL || "",
   supabaseUrl: process.env.SUPABASE_URL || "",
   supabaseAnonKey: process.env.SUPABASE_ANON_KEY || "",
   supabaseRoleKey: process.env.SUPABASE_ROLE_KEY || "",
