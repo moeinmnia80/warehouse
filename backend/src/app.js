@@ -21,6 +21,8 @@ import { router as shippingRouter } from "./modules/shipping/shipping.routes.js"
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.use(helmet());
 app.use(cors(corsOption));
 app.use(appLimiter);
