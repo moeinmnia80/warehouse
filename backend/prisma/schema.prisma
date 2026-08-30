@@ -1,0 +1,186 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Gender {
+  male
+  female
+}
+
+enum Role {
+  manager
+  admin
+}
+
+enum Provider {
+  local
+  google
+  facebook
+}
+
+enum PhoneType {
+  primary
+  secondary
+  alternate
+  fax
+}
+
+enum Status {
+  register
+  delivered
+}
+
+model User {
+  id        String   @id @default(uuid()) @db.Uuid
+  firstName String   @map("first_name") @db.VarChar(255)
+  lastName  String   @map("last_name") @db.VarChar(255)
+  email     String   @unique @db.VarChar(255)
+  username  String   @unique @db.VarChar(50)
+  password  String   @db.VarChar(255)
+  gender    Gender   @default(male)
+  role      Role     @default(manager)
+  provider  Provider @default(local)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  phones    UserPhone[]
+  addresses UserAddress[]
+  shipping  Shipping[]
+  suites    Suite?
+
+  @@map("users")
+}
+
+model UserPhone {
+  id          Int       @id @default(autoincrement())
+  userId      String    @map("user_id") @db.Uuid
+  phoneType   PhoneType @default(primary) @map("phone_type")
+  phoneNumber String    @map("phone_number") @db.VarChar(20)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_phones")
+}
+
+model UserAddress {
+  addressId        Int     @id @default(autoincrement()) @map("address_id")
+  userId           String  @map("user_id") @db.Uuid
+  addressPrimary   String  @map("address_primary") @db.VarChar(255)
+  addressSecondary String? @map("address_secondary") @db.VarChar(255)
+  fullName         String  @map("full_name") @db.VarChar(255)
+  country          String  @db.VarChar(40)
+  province         String? @db.VarChar(40)
+  city             String? @db.VarChar(40)
+  postalCode       String  @unique @map("postal_code") @db.VarChar(10)
+  countryCode      String? @map("country_code") @db.VarChar(10)
+  phoneNumber      String  @map("phone_number") @db.VarChar(20)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_addresses")
+}
+
+model Shipping {
+  shipmentId  String   @id @map("shipment_id") @db.VarChar(50)
+  userId      String   @map("user_id") @db.Uuid
+  carrier     String   @db.VarChar(20)
+  status      Status   @default(register)
+  notice      String?  @db.VarChar(255)
+  description String?  @db.Text
+  charge      Decimal? @db.Decimal(12, 2)
+
+  createdAt   DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  shippedAt   DateTime? @map("shipped_at") @db.Timestamptz(6)
+  deliveredAt DateTime? @map("delivered_at") @db.Timestamptz(6)
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  packages Package[]
+  invoice  Invoice?
+
+  @@map("shippings")
+}
+
+model Suite {
+  id         Int    @id @default(autoincrement())
+  name       String @db.VarChar(100)
+  zonePrefix String @map("zone_prefix") @db.VarChar(20)
+
+  description String? @db.VarChar(100)
+
+  userId   String    @unique @map("user_id") @db.Uuid
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  packages Package[]
+
+  @@map("suites")
+}
+
+model Package {
+  packageId    String   @id @map("package_id") @db.VarChar(50)
+  shipmentId   String?  @map("shipment_id") @db.VarChar(50)
+  suiteId      Int?     @map("suite_id")
+  barcode      String   @unique @db.VarChar(50)
+  vendor       String   @db.VarChar(50)
+  dataReceived DateTime @default(now()) @map("data_received") @db.Timestamptz(6)
+  itemValues   Decimal  @map("item_values") @db.Decimal(12, 2)
+  totalValues  Decimal  @map("total_values") @db.Decimal(12, 2)
+  weight       Decimal  @db.Decimal(10, 2)
+
+  statusLabel   String  @map("status_label") @db.VarChar(100)
+  statusDetails String? @map("status_details") @db.Text
+
+  recipient String @db.VarChar(255)
+  address   String @db.VarChar(500)
+
+  suite      Suite?    @relation(fields: [suiteId], references: [id], onDelete: Cascade)
+  packageRef Shipping? @relation(fields: [shipmentId], references: [shipmentId], onDelete: SetNull)
+  items      Item[]
+  invoices   Invoice[]
+  images     Image[]
+
+  @@map("packages")
+}
+
+model Item {
+  id           String  @id @default(uuid()) @db.Uuid
+  name         String  @db.VarChar(255)
+  qty          Int     @default(1)
+  valuePerUnit Decimal @map("value_per_unit") @db.Decimal(12, 2)
+  notice       String? @db.Text
+
+  packageId String  @map("package_id") @db.VarChar(50)
+  package   Package @relation(fields: [packageId], references: [packageId], onDelete: Cascade)
+
+  @@map("items")
+}
+
+model Invoice {
+  id   String @id @default(uuid()) @db.Uuid
+  url  String @db.VarChar(500)
+  name String @db.VarChar(255)
+  size Int
+  type String @db.VarChar(50)
+
+  packageId String  @map("package_id") @db.VarChar(50)
+  package   Package @relation(fields: [packageId], references: [packageId], onDelete: Cascade)
+
+  shipmentId String?   @unique @map("shipment_id") @db.VarChar(50)
+  shipping   Shipping? @relation(fields: [shipmentId], references: [shipmentId], onDelete: Cascade)
+
+  @@map("invoices")
+}
+
+model Image {
+  id   String @id @default(uuid()) @db.Uuid
+  url  String @db.VarChar(500)
+  name String @db.VarChar(255)
+  size Int
+  type String @db.VarChar(50)
+
+  packageId String  @map("package_id") @db.VarChar(50)
+  package   Package @relation(fields: [packageId], references: [packageId], onDelete: Cascade)
+
+  @@map("images")
+}

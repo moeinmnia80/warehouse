@@ -3,4 +3,5 @@ export const PATHS_WITHOUT_FOOTER = [
   "/forget-password",
   "/register",
   "/reset-password",
+  "/verify-otp",
 ];

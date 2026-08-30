@@ -3,15 +3,13 @@ import env from "../config/env.js";
 import { Errors } from "../utils/errors.js";
 
 export const authenticate = (req, res, next) => {
-  const header = req.headers.authorization;
+  let token = req.signedCookies && req.signedCookies["auth-token"];
 
-  if (!header || !header.startsWith("Bearer ")) {
+  if (!token) {
     return next(
-      Errors.authentication("Authorization header missing or malformed"),
+      Errors.authentication("Authentication token missing in cookies"),
     );
   }
-
-  const token = header.split(" ")[1];
 
   try {
     const payload = jwt.verify(token, env.dbPrivateKey);

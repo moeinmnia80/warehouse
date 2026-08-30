@@ -7,7 +7,6 @@ import {
   baseApi,
   Dropdown,
   DropdownItem,
-  removeCookie,
   DropdownButton,
   DropdownContent,
 } from "@/shared/index";
@@ -19,7 +18,6 @@ export const UserMenu = () => {
 
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    removeCookie("auth-token");
     navigate("/login");
     // remove cache after logout
     dispatch(baseApi.util.resetApiState());
@@ -31,13 +29,9 @@ export const UserMenu = () => {
         <div className="text-left">
           <h3 className="text-sm xl:text-xs font-bold text-tx-primary">
             <span className="capitalize text-current">
-              {user?.gender === "male"
-                ? "mr"
-                : user?.gender === "female"
-                  ? "mz"
-                  : "mr"}
+              {user?.gender === "male" ? "mr" : "mz"}
             </span>
-            <span className="uppercase text-current">.{user?.fullName}</span>
+            <span className="uppercase text-current">.{user?.lastName}</span>
           </h3>
           <p className="text-sm xl:text-xs font-bold text-tx-placeholder capitalize">
             {user?.role}

@@ -1,4 +1,3 @@
-import { type TableRow } from "@/shared/index";
 import type { AppDispatch } from "@/store/redux/store";
 import { SUITE_TABLE_HEADER_COLUMNS } from "@/feature/suite";
 import type { CategoryType, SuiteSummary } from "@/feature/suite/index";
@@ -12,8 +11,9 @@ import {
   rowExpanded,
   changeCategory,
 } from "@/feature/suite/store/suiteSlice";
+import type { Package } from "@/shared";
 
-export const checkCategoryStatus = (status: CategoryType) => {
+export const checkCategoryStatus = (status: CategoryType | string) => {
   switch (status.toLocaleLowerCase()) {
     case "ready to send":
       return "ready";
@@ -53,7 +53,7 @@ export const createRowActions = (dispatch: AppDispatch) => ({
   },
 
   toggleAllRows: (
-    data: TableRow[] = [],
+    data: Package[] = [],
     rowChecked: Record<string, boolean>,
   ) => {
     dispatch(
@@ -76,7 +76,7 @@ const isColumnVisibleInTab = (key: string, category: string) =>
   );
 
 const areAllRowsChecked = (
-  sortedData: TableRow[] = [],
+  sortedData: Package[] = [],
   rowChecked: Record<string, boolean>,
 ): boolean =>
   sortedData.length > 0 && sortedData.every((row) => rowChecked[row.packageId]);
@@ -84,7 +84,7 @@ const areAllRowsChecked = (
 const SHIPPING_COST = 8;
 const TAX_RATE = 0.1;
 
-const calculateSuiteSummary = (rows: TableRow[]): SuiteSummary => {
+const calculateSuiteSummary = (rows: Package[]): SuiteSummary => {
   const itemValues = +rows
     .reduce((sum, row) => sum + Number(row.itemValues), 0)
     .toFixed(2);

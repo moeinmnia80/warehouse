@@ -4,10 +4,10 @@ import { BackgroundPattern } from "@/shared";
 function LoginPage() {
   return (
     <>
-      <section className="relative flex-center w-full min-h-dvh">
+      <div className="relative flex-center w-full min-h-dvh">
         <LoginForm />
         <BackgroundPattern />
-      </section>
+      </div>
     </>
   );
 }

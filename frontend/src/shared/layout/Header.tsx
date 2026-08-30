@@ -11,7 +11,7 @@ import {
 } from "@/shared/index";
 
 const Header = (props: ComponentProps<"header">) => {
-  const isShow = useInPath("/dashboard");
+  const isShow = useInPath("dashboard");
   const headerRef = useScrolled<HTMLElement>(10);
 
   return (

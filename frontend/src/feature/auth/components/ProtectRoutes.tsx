@@ -5,6 +5,7 @@ import { useGetCurrentUserQuery, setCredentials } from "@/feature/auth/index";
 
 export const ProtectRoutes = () => {
   const dispatch = useAppDispatch();
+
   const { data, isSuccess, isError } = useGetCurrentUserQuery();
 
   useEffect(() => {
@@ -12,7 +13,6 @@ export const ProtectRoutes = () => {
       dispatch(setCredentials({ ...data.data }));
     }
   }, [isSuccess, data, dispatch]);
-
   if (isError) return <Navigate to="/login" replace />;
 
   return <Outlet />;

@@ -1,17 +1,18 @@
 import { z } from "zod";
 
-// --- Body ---
 export const LoginUserSchema = z.object({
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8),
 });
+
 export const LoginWithGooglUserSchema = z.object({
   token: z.string(),
 });
+
 export const RegisterUserSchema = z.object({
   fullName: z.string().min(2).max(50),
   username: z.string().min(2).max(50),
-  email: z.string().email(),
+  email: z.email(),
   password: z.string().min(8),
   age: z.number().int().min(18).max(120).optional(),
   role: z.enum(["admin", "user", "guest"]).default("user"),
@@ -24,9 +25,7 @@ export const RegisterUserSchema = z.object({
     })
     .optional(),
 });
-// --- Headers ---
-export const AuthHeaderSchema = z.object({
-  authorization: z
-    .string({ required_error: "هدر Authorization اجباری است" })
-    .startsWith("Bearer ", "فرمت باید Bearer <token> باشد"),
+
+export const ForgetPasswordSchema = z.object({
+  email: z.email(),
 });

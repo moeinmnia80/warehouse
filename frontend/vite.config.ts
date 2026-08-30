@@ -1,8 +1,14 @@
+import babel from "@rolldown/plugin-babel";
+import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+
 import path from "path";
 import { defineConfig } from "vite";
-import babel from "@rolldown/plugin-babel";
+import { fileURLToPath } from "url";
 import tailwindcss from "@tailwindcss/vite";
-import react, { reactCompilerPreset } from "@vitejs/plugin-react";
+
+const __dirname =
+  import.meta.dirname || path.dirname(fileURLToPath(import.meta.url));
+
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [

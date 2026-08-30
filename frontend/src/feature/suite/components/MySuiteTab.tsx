@@ -1,4 +1,4 @@
-import { Button } from "@/shared/index";
+import { Button, InlineSkeleton, usePaginationParams } from "@/shared/index";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 import {
   tabs,
@@ -10,8 +10,12 @@ import {
 
 export const MySuiteTab = () => {
   const dispatch = useAppDispatch();
-  const { data } = useGetSuiteQuery();
   const rowActions = createRowActions(dispatch);
+
+  const { page } = usePaginationParams();
+
+  const { data, isLoading } = useGetSuiteQuery({ page });
+
   const tabCount: TabsCountType = useSuiteTabCounts(data);
   const category = useAppSelector((state) => state.suite.category);
 
@@ -27,7 +31,11 @@ export const MySuiteTab = () => {
         >
           {tab.value}
           <span className="flex-center w-7.5 h-5.5 ms-2 rounded-full bg-b-primary border border-bo-primary text-tx-primary">
-            {tabCount[tab.key]}
+            {isLoading ? (
+              <InlineSkeleton className="w-4 h-3 rounded-full ml-0" />
+            ) : (
+              tabCount[tab.key]
+            )}
           </span>
         </Button>
       ))}

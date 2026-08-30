@@ -26,7 +26,7 @@ const Footer = ({ className, ...props }: ComponentProps<"footer">) => {
           </div>
           <ul className="hidden gap-10 lg:flex text-tx-primary text-md font-medium *:cursor-pointer">
             <li>
-              <NavLink to={"dashboard/my-suite"}>My Suit</NavLink>
+              <NavLink to={"dashboard/my-suite"}>My Suite</NavLink>
             </li>
             <li>
               <NavLink to="dashboard/shipping">Shipping History</NavLink>

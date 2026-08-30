@@ -10,7 +10,7 @@ export const TableEmpty = ({
   return (
     <div
       className={cn(
-        "flex-center flex-col gap-3 h-42 text-center text-tx-primary border border-bo-primary rounded-xl md:rounded-t-none",
+        "flex-center flex-col gap-3 md:min-h-18 text-center text-tx-primary border border-bo-primary rounded-xl md:rounded-t-none",
         className,
       )}
     >

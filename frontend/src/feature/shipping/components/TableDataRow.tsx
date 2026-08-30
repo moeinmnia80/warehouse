@@ -1,15 +1,14 @@
-import type { ComponentProps } from "react";
-import { Checkbox, Label, Row, TD } from "@/shared";
-import type { ShippingRow } from "@/feature/shipping";
-import { formatCurrency } from "@/feature/suite";
 import { ShowIcon } from "@/assets";
+import type { ComponentProps } from "react";
+import { formatCurrency } from "@/feature/suite";
+import { Checkbox, Label, Row, TD, type Shipping } from "@/shared";
 
 interface TableDataRowProps extends ComponentProps<"div"> {
-  item: ShippingRow;
+  item: Shipping;
 }
 
 export const TableDataRow = ({ item }: TableDataRowProps) => {
-  const date = new Date(item.timestamps.created_at);
+  const date = new Date(item.createdAt);
 
   return (
     <>
@@ -29,12 +28,12 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           dataCell="Invoice"
         >
           <span className="flex-center justify-center w-full md:justify-start!">
-            {item.invoice.file ?? "nothing"}
+            {item?.invoice?.name ?? "nothing"}
           </span>
         </TD>
         <TD className="flex items-center text-current flex-1" dataCell="Type">
           <span className="flex-center justify-center w-full md:justify-start!">
-            {item.invoice.type.toUpperCase()}
+            {item?.invoice?.type.toUpperCase()}
           </span>
         </TD>
         <TD
@@ -50,7 +49,7 @@ export const TableDataRow = ({ item }: TableDataRowProps) => {
           dataCell="Charge"
         >
           <span className="flex-center justify-center w-full">
-            {formatCurrency(+item.charge)}
+            {item.charge && formatCurrency(+item.charge)}
           </span>
         </TD>
         <TD

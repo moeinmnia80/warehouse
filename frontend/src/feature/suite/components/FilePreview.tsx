@@ -24,15 +24,21 @@ export const FilePreview = ({
   );
   const { data, isFetching, isError } = isPdf ? invoiceQuery : imageQuery;
 
-  if (isError)
-    <div className={className}>
-      <span className="text-xs opacity-60">failed to load</span>
-    </div>;
+  if (isError) {
+    return (
+      <div className={className}>
+        <span className="text-xs opacity-60">failed to load</span>
+      </div>
+    );
+  }
 
-  if (isFetching)
-    <div
-      className={`${className} absolute inset-0 animate-pulse bg-white/10`}
-    />;
+  if (isFetching) {
+    return (
+      <div
+        className={`${className} absolute inset-0 animate-pulse bg-white/10`}
+      />
+    );
+  }
 
   return (
     <div
@@ -44,7 +50,9 @@ export const FilePreview = ({
           <p className="line-clamp-2">{item.name}</p>
           <p className="opacity-30">{calculateFileSize(item.size)}</p>
           <a
-            href={data}
+            href={data.fileUrl}
+            target="_blank"
+            rel="noopener noreferrer"
             className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary rounded-full opacity-55"
             download={`${item.name}`}
           >
@@ -53,18 +61,20 @@ export const FilePreview = ({
         </div>
       ) : (
         <>
-          <img
-            src={data}
-            alt={item.name}
-            className={cn("w-full h-full object-cover", className)}
-            draggable={false}
-            loading="lazy"
-            decoding="async"
-            fetchPriority="auto"
-          />
+          {data && (
+            <img
+              src={data.fileUrl}
+              alt={item.name}
+              className={cn("w-full h-full object-cover", className)}
+              draggable={false}
+              loading="lazy"
+              decoding="async"
+            />
+          )}
           {data && (
             <a
-              href={data}
+              href={data.fileUrl}
+              rel="noopener noreferrer"
               download={`${item.name}`}
               className="absolute bottom-1 left-1 flex-center size-5 bg-b-primary rounded-full opacity-55"
             >

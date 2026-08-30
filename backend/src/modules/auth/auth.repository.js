@@ -1,24 +1,21 @@
-import { connectDB } from "../../config/db.js";
+import db from "../../config/db.js";
 
-// login
-export const findUserByEmail = (email) => {
-  const data = connectDB.readData("users");
-  return data.find((user) => user.email === email) || null;
-};
-export const findUserById = (id) => {
-  const data = connectDB.readData("users");
-  return data.find((user) => user.id === id) || null;
-};
-export const findUserByUsername = (username) => {
-  const data = connectDB.readData("users");
-  return data.find((user) => user.username === username) || null;
-};
-// register
-export const createUser = (newUser) => {
-  let data = connectDB.readData("users");
-  data.push(newUser);
-  const user = connectDB.writeData("users", data);
+export const findUserByEmail = (email) =>
+  db.user.findUnique({ where: { email } });
 
-  //* result
-  return user[0] || null;
-};
+export const findUserById = (id) => db.user.findUnique({ where: { id } });
+
+export const findUserByUsername = (username) =>
+  db.user.findUnique({ where: { username } });
+
+export const createUser = (newUser) => db.user.create({ data: newUser });
+
+export const updateUser = (userData) =>
+  db.user.update({
+    where: {
+      email: userData.email,
+    },
+    data: {
+      password: userData.password,
+    },
+  });

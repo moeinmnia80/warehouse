@@ -9,7 +9,11 @@ export const Form = ({
 }: ComponentProps<"form">) => {
   return (
     <>
-      <form className={cn("flex flex-col gap-4 mt-6", className)} {...props}>
+      <form
+        className={cn("flex flex-col gap-4 mt-6", className)}
+        {...props}
+        noValidate
+      >
         {children}
       </form>
     </>
@@ -44,10 +48,10 @@ export const Input = ({
   ...props
 }: ComponentProps<"input">) => {
   return (
-    <div className="relative w-full">
+    <>
       <input className={cn("w-full", className)} {...props} />
       {children}
-    </div>
+    </>
   );
 };
 
@@ -70,6 +74,31 @@ export const Checkbox = ({
         )}
       >
         <TickIcon className={cn("hidden", accentClass)} />
+      </span>
+      {children}
+    </>
+  );
+};
+
+interface RadioProps extends Omit<ComponentProps<"input">, "type"> {
+  accentClass?: string;
+}
+export const Radio = ({
+  className,
+  children,
+  accentClass = "bg-primary",
+  ...props
+}: RadioProps) => {
+  return (
+    <>
+      <input className="peer w-0 hidden" type="radio" {...props} />
+      <span
+        className={cn(
+          "peer-checked:*:inline-block flex items-center justify-center border size-4 rounded-full border-bo-secondary p-0.5",
+          className,
+        )}
+      >
+        <span className={cn("hidden size-full rounded-full", accentClass)} />
       </span>
       {children}
     </>
@@ -108,6 +137,9 @@ interface PasswordProps extends Omit<
   variant: "password" | "confirmPassword";
 }
 
+const ICON_BASE =
+  "absolute right-3 top-1/2 -translate-y-1/2 transition duration-150";
+
 export const Password = ({
   className,
   classIcon = "size-4",
@@ -118,6 +150,7 @@ export const Password = ({
   ...props
 }: PasswordProps) => {
   const [isShow, setIsShow] = useState(false);
+
   const handleClick = (e: React.MouseEvent<HTMLSpanElement>) => {
     e.preventDefault();
     setIsShow((prev) => !prev);
@@ -137,19 +170,12 @@ export const Password = ({
       />
       {children}
       <span onClick={handleClick} className="cursor-pointer">
-        {isShow ? (
-          <HiddenIcon
-            className={`absolute right-3 top-1/2 -translate-y-1/2 
-            transition duration-150
-            ${classIcon ? classIcon : ""}`}
-          />
-        ) : (
-          <ShowIcon
-            className={`absolute right-3 top-1/2 -translate-y-1/2 
-            transition duration-150
-            ${classIcon ? classIcon : ""}`}
-          />
-        )}
+        <HiddenIcon
+          className={cn(ICON_BASE, classIcon, isShow ? "block" : "hidden")}
+        />
+        <ShowIcon
+          className={cn(ICON_BASE, classIcon, isShow ? "hidden" : "block")}
+        />
       </span>
     </div>
   );

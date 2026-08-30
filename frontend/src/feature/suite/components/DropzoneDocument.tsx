@@ -2,14 +2,15 @@ import { UploadIcon } from "@/assets";
 import { FilePreview, useSuiteUpload } from "@/feature/suite";
 import {
   Dropzone,
+  type Package,
   DropzoneArea,
-  type TableRow,
   DropzoneFileList,
   DropzoneSubmitButton,
+  Spinner,
 } from "@/shared";
 
-export const DropzoneDocument = ({ data }: { data: TableRow }) => {
-  const { upload } = useSuiteUpload();
+export const DropzoneDocument = ({ data }: { data: Package }) => {
+  const { upload, isUploading } = useSuiteUpload();
 
   return (
     <Dropzone
@@ -46,9 +47,12 @@ export const DropzoneDocument = ({ data }: { data: TableRow }) => {
           )}
         />
       </DropzoneArea>
-      <DropzoneSubmitButton className="flex-center gap-1 w-fit mt-2 py-3 px-8 text-md text-b-primary font-semibold bg-tx-primary rounded-xl disabled:opacity-15 disabled:cursor-default">
-        Upload
-        <UploadIcon className="size-4 stroke-b-primary" />
+      <DropzoneSubmitButton className="flex-center w-32 mt-2 py-3 px-8 text-md text-b-primary font-semibold bg-tx-primary rounded-xl disabled:opacity-15 disabled:cursor-default">
+        <Spinner className={isUploading ? "size-4 text-b-primary" : "hidden"} />
+        <div className={isUploading ? "hidden" : "flex items-center gap-1"}>
+          Upload
+          <UploadIcon className="size-4 stroke-b-primary" />
+        </div>
       </DropzoneSubmitButton>
     </Dropzone>
   );

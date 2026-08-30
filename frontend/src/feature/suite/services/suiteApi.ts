@@ -10,26 +10,27 @@ import type {
 
 export const suiteApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getSuite: builder.query<SuitePayload, void>({
-      query: () => "/my-suite",
+    getSuite: builder.query<SuitePayload, { page: number }>({
+      query: ({ page }) => `/my-suite?page=${page}`,
       transformResponse: (response: SuiteResponse) => response.data,
       providesTags: (result) =>
         result
           ? [
-              { type: "Suite" as const, id: "LIST" },
+              { type: "Suite" as const, id: "List" },
+
               ...result.packages.flatMap((pkg) => [
                 { type: "Suite" as const, id: pkg.packageId },
-                ...pkg.images.map((img) => ({
+                ...(pkg.images || []).map((img) => ({
                   type: "PackageImages" as const,
                   id: `${pkg.packageId}-${img.name}`,
                 })),
-                ...pkg.invoices.map((inv) => ({
+                ...(pkg.invoices || []).map((inv) => ({
                   type: "PackageDocs" as const,
                   id: `${pkg.packageId}-${inv.name}`,
                 })),
               ]),
             ]
-          : [{ type: "Suite", id: "LIST" }],
+          : [{ type: "Suite", id: "List" }],
       keepUnusedDataFor: 300,
     }),
     sendData: builder.mutation<UploadResponse, UploadPayload>({
@@ -54,25 +55,19 @@ export const suiteApi = baseApi.injectEndpoints({
           : { type: "PackageDocs", id },
       ],
     }),
-    getPackageImage: builder.query<string, PackagePayload>({
+    getPackageImage: builder.query<{ fileUrl: string }, PackagePayload>({
       query: ({ packageId, fileName }) => ({
         url: `/my-suite/packages/${packageId}/images/${fileName}`,
-        responseHandler: (response) => response.blob(),
       }),
-      // when data received
-      transformResponse: (blob: Blob) => URL.createObjectURL(blob),
-      // after data received
       providesTags: (_result, _err, { packageId, fileName }) => [
         { type: "PackageImages", id: `${packageId}-${fileName}` },
       ],
       keepUnusedDataFor: 300,
     }),
-    getPackageInvoice: builder.query<string, PackagePayload>({
+    getPackageInvoice: builder.query<{ fileUrl: string }, PackagePayload>({
       query: ({ packageId, fileName }) => ({
         url: `/my-suite/packages/${packageId}/invoice/${fileName}`,
-        responseHandler: (response) => response.blob(),
       }),
-      transformResponse: (blob: Blob) => URL.createObjectURL(blob),
       providesTags: (_result, _err, { packageId, fileName }) => [
         { type: "PackageDocs", id: `${packageId}-${fileName}` },
       ],

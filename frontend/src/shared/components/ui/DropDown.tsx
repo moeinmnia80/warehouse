@@ -34,7 +34,7 @@ export const Dropdown = ({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const domNode = useRef<HTMLDivElement>(null);
 
-  useClickOutside({ dropdownRef: domNode, setState: setOn });
+  useClickOutside({ domNode, setState: setOn });
 
   const handleToggler = () => setOn((prev) => !prev);
   const setPlacement = (nextSide: Side, nextAlign: Align) => {
@@ -130,7 +130,7 @@ export const DropdownContent = ({
       ref={contentRef}
       data-side={side}
       data-align={align}
-      className={`${positionStyle} ${className ? className : ""} z-50`}
+      className={`z-50 duration-200 transition-all ${positionStyle} ${className}`}
       {...props}
     >
       {children}

@@ -1,0 +1,142 @@
+import { Button, cn, usePaginationParams } from "@/shared/index";
+import { useNavigate } from "react-router";
+import { useAppSelector } from "@/store/redux/store";
+import {
+  formatWeight,
+  formatCurrency,
+  SUITE_CATEGORY,
+  useGetSuiteQuery,
+  calculateSuiteSummary,
+} from "@/feature/suite";
+import {
+  BookIcon,
+  InfoIcon,
+  DeliveryIcon,
+  CalculatorIcon,
+} from "@/assets/index";
+
+export const MySuiteSidebar = () => {
+  const { page } = usePaginationParams();
+
+  const { data } = useGetSuiteQuery(
+    { page },
+    {
+      selectFromResult: ({ data }) => ({
+        data: data?.packages.filter(
+          (pkg) => pkg.statusLabel === "ready to send",
+        ),
+      }),
+    },
+  );
+  const category = useAppSelector((state) => state.suite.category);
+
+  const navigate = useNavigate();
+
+  const createShipRequest = () => {
+    navigate("/dashboard/shipping-request");
+  };
+
+  return (
+    <div className="grid grid-cols-1 auto-rows-auto gap-5 w-full min-w-70 h-fit bg-b-primary p-6 rounded-2xl lg:grid-cols-2 lg:max-w-100 xl:grid-cols-1 border border-bo-primary shadow-2xs">
+      <h4 className="text-center text-md text-tx-secondary font-medium col-span-2">
+        All values are in United States dollars (USD).
+      </h4>
+      <div
+        className={cn(
+          `${category === SUITE_CATEGORY.READY_TO_SEND ? "inline-block" : "hidden"}`,
+          "border border-bo-primary rounded-xl text-tx-primary col-span-2",
+        )}
+      >
+        <h2 className="text-current font-bold text-lg p-5 border-b border-bo-primary">
+          Shipping Summary
+        </h2>
+        <div className="p-5">
+          <div className="flex flex-col gap-2 **:text-md **:text-tx-placeholder border-b border-bo-primary pb-4">
+            <p className="flex-between text-current">
+              Total Value
+              <span className="text-lg text-tx-primary font-medium">
+                {data
+                  ? formatCurrency(calculateSuiteSummary(data).itemValues)
+                  : "0"}
+              </span>
+            </p>
+            <p className="flex-between text-current">
+              Total Weight
+              <span className="text-lg text-tx-primary font-medium">
+                {data
+                  ? formatWeight(calculateSuiteSummary(data).totalWeight)
+                  : "0"}
+              </span>
+            </p>
+            <p className="flex-between text-current">
+              Packages
+              <span className="text-lg text-tx-primary font-medium">
+                {data && data.length}
+              </span>
+            </p>
+          </div>
+          <div className="flex flex-col gap-2 pt-4 **:text-md **:text-tx-placeholder">
+            <p className="flex-between font-light text-current">
+              Subtotal
+              <span className="text-tx-primary text-2xl font-medium">
+                {data
+                  ? formatCurrency(calculateSuiteSummary(data).subTotal)
+                  : "0"}
+              </span>
+            </p>
+            <p className="flex-between font-light text-current">
+              Estimated Shipping
+              <span className="text-tx-primary text-2xl font-bold">
+                {data
+                  ? formatCurrency(calculateSuiteSummary(data).subTotal)
+                  : "0"}
+              </span>
+            </p>
+            <p className="font-light text-lg text-current underline">
+              How is this calculated?
+            </p>
+          </div>
+        </div>
+        <div className="p-5 flex flex-col gap-4">
+          <Button
+            onClick={createShipRequest}
+            className="btn btn--primary font-bold"
+          >
+            <DeliveryIcon className="size-5 stroke-b-primary mr-2" />
+            Create Ship Request
+          </Button>
+          <div className="flex gap-3 border border-bo-primary rounded-xl p-5">
+            <InfoIcon className="size-5 shrink-0 stroke-tx-placeholder" />
+            <span className="text-tx-placeholder text-sm">
+              All items are subject to a customs duty upon receipt of package.
+              Payment will be due when your package is delivered.
+            </span>
+          </div>
+        </div>
+      </div>
+      <div className="flex flex-col gap-5 col-span-2">
+        <div
+          className={`${category === SUITE_CATEGORY.READY_TO_SEND ? "hidden" : "flex-center"}  flex-col w-full h-30.5 bg-b-secondary border border-bo-primary rounded-lg`}
+        >
+          <div className="flex-center size-14 bg-primary rounded-xl p-2">
+            <CalculatorIcon className="size-9 stroke-tx-primary" />
+          </div>
+          <h3 className="text-md xl:text-lg font-semibold text-tx-primary mt-3">
+            Shipping Calculator
+          </h3>
+        </div>
+        <div
+          className="flex-center flex-col w-full h-30.5 
+       bg-b-secondary border border-bo-primary rounded-lg"
+        >
+          <div className="flex-center size-14 bg-primary rounded-xl p-2">
+            <BookIcon className="size-9 stroke-tx-primary" />
+          </div>
+          <h3 className="text-md xl:text-lg font-semibold text-tx-primary mt-3">
+            Address Book
+          </h3>
+        </div>
+      </div>
+    </div>
+  );
+};

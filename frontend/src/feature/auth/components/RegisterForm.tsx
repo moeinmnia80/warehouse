@@ -28,8 +28,14 @@ export const RegisterForm = () => {
 
   const { register: registerData } = useAuth();
   const onSubmit = async (data: RegisterFormData) => {
-    const { fullName, email, password, username } = data;
-    const result = await registerData({ fullName, email, password, username });
+    const { firstName, lastName, email, password, username } = data;
+    const result = await registerData({
+      firstName,
+      lastName,
+      email,
+      password,
+      username,
+    });
 
     if (result?.success) {
       navigate("/login", { replace: true });
