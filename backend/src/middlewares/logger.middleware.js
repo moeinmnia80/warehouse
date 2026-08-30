@@ -2,20 +2,25 @@ import fs from "fs";
 import path from "path";
 import chalk from "chalk";
 
-let logStream;
-if (!isProduction) {
-  const LOG_DIR = path.join(process.cwd(), "logs");
-  const LOG_FILE = path.join(LOG_DIR, "access.log");
+import env from "../config/env.js";
 
-  const ensureLogDir = () => {
+const isProduction = env.nodeEnv === "production";
+
+let logStream = null;
+
+if (!isProduction) {
+  try {
+    const LOG_DIR = path.join(process.cwd(), "logs");
+    const LOG_FILE = path.join(LOG_DIR, "access.log");
+
     if (!fs.existsSync(LOG_DIR)) {
       fs.mkdirSync(LOG_DIR, { recursive: true });
     }
-  };
 
-  ensureLogDir();
-
-  logStream = fs.createWriteStream(LOG_FILE, { flags: "a" });
+    logStream = fs.createWriteStream(LOG_FILE, { flags: "a" });
+  } catch (err) {
+    console.error("Failed to setup local log file:", err);
+  }
 }
 
 export function requestLogger(req, res, next) {
@@ -30,13 +35,19 @@ export function requestLogger(req, res, next) {
     else if (statusCode >= 400) statusColor = chalk.yellow;
     else if (statusCode >= 300) statusColor = chalk.cyan;
 
-    const consoleMsg = `[${new Date().toISOString()}] [${req.id || "N/A"}] ${req.method} ${req.url} - ${statusColor(statusCode)} - ${duration}ms`;
+    const consoleMsg = `[${new Date().toISOString()}] [${
+      req.id || "N/A"
+    }] ${req.method} ${req.url} - ${statusColor(statusCode)} - ${duration}ms`;
 
-    const fileMsg = `[${new Date().toISOString()}] [${req.id || "N/A"}] ${req.method} ${req.url} - ${statusCode} - ${duration}ms\n`;
+    const fileMsg = `[${new Date().toISOString()}] [${
+      req.id || "N/A"
+    }] ${req.method} ${req.url} - ${statusCode} - ${duration}ms \n`;
 
     console.log(consoleMsg);
 
-    !isProduction && logStream.write(fileMsg);
+    if (!isProduction && logStream) {
+      logStream.write(fileMsg);
+    }
   });
 
   next();
