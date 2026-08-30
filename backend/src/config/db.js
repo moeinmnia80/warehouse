@@ -8,7 +8,12 @@ const pool = new Pool({
   connectionString: env.dbURL,
   max: 20,
 });
+
 const adapter = new PrismaPg(pool);
 
 const db = new PrismaClient({ adapter, errorFormat: "pretty" });
+console.log(
+  "DEBUG: Connecting to DB host:",
+  env.dbURL?.split("@")[1]?.split("/")[0],
+);
 export default db;
