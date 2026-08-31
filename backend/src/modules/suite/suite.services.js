@@ -23,7 +23,7 @@ export const getSuiteData = async (req) => {
   const { id } = req.user;
   const { page } = req.query;
 
-  let existingSuite = await findSuiteByUserId(id, page);
+  let existingSuite = await findSuiteByUserId(id, +page);
   if (!existingSuite) existingSuite = await createSuite(req.user);
 
   const {
