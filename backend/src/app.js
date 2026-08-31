@@ -1,4 +1,3 @@
-import path from "path";
 import cors from "cors";
 import helmet from "helmet";
 import express from "express";
@@ -34,16 +33,18 @@ app.use(cookieParser(env.cookieKey));
 app.use(requestId);
 app.use(requestLogger);
 
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ───── Routes ──────────────────────────────────────────
 app.use("/auth", authRouter);
 app.use("/user", authenticate, userRouter);
 app.use("/my-suite", authenticate, suiteRouter);
 app.use("/shipping", authenticate, shippingRouter);
+
 // ───── 404 ─────────────────────────────────────────────
 app.use(notFound);
+
 // ── Error handler ──────────────────────────────────────
 app.use(errorHandler);
+
 // ── uncaughtException  ─────────────────────────────────
 process.on("uncaughtException", (err) => {
   console.error("Uncaught Exception:", err);
@@ -51,4 +52,5 @@ process.on("uncaughtException", (err) => {
 process.on("unhandledRejection", (reason) => {
   console.error("Unhandled Rejection:", reason);
 });
+
 export default app;

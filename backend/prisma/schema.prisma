@@ -34,6 +34,17 @@ enum Status {
   delivered
 }
 
+enum CardBrand {
+  VISA
+  MASTERCARD
+  AMEX
+  DISCOVER
+  DINERS_CLUB
+  JCB
+  UNIONPAY
+  UNKNOWN
+}
+
 model User {
   id        String   @id @default(uuid()) @db.Uuid
   firstName String   @map("first_name") @db.VarChar(255)
@@ -46,10 +57,11 @@ model User {
   provider  Provider @default(local)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
-  phones    UserPhone[]
-  addresses UserAddress[]
-  shipping  Shipping[]
-  suites    Suite?
+  phones       UserPhone[]
+  paymentsCard UserPaymentCard[]
+  addresses    UserAddress[]
+  shipping     Shipping[]
+  suites       Suite?
 
   @@map("users")
 }
@@ -62,6 +74,7 @@ model UserPhone {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("user_phones")
 }
 
@@ -80,7 +93,31 @@ model UserAddress {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("user_addresses")
+}
+
+model UserPaymentCard {
+  paymentId Int    @id @default(autoincrement()) @map("payment_id")
+  userId    String @map("user_id") @db.Uuid
+
+  providerToken String @unique @map("provider_token")
+  provider      String @default("stripe")
+
+  brand       CardBrand @default(UNKNOWN)
+  last4       String    @db.VarChar(4)
+  expiryMonth Int       @map("exp_month")
+  expiryYear  Int       @map("exp_year")
+
+  isDefault Boolean @default(false) @map("is_default")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("user_payment_card")
 }
 
 model Shipping {
@@ -100,6 +137,7 @@ model Shipping {
   packages Package[]
   invoice  Invoice?
 
+  @@index([userId])
   @@map("shippings")
 }
 

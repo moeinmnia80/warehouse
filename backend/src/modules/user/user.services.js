@@ -3,29 +3,29 @@ import { findAddressByUserId, findPaymentByUserId } from "./user.repository.js";
 
 export const getUserPaymentMethod = (req) => {
   const { id } = req.user;
+
   const existingPaymentById = findPaymentByUserId(id);
   if (!existingPaymentById) {
-    throw Errors.notFound("User");
+    throw Errors.notFound("Payment method");
   }
-
-  const { paymentMethods } = existingPaymentById;
 
   return {
     status: "success",
-    message: "operation is successfully completed",
-    data: [...paymentMethods],
+    message: "Payment methods retrieved successfully",
+    data: existingPaymentById,
   };
 };
 export const getUserAddress = (req) => {
   const { id } = req.user;
-  const existingAddressById = findAddressByUserId(id);
 
+  const existingAddressById = findAddressByUserId(id);
   if (!existingAddressById) {
-    throw Errors.notFound("User");
+    throw Errors.notFound("Address");
   }
+
   return {
     status: "success",
-    message: "operation is successfully completed",
-    data: [...existingAddressById],
+    message: "Address retrieved successfully",
+    data: existingAddressById,
   };
 };
