@@ -37,11 +37,11 @@ export function requestLogger(req, res, next) {
 
     const consoleMsg = `[${new Date().toISOString()}] [${
       req.id || "N/A"
-    }] ${req.method} ${req.url} - ${statusColor(statusCode)} - ${duration}ms`;
+    }] ${req.method} ${req.originalUrl} - ${statusColor(statusCode)} - ${duration}ms`;
 
     const fileMsg = `[${new Date().toISOString()}] [${
       req.id || "N/A"
-    }] ${req.method} ${req.url} - ${statusCode} - ${duration}ms \n`;
+    }] ${req.method} ${req.originalUrl} - ${statusCode} - ${duration}ms \n`;
 
     console.log(consoleMsg);
 

@@ -1,10 +1,10 @@
 import { Errors } from "../../utils/errors.js";
 import { findAddressByUserId, findPaymentByUserId } from "./user.repository.js";
 
-export const getUserPaymentMethod = (req) => {
+export const getUserPaymentMethod = async (req) => {
   const { id } = req.user;
 
-  const existingPaymentById = findPaymentByUserId(id);
+  const existingPaymentById = await findPaymentByUserId(id);
   if (!existingPaymentById) {
     throw Errors.notFound("Payment method");
   }
@@ -15,10 +15,10 @@ export const getUserPaymentMethod = (req) => {
     data: existingPaymentById,
   };
 };
-export const getUserAddress = (req) => {
+export const getUserAddress = async (req) => {
   const { id } = req.user;
 
-  const existingAddressById = findAddressByUserId(id);
+  const existingAddressById = await findAddressByUserId(id);
   if (!existingAddressById) {
     throw Errors.notFound("Address");
   }

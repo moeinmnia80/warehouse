@@ -16,6 +16,7 @@ import { requestLogger } from "./middlewares/logger.middleware.js";
 import { router as authRouter } from "./modules/auth/auth.routes.js";
 import { router as userRouter } from "./modules/user/user.routes.js";
 import { router as suiteRouter } from "./modules/suite/suite.routes.js";
+import { router as paymentRouter } from "./modules/payment/payment.routes.js";
 import { router as shippingRouter } from "./modules/shipping/shipping.routes.js";
 
 const app = express();
@@ -37,6 +38,7 @@ app.use(requestLogger);
 app.use("/auth", authRouter);
 app.use("/user", authenticate, userRouter);
 app.use("/my-suite", authenticate, suiteRouter);
+app.use("/payment", paymentRouter);
 app.use("/shipping", authenticate, shippingRouter);
 
 // ───── 404 ─────────────────────────────────────────────
