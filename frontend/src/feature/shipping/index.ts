@@ -28,7 +28,10 @@ export {
 export { useSearchFilter } from "@/feature/shipping/hooks/useSearchFilter";
 // constants
 export { PRESETS } from "@/feature/shipping/constants/date";
-export { SHIPPING_COLUMNS } from "@/feature/shipping/constants/column";
+export {
+  SHIPPING_COLUMNS,
+  NEW_SHIPPING_COLUMNS,
+} from "@/feature/shipping/constants/column";
 export {
   EXPORT_DOCS,
   FIELD_NAMES,
