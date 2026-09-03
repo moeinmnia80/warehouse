@@ -9,6 +9,7 @@ import {
   DropdownItem,
   DropdownButton,
   DropdownContent,
+  InlineSkeleton,
 } from "@/shared/index";
 
 export const UserMenu = () => {
@@ -28,13 +29,19 @@ export const UserMenu = () => {
       <DropdownButton className="flex-between w-fit shrink-0">
         <div className="text-left">
           <h3 className="text-sm xl:text-xs font-bold text-tx-primary">
-            <span className="capitalize text-current">
-              {user?.gender === "male" ? "mr" : "mz"}
-            </span>
-            <span className="uppercase text-current">.{user?.lastName}</span>
+            {user ? (
+              <>
+                <span className="capitalize text-current">
+                  {user.gender === "male" ? "mr" : "mz"}
+                </span>
+                <span className="uppercase text-current">.{user.lastName}</span>
+              </>
+            ) : (
+              <InlineSkeleton className="h-3 w-20 ml-0" />
+            )}
           </h3>
           <p className="text-sm xl:text-xs font-bold text-tx-placeholder capitalize">
-            {user?.role}
+            {user ? user.role : <InlineSkeleton className="h-3 w-12 ml-0" />}
           </p>
         </div>
         <ChevronIcon className="size-3 fill-st-primary ms-2" />
