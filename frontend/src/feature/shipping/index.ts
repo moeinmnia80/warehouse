@@ -68,6 +68,7 @@ export { ShippingRequestTableHeaderRow } from "@/feature/shipping/components/Shi
 export {
   InfoRow,
   EntryCard,
+  EmptyCard,
   IconButton,
   EntryHeader,
 } from "@/feature/shipping/components/ShippingRequestInfoCard";

@@ -23,11 +23,11 @@ export const EntryCard = ({
   </div>
 );
 
-export function EntryHeader({
+export const EntryHeader = ({
   title,
   children,
   data: { brand, isDefault },
-}: EntryHeaderProps) {
+}: EntryHeaderProps) => {
   return (
     <div className="flex items-center justify-between mb-3">
       <div className="flex items-center gap-2">
@@ -38,7 +38,7 @@ export function EntryHeader({
       {children}
     </div>
   );
-}
+};
 
 export const Badge = ({
   children,
@@ -89,7 +89,7 @@ export const InfoRow = ({
   </p>
 );
 
-export function CardBrandChip({ brand }: { brand: BrandCardType }) {
+export const CardBrandChip = ({ brand }: { brand: BrandCardType }) => {
   return (
     <span className="flex h-8 w-12 items-center rounded border border-bo-primary p-1.5 bg-white animate-fade-in">
       <VisaIcon className={brand === "visa" ? "size-full" : "hidden"} />
@@ -98,4 +98,19 @@ export function CardBrandChip({ brand }: { brand: BrandCardType }) {
       />
     </span>
   );
+};
+
+interface EmptyCardProps extends ComponentProps<"div"> {
+  title: string;
+  description: string;
 }
+
+export const EmptyCard = ({ title, description, ...props }: EmptyCardProps) => {
+  return (
+    <EntryCard {...props}>
+      <EntryHeader title={title} data={{ isDefault: false, id: "empty" }} />
+
+      <p className="text-sm opacity-50">{description}</p>
+    </EntryCard>
+  );
+};

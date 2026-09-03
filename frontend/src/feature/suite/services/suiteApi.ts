@@ -16,7 +16,7 @@ export const suiteApi = baseApi.injectEndpoints({
       providesTags: (result) =>
         result
           ? [
-              { type: "Suite" as const, id: "List" },
+              { type: "Suite" as const, id: "LIST" },
 
               ...result.packages.flatMap((pkg) => [
                 { type: "Suite" as const, id: pkg.packageId },
@@ -30,7 +30,7 @@ export const suiteApi = baseApi.injectEndpoints({
                 })),
               ]),
             ]
-          : [{ type: "Suite", id: "List" }],
+          : [{ type: "Suite", id: "LIST" }],
       keepUnusedDataFor: 300,
     }),
     sendData: builder.mutation<UploadResponse, UploadPayload>({
@@ -51,8 +51,8 @@ export const suiteApi = baseApi.injectEndpoints({
       invalidatesTags: (_result, _error, { type, id }) => [
         { type: "Suite", id: "LIST" },
         type === "images"
-          ? { type: "PackageImages", id }
-          : { type: "PackageDocs", id },
+          ? { type: "PackageImages", id: `LIST-${id}` }
+          : { type: "PackageDocs", id: `LIST-${id}` },
       ],
     }),
     getPackageImage: builder.query<{ fileUrl: string }, PackagePayload>({
@@ -61,6 +61,7 @@ export const suiteApi = baseApi.injectEndpoints({
       }),
       providesTags: (_result, _err, { packageId, fileName }) => [
         { type: "PackageImages", id: `${packageId}-${fileName}` },
+        { type: "PackageImages", id: `${packageId}-LIST}` },
       ],
       keepUnusedDataFor: 300,
     }),
@@ -70,6 +71,7 @@ export const suiteApi = baseApi.injectEndpoints({
       }),
       providesTags: (_result, _err, { packageId, fileName }) => [
         { type: "PackageDocs", id: `${packageId}-${fileName}` },
+        { type: "PackageDocs", id: `${packageId}-LIST` },
       ],
       keepUnusedDataFor: 300,
     }),

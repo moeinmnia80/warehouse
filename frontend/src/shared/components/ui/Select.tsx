@@ -159,11 +159,12 @@ export const SelectItems = ({
   const { selected, setSelected, setIsOpen } = useContext(SelectContext);
 
   const isNewOption = (option: SelectOption) => selected.id !== option.id;
+  const isEmpty = (option: SelectOption) => option.id === "empty";
 
   const selectOptionClickHandler = () => {
     onClick?.(option);
 
-    if (isNewOption(option)) {
+    if (isNewOption(option) && !isEmpty) {
       setSelected(option);
       setIsOpen(false);
     }

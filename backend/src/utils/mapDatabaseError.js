@@ -1,6 +1,7 @@
 import AppError from "./appError.js";
 
 export const mapDatabaseError = (err) => {
+  console.error("RAW ERROR:", err);
   if (!err.code || err.isOperational) return err;
 
   const map = {

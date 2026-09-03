@@ -17,7 +17,7 @@ export const SuiteHeader = ({ ...props }: ComponentProps<"div">) => {
         isLoading,
         id: data?.id,
         zonePrefix: data?.zonePrefix,
-        count: data?.packages.filter(
+        count: (data?.packages || []).filter(
           (pkg) => pkg.statusLabel === "ready to send",
         ).length,
       }),
