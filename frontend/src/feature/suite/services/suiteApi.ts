@@ -8,10 +8,31 @@ import type {
   UploadResponse,
 } from "@/feature/suite/index";
 
+interface SuiteAllPackagesPayload {
+  limit: "all";
+}
+
+interface SuitePaginatedPackagesPayload {
+  page?: number;
+  limit?: number;
+}
+
+type SuiteQueryPayload =
+  SuiteAllPackagesPayload | SuitePaginatedPackagesPayload | void;
+
 export const suiteApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getSuite: builder.query<SuitePayload, { page: number }>({
-      query: ({ page }) => `/my-suite?page=${page}`,
+    getSuite: builder.query<SuitePayload, SuiteQueryPayload>({
+      query: (arg) => {
+        if (arg && "limit" in arg && arg.limit === "all") {
+          return `/my-suite?limit=all`;
+        }
+
+        const page = arg?.page ?? 1;
+        const limit = arg?.limit ?? 5;
+
+        return `/my-suite?page=${page}&limit=${limit}`;
+      },
       transformResponse: (response: SuiteResponse) => response.data,
       providesTags: (result) =>
         result

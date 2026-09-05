@@ -21,15 +21,27 @@ import {
 
 export const getSuiteData = async (req) => {
   const { id } = req.user;
-  const page = Number(req.query.page) || 1;
+  const page = req.query.page ? Number(req.query.page) : 1;
+  const limit =
+    req.query.limit === "all" ? req.query.limit : Number(req.query.limit) || 5;
 
-  let existingSuite = await findSuiteByUserId(id, page);
+  let existingSuite = await findSuiteByUserId(id, page, limit);
   if (!existingSuite) existingSuite = await createSuite(req.user);
 
+  if (limit === "all") {
+    return {
+      status: "success",
+      message: "suite fetched",
+      data: {
+        ...existingSuite,
+      },
+    };
+  }
   const {
     suite: { packages, id: suiteId, name, zonePrefix },
     pagination,
   } = existingSuite;
+
   return {
     status: "success",
     message: "suite fetched",
@@ -128,7 +140,7 @@ export const addPackagePdf = async (req) => {
   const newData = await processAndUploadFiles(files, "invoices", packageId);
 
   const invoicesToSave = newData.map((file) => ({
-    url: file.url,
+    url: file.path,
     name: file.originalname || file.name,
     size: file.size,
     type: file.mimetype || file.type,

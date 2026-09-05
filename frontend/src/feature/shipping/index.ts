@@ -16,6 +16,7 @@ export type {
   PaymentMethodsPayload,
 } from "@/feature/shipping/types/types";
 // utils
+export { loadInitialState } from "@/feature/shipping/utils/initializeFromSession";
 export {
   rangeLabel,
   formatDate,
@@ -44,9 +45,14 @@ export {
 // store
 export {
   setSort,
+  rowReset,
+  rowToggle,
   setSearch,
+  rowCheckAll,
+  modalToggler,
   setDatePreset,
   resetDateFilter,
+  setRequestPackage,
   setCustomDateRange,
 } from "@/feature/shipping/store/shippingSlice";
 // components
@@ -63,6 +69,7 @@ export { ShippingAddress } from "@/feature/shipping/components/ShippingAddress";
 export { ShippingInfoItem } from "@/feature/shipping/components/ShippingInfoItem";
 export { RenderOptionItems } from "@/feature/shipping/components/RenderOptionItems";
 export { ShippingRequestInfo } from "@/feature/shipping/components/ShippingRequestInfo";
+export { ShippingRequestModal } from "@/feature/shipping/components/ShippingRequestModal";
 export { ShippingPaymentMethod } from "@/feature/shipping/components/ShippingPaymentMethod";
 export { ShippingRequestsTable } from "@/feature/shipping/components/ShippingRequestsTable";
 export { ShippingRequestSidebar } from "@/feature/shipping/components/ShippingRequestSidebar";

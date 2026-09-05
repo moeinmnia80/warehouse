@@ -1,6 +1,13 @@
 import db from "../../config/db.js";
 
-export const findSuiteByUserId = async (userId, page = 1, limit = 5) => {
+export const findSuiteByUserId = async (userId, page, limit) => {
+  if (limit === "all") {
+    return db.suite.findUnique({
+      where: { userId },
+      include: { packages: true },
+    });
+  }
+
   const skip = (page - 1) * limit;
 
   const [suite, totalPackages] = await db.$transaction([

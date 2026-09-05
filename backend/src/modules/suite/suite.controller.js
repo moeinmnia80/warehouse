@@ -9,7 +9,7 @@ import {
 
 export const getSuiteController = catchAsync(async (req, res) => {
   const result = await getSuiteData(req);
-  res.set("Catch-Control", "private", "max-age=3600");
+  res.set("Cache-Control", "private", "max-age=3600");
   return res.status(200).json(result);
 });
 
@@ -29,11 +29,11 @@ export const addPackagePdfController = catchAsync(async (req, res) => {
 });
 export const getInvoiceController = catchAsync(async (req, res) => {
   const { fileUrl } = await getFiles(req);
-  res.set("Catch-Control", "private", "max-age=3600");
+  res.set("Cache-Control", "private", "max-age=3600");
   return res.status(200).json({ fileUrl });
 });
 export const getImagesController = catchAsync(async (req, res) => {
   const { fileUrl } = await getFiles(req);
-  res.set("Catch-Control", "private", "max-age=3600");
+  res.set("Cache-Control", "private", "max-age=3600");
   return res.status(200).json({ fileUrl });
 });
