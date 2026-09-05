@@ -55,6 +55,15 @@ export interface InfoRowProps extends ComponentProps<"p"> {
   label?: string;
   value: string;
 }
+
+export interface ShippingRequestTableDataRowProps {
+  data: Package;
+  isLoading?: boolean;
+}
+
+export interface ShippingRequestTableHeaderRowProps {
+  data: Package[];
+}
 // hooks
 export interface SearchFilterProps {
   data: Shipping[] | undefined;

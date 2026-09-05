@@ -14,8 +14,11 @@ export type {
   ShippingAddressType,
   UserPaymentResponse,
   PaymentMethodsPayload,
+  ShippingRequestTableDataRowProps,
+  ShippingRequestTableHeaderRowProps,
 } from "@/feature/shipping/types/types";
 // utils
+export { getReadyPackages } from "@/feature/shipping/utils/shipping.utils.js";
 export { loadInitialState } from "@/feature/shipping/utils/initializeFromSession";
 export {
   rangeLabel,

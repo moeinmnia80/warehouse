@@ -1,29 +1,36 @@
-import { ShowIcon } from "@/assets";
-import { rowToggle } from "@/feature/shipping";
-import { useAppDispatch, useAppSelector } from "@/store/redux/store";
+import { RemoveIcon } from "@/assets";
 import { formatCurrency, formatWeight } from "@/feature/suite";
-import {
-  TD,
-  Row,
-  Label,
-  Checkbox,
-  type Package,
-  TableSkeleton,
-} from "@/shared";
+import { TD, Row, Label, Checkbox, TableSkeleton } from "@/shared";
+import { useAppDispatch, useAppSelector } from "@/store/redux/store";
 
-interface ShippingRequestTableDataRowProps {
-  data: Package;
-  isLoading?: boolean;
-}
+import {
+  rowReset,
+  rowToggle,
+  setRequestPackage,
+  type ShippingRequestTableDataRowProps,
+} from "@/feature/shipping";
 
 export const ShippingRequestTableDataRow = ({
   data,
   isLoading = false,
 }: ShippingRequestTableDataRowProps) => {
   const dispatch = useAppDispatch();
+
+  const requestPackages = useAppSelector(
+    (state) => state.shipping.requestPackages,
+  );
   const rowChecked = useAppSelector((state) => state.shipping.rowChecked);
 
   const isChecked = !!rowChecked[data.packageId];
+
+  const handleRemovePackage = () => {
+    const newReqPkg = requestPackages.filter(
+      (pkg) => pkg.packageId !== data.packageId,
+    );
+
+    dispatch(rowReset());
+    dispatch(setRequestPackage(newReqPkg));
+  };
 
   if (isLoading) {
     return (
@@ -36,12 +43,12 @@ export const ShippingRequestTableDataRow = ({
   }
 
   return (
-    <Row className="overflow-hidden flex flex-col md:flex-center md:flex-row min-h-18 text-sm text-tx-primary border border-bo-primary rounded-xl md:rounded-b-none    md:rounded-t-none md:border-t-0 md:last:rounded-b-xl md:*:py-4 md:*:px-2 mb-4 last:mb-0 md:mb-0 animate-fade-in">
-      <TD className="hidden md:flex items-center justify-center min-w-10">
+    <Row className="overflow-hidden flex flex-col md:flex-center md:flex-row min-h-18 text-sm text-tx-primary border border-bo-primary rounded-xl md:rounded-b-none    md:rounded-t-none md:border-t-0 md:last:rounded-b-xl md:*:py-4 md:*:px-2 mb-4 last:mb-0 md:mb-0 animate-fade-in relative">
+      <TD className="absolute top-4 right-0 flex md:relative md:top-auto md:right-auto items-center justify-center min-w-10">
         <Label onClick={(e) => e.stopPropagation()}>
           <Checkbox
             accentClass="stroke-st-primary"
-            onClick={() => dispatch(rowToggle(data.packageId))}
+            onChange={() => dispatch(rowToggle(data.packageId))}
             checked={isChecked}
           />
         </Label>
@@ -74,10 +81,15 @@ export const ShippingRequestTableDataRow = ({
         className="flex items-center text-current flex-1 md:justify-center"
         dataCell="Action"
       >
-        <span className="flex-center gap-1.5 justify-center w-full">
-          view
-          <ShowIcon className="size-4 stroke-st-primary" />
-        </span>
+        <button
+          type="button"
+          onClick={handleRemovePackage}
+          className="flex-center gap-1.5 justify-center text-error disabled:opacity-40 enabled:opacity-100 transition duration-200 disabled:cursor-default capitalize"
+          disabled={!isChecked}
+        >
+          remove
+          <RemoveIcon className="size-3 stroke-error" />
+        </button>
       </TD>
     </Row>
   );

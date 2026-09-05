@@ -12,6 +12,7 @@ import {
 
 export const ShippingRequestsTable = () => {
   const dispatch = useAppDispatch();
+
   const requestPackages = useAppSelector(
     (state) => state.shipping.requestPackages,
   );

@@ -106,7 +106,10 @@ export const SidebarContent = () => {
         <p className="text-sm bg-b-secondary border border-bo-primary rounded-lg p-4">
           Your default payment method will be charged for this transaction.
         </p>
-        <Button type="submit" className="btn btn--primary font-bold h-14">
+        <Button
+          type="submit"
+          className="btn btn--primary max-w-full font-bold h-14"
+        >
           <DeliveryIcon className="size-5 stroke-b-primary mr-2" />
           Create Ship Request
         </Button>
@@ -114,7 +117,7 @@ export const SidebarContent = () => {
       <Button
         type="button"
         onClick={cancelRequestHandler}
-        className="btn btn--border bg-b-primary font-bold h-14"
+        className="btn btn--border max-w-full bg-b-primary font-bold h-14"
       >
         <CloseIcon className="size-4 fill-st-primary mr-2 border border-st-primary rounded-full p-1" />
         Cancel Request
