@@ -1,4 +1,4 @@
-import { RemoveIcon } from "@/assets";
+import { RemoveIcon, ShowIcon } from "@/assets";
 import { formatCurrency, formatWeight } from "@/feature/suite";
 import { TD, Row, Label, Checkbox, TableSkeleton } from "@/shared";
 import { useAppDispatch, useAppSelector } from "@/store/redux/store";
@@ -16,6 +16,7 @@ export const ShippingRequestTableDataRow = ({
 }: ShippingRequestTableDataRowProps) => {
   const dispatch = useAppDispatch();
 
+  const modal = useAppSelector((state) => state.shipping.modal);
   const requestPackages = useAppSelector(
     (state) => state.shipping.requestPackages,
   );
@@ -81,15 +82,22 @@ export const ShippingRequestTableDataRow = ({
         className="flex items-center text-current flex-1 md:justify-center"
         dataCell="Action"
       >
-        <button
-          type="button"
-          onClick={handleRemovePackage}
-          className="flex-center gap-1.5 justify-center text-error disabled:opacity-40 enabled:opacity-100 transition duration-200 disabled:cursor-default capitalize"
-          disabled={!isChecked}
-        >
-          remove
-          <RemoveIcon className="size-3 stroke-error" />
-        </button>
+        {modal ? (
+          <div className="flex-center gap-1.5 text-st-primary capitalize">
+            view
+            <ShowIcon className="size-4 stroke-st-primary" />
+          </div>
+        ) : (
+          <button
+            type="button"
+            onClick={handleRemovePackage}
+            className="flex-center gap-1.5 justify-center text-error disabled:opacity-40 enabled:opacity-100 transition duration-200 disabled:cursor-default capitalize"
+            disabled={!isChecked}
+          >
+            remove
+            <RemoveIcon className="size-3 stroke-error" />
+          </button>
+        )}
       </TD>
     </Row>
   );
