@@ -1,4 +1,4 @@
-import type { Shipping } from "@/shared";
+import type { Package, Shipping } from "@/shared";
 import type { ComponentProps } from "react";
 // store
 export type DatePreset = "30d" | "60d" | "90d" | "1y" | "custom" | null;
@@ -13,10 +13,13 @@ export interface SortState {
 export interface ShippingState {
   search: string;
   sort: SortState;
+  modal: boolean;
+  rowChecked: Record<string, boolean>;
   dateFilter: {
     preset: DatePreset;
     range: DateRange;
   };
+  requestPackages: Package[];
 }
 // comp
 export interface OptionItem {
@@ -51,6 +54,15 @@ export interface EntryHeaderProps extends ComponentProps<"div"> {
 export interface InfoRowProps extends ComponentProps<"p"> {
   label?: string;
   value: string;
+}
+
+export interface ShippingRequestTableDataRowProps {
+  data: Package;
+  isLoading?: boolean;
+}
+
+export interface ShippingRequestTableHeaderRowProps {
+  data: Package[];
 }
 // hooks
 export interface SearchFilterProps {

@@ -1,6 +1,10 @@
-import { Button, cn, usePaginationParams } from "@/shared/index";
 import { useNavigate } from "react-router";
-import { useAppSelector } from "@/store/redux/store";
+
+import { setRequestPackage } from "@/feature/shipping";
+import { Button, cn, usePaginationParams } from "@/shared";
+import { useAppDispatch, useAppSelector } from "@/store/redux/store";
+import { BookIcon, InfoIcon, DeliveryIcon, CalculatorIcon } from "@/assets";
+
 import {
   formatWeight,
   formatCurrency,
@@ -8,12 +12,6 @@ import {
   useGetSuiteQuery,
   calculateSuiteSummary,
 } from "@/feature/suite";
-import {
-  BookIcon,
-  InfoIcon,
-  DeliveryIcon,
-  CalculatorIcon,
-} from "@/assets/index";
 
 export const MySuiteSidebar = () => {
   const { page } = usePaginationParams();
@@ -31,8 +29,12 @@ export const MySuiteSidebar = () => {
   const category = useAppSelector((state) => state.suite.category);
 
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const createShipRequest = () => {
+    if (data?.length) {
+      dispatch(setRequestPackage(data));
+    }
     navigate("/dashboard/shipping-request");
   };
 
@@ -100,7 +102,8 @@ export const MySuiteSidebar = () => {
         <div className="p-5 flex flex-col gap-4">
           <Button
             onClick={createShipRequest}
-            className="btn btn--primary font-bold"
+            className="btn btn--primary font-bold enabled:hover:bg-white/25 disabled:opacity-25 disabled:cursor-default transition duration-200"
+            disabled={!data?.length}
           >
             <DeliveryIcon className="size-5 stroke-b-primary mr-2" />
             Create Ship Request

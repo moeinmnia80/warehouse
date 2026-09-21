@@ -13,7 +13,7 @@ const DEFAULT_MAX_VISIBLE_ITEMS = 2;
 export const SidebarSection = ({
   title,
   caption,
-  value = "$0.00",
+  value = "$ 0.00",
   maxVisibleItems = DEFAULT_MAX_VISIBLE_ITEMS,
   className,
   children,

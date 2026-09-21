@@ -14,8 +14,12 @@ export type {
   ShippingAddressType,
   UserPaymentResponse,
   PaymentMethodsPayload,
+  ShippingRequestTableDataRowProps,
+  ShippingRequestTableHeaderRowProps,
 } from "@/feature/shipping/types/types";
 // utils
+export { getReadyPackages } from "@/feature/shipping/utils/shipping.utils.js";
+export { loadInitialState } from "@/feature/shipping/utils/initializeFromSession";
 export {
   rangeLabel,
   formatDate,
@@ -28,7 +32,10 @@ export {
 export { useSearchFilter } from "@/feature/shipping/hooks/useSearchFilter";
 // constants
 export { PRESETS } from "@/feature/shipping/constants/date";
-export { SHIPPING_COLUMNS } from "@/feature/shipping/constants/column";
+export {
+  SHIPPING_COLUMNS,
+  NEW_SHIPPING_COLUMNS,
+} from "@/feature/shipping/constants/column";
 export {
   EXPORT_DOCS,
   FIELD_NAMES,
@@ -41,9 +48,14 @@ export {
 // store
 export {
   setSort,
+  rowReset,
+  rowToggle,
   setSearch,
+  rowCheckAll,
+  modalToggler,
   setDatePreset,
   resetDateFilter,
+  setRequestPackage,
   setCustomDateRange,
 } from "@/feature/shipping/store/shippingSlice";
 // components
@@ -60,6 +72,7 @@ export { ShippingAddress } from "@/feature/shipping/components/ShippingAddress";
 export { ShippingInfoItem } from "@/feature/shipping/components/ShippingInfoItem";
 export { RenderOptionItems } from "@/feature/shipping/components/RenderOptionItems";
 export { ShippingRequestInfo } from "@/feature/shipping/components/ShippingRequestInfo";
+export { ShippingRequestModal } from "@/feature/shipping/components/ShippingRequestModal";
 export { ShippingPaymentMethod } from "@/feature/shipping/components/ShippingPaymentMethod";
 export { ShippingRequestsTable } from "@/feature/shipping/components/ShippingRequestsTable";
 export { ShippingRequestSidebar } from "@/feature/shipping/components/ShippingRequestSidebar";
@@ -68,6 +81,7 @@ export { ShippingRequestTableHeaderRow } from "@/feature/shipping/components/Shi
 export {
   InfoRow,
   EntryCard,
+  EmptyCard,
   IconButton,
   EntryHeader,
 } from "@/feature/shipping/components/ShippingRequestInfoCard";

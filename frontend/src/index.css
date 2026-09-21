@@ -98,6 +98,10 @@
     padding: 0;
     box-sizing: border-box;
   }
+  ::selection {
+    background-color: var(--color-b-transparent);
+    color: var(--color-tx-primary);
+  }
   body {
     height: 100%;
     background-color: var(--color-b-primary);
