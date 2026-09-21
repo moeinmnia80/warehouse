@@ -6,10 +6,12 @@ import env from "./env.js";
 
 const pool = new Pool({
   connectionString: env.dbURL,
-  max: 5,
+  max: 10,
   ssl: {
     rejectUnauthorized: false,
   },
+  connectionTimeoutMillis: 15000,
+  idleTimeoutMillis: 5000,
 });
 
 const adapter = new PrismaPg(pool);

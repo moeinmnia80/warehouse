@@ -1,31 +1,31 @@
 import { Errors } from "../../utils/errors.js";
 import { findAddressByUserId, findPaymentByUserId } from "./user.repository.js";
 
-export const getUserPaymentMethod = (req) => {
+export const getUserPaymentMethod = async (req) => {
   const { id } = req.user;
-  const existingPaymentById = findPaymentByUserId(id);
-  if (!existingPaymentById) {
-    throw Errors.notFound("User");
-  }
 
-  const { paymentMethods } = existingPaymentById;
+  const existingPaymentById = await findPaymentByUserId(id);
+  if (!existingPaymentById) {
+    throw Errors.notFound("Payment method");
+  }
 
   return {
     status: "success",
-    message: "operation is successfully completed",
-    data: [...paymentMethods],
+    message: "Payment methods retrieved successfully",
+    data: existingPaymentById,
   };
 };
-export const getUserAddress = (req) => {
+export const getUserAddress = async (req) => {
   const { id } = req.user;
-  const existingAddressById = findAddressByUserId(id);
 
+  const existingAddressById = await findAddressByUserId(id);
   if (!existingAddressById) {
-    throw Errors.notFound("User");
+    throw Errors.notFound("Address");
   }
+
   return {
     status: "success",
-    message: "operation is successfully completed",
-    data: [...existingAddressById],
+    message: "Address retrieved successfully",
+    data: existingAddressById,
   };
 };

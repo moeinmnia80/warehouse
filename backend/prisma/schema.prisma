@@ -34,22 +34,42 @@ enum Status {
   delivered
 }
 
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+  CANCELED
+}
+
+enum CardBrand {
+  VISA
+  MASTERCARD
+  AMEX
+  DISCOVER
+  UNKNOWN
+}
+
 model User {
-  id        String   @id @default(uuid()) @db.Uuid
-  firstName String   @map("first_name") @db.VarChar(255)
-  lastName  String   @map("last_name") @db.VarChar(255)
-  email     String   @unique @db.VarChar(255)
-  username  String   @unique @db.VarChar(50)
-  password  String   @db.VarChar(255)
-  gender    Gender   @default(male)
-  role      Role     @default(manager)
-  provider  Provider @default(local)
+  id               String   @id @default(uuid()) @db.Uuid
+  firstName        String   @map("first_name") @db.VarChar(255)
+  lastName         String   @map("last_name") @db.VarChar(255)
+  email            String   @unique @db.VarChar(255)
+  username         String   @unique @db.VarChar(50)
+  password         String   @db.VarChar(255)
+  gender           Gender   @default(male)
+  role             Role     @default(manager)
+  provider         Provider @default(local)
+  stripeCustomerId String?  @unique @map("stripe_customer_id")
+
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
 
-  phones    UserPhone[]
-  addresses UserAddress[]
-  shipping  Shipping[]
-  suites    Suite?
+  phones       UserPhone[]
+  paymentsCard UserPaymentCard[]
+  addresses    UserAddress[]
+  shipping     Shipping[]
+  suites       Suite?
+  payments     Payment[]
 
   @@map("users")
 }
@@ -62,6 +82,7 @@ model UserPhone {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("user_phones")
 }
 
@@ -80,7 +101,52 @@ model UserAddress {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  @@index([userId])
   @@map("user_addresses")
+}
+
+model UserPaymentCard {
+  paymentId Int    @id @default(autoincrement()) @map("payment_id")
+  userId    String @map("user_id") @db.Uuid
+
+  stripePaymentMethodId String @unique @map("stripe_payment_method_id") @db.VarChar(255)
+  provider              String @default("stripe")
+
+  brand       CardBrand @default(UNKNOWN)
+  last4       String    @db.VarChar(4)
+  expiryMonth Int       @map("exp_month")
+  expiryYear  Int       @map("exp_year")
+
+  isDefault Boolean @default(false) @map("is_default")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  payments Payment[]
+
+  @@index([userId])
+  @@map("user_payment_card")
+}
+
+model Payment {
+  id              Int           @id @default(autoincrement())
+  userId          String        @map("user_id") @db.Uuid
+  paymentIntentId String        @unique @map("payment_intent_id") @db.VarChar(255)
+  paymentMethodId Int?          @map("payment_method_id")
+  amount          Int
+  currency        String        @default("usd") @db.VarChar(10)
+  status          PaymentStatus @default(PENDING)
+  failureReason   String?       @map("failure_reason") @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user          User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  paymentMethod UserPaymentCard? @relation(fields: [paymentMethodId], references: [paymentId], onDelete: SetNull)
+
+  @@index([userId])
+  @@map("payment")
 }
 
 model Shipping {
@@ -100,6 +166,7 @@ model Shipping {
   packages Package[]
   invoice  Invoice?
 
+  @@index([userId])
   @@map("shippings")
 }
 

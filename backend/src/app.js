@@ -1,4 +1,3 @@
-import path from "path";
 import cors from "cors";
 import helmet from "helmet";
 import express from "express";
@@ -17,6 +16,7 @@ import { requestLogger } from "./middlewares/logger.middleware.js";
 import { router as authRouter } from "./modules/auth/auth.routes.js";
 import { router as userRouter } from "./modules/user/user.routes.js";
 import { router as suiteRouter } from "./modules/suite/suite.routes.js";
+import { router as paymentRouter } from "./modules/payment/payment.routes.js";
 import { router as shippingRouter } from "./modules/shipping/shipping.routes.js";
 
 const app = express();
@@ -34,16 +34,19 @@ app.use(cookieParser(env.cookieKey));
 app.use(requestId);
 app.use(requestLogger);
 
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 // ───── Routes ──────────────────────────────────────────
 app.use("/auth", authRouter);
 app.use("/user", authenticate, userRouter);
 app.use("/my-suite", authenticate, suiteRouter);
+app.use("/payment", paymentRouter);
 app.use("/shipping", authenticate, shippingRouter);
+
 // ───── 404 ─────────────────────────────────────────────
 app.use(notFound);
+
 // ── Error handler ──────────────────────────────────────
 app.use(errorHandler);
+
 // ── uncaughtException  ─────────────────────────────────
 process.on("uncaughtException", (err) => {
   console.error("Uncaught Exception:", err);
@@ -51,4 +54,5 @@ process.on("uncaughtException", (err) => {
 process.on("unhandledRejection", (reason) => {
   console.error("Unhandled Rejection:", reason);
 });
+
 export default app;

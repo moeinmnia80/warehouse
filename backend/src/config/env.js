@@ -17,6 +17,7 @@ const env = {
   smtpUser: process.env.SMTP_USER || "",
   smtpPass: process.env.SMTP_PASS || "",
   redisUrl: process.env.UPSTASH_REDIS_URL || "",
+  stripSecretKey: process.env.STRIP_PAYMENT_SECRET_KEY || "",
 };
 
 export default env;

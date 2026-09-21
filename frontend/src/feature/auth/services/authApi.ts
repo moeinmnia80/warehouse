@@ -41,8 +41,6 @@ export const authApi = baseApi.injectEndpoints({
           await queryFulfilled;
           toast.success("Logged in successfully");
         } catch (error) {
-          console.log(error);
-
           toast.error(
             (error as { error: ErrorResponse }).error.data
               ? (error as { error: ErrorResponse }).error.data.error.message
