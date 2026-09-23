@@ -21,30 +21,9 @@ import { router as shippingRouter } from "./modules/shipping/shipping.routes.js"
 
 const app = express();
 
-app.use((req, res, next) => {
-  if (req.method === "OPTIONS") {
-    res.header(
-      "Access-Control-Allow-Origin",
-      "https://warehouse-markist.vercel.app",
-    );
-    res.header(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-    );
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Content-Type, Authorization, X-Requested-With",
-    );
-    res.header("Access-Control-Allow-Credentials", "true");
-    return res.sendStatus(200);
-  }
-  next();
-});
-
 app.set("trust proxy", 1);
 
-app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
-app.options("*", cors(corsOption));
+app.use(helmet());
 app.use(cors(corsOption));
 app.use(appLimiter);
 
