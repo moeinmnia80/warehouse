@@ -21,8 +21,6 @@ import { router as shippingRouter } from "./modules/shipping/shipping.routes.js"
 
 const app = express();
 
-app.set("trust proxy", 1);
-
 app.use((req, res, next) => {
   if (req.method === "OPTIONS") {
     res.header(
@@ -42,6 +40,8 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.set("trust proxy", 1);
 
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }));
 app.options("*", cors(corsOption));
