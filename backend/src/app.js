@@ -42,6 +42,12 @@ app.use("/my-suite", authenticate, suiteRouter);
 app.use("/payment", paymentRouter);
 app.use("/shipping", authenticate, shippingRouter);
 
+app.get("/health", (req, res) => {
+  res
+    .status(200)
+    .json({ status: "OK", message: "Server is running correctly" });
+});
+
 // ───── 404 ─────────────────────────────────────────────
 app.use(notFound);
 
