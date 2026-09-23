@@ -24,8 +24,34 @@ const app = express();
 app.set("trust proxy", 1);
 
 app.use(helmet());
-app.options("*", cors(corsOption));
-app.use(cors(corsOption));
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    env.clientUrl,
+    "https://warehouse-markist.vercel.app",
+    "http://localhost:3000",
+  ];
+  const origin = req.headers.origin;
+
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  }
+
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Authorization, X-Requested-With",
+  );
+
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(200);
+  }
+
+  next();
+});
 app.use(appLimiter);
 
 app.use(express.json());
