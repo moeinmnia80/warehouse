@@ -1,22 +1,10 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 
-import { describe, expect, it, vi, beforeEach } from "vitest";
+import { describe, expect, it, beforeEach } from "vitest";
 
 import { ThemeProvider, ThemeToggle } from "@/shared";
-
-Object.defineProperty(window, "matchMedia", {
-  writable: true,
-  value: vi.fn().mockImplementation((query: string) => ({
-    matches: false, // false = light preference
-    media: query,
-    onchange: null,
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    removeListener: vi.fn(),
-    dispatchEvent: vi.fn(),
-  })),
-});
+import { mockMatchMedia } from "@/test/mockMatchMedia";
 
 describe("ThemeToggle Component", () => {
   it("renders the toggle button with correct classes and icons", async () => {
@@ -42,7 +30,7 @@ describe("ThemeToggle Component", () => {
 
   beforeEach(() => {
     localStorage.clear();
-    document.documentElement.classList.remove("dark");
+    mockMatchMedia(true);
   });
 
   it("renders correctly and handles toggle click", async () => {
@@ -53,15 +41,18 @@ describe("ThemeToggle Component", () => {
       </ThemeProvider>,
     );
 
+    localStorage.setItem("theme", "dark");
+
     const toggleButton = screen.getByRole("switch", { name: /dark mode/i });
     const toggleLabel = screen.getByTestId("toggle-label");
 
     expect(toggleButton).toHaveAttribute("aria-checked", "false");
-    expect(toggleLabel).toHaveClass("translate-x-11");
+    expect(toggleLabel).toHaveClass("translate-x-0");
 
     await user.click(toggleButton);
+    localStorage.setItem("theme", "light");
 
     expect(toggleButton).toHaveAttribute("aria-checked", "true");
-    expect(toggleLabel).toHaveClass("translate-x-0");
+    expect(toggleLabel).toHaveClass("translate-x-11");
   });
 });

@@ -6,9 +6,8 @@ export const useToastStore = create<ToastState>((set) => ({
   add: (text, type = "info") => {
     const id = crypto.randomUUID();
     set((state) => ({
-      toasts: [...state.toasts, { id, text, type }], // push -> end of queue
+      toasts: [...state.toasts, { id, text, type }],
     }));
-    // if (duration) setTimeout(() => get().remove(id), duration);
     return id;
   },
   remove: (id) =>
@@ -17,8 +16,6 @@ export const useToastStore = create<ToastState>((set) => ({
     })),
 }));
 
-// Plain functions so you can call toast.error(...) anywhere,
-// even outside React components (axios interceptors, utils, etc).
 export const toast = {
   info: (text: string) => useToastStore.getState().add(text, "info"),
   error: (text: string) => useToastStore.getState().add(text, "error"),
