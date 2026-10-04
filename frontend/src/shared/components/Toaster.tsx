@@ -15,6 +15,7 @@ export const Toaster = ({ id, text, type }: ToastItem) => {
       clearTimeout(removeTimer);
     };
   }, [id, remove]);
+
   const setStyleType = () =>
     type === "info"
       ? "border-bo-primary"

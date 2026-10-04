@@ -1,10 +1,14 @@
 import { DarkIcon, LightIcon } from "@/assets";
-import { Toggle, ToggleButton, ToggleLabel, useTheme } from "@/shared/index";
+import { Toggle, ToggleButton, ToggleLabel, useTheme } from "@/shared";
 export const ThemeToggle = () => {
   const { theme, themeToggler } = useTheme();
   return (
     <Toggle className="relative flex w-22 h-11 bg-b-secondary rounded-full">
-      <ToggleButton onClick={themeToggler} className="flex">
+      <ToggleButton
+        onClick={themeToggler}
+        aria-label="dark mode"
+        className="flex"
+      >
         <ToggleLabel
           className={`absolute top-1 left-1 bg-b-muted size-9 rounded-full transition duration-200 ${theme === "dark" ? "translate-x-0" : "translate-x-11"}`}
         />

@@ -44,7 +44,6 @@ export {
   type ForgetPasswordData,
 } from "@/shared/schema/auth.schema";
 // hooks
-export { useTheme } from "@/shared/hooks/useTheme";
 export { useInPath } from "@/shared/hooks/useInPath";
 export { useOverflow } from "@/shared/hooks/useOverflow";
 export { useScrolled } from "@/shared/hooks/useScrolled";
@@ -52,7 +51,7 @@ export { useClickOutside } from "@/shared/hooks/useClickOutside";
 export { usePagination, DOTS } from "@/shared/hooks/usePagination";
 export { usePaginationParams } from "@/shared/hooks/usePaginationParams";
 // context
-export { ThemeContext } from "@/shared/context/context";
+export { ThemeContext, useTheme } from "@/shared/context/themeContext";
 // constants
 export { areas } from "@/shared/constants/areas";
 export { NAV_ITEMS } from "@/shared/constants/navLinks";
@@ -72,6 +71,7 @@ export { SocialMedia } from "@/shared/components/SocialMedia";
 export { Pagination } from "@/shared/components/ui/Pagination";
 export { AreaSelector } from "@/shared/layout/Header/AreaSelector";
 export { ToastContainer } from "@/shared/components/ToastContainer";
+export { ThemeProvider } from "@/shared/components/ThemeProvider";
 export {
   Form,
   Email,

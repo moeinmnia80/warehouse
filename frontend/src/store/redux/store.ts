@@ -1,14 +1,15 @@
-import { baseApi } from "@/shared/index";
 import { configureStore } from "@reduxjs/toolkit";
-import authReducer from "@/feature/auth/store/authSlice";
-import suiteReducer from "@/feature/suite/store/suiteSlice";
-import shippingReducer from "@/feature/shipping/store/shippingSlice";
 import {
   useDispatch,
   useSelector,
   type TypedUseSelectorHook,
 } from "react-redux";
-import { savePackageToSessionMiddleware } from "../middlewares/sessionMiddleware";
+
+import { baseApi } from "@/shared/index";
+import authReducer from "@/feature/auth/store/authSlice";
+import suiteReducer from "@/feature/suite/store/suiteSlice";
+import shippingReducer from "@/feature/shipping/store/shippingSlice";
+import { savePackageToSessionMiddleware } from "@/store/middlewares/sessionMiddleware";
 
 // main store
 export const store = configureStore({

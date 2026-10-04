@@ -9,6 +9,7 @@
     "NESOI",
     "partialize",
     "Supabase",
-    "UNIONPAY"
+    "UNIONPAY",
+    "vitest"
   ]
 }

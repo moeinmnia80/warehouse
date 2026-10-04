@@ -11,14 +11,25 @@ interface ToggleContextValue {
   setOn: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const ToggleContext = createContext({} as ToggleContextValue);
+const ToggleContext = createContext<ToggleContextValue | null>(null);
+const useToggleContext = () => {
+  const context = useContext(ToggleContext);
+  if (!context) {
+    throw new Error(
+      "Toggle sub-components must be rendered within a Toggle provider",
+    );
+  }
+  return context;
+};
 
 export const Toggle = ({ children, ...props }: ComponentProps<"div">) => {
   const [on, setOn] = useState(false);
 
   return (
     <ToggleContext value={{ on, setOn }}>
-      <div {...props}>{children}</div>
+      <div data-testid="theme-toggle" {...props}>
+        {children}
+      </div>
     </ToggleContext>
   );
 };
@@ -36,14 +47,21 @@ export const ToggleButton = ({
   children,
   ...props
 }: ToggleButtonProps) => {
-  const { setOn } = useContext(ToggleContext);
+  const { on, setOn } = useToggleContext();
   const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
     setOn((prev) => !prev);
     onClick?.();
   };
   return (
-    <button onClick={handleClick} className={className} {...props}>
+    <button
+      type="button"
+      role="switch"
+      aria-checked={on}
+      className={className}
+      onClick={handleClick}
+      {...props}
+    >
       {children}
     </button>
   );
@@ -55,7 +73,7 @@ export const ToggleLabel = ({
   ...props
 }: ComponentPropsWithoutRef<"span">) => {
   return (
-    <span className={className} {...props}>
+    <span data-testid="toggle-label" className={className} {...props}>
       {children}
     </span>
   );

@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Vitest / Jest coverage & cache
+coverage/
+.vitest/
 
 # Editor directories and files
 .vscode/*
