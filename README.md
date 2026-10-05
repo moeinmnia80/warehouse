@@ -22,7 +22,7 @@ Markist is a warehouse management application for tracking inventory, shipments,
 ### Prerequisites
 
 - Node.js (v22+) / or your chosen backend runtime
-- Database (e.g., PostgreSQL / MySQL / MongoDB)
+- Database (PostgreSQL)
 - Package manager: npm / yarn / pnpm
 
 ### Installation
@@ -38,16 +38,23 @@ npm install
 Create a `.env` file in the root directory backend:
 
 ```env
-CLIENT_HOST=http://localhost:3000
-PORT=
-DB_HOST=
-DB_PORT=3306
-DB_NAME=
-DB_USER=
-DB_PASSWORD=
-DB_UNIQUE_ID=
+CLIENT_URL=http://localhost:3000
+PORT=5000
+NODE_ENV=development
+COOKIE_SECRET=
 DB_PRIVATE_KEY=
 DB_EXPIRED_KEY=7d
+DB_GOOGLE_CLIENT_ID=
+DB_URL=postgresql://[DB-USER]:[YOUR-PASSWORD]@[DB-HOST]:5432/postgres
+DIRECT_URL=postgresql://[DB-USER]:[YOUR-PASSWORD]@[DB-HOST]:5432/postgres?sslmode=require
+SUPABASE_URL=[DB-HOST]
+SUPABASE_ANON_KEY=
+SUPABASE_ROLE_KEY=
+SMTP_USER=
+SMTP_PASS=
+UPSTASH_REDIS_URL=rediss***
+STRIP_PAYMENT_SECRET_KEY=sk_test***
+
 ```
 
 Create a `.env` file in the root directory fronend:
@@ -55,6 +62,7 @@ or you can set in vite.config,js
 
 ```env
 VITE_API_URL="http://localhost:3000"
+VITE_GOOGLE_CLIENT_ID=
 ```
 
 ### Running the App
