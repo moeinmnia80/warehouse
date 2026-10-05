@@ -1,4 +1,6 @@
-export const PdfIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const PdfIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 40 40"

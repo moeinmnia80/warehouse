@@ -1,4 +1,6 @@
-export const TickIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const TickIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg viewBox="0 0 20 20" fill="none" {...props}>
       <path

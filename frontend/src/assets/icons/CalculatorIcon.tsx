@@ -1,6 +1,6 @@
-import { type ComponentProps, type FC } from "react";
+import { type ComponentProps } from "react";
 
-export const CalculatorIcon: FC<ComponentProps<"svg">> = (props) => {
+export const CalculatorIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       {...props}

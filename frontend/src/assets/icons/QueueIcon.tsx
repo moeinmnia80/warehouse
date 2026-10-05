@@ -1,4 +1,6 @@
-export const QueueIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const QueueIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 32 32"

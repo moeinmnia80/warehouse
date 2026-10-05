@@ -1,4 +1,6 @@
-export const DarkIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const DarkIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <>
       <svg {...props} viewBox="0 0 18 18" fill="none">

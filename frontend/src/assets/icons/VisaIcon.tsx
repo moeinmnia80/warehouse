@@ -1,4 +1,6 @@
-export const VisaIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const VisaIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg viewBox="0 0 81 27" xmlns="http://www.w3.org/2000/svg" {...props}>
       <g strokeWidth="1" fill="none" fillRule="evenodd">

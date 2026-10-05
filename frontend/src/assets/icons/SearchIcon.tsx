@@ -1,4 +1,6 @@
-export const SearchIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const SearchIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"

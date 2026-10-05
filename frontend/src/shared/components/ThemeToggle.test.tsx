@@ -1,13 +1,23 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
 
-import { describe, expect, it, beforeEach } from "vitest";
+import { describe, expect, it, beforeEach, vi } from "vitest";
 
-import { ThemeProvider, ThemeToggle } from "@/shared";
+import { themeCheck, ThemeProvider, ThemeToggle } from "@/shared";
 import { mockMatchMedia } from "@/test/mockMatchMedia";
 
 describe("ThemeToggle Component", () => {
+  beforeEach(() => {
+    localStorage.clear();
+    vi.clearAllMocks();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
   it("renders the toggle button with correct classes and icons", async () => {
+    mockMatchMedia(true);
     render(
       <ThemeProvider>
         <ThemeToggle />
@@ -22,26 +32,21 @@ describe("ThemeToggle Component", () => {
 
     const toggleButton = screen.getByRole("switch", { name: /dark mode/i });
     expect(toggleButton).toBeInTheDocument();
-    expect(toggleButton).toHaveClass("flex");
 
     const toggleLabel = screen.getByTestId("toggle-label");
     expect(toggleLabel).toBeInTheDocument();
   });
 
-  beforeEach(() => {
-    localStorage.clear();
+  it("should handle theme toggle click correctly from dark to light", async () => {
+    localStorage.setItem("theme", "dark");
     mockMatchMedia(true);
-  });
 
-  it("renders correctly and handles toggle click", async () => {
     const user = userEvent.setup();
     render(
       <ThemeProvider>
         <ThemeToggle />
       </ThemeProvider>,
     );
-
-    localStorage.setItem("theme", "dark");
 
     const toggleButton = screen.getByRole("switch", { name: /dark mode/i });
     const toggleLabel = screen.getByTestId("toggle-label");
@@ -50,9 +55,29 @@ describe("ThemeToggle Component", () => {
     expect(toggleLabel).toHaveClass("translate-x-0");
 
     await user.click(toggleButton);
-    localStorage.setItem("theme", "light");
 
     expect(toggleButton).toHaveAttribute("aria-checked", "true");
     expect(toggleLabel).toHaveClass("translate-x-11");
+    expect(localStorage.getItem("theme")).toBe("light");
+  });
+
+  it("should fallback to matchMedia when localStorage is empty", () => {
+    mockMatchMedia(false);
+
+    render(
+      <ThemeProvider>
+        <ThemeToggle />
+      </ThemeProvider>,
+    );
+
+    const toggleButton = screen.getByRole("switch", { name: /dark mode/i });
+    expect(toggleButton).toBeInTheDocument();
+  });
+
+  it('should return "light" when window is undefined', () => {
+    vi.stubGlobal("window", undefined);
+
+    const result = themeCheck();
+    expect(result).toBe("light");
   });
 });

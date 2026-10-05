@@ -1,4 +1,6 @@
-export const FacebookIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const FacebookIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"

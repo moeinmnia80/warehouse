@@ -1,4 +1,6 @@
-export const InfoIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const InfoIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"

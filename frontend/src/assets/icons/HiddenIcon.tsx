@@ -1,4 +1,6 @@
-export const HiddenIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const HiddenIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"

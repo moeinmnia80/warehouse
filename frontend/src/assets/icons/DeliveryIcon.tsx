@@ -1,4 +1,6 @@
-export const DeliveryIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const DeliveryIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"

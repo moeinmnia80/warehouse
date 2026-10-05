@@ -1,4 +1,6 @@
-export const ShowIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const ShowIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"

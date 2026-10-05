@@ -1,4 +1,6 @@
-export const CloseIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const CloseIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 16 16"

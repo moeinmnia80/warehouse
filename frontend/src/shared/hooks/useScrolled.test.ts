@@ -1,6 +1,6 @@
 import { renderHook, act } from "@testing-library/react";
 
-import { describe, test, expect, beforeEach, afterEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 
 import { useScrolled } from "@/shared";
 
@@ -29,7 +29,7 @@ describe("useScrolled hook", () => {
     vi.restoreAllMocks();
   });
 
-  test("should NOT add 'is-scrolled' class when scrollY is below threshold", () => {
+  it("should NOT add 'is-scrolled' class when scrollY is below threshold", () => {
     const { result } = renderHook(() => useScrolled<HTMLDivElement>(10));
     (result.current as React.RefObject<HTMLDivElement>).current = element;
 
@@ -41,7 +41,7 @@ describe("useScrolled hook", () => {
     expect(element.classList.contains("is-scrolled")).toBe(false);
   });
 
-  test("should add 'is-scrolled' class when scrollY is above threshold", () => {
+  it("should add 'is-scrolled' class when scrollY is above threshold", () => {
     const { result } = renderHook(() => useScrolled<HTMLDivElement>(10));
     (result.current as React.RefObject<HTMLDivElement>).current = element;
 
@@ -53,7 +53,7 @@ describe("useScrolled hook", () => {
     expect(element.classList.contains("is-scrolled")).toBe(true);
   });
 
-  test("should remove 'is-scrolled' class when scrolling back below threshold", () => {
+  it("should remove 'is-scrolled' class when scrolling back below threshold", () => {
     const { result } = renderHook(() => useScrolled<HTMLDivElement>(10));
     (result.current as React.RefObject<HTMLDivElement>).current = element;
 
@@ -70,7 +70,7 @@ describe("useScrolled hook", () => {
     expect(element.classList.contains("is-scrolled")).toBe(false);
   });
 
-  test("should respect custom threshold values", () => {
+  it("should respect custom threshold values", () => {
     const { result } = renderHook(() => useScrolled<HTMLDivElement>(50));
     (result.current as React.RefObject<HTMLDivElement>).current = element;
 
@@ -87,7 +87,7 @@ describe("useScrolled hook", () => {
     expect(element.classList.contains("is-scrolled")).toBe(true);
   });
 
-  test("should handle scroll events gracefully when ref.current is null", () => {
+  it("should handle scroll events gracefully when ref.current is null", () => {
     // ref.current is left unattached (null)
     renderHook(() => useScrolled<HTMLDivElement>(10));
 
@@ -99,7 +99,7 @@ describe("useScrolled hook", () => {
     }).not.toThrow();
   });
 
-  test("should ignore scroll events while a frame is already ticking (tickingRef.current = true)", () => {
+  it("should ignore scroll events while a frame is already ticking (tickingRef.current = true)", () => {
     let rafCallback: FrameRequestCallback | null = null;
 
     // Custom rAF mock to manually delay the animation frame callback
@@ -133,7 +133,7 @@ describe("useScrolled hook", () => {
     expect(element.classList.contains("is-scrolled")).toBe(true);
   });
 
-  test("should remove the scroll event listener on unmount", () => {
+  it("should remove the scroll event listener on unmount", () => {
     const removeEventListenerSpy = vi.spyOn(window, "removeEventListener");
 
     const { unmount } = renderHook(() => useScrolled<HTMLDivElement>());

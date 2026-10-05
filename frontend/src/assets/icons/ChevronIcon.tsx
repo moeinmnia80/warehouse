@@ -1,6 +1,6 @@
-import { type ComponentProps, type FC } from "react";
+import { type ComponentProps } from "react";
 
-export const ChevronIcon: FC<ComponentProps<"svg">> = (props) => {
+export const ChevronIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <>
       <svg viewBox="0 0 24 24" {...props}>

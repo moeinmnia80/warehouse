@@ -1,8 +1,8 @@
 // export utils
-export { cn } from "@/shared/utils/merge.utils";
-export { backToPrevPage } from "@/shared/utils/history.utils";
-export { changeTheme, themeCheck } from "@/shared/utils/theme.utils";
-export { calculateFileSize } from "@/shared/utils/calculateFileSize.utils";
+export { cn } from "@/shared/utils/merge";
+export { backToPrevPage } from "@/shared/utils/history";
+export { changeTheme, themeCheck } from "@/shared/utils/theme";
+export { calculateFileSize } from "@/shared/utils/calculateFileSize";
 // export type
 export type {
   Item,

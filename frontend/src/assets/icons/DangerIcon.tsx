@@ -1,4 +1,6 @@
-export const DangerIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const DangerIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"

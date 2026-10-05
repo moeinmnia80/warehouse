@@ -1,4 +1,6 @@
-export const LightIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const LightIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <>
       <svg {...props} viewBox="0 0 19 19">

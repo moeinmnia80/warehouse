@@ -1,4 +1,6 @@
-export const ArrowIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const ArrowIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 24 24"

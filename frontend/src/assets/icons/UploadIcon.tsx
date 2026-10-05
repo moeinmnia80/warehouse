@@ -1,4 +1,6 @@
-export const UploadIcon = ({ ...props }) => {
+import type { ComponentProps } from "react";
+
+export const UploadIcon = ({ ...props }: ComponentProps<"svg">) => {
   return (
     <svg
       viewBox="0 0 16 16"
