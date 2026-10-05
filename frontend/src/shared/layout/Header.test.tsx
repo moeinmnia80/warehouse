@@ -1,9 +1,9 @@
 import { Provider } from "react-redux";
 import userEvent from "@testing-library/user-event";
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import { createMemoryRouter, MemoryRouter, RouterProvider } from "react-router";
 
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it } from "vitest";
 
 import Header from "@/shared/layout/Header";
 import { store } from "@/store/redux/store";
@@ -84,13 +84,21 @@ describe("Header Component", () => {
       expect(selectedArea).toBeInTheDocument();
     });
   });
+
   describe("UserMenu Component", () => {
     afterEach(() => {
-      store.dispatch(logoutAction());
-      store.dispatch(baseApi.util.resetApiState());
+      act(() => {
+        store.dispatch(logoutAction());
+        store.dispatch(baseApi.util.resetApiState());
+      });
     });
+
     it("calls handleLogout, resets API state and navigates to /login when clicking Log Out", async () => {
       const user = userEvent.setup();
+
+      act(() => {
+        store.dispatch(setCredentials(mockUser));
+      });
 
       const router = createMemoryRouter(
         [
@@ -102,7 +110,9 @@ describe("Header Component", () => {
 
       render(
         <Provider store={store}>
-          <RouterProvider router={router} />
+          <ThemeProvider>
+            <RouterProvider router={router} />
+          </ThemeProvider>
         </Provider>,
       );
 
@@ -118,7 +128,9 @@ describe("Header Component", () => {
     });
 
     it("renders user information correctly from store when authenticated", () => {
-      store.dispatch(setCredentials(mockUser));
+      act(() => {
+        store.dispatch(setCredentials(mockUser));
+      });
 
       renderHeader("/dashboard");
 
@@ -129,7 +141,10 @@ describe("Header Component", () => {
 
     it("renders 'mz' when user gender is female", () => {
       const femaleUser: User = { ...mockUser, gender: "female" };
-      store.dispatch(setCredentials(femaleUser));
+
+      act(() => {
+        store.dispatch(setCredentials(femaleUser));
+      });
 
       renderHeader("/dashboard");
 
@@ -139,7 +154,9 @@ describe("Header Component", () => {
     it("executes logout action and clears user state on Log Out click", async () => {
       const user = userEvent.setup();
 
-      store.dispatch(setCredentials(mockUser));
+      act(() => {
+        store.dispatch(setCredentials(mockUser));
+      });
 
       renderHeader("/dashboard");
 
