@@ -3,7 +3,11 @@ import { useEffect, useState } from "react";
 import type { ToastItem } from "@/shared/index";
 import { useToastStore } from "@/store/toast.store";
 
-export const Toaster = ({ id, text, type }: ToastItem) => {
+export const Toaster = ({
+  id = "1",
+  text = "test",
+  type = "info",
+}: ToastItem) => {
   const [isLeaving, setIsLeaving] = useState(false);
   const remove = useToastStore((state) => state.remove);
 
@@ -26,8 +30,9 @@ export const Toaster = ({ id, text, type }: ToastItem) => {
   return (
     <div
       className={`relative flex items-center min-w-90 h-11 bg-b-secondary border ${setStyleType()} rounded-lg px-4 transition-all animate-slide-up duration-200 ${
-        isLeaving ? " opacity-0" : ""
+        isLeaving ? " opacity-0" : "opacity-100"
       }`}
+      data-testid="toaster"
     >
       <InfoIcon className="size-6 stroke-tx-primary" strokeWidth={1.5} />
       <p className="text-tx-primary text-sm ms-3.5 font-light">{text}</p>

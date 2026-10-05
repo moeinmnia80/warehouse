@@ -17,8 +17,12 @@ export const AreaSelector = () => {
   return (
     <Dropdown
       className={`hidden w-fit min-w-22 h-11 xl:flex items-center justify-center text-tx-primary rounded-full bg-b-primary border border-bo-primary`}
+      data-testid="area-selector-dropdown"
     >
-      <DropdownButton className="w-full flex-between  p-2 px-3">
+      <DropdownButton
+        className="w-full flex-between  p-2 px-3"
+        data-testid="area-dropdown-button"
+      >
         <Image
           src={selectedArea?.src}
           alt={selectedArea?.name}
@@ -31,13 +35,17 @@ export const AreaSelector = () => {
         )}
         <ChevronIcon className="size-4 fill-st-primary" />
       </DropdownButton>
-      <DropdownContent className="flex flex-col gap-1 items-center p-1 rounded-xl mt-2 animate-fade-in bg-b-primary border border-bo-primary">
+      <DropdownContent
+        className="flex flex-col gap-1 items-center p-1 rounded-xl mt-2 animate-fade-in bg-b-primary border border-bo-primary"
+        data-testid="area-dropdown-content"
+      >
         {areas.map((item) => (
           <DropdownItem
             key={item.name}
             onClick={() => setArea(item)}
             className={`flex-between w-77 h-11 px-2 rounded-xl hover:bg-b-secondary 
             ${selectedArea.name === item.name ? "bg-b-secondary" : ""}`}
+            data-testid="area-dropdown-item"
           >
             <Image
               src={item.src}

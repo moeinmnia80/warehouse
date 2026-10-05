@@ -1,4 +1,4 @@
-import { useAuth } from "@/feature/auth";
+import { logoutAction, useAuth } from "@/feature/auth";
 import { useNavigate } from "react-router";
 import { useAppDispatch } from "@/store/redux/store";
 import { ChevronIcon, LogoutIcon, SettingsIcon } from "@/assets";
@@ -20,13 +20,17 @@ export const UserMenu = () => {
   const handleLogout = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     navigate("/login");
-    // remove cache after logout
+
+    dispatch(logoutAction());
     dispatch(baseApi.util.resetApiState());
   };
 
   return (
     <Dropdown>
-      <DropdownButton className="flex-between w-fit shrink-0">
+      <DropdownButton
+        className="flex-between w-fit shrink-0"
+        data-testid="user-dropdown-button"
+      >
         <div className="text-left">
           <h3 className="text-sm xl:text-xs font-bold text-tx-primary">
             {user ? (
@@ -50,6 +54,7 @@ export const UserMenu = () => {
         <DropdownItem>
           <Button
             onClick={handleLogout}
+            aria-label="logout button"
             className="btn text-current text-sm w-32 h-10 rounded-md transition duration-200 hover:bg-b-secondary"
           >
             Log Out
