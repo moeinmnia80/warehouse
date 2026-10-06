@@ -21,36 +21,26 @@ import {
 
 export const getSuiteData = async (req) => {
   const { id } = req.user;
-  const page = req.query.page ? Number(req.query.page) : 1;
-  const limit =
-    req.query.limit === "all" ? req.query.limit : Number(req.query.limit) || 5;
+  const { page, limit } = req.query;
 
   let existingSuite = await findSuiteByUserId(id, page, limit);
-  if (!existingSuite) existingSuite = await createSuite(req.user);
 
-  if (limit === "all") {
-    return {
-      status: "success",
-      message: "suite fetched",
-      data: {
-        ...existingSuite,
-      },
-    };
+  if (!existingSuite) {
+    await createSuite(req.user);
+    existingSuite = await findSuiteByUserId(id, page, limit);
   }
-  const {
-    suite: { packages, id: suiteId, name, zonePrefix },
-    pagination,
-  } = existingSuite;
+
+  const { suite, pagination } = existingSuite;
 
   return {
     status: "success",
     message: "suite fetched",
     data: {
-      id: suiteId,
+      id: suite.id,
       userId: id,
-      name,
-      zonePrefix,
-      packages,
+      name: suite.name,
+      zonePrefix: suite.zonePrefix,
+      packages: suite.packages,
       pagination,
     },
   };

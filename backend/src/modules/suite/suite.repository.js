@@ -1,22 +1,49 @@
 import db from "../../config/db.js";
 
-export const findSuiteByUserId = async (userId, page, limit) => {
+export const findSuiteByUserId = async (userId, page = 1, limit = 10) => {
   if (limit === "all") {
-    return db.suite.findUnique({
+    const suite = await db.suite.findUnique({
       where: { userId },
-      include: { packages: true },
+      include: {
+        packages: {
+          include: {
+            items: true,
+            invoices: true,
+            images: true,
+          },
+        },
+      },
     });
+
+    if (!suite) return null;
+
+    return {
+      suite,
+      pagination: {
+        total: suite.packages.length,
+        page: 1,
+        limit: "all",
+        totalPages: 1,
+        hasNextPage: false,
+        hasPrevPage: false,
+      },
+    };
   }
 
-  const skip = (page - 1) * limit;
+  const parsedPage = parseInt(page, 10);
+  const parsedLimit = parseInt(limit, 10);
 
-  const [suite, totalPackages] = await db.$transaction([
+  const safePage = !isNaN(parsedPage) && parsedPage > 0 ? parsedPage : 1;
+  const safeLimit = !isNaN(parsedLimit) && parsedLimit > 0 ? parsedLimit : 10;
+  const skip = (safePage - 1) * safeLimit;
+
+  const [suite, totalPackages] = await Promise.all([
     db.suite.findUnique({
       where: { userId },
       include: {
         packages: {
           skip,
-          take: limit,
+          take: safeLimit,
           include: {
             items: true,
             invoices: true,
@@ -28,9 +55,7 @@ export const findSuiteByUserId = async (userId, page, limit) => {
 
     db.package.count({
       where: {
-        suite: {
-          userId,
-        },
+        suite: { userId },
       },
     }),
   ]);
@@ -41,11 +66,11 @@ export const findSuiteByUserId = async (userId, page, limit) => {
     suite,
     pagination: {
       total: totalPackages,
-      page,
-      limit,
-      totalPages: Math.ceil(totalPackages / limit),
-      hasNextPage: skip + limit < totalPackages,
-      hasPrevPage: page > 1,
+      page: safePage,
+      limit: safeLimit,
+      totalPages: Math.ceil(totalPackages / safeLimit),
+      hasNextPage: skip + safeLimit < totalPackages,
+      hasPrevPage: safePage > 1,
     },
   };
 };
