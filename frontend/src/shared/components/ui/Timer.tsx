@@ -9,19 +9,20 @@ export const Timer = ({ time = 120, onExpired, ...props }: OtpTimerProps) => {
   const [timeLeft, setTimeLeft] = useState(time);
 
   useEffect(() => {
+    if (timeLeft <= 0) return;
+
     const timer = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(timer);
-          onExpired();
-          return 0;
-        }
-        return prev - 1;
-      });
+      setTimeLeft((prev) => prev - 1);
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [onExpired, time]);
+  }, [timeLeft]);
+
+  useEffect(() => {
+    if (timeLeft === 0) {
+      onExpired();
+    }
+  }, [timeLeft, onExpired]);
 
   const minutes = Math.floor(timeLeft / 60);
   const seconds = timeLeft % 60;

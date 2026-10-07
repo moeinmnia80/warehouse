@@ -101,7 +101,7 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          toast.success("OPT code successfully regenerated");
+          toast.success("OTP code successfully regenerated");
         } catch (error) {
           toast.error(
             (error as { error: ErrorResponse }).error.data
@@ -124,7 +124,7 @@ export const authApi = baseApi.injectEndpoints({
       async onQueryStarted(_arg, { queryFulfilled }) {
         try {
           await queryFulfilled;
-          toast.success("OPT code successfully verifying");
+          toast.success("OTP code successfully verifying");
         } catch (error) {
           toast.error(
             (error as { error: ErrorResponse }).error.data

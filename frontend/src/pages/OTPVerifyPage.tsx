@@ -17,10 +17,14 @@ function OTPVerifyPage() {
   if (!isAuthenticated) return;
 
   const handleResetTimer = () => {
-    if (timerKey < 3) {
+    if (timerKey <= 3) {
       setIsExpired(false);
       setTimerKey((prev) => prev + 1);
     }
+  };
+
+  const handleExpired = () => {
+    setIsExpired(true);
   };
 
   return (
@@ -35,7 +39,7 @@ function OTPVerifyPage() {
         <Timer
           key={timerKey}
           time={120}
-          onExpired={() => setIsExpired(true)}
+          onExpired={handleExpired}
           className="flex-center w-16 h-6 bg-b-secondary self-center font-bold text-sm text-tx-primary border border-bo-primary rounded-lg mt-2"
         />
         <VerifyForm

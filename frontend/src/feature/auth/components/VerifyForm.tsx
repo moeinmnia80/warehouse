@@ -79,6 +79,7 @@ export const VerifyForm = ({
           type="button"
           className="flex-center w-14 text-md font-bold border border-bo-primary rounded-xl disabled:cursor-default disabled:opacity-25"
           onClick={resendOtpCode}
+          aria-label="reset timer"
           disabled={isResendOpt || !isExpired}
         >
           {isResendOpt ? (
